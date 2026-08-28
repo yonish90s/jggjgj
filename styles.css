@@ -24,20 +24,21 @@
     --transition: all 0.2s ease;
 }
 
+/* Pure Black (OLED / AMOLED) Dark Mode */
 body.dark-theme {
-    --bg-color: #0f172a;
-    --card-bg: #1e293b;
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #64748b;
-    --border-color: #334155;
-    --header-bg: #1e293b;
-    --dark-topbar-bg: #1a1a1a;
-    --primary-light: rgba(211, 47, 47, 0.15);
-    --pink-light: rgba(233, 30, 99, 0.15);
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+    --bg-color: #000000;
+    --card-bg: #121212;
+    --text-primary: #f5f5f5;
+    --text-secondary: #b0b0b0;
+    --text-muted: #737373;
+    --border-color: #242424;
+    --header-bg: #121212;
+    --dark-topbar-bg: #0a0a0a;
+    --primary-light: rgba(211, 47, 47, 0.2);
+    --pink-light: rgba(233, 30, 99, 0.2);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.6);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.7);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.9);
 }
 
 * {
@@ -69,7 +70,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .top-nav-container {
@@ -134,11 +135,11 @@ body {
 
 .nav-tab:hover {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.12);
 }
 
 .nav-tab.active {
-    background-color: #444444;
+    background-color: #333333;
     color: #ffffff;
     font-weight: 700;
 }
@@ -168,8 +169,8 @@ body {
     width: 100%;
     padding: 5px 28px 5px 10px;
     border-radius: 16px;
-    border: 1px solid #4b5563;
-    background-color: #1f2937;
+    border: 1px solid #404040;
+    background-color: #1a1a1a;
     color: #ffffff;
     font-family: inherit;
     font-size: 0.82rem;
@@ -184,7 +185,7 @@ body {
 
 .btn-top-outline {
     background: transparent;
-    border: 1px solid #4b5563;
+    border: 1px solid #404040;
     color: #e5e7eb;
     padding: 4px 10px;
     border-radius: 16px;
@@ -198,7 +199,7 @@ body {
 }
 
 .btn-top-outline:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.12);
     color: #ffffff;
 }
 
@@ -224,7 +225,7 @@ body {
 
 .btn-top-icon {
     background: transparent;
-    border: 1px solid #4b5563;
+    border: 1px solid #404040;
     color: #e5e7eb;
     width: 30px;
     height: 30px;
@@ -238,14 +239,14 @@ body {
 }
 
 .btn-top-icon:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.12);
     color: #ffffff;
 }
 
 /* Guest Pill */
 .guest-pill {
-    border: 1px solid #6b7280;
-    color: #f3f4f6;
+    border: 1px solid #525252;
+    color: #f5f5f5;
     padding: 3px 14px;
     border-radius: 16px;
     font-size: 0.85rem;
@@ -256,7 +257,7 @@ body {
 }
 
 .guest-pill:hover {
-    border-color: #9ca3af;
+    border-color: #a3a3a3;
     background-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -370,7 +371,7 @@ body {
 
 body.dark-theme .article-page-summary-box {
     background-color: rgba(255, 179, 0, 0.15);
-    color: #f1f5f9;
+    color: #f5f5f5;
 }
 
 .article-page-content {
@@ -403,7 +404,7 @@ body.dark-theme .article-page-summary-box {
 
 /* Ticker Bar */
 .ticker-bar {
-    background-color: #0f172a;
+    background-color: #0a0a0a;
     color: #ffffff;
     padding: 7px 0;
     overflow: hidden;
@@ -445,7 +446,7 @@ body.dark-theme .article-page-summary-box {
     gap: 10px;
     cursor: pointer;
     font-size: 0.88rem;
-    color: #e2e8f0;
+    color: #e5e5e5;
 }
 
 .ticker-time {
@@ -497,7 +498,7 @@ body.dark-theme .article-page-summary-box {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.92);
     color: #ffffff;
     padding: 12px 15px;
     font-weight: 700;
@@ -527,9 +528,9 @@ body.dark-theme .article-page-summary-box {
 }
 
 body.dark-theme .promo-box {
-    background-color: rgba(3, 105, 161, 0.2);
-    border-color: #0369a1;
-    color: #7dd3fc;
+    background-color: #181818;
+    border-color: #262626;
+    color: #38bdf8;
 }
 
 .promo-tag {
@@ -942,7 +943,7 @@ body.dark-theme .top5-like-btn {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
 }
 
@@ -1086,82 +1087,6 @@ body.dark-theme .top5-like-btn {
     font-weight: 600;
 }
 
-/* Footer */
-.site-footer {
-    background-color: var(--header-bg);
-    border-top: 1px solid var(--border-color);
-    padding-top: 45px;
-    margin-top: 40px;
-}
-
-.footer-container {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1.5fr;
-    gap: 40px;
-    padding-bottom: 35px;
-}
-
-.footer-info p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-top: 12px;
-    max-width: 320px;
-}
-
-.footer-links h4,
-.footer-newsletter h4 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.footer-links ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.footer-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: var(--transition);
-}
-
-.footer-links a:hover {
-    color: var(--primary-color);
-}
-
-.footer-newsletter p {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-}
-
-.newsletter-form {
-    display: flex;
-    gap: 8px;
-}
-
-.newsletter-form input {
-    flex: 1;
-    padding: 8px 12px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-color);
-    color: var(--text-primary);
-    font-family: inherit;
-}
-
-.footer-bottom {
-    border-top: 1px solid var(--border-color);
-    padding: 18px 0;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
 /* Responsive Layout Breakpoints */
 @media (max-width: 1050px) {
     .page-layout-3col {
@@ -1209,11 +1134,6 @@ body.dark-theme .top5-like-btn {
     .row-image {
         width: 100%;
         height: 180px;
-    }
-
-    .footer-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
     }
 
     .article-page-title {
