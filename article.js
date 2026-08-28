@@ -40,7 +40,7 @@ async function initArticlePage() {
     }
 
     if (currentArticle) {
-        document.title = `${currentArticle.title} | חדשות היום`;
+        document.title = `${currentArticle.title} | yhsh`;
         renderFullArticle(currentArticle);
         renderRelatedArticles(currentArticle);
     } else {
