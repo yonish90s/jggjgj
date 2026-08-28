@@ -20,21 +20,21 @@ const themeToggle = document.getElementById('themeToggle');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
 
-// Initialize Article Page
-async function initArticlePage() {
+// Initialize Article Page - INSTANT 0ms RENDER
+function initArticlePage() {
     setupTheme();
     setupEventListeners();
 
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get('id');
 
-    await loadArticlesData();
+    // 1. Load synchronously from cache/localStorage for INSTANT display
+    loadArticlesSync();
 
     if (articleId) {
         currentArticle = articles.find(a => a.id === articleId);
     }
 
-    // Fallback to first article if id not found
     if (!currentArticle && articles.length > 0) {
         currentArticle = articles[0];
     }
@@ -44,18 +44,45 @@ async function initArticlePage() {
         renderFullArticle(currentArticle);
         renderRelatedArticles(currentArticle);
     } else {
-        articlePageContainer.innerHTML = `
-            <div class="empty-state">
-                <i class="fa-solid fa-triangle-exclamation fa-3x"></i>
-                <h3>הכתבה לא נמצאה</h3>
-                <a href="index.html" class="btn btn-primary" style="margin-top:15px;">חזרה לדף הבית</a>
-            </div>
-        `;
+        renderNotFound();
+    }
+
+    // 2. Fetch fresh articles.json asynchronously in background without blocking UI
+    fetchBackgroundArticles(articleId);
+}
+
+// Synchronous fast load
+function loadArticlesSync() {
+    try {
+        const custom = JSON.parse(localStorage.getItem('news_custom_articles') || '[]');
+        const saved = JSON.parse(localStorage.getItem('news_articles') || '[]');
+        
+        const combined = [...custom];
+        saved.forEach(item => {
+            if (!combined.some(a => a.id === item.id)) {
+                combined.push(item);
+            }
+        });
+        articles = combined;
+    } catch (e) {
+        articles = [];
+    }
+
+    try {
+        bookmarks = JSON.parse(localStorage.getItem('news_bookmarks') || '[]');
+    } catch (e) {
+        bookmarks = [];
+    }
+
+    try {
+        likes = JSON.parse(localStorage.getItem('news_likes') || '{}');
+    } catch (e) {
+        likes = {};
     }
 }
 
-// Load articles from articles.json & localStorage
-async function loadArticlesData() {
+// Background fetch for articles.json
+async function fetchBackgroundArticles(targetId) {
     try {
         const response = await fetch('articles.json?t=' + Date.now());
         if (response.ok) {
@@ -69,23 +96,20 @@ async function loadArticlesData() {
                 }
             });
             articles = combined;
+            localStorage.setItem('news_articles', JSON.stringify(fileArticles));
+
+            // Re-render if new data arrived
+            if (targetId) {
+                const freshArticle = articles.find(a => a.id === targetId);
+                if (freshArticle && JSON.stringify(freshArticle) !== JSON.stringify(currentArticle)) {
+                    currentArticle = freshArticle;
+                    renderFullArticle(currentArticle);
+                    renderRelatedArticles(currentArticle);
+                }
+            }
         }
     } catch (e) {
-        articles = JSON.parse(localStorage.getItem('news_articles') || '[]');
-    }
-
-    // Bookmarks
-    try {
-        bookmarks = JSON.parse(localStorage.getItem('news_bookmarks') || '[]');
-    } catch (e) {
-        bookmarks = [];
-    }
-
-    // Likes
-    try {
-        likes = JSON.parse(localStorage.getItem('news_likes') || '{}');
-    } catch (e) {
-        likes = {};
+        // Silently keep cached version
     }
 }
 
@@ -113,6 +137,16 @@ function setupEventListeners() {
             applyTheme();
         });
     }
+}
+
+function renderNotFound() {
+    articlePageContainer.innerHTML = `
+        <div class="empty-state">
+            <i class="fa-solid fa-triangle-exclamation fa-3x"></i>
+            <h3>הכתבה לא נמצאה</h3>
+            <a href="index.html" class="btn btn-primary" style="margin-top:15px;">חזרה לדף הבית</a>
+        </div>
+    `;
 }
 
 // Render Article Details Page

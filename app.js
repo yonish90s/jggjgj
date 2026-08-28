@@ -61,10 +61,47 @@ const elements = {
 
 // Initialize Application
 async function initApp() {
-    await loadStateFromStorage();
+    loadArticlesSync();
     setupEventListeners();
     renderTicker();
     renderApp();
+    
+    // Background async update
+    await loadStateFromStorage();
+    renderApp();
+}
+
+function loadArticlesSync() {
+    try {
+        const custom = JSON.parse(localStorage.getItem('news_custom_articles') || '[]');
+        const saved = JSON.parse(localStorage.getItem('news_articles') || '[]');
+        
+        const combined = [...custom];
+        saved.forEach(item => {
+            if (!combined.some(a => a.id === item.id)) {
+                combined.push(item);
+            }
+        });
+        state.articles = combined;
+    } catch (e) {
+        state.articles = [];
+    }
+
+    try {
+        state.bookmarks = JSON.parse(localStorage.getItem('news_bookmarks') || '[]');
+    } catch (e) {
+        state.bookmarks = [];
+    }
+
+    try {
+        state.likes = JSON.parse(localStorage.getItem('news_likes') || '{}');
+    } catch (e) {
+        state.likes = { "art-1": 14, "art-2": 9, "art-3": 7, "art-4": 5, "art-5": 3 };
+    }
+
+    state.pollVoted = localStorage.getItem('news_poll_voted') === 'true';
+    state.darkMode = localStorage.getItem('news_theme') === 'dark';
+    applyTheme();
 }
 
 // Load State from LocalStorage & articles.json file
@@ -82,52 +119,10 @@ async function loadStateFromStorage() {
                 }
             });
             state.articles = combined;
-        } else {
-            fallbackLoadArticles();
+            localStorage.setItem('news_articles', JSON.stringify(fileArticles));
         }
     } catch (e) {
-        fallbackLoadArticles();
-    }
-
-    // Bookmarks
-    const savedBookmarks = localStorage.getItem('news_bookmarks');
-    if (savedBookmarks) {
-        try {
-            state.bookmarks = JSON.parse(savedBookmarks);
-        } catch (e) {
-            state.bookmarks = [];
-        }
-    }
-
-    // Likes
-    const savedLikes = localStorage.getItem('news_likes');
-    if (savedLikes) {
-        try {
-            state.likes = JSON.parse(savedLikes);
-        } catch (e) {
-            state.likes = {};
-        }
-    } else {
-        state.likes = { "art-1": 14, "art-2": 9, "art-3": 7, "art-4": 5, "art-5": 3 };
-        localStorage.setItem('news_likes', JSON.stringify(state.likes));
-    }
-
-    // Poll State
-    state.pollVoted = localStorage.getItem('news_poll_voted') === 'true';
-
-    // Dark Mode
-    state.darkMode = localStorage.getItem('news_theme') === 'dark';
-    applyTheme();
-}
-
-function fallbackLoadArticles() {
-    const savedArticles = localStorage.getItem('news_articles');
-    if (savedArticles) {
-        try {
-            state.articles = JSON.parse(savedArticles);
-        } catch (e) {
-            state.articles = [];
-        }
+        // Keep cached
     }
 }
 
@@ -206,7 +201,7 @@ function renderApp() {
 
     elements.resultsCount.textContent = `מציג ${filtered.length} כתבות`;
 
-    // Render Top 3 Featured Grid (Only when in 'all' view with no search)
+    // Render Top 3 Featured Grid
     const showTop3 = state.activeCategory === 'all' && !state.searchQuery && !state.showBookmarksOnly && filtered.length >= 3;
     
     let rowArticles = filtered;
@@ -386,7 +381,7 @@ function setupEventListeners() {
     });
 }
 
-// Redirect to Dedicated Article Page
+// Redirect to Dedicated Article Page INSTANTLY
 function openArticleModal(id) {
     window.location.href = 'article.html?id=' + id;
 }
