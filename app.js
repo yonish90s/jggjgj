@@ -234,7 +234,7 @@ function renderApp() {
     renderPollWidget();
 }
 
-// Render Top 3 Featured Grid (Exactly like screenshot top tiles)
+// Render Top 3 Featured Grid
 function renderTop3Grid(articles) {
     elements.top3Grid.innerHTML = articles.map(article => `
         <div class="top3-card" onclick="openArticleModal('${article.id}')">
@@ -246,10 +246,9 @@ function renderTop3Grid(articles) {
     `).join('');
 }
 
-// Render Horizontal Articles List (Matching Screenshot)
+// Render Horizontal Articles List
 function renderArticlesList(articles) {
     elements.articlesList.innerHTML = articles.map(article => {
-        const isBookmarked = state.bookmarks.includes(article.id);
         const timeFormatted = formatTimeOrDate(article.date);
 
         return `
@@ -367,10 +366,10 @@ function setupEventListeners() {
     elements.closeAddModal.addEventListener('click', closeAddModal);
     elements.cancelAddBtn.addEventListener('click', closeAddModal);
 
-    elements.closeArticleModal.addEventListener('click', closeArticleModal);
+    if (elements.closeArticleModal) elements.closeArticleModal.addEventListener('click', closeArticleModal);
 
-    elements.articleModal.querySelector('.modal-overlay').addEventListener('click', closeArticleModal);
-    elements.addArticleModal.querySelector('.modal-overlay').addEventListener('click', closeAddModal);
+    if (elements.articleModal) elements.articleModal.querySelector('.modal-overlay').addEventListener('click', closeArticleModal);
+    if (elements.addArticleModal) elements.addArticleModal.querySelector('.modal-overlay').addEventListener('click', closeAddModal);
 
     elements.addArticleForm.addEventListener('submit', handleAddArticleSubmit);
 
@@ -387,59 +386,13 @@ function setupEventListeners() {
     });
 }
 
-// Toggle Bookmark
-function toggleBookmark(id) {
-    const index = state.bookmarks.indexOf(id);
-    if (index > -1) {
-        state.bookmarks.splice(index, 1);
-        showToast('הכתבה הוסרה מהמועדפים');
-    } else {
-        state.bookmarks.push(id);
-        showToast('הכתבה נשמרה במועדפים!');
-    }
-    saveBookmarksToStorage();
-    renderApp();
-}
-
-// Modal Handlers
+// Redirect to Dedicated Article Page
 function openArticleModal(id) {
-    const article = state.articles.find(a => a.id === id);
-    if (!article) return;
-
-    const isBookmarked = state.bookmarks.includes(article.id);
-
-    elements.articleModalContent.innerHTML = `
-        <span class="article-full-category">${article.category}</span>
-        <h1 class="article-full-title">${article.title}</h1>
-        
-        <div class="article-full-meta">
-            <span><i class="fa-solid fa-user"></i> מאת: <strong style="color:var(--orange-accent);">${article.author}</strong></span>
-            <span><i class="fa-regular fa-calendar"></i> ${formatDate(article.date)}</span>
-            <span><i class="fa-regular fa-clock"></i> ${article.readTime}</span>
-        </div>
-
-        <img class="article-full-image" src="${article.imageUrl || CATEGORY_IMAGES[article.category]}" alt="${article.title}">
-        
-        <div class="article-full-text">${article.content}</div>
-
-        <div class="article-full-actions">
-            <button class="btn ${isBookmarked ? 'btn-primary' : 'btn-outline'}" onclick="toggleBookmark('${article.id}'); openArticleModal('${article.id}');">
-                <i class="${isBookmarked ? 'fa-solid' : 'fa-regular'} fa-bookmark"></i>
-                <span>${isBookmarked ? 'שמור במועדפים' : 'הוסף למועדפים'}</span>
-            </button>
-            <button class="btn btn-outline" onclick="shareArticle('${article.title}')">
-                <i class="fa-solid fa-share-nodes"></i>
-                <span>שתף כתבה</span>
-            </button>
-        </div>
-    `;
-
-    elements.articleModal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+    window.location.href = 'article.html?id=' + id;
 }
 
 function closeArticleModal() {
-    elements.articleModal.classList.add('hidden');
+    if (elements.articleModal) elements.articleModal.classList.add('hidden');
     document.body.style.overflow = '';
 }
 
@@ -493,19 +446,6 @@ function handleAddArticleSubmit(e) {
     showToast('הכתבה פורסמה בהצלחה!');
 }
 
-// Share Article Helper
-function shareArticle(title) {
-    if (navigator.share) {
-        navigator.share({
-            title: title,
-            url: window.location.href
-        }).catch(() => {});
-    } else {
-        navigator.clipboard.writeText(window.location.href);
-        showToast('הקישור הועתק ללוח!');
-    }
-}
-
 // Toast Notification Helper
 function showToast(message) {
     elements.toastMessage.textContent = message;
@@ -515,26 +455,13 @@ function showToast(message) {
     }, 3000);
 }
 
-// Time/Date Formatter for screenshot style ("היום, 14:50")
+// Time/Date Formatter
 function formatTimeOrDate(dateString) {
     try {
         const date = new Date(dateString);
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
         return `היום, ${hours}:${minutes}`;
-    } catch (e) {
-        return dateString;
-    }
-}
-
-function formatDate(dateString) {
-    try {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('he-IL', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
     } catch (e) {
         return dateString;
     }

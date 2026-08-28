@@ -62,7 +62,7 @@ body {
     padding: 0 20px;
 }
 
-/* Dark Top Header Bar (Matching uploaded screenshot) */
+/* Dark Top Header Bar */
 .top-navbar-dark {
     background-color: var(--dark-topbar-bg);
     color: #ffffff;
@@ -101,7 +101,7 @@ body {
     color: var(--primary-color);
 }
 
-/* Center Tabs (תמונות, סיפורים, מבזקים...) */
+/* Center Tabs */
 .nav-center-tabs {
     display: flex;
     align-items: center;
@@ -128,6 +128,7 @@ body {
     align-items: center;
     gap: 6px;
     white-space: nowrap;
+    text-decoration: none;
     transition: var(--transition);
 }
 
@@ -241,7 +242,7 @@ body {
     color: #ffffff;
 }
 
-/* Guest Pill (Exactly matching screenshot "אורח") */
+/* Guest Pill */
 .guest-pill {
     border: 1px solid #6b7280;
     color: #f3f4f6;
@@ -281,6 +282,7 @@ body {
     border-radius: var(--radius-sm);
     border: none;
     cursor: pointer;
+    text-decoration: none;
     transition: var(--transition);
 }
 
@@ -303,6 +305,100 @@ body {
     background-color: var(--primary-light);
     border-color: var(--primary-color);
     color: var(--primary-color);
+}
+
+/* Article Dedicated Page Styling */
+.article-page-box {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: 35px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    margin-top: 25px;
+    margin-bottom: 40px;
+}
+
+.article-page-header {
+    margin-bottom: 25px;
+}
+
+.article-page-title {
+    font-size: 2.3rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.article-page-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.article-page-image-wrapper {
+    width: 100%;
+    max-height: 480px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.article-page-image {
+    width: 100%;
+    height: 100%;
+    max-height: 480px;
+    object-fit: cover;
+}
+
+.article-page-summary-box {
+    background-color: #fff8e1;
+    border-right: 4px solid #ffb300;
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 1.05rem;
+    color: #333333;
+}
+
+body.dark-theme .article-page-summary-box {
+    background-color: rgba(255, 179, 0, 0.15);
+    color: #f1f5f9;
+}
+
+.article-page-content {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--text-primary);
+    margin-bottom: 35px;
+    white-space: pre-line;
+}
+
+.article-page-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.action-buttons-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.related-section {
+    margin-bottom: 40px;
 }
 
 /* Ticker Bar */
@@ -913,61 +1009,6 @@ body.dark-theme .top5-like-btn {
     color: var(--primary-color);
 }
 
-/* Modal Article Content */
-.article-full-category {
-    display: inline-block;
-    background-color: var(--primary-light);
-    color: var(--primary-color);
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-.article-full-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    line-height: 1.3;
-    margin-bottom: 15px;
-}
-
-.article-full-meta {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 25px;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    flex-wrap: wrap;
-}
-
-.article-full-image {
-    width: 100%;
-    max-height: 420px;
-    object-fit: cover;
-    border-radius: var(--radius-md);
-    margin-bottom: 25px;
-}
-
-.article-full-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--text-primary);
-    margin-bottom: 30px;
-    white-space: pre-line;
-}
-
-.article-full-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-color);
-}
-
 /* Forms */
 .article-form {
     padding: 25px 35px 35px 35px;
@@ -1173,5 +1214,9 @@ body.dark-theme .top5-like-btn {
     .footer-container {
         grid-template-columns: 1fr;
         gap: 30px;
+    }
+
+    .article-page-title {
+        font-size: 1.6rem;
     }
 }

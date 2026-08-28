@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טוען כתבה... | חדשות היום</title>
+    <!-- Google Fonts: Heebo & Assistant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Dark Top Header Bar -->
+    <header class="top-navbar-dark">
+        <div class="container top-nav-container">
+            
+            <!-- Right: Logo with Infinity Icon -->
+            <div class="nav-right">
+                <a href="index.html" class="brand-infinity">
+                    <span class="brand-text">חדשות <strong>היום</strong></span>
+                </a>
+            </div>
+
+            <!-- Center: Back Button to Home -->
+            <nav class="nav-center-tabs">
+                <a href="index.html" class="nav-tab active">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>חזרה לדף הבית</span>
+                </a>
+            </nav>
+
+            <!-- Left: Actions & Guest Pill -->
+            <div class="nav-left">
+                <button id="bookmarksBtnPage" class="btn-top-outline" onclick="window.location.href='index.html'" title="כתבות שמורות">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span>מועדפים</span>
+                </button>
+                <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="guest-pill">
+                    <span>אורח</span>
+                </div>
+                <div class="infinity-icon-edge">
+                    <i class="fa-solid fa-infinity"></i>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Full Article View Container -->
+    <main class="main-content container">
+        <div id="articlePageContainer" class="article-page-box">
+            <!-- Article Details Injected via JS -->
+            <div class="loading-state">
+                <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+                <p>טוען את הכתבה...</p>
+            </div>
+        </div>
+
+        <!-- Related Articles Section -->
+        <section class="related-section">
+            <h3 class="section-title">כתבות נוספות שאינך רוצה לפספס</h3>
+            <div id="relatedGrid" class="top3-grid" style="margin-top: 15px;">
+                <!-- Related Cards injected via JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-info">
+                <a href="index.html" class="logo footer-logo">
+                    <span class="logo-text">חדשות <strong>היום</strong></span>
+                </a>
+                <p>פורטל החדשות והטכנולוגיה המהיר, האמין והעדכני ביותר בישראל. כל הידיעות והעדכונים 24/7.</p>
+            </div>
+            <div class="footer-links">
+                <h4>ניווט מהיר</h4>
+                <ul>
+                    <li><a href="index.html">דף הבית</a></li>
+                    <li><a href="index.html">חדשות בארץ</a></li>
+                    <li><a href="index.html">טכנולוגיה ומדע</a></li>
+                    <li><a href="index.html">כלכלה ושוק ההון</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h4>הירשמו למבזקים ב-Email</h4>
+                <p>קבלו את הכתבות המובילות ישר לתיבת הדואר שלכם</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('תודה שנרשמת למבזקים!');">
+                    <input type="email" placeholder="הכניסו דוא״ל..." required>
+                    <button type="submit" class="btn btn-primary">הרשמה</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 חדשות היום. כל הזכויות שמורות. נבנה עבור חוויית קריאה נעימה, נקייה ומהירה.</p>
+        </div>
+    </footer>
+
+    <script src="article.js"></script>
+</body>
+</html>
