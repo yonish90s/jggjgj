@@ -14,50 +14,72 @@
 </head>
 <body>
 
-    <!-- Header / Navbar -->
-    <header class="site-header">
-        <div class="container header-container">
-            <div class="logo-area">
-                <a href="#" class="logo">
-                    <span class="logo-icon"><i class="fa-solid fa-newspaper"></i></span>
-                    <span class="logo-text">חדשות <strong>היום</strong></span>
+    <!-- Dark Top Header Bar (Matching uploaded screenshot) -->
+    <header class="top-navbar-dark">
+        <div class="container top-nav-container">
+            
+            <!-- Right: Logo with Infinity Icon -->
+            <div class="nav-right">
+                <a href="#" class="brand-infinity">
+                    <span class="brand-text">חדשות <strong>היום</strong></span>
                 </a>
-                <span class="live-badge"><i class="fa-solid fa-circle"></i> ישיר</span>
             </div>
 
-            <!-- Search Bar -->
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="searchInput" placeholder="חפש כתבה, נושא או מילת מפתח...">
-            </div>
+            <!-- Center: Navigation Tabs (תמונות, סיפורים, מבזקים...) -->
+            <nav class="nav-center-tabs">
+                <button class="nav-tab category-btn active" data-category="all">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="ארץ">
+                    <span>סיפורים</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="טכנולוגיה">
+                    <span>טכנולוגיה</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="כלכלה">
+                    <span>כלכלה</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="ספורט">
+                    <span>ספורט</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="תרבות">
+                    <span>תרבות</span>
+                </button>
+            </nav>
 
-            <!-- Top Actions -->
-            <div class="header-actions">
-                <button id="bookmarksBtn" class="btn btn-outline" title="כתבות שמורות">
+            <!-- Left: Actions & "אורח" Pill Button -->
+            <div class="nav-left">
+                <!-- Search Box -->
+                <div class="search-box-top">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="חיפוש...">
+                </div>
+
+                <button id="bookmarksBtn" class="btn-top-outline" title="כתבות שמורות">
                     <i class="fa-solid fa-bookmark"></i>
-                    <span class="btn-text">מועדפים (<span id="bookmarkCount">0</span>)</span>
+                    <span id="bookmarkCount">0</span>
                 </button>
-                <button id="addArticleBtn" class="btn btn-primary">
+                <button id="addArticleBtn" class="btn-top-primary">
                     <i class="fa-solid fa-plus"></i>
-                    <span class="btn-text">כתבה חדשה</span>
+                    <span>כתבה</span>
                 </button>
-                <button id="themeToggle" class="btn btn-icon" title="החלף מצב תצוגה">
+                <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-            </div>
-        </div>
 
-        <!-- Categories Navigation -->
-        <nav class="categories-nav">
-            <div class="container categories-container">
-                <button class="category-btn active" data-category="all">הכל</button>
-                <button class="category-btn" data-category="ארץ">בארץ</button>
-                <button class="category-btn" data-category="טכנולוגיה">טכנולוגיה</button>
-                <button class="category-btn" data-category="כלכלה">כלכלה</button>
-                <button class="category-btn" data-category="ספורט">ספורט</button>
-                <button class="category-btn" data-category="תרבות">תרבות</button>
+                <!-- Guest Pill Button (Exactly as in screenshot) -->
+                <div class="guest-pill" title="חשבון משתמש">
+                    <span>אורח</span>
+                </div>
+
+                <!-- Infinity Symbol on the far edge -->
+                <div class="infinity-icon-edge" title="חדשות היום">
+                    <i class="fa-solid fa-infinity"></i>
+                </div>
             </div>
-        </nav>
+
+        </div>
     </header>
 
     <!-- Breaking News Ticker -->
@@ -73,14 +95,14 @@
         </div>
     </div>
 
-    <!-- Top 3 Featured Grid Section (Exactly like screenshot) -->
+    <!-- Top 3 Featured Grid Section -->
     <div class="top3-section container">
         <div id="top3Grid" class="top3-grid">
             <!-- 3 Featured Cards Injected via JS -->
         </div>
     </div>
 
-    <!-- Banner Strip (Subtle Tech Banner) -->
+    <!-- Promo Banner Strip -->
     <div class="promo-strip container">
         <div class="promo-box">
             <span class="promo-tag">מומלץ</span>
@@ -149,7 +171,7 @@
 
             </aside>
 
-            <!-- Center Column: Clean Horizontal News List (Like Screenshot) -->
+            <!-- Center Column: Clean Horizontal News List -->
             <div class="main-column">
                 <div class="section-header">
                     <h2 id="sectionTitle" class="section-title">חדשות אחרונות</h2>
@@ -294,7 +316,6 @@
         <div class="container footer-container">
             <div class="footer-info">
                 <a href="#" class="logo footer-logo">
-                    <span class="logo-icon"><i class="fa-solid fa-newspaper"></i></span>
                     <span class="logo-text">חדשות <strong>היום</strong></span>
                 </a>
                 <p>פורטל החדשות והטכנולוגיה המהיר, האמין והעדכני ביותר בישראל. כל הידיעות והעדכונים 24/7.</p>
