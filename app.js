@@ -143,15 +143,16 @@ function saveLikesToStorage() {
 function applyTheme() {
     if (state.darkMode) {
         document.body.classList.add('dark-theme');
-        elements.themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        if (elements.themeToggle) elements.themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
     } else {
         document.body.classList.remove('dark-theme');
-        elements.themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+        if (elements.themeToggle) elements.themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
     }
 }
 
 // Render Ticker
 function renderTicker() {
+    if (!elements.tickerContent) return;
     const track = document.createElement('div');
     track.className = 'ticker-track';
     
@@ -170,7 +171,7 @@ function renderTicker() {
 
 // Main Render Function
 function renderApp() {
-    elements.bookmarkCount.textContent = state.bookmarks.length;
+    if (elements.bookmarkCount) elements.bookmarkCount.textContent = state.bookmarks.length;
 
     // Filter Articles
     let filtered = state.articles.filter(article => {
@@ -189,39 +190,45 @@ function renderApp() {
     });
 
     // Update Section Title & Count
-    if (state.showBookmarksOnly) {
-        elements.sectionTitle.textContent = 'כתבות שמורות';
-    } else if (state.searchQuery) {
-        elements.sectionTitle.textContent = `תוצאות חיפוש עבור: "${state.searchQuery}"`;
-    } else if (state.activeCategory !== 'all') {
-        elements.sectionTitle.textContent = `חדשות בקטגוריית ${state.activeCategory}`;
-    } else {
-        elements.sectionTitle.textContent = 'חדשות אחרונות';
+    if (elements.sectionTitle) {
+        if (state.showBookmarksOnly) {
+            elements.sectionTitle.textContent = 'כתבות שמורות';
+        } else if (state.searchQuery) {
+            elements.sectionTitle.textContent = `תוצאות חיפוש עבור: "${state.searchQuery}"`;
+        } else if (state.activeCategory !== 'all') {
+            elements.sectionTitle.textContent = `חדשות בקטגוריית ${state.activeCategory}`;
+        } else {
+            elements.sectionTitle.textContent = 'חדשות אחרונות';
+        }
     }
 
-    elements.resultsCount.textContent = `מציג ${filtered.length} כתבות`;
+    if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} כתבות`;
 
     // Render Top 3 Featured Grid
     const showTop3 = state.activeCategory === 'all' && !state.searchQuery && !state.showBookmarksOnly && filtered.length >= 3;
     
     let rowArticles = filtered;
 
-    if (showTop3) {
-        const top3Articles = filtered.slice(0, 3);
-        renderTop3Grid(top3Articles);
-        elements.top3Grid.parentElement.classList.remove('hidden');
-        rowArticles = filtered.slice(3);
-    } else {
-        elements.top3Grid.parentElement.classList.add('hidden');
+    if (elements.top3Grid) {
+        if (showTop3) {
+            const top3Articles = filtered.slice(0, 3);
+            renderTop3Grid(top3Articles);
+            elements.top3Grid.parentElement.classList.remove('hidden');
+            rowArticles = filtered.slice(3);
+        } else {
+            elements.top3Grid.parentElement.classList.add('hidden');
+        }
     }
 
     // Render Main Articles Horizontal List
-    if (rowArticles.length === 0 && (!showTop3 || filtered.length === 0)) {
-        elements.articlesList.innerHTML = '';
-        elements.emptyState.classList.remove('hidden');
-    } else {
-        elements.emptyState.classList.add('hidden');
-        renderArticlesList(rowArticles);
+    if (elements.articlesList) {
+        if (rowArticles.length === 0 && (!showTop3 || filtered.length === 0)) {
+            elements.articlesList.innerHTML = '';
+            if (elements.emptyState) elements.emptyState.classList.remove('hidden');
+        } else {
+            if (elements.emptyState) elements.emptyState.classList.add('hidden');
+            renderArticlesList(rowArticles);
+        }
     }
 
     // Render Sidebar Widgets
@@ -322,63 +329,61 @@ function votePoll(option) {
 
 // Event Listeners Setup
 function setupEventListeners() {
-    elements.categoryBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            elements.categoryBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            state.activeCategory = btn.dataset.category;
-            state.showBookmarksOnly = false;
-            elements.bookmarksBtn.classList.remove('btn-primary');
-            elements.bookmarksBtn.classList.add('btn-outline');
+    if (elements.categoryBtns) {
+        elements.categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                elements.categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                state.activeCategory = btn.dataset.category;
+                state.showBookmarksOnly = false;
+                if (elements.bookmarksBtn) {
+                    elements.bookmarksBtn.classList.remove('btn-primary');
+                    elements.bookmarksBtn.classList.add('btn-outline');
+                }
+                renderApp();
+            });
+        });
+    }
+
+    if (elements.searchInput) {
+        elements.searchInput.addEventListener('input', (e) => {
+            state.searchQuery = e.target.value;
             renderApp();
         });
-    });
+    }
 
-    elements.searchInput.addEventListener('input', (e) => {
-        state.searchQuery = e.target.value;
-        renderApp();
-    });
+    if (elements.themeToggle) {
+        elements.themeToggle.addEventListener('click', () => {
+            state.darkMode = !state.darkMode;
+            localStorage.setItem('news_theme', state.darkMode ? 'dark' : 'light');
+            applyTheme();
+        });
+    }
 
-    elements.themeToggle.addEventListener('click', () => {
-        state.darkMode = !state.darkMode;
-        localStorage.setItem('news_theme', state.darkMode ? 'dark' : 'light');
-        applyTheme();
-    });
+    if (elements.bookmarksBtn) {
+        elements.bookmarksBtn.addEventListener('click', () => {
+            state.showBookmarksOnly = !state.showBookmarksOnly;
+            if (state.showBookmarksOnly) {
+                elements.bookmarksBtn.classList.add('btn-primary');
+                elements.bookmarksBtn.classList.remove('btn-outline');
+            } else {
+                elements.bookmarksBtn.classList.remove('btn-primary');
+                elements.bookmarksBtn.classList.add('btn-outline');
+            }
+            renderApp();
+        });
+    }
 
-    elements.bookmarksBtn.addEventListener('click', () => {
-        state.showBookmarksOnly = !state.showBookmarksOnly;
-        if (state.showBookmarksOnly) {
-            elements.bookmarksBtn.classList.add('btn-primary');
-            elements.bookmarksBtn.classList.remove('btn-outline');
-        } else {
-            elements.bookmarksBtn.classList.remove('btn-primary');
-            elements.bookmarksBtn.classList.add('btn-outline');
-        }
-        renderApp();
-    });
-
-    elements.addArticleBtn.addEventListener('click', openAddModal);
-    elements.closeAddModal.addEventListener('click', closeAddModal);
-    elements.cancelAddBtn.addEventListener('click', closeAddModal);
+    if (elements.addArticleBtn) elements.addArticleBtn.addEventListener('click', openAddModal);
+    if (elements.closeAddModal) elements.closeAddModal.addEventListener('click', closeAddModal);
+    if (elements.cancelAddBtn) elements.cancelAddBtn.addEventListener('click', closeAddModal);
 
     if (elements.closeArticleModal) elements.closeArticleModal.addEventListener('click', closeArticleModal);
 
     if (elements.articleModal) elements.articleModal.querySelector('.modal-overlay').addEventListener('click', closeArticleModal);
     if (elements.addArticleModal) elements.addArticleModal.querySelector('.modal-overlay').addEventListener('click', closeAddModal);
 
-    elements.addArticleForm.addEventListener('submit', handleAddArticleSubmit);
-
-    document.querySelectorAll('.site-footer a[data-category]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const category = link.dataset.category;
-            const targetBtn = Array.from(elements.categoryBtns).find(b => b.dataset.category === category);
-            if (targetBtn) {
-                targetBtn.click();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        });
-    });
+    if (elements.addArticleForm) elements.addArticleForm.addEventListener('submit', handleAddArticleSubmit);
 }
 
 // Redirect to Dedicated Article Page INSTANTLY
@@ -392,14 +397,18 @@ function closeArticleModal() {
 }
 
 function openAddModal() {
-    elements.addArticleModal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+    if (elements.addArticleModal) {
+        elements.addArticleModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function closeAddModal() {
-    elements.addArticleModal.classList.add('hidden');
-    document.body.style.overflow = '';
-    elements.addArticleForm.reset();
+    if (elements.addArticleModal) {
+        elements.addArticleModal.classList.add('hidden');
+        document.body.style.overflow = '';
+        if (elements.addArticleForm) elements.addArticleForm.reset();
+    }
 }
 
 // Handle Adding Article Form
@@ -443,6 +452,7 @@ function handleAddArticleSubmit(e) {
 
 // Toast Notification Helper
 function showToast(message) {
+    if (!elements.toastMessage || !elements.toast) return;
     elements.toastMessage.textContent = message;
     elements.toast.classList.remove('hidden');
     setTimeout(() => {

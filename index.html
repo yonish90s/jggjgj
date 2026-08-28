@@ -33,22 +33,8 @@
                 </button>
             </nav>
 
-            <!-- Left: Actions & "אורח" Pill Button -->
+            <!-- Left: Actions (Guest Pill & Theme Toggle) -->
             <div class="nav-left">
-                <!-- Search Box -->
-                <div class="search-box-top">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="searchInput" placeholder="חיפוש...">
-                </div>
-
-                <button id="bookmarksBtn" class="btn-top-outline" title="כתבות שמורות">
-                    <i class="fa-solid fa-bookmark"></i>
-                    <span id="bookmarkCount">0</span>
-                </button>
-                <button id="addArticleBtn" class="btn-top-primary">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>כתבה</span>
-                </button>
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
@@ -222,73 +208,6 @@
             </aside>
         </div>
     </main>
-
-    <!-- Article Reader Modal -->
-    <div id="articleModal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-card">
-            <button class="modal-close" id="closeArticleModal"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-body" id="articleModalContent">
-                <!-- Full Article content injected via JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Article Modal -->
-    <div id="addArticleModal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-card modal-card-form">
-            <button class="modal-close" id="closeAddModal"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-header">
-                <h2><i class="fa-solid fa-pen-to-square"></i> פרסם כתבה חדשה</h2>
-            </div>
-            <form id="addArticleForm" class="article-form">
-                <div class="form-group">
-                    <label for="formTitle">כותרת הכתבה *</label>
-                    <input type="text" id="formTitle" required placeholder="הזן כותרת מושכת...">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="formCategory">קטגוריה *</label>
-                        <select id="formCategory" required>
-                            <option value="ארץ">בארץ</option>
-                            <option value="טכנולוגיה">טכנולוגיה</option>
-                            <option value="כלכלה">כלכלה</option>
-                            <option value="ספורט">ספורט</option>
-                            <option value="תרבות">תרבות</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="formAuthor">שם הכותב/ת *</label>
-                        <input type="text" id="formAuthor" required placeholder="שם הכתב...">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="formImageUrl">קישור לתמונה (URL)</label>
-                    <input type="url" id="formImageUrl" placeholder="https://images.unsplash.com/...">
-                    <small class="form-hint">אם לא המוזן קישור, תיבחר תמונה אוטומטית לפי הקטגוריה</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="formSummary">תקציר הכתבה *</label>
-                    <textarea id="formSummary" rows="2" required placeholder="תקציר קצר שיוצג בכרטיסייה..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="formContent">תוכן הכתבה המלא *</label>
-                    <textarea id="formContent" rows="6" required placeholder="תוכן הכתבה המפורט..."></textarea>
-                </div>
-
-                <div class="form-actions">
-                    <button type="button" class="btn btn-outline" id="cancelAddBtn">ביטול</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> פרסם כתבה</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast hidden">
