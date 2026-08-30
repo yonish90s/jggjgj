@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yhsh | פורטל החדשות והמסחר בסגנון יד2</title>
+    <title>yhsh | פורטל המסחר בסגנון יד2 בורוד</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,11 +14,11 @@
 </head>
 <body>
 
-    <!-- Yad2 Style Top Navbar Header -->
-    <header class="top-navbar-dark">
+    <!-- Yad2 Style White Header Bar -->
+    <header class="top-navbar-white">
         <div class="container top-nav-container">
             
-            <!-- Right: Logo "yhsh" with Yad2 Orange Accent Badge -->
+            <!-- Right: Logo "yhsh" in Pink Yad2 Style -->
             <div class="nav-right">
                 <a href="index.html" class="brand-infinity">
                     <span class="brand-text-yad2">
@@ -27,7 +27,7 @@
                 </a>
             </div>
 
-            <!-- Center: Navigation Tabs -->
+            <!-- Center: Yad2 Navigation Tabs -->
             <nav class="nav-center-tabs">
                 <button class="nav-tab category-btn active" data-category="all">
                     <i class="fa-solid fa-house"></i>
@@ -37,15 +37,32 @@
                     <i class="fa-solid fa-gavel"></i>
                     <span>עמוד מסחר והצעות</span>
                 </a>
+                <button class="nav-tab category-btn" data-category="נדל״ן">
+                    <span>נדל״ן</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="רכב">
+                    <span>רכב</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="מוצרים">
+                    <span>מוצרים</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="טכנולוגיה">
+                    <span>טכנולוגיה</span>
+                </button>
             </nav>
 
-            <!-- Left: Actions & User Balance Pill -->
+            <!-- Left: Actions, Balance & "+ פרסום מודעה" in Pink -->
             <div class="nav-left">
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
-                    <i class="fa-solid fa-wallet" style="color:var(--yad2-orange);"></i>
+                    <i class="fa-solid fa-wallet" style="color:var(--yad2-pink);"></i>
                     <span id="userBalanceDisplay">₪ 50,000</span>
                 </div>
+
+                <button class="btn-add-listing-pink" onclick="window.location.href='trading.html'">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>פרסום מודעה</span>
+                </button>
 
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
@@ -53,17 +70,63 @@
 
                 <!-- Guest Pill Button -->
                 <div class="guest-pill" title="חשבון משתמש">
+                    <i class="fa-regular fa-user"></i>
                     <span>אורח</span>
-                </div>
-
-                <!-- Infinity Symbol on edge -->
-                <div class="infinity-icon-edge" title="yhsh">
-                    <i class="fa-solid fa-infinity"></i>
                 </div>
             </div>
 
         </div>
     </header>
+
+    <!-- Hero AI Search Section (Matches Official Yad2 Screenshot in Pink) -->
+    <section class="yad2-hero-ai-section">
+        <div class="container">
+            <h1 class="hero-ai-title">חדש! חיפוש AI - לכתוב חופשי, למצוא מהר</h1>
+            <div class="hero-ai-search-box">
+                <span class="ai-beta-tag">BETA</span>
+                <div class="ai-search-input-wrapper">
+                    <input type="text" id="searchInput" class="ai-search-input" placeholder="מה תרצו לחפש היום? (דירה למכירה, רכב, כונני SSD, בינה מלאכותית)...">
+                    <button class="ai-search-btn" onclick="document.getElementById('searchInput').focus()">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7 Circular Category Icons Section (Matches Official Yad2 Screenshot) -->
+    <section class="yad2-category-circles-section container">
+        <div class="category-circles-grid">
+            <div class="category-circle-item" onclick="filterByCategory('ארץ')">
+                <div class="circle-icon-box">🏢</div>
+                <span>דירות חדשות</span>
+            </div>
+            <div class="category-circle-item" onclick="filterByCategory('ארץ')">
+                <div class="circle-icon-box">🏠</div>
+                <span>נדל״ן</span>
+            </div>
+            <div class="category-circle-item" onclick="filterByCategory('טכנולוגיה')">
+                <div class="circle-icon-box">🚗</div>
+                <span>רכב</span>
+            </div>
+            <div class="category-circle-item" onclick="filterByCategory('טכנולוגיה')">
+                <div class="circle-icon-box">🛋️</div>
+                <span>מוצרים</span>
+            </div>
+            <div class="category-circle-item" onclick="filterByCategory('כלכלה')">
+                <div class="circle-icon-box">💼</div>
+                <span>דרושים</span>
+            </div>
+            <div class="category-circle-item" onclick="filterByCategory('תרבות')">
+                <div class="circle-icon-box">🧰</div>
+                <span>בעלי מקצוע</span>
+            </div>
+            <div class="category-circle-item" onclick="filterByCategory('כלכלה')">
+                <div class="circle-icon-box">☕</div>
+                <span>עסקים למכירה</span>
+            </div>
+        </div>
+    </section>
 
     <!-- Breaking News Ticker -->
     <div class="ticker-bar">
@@ -78,19 +141,6 @@
         </div>
     </div>
 
-    <!-- Yad2 Search Filter Banner Bar -->
-    <div class="yad2-search-strip">
-        <div class="container">
-            <div class="search-strip-box">
-                <i class="fa-solid fa-magnifying-glass" style="color:var(--yad2-orange); font-size:1.1rem;"></i>
-                <input type="text" id="searchInput" class="search-strip-input" placeholder="מה תרצו לחפש היום ב-yhsh? (כתבות, הצעות מחיר, טכנולוגיה, נדל״ן)...">
-                <button class="search-strip-btn" onclick="document.getElementById('searchInput').focus()">
-                    <span>חיפוש</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Top 3 Hot Featured Grid Section -->
     <div class="top3-section container">
         <div id="top3Grid" class="top3-grid">
@@ -98,11 +148,11 @@
         </div>
     </div>
 
-    <!-- Promo Banner Strip -->
+    <!-- Promo Banner Strip (Matches Yad2 Event Strip in Pink) -->
     <div class="promo-strip container">
         <div class="promo-box">
-            <span class="promo-tag">מודעה חמה 🔥</span>
-            <span class="promo-text">כל הידיעות, העדכונים והצעות המסחר החמות בישראל בסגנון יד2 24/7 ב-yhsh</span>
+            <span class="promo-tag">אירוע מיוחד 💖</span>
+            <span class="promo-text">מאות מודעות, כתבות והצעות מסחר חמות נפתחות עכשיו בלייב ב-yhsh!</span>
         </div>
     </div>
 
@@ -167,10 +217,10 @@
 
             </aside>
 
-            <!-- Center Column: Clean Yad2 Style Listing Feed -->
+            <!-- Center Column: Yad2 Pink Style Listing Feed -->
             <div class="main-column">
                 <div class="section-header">
-                    <h2 id="sectionTitle" class="section-title">כתבות וידיעות אחרונות</h2>
+                    <h2 id="sectionTitle" class="section-title">כתבות ומודעות אחרונות</h2>
                     <div class="sort-filter">
                         <span id="resultsCount" class="results-count">מציג 0 כתבות</span>
                     </div>

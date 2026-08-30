@@ -1,42 +1,45 @@
-/* Reset & Ultra-Clear Yad2 (יד2) Inspired Theme */
+/* Reset & Yad2 Pink Edition Theme Variables */
 :root {
-    --yad2-orange: #ff6600;
-    --yad2-orange-hover: #e55c00;
-    --yad2-orange-light: #fff5ee;
-    --yad2-dark-header: #1e1e24;
-    --primary-color: #ff6600;
-    --primary-hover: #e55c00;
-    --primary-light: #fff5ee;
-    --bg-color: #f7f8fa;
+    --yad2-pink: #ff2a75;
+    --yad2-pink-hover: #d81b60;
+    --yad2-pink-dark: #c2185b;
+    --yad2-pink-light: #fff0f5;
+    --yad2-pink-soft: #ffe4ec;
+    --primary-color: #ff2a75;
+    --primary-hover: #d81b60;
+    --primary-light: #fff0f5;
+    --bg-color: #f9fafe;
     --card-bg: #ffffff;
+    --header-bg: #ffffff;
     --text-primary: #111827;
     --text-secondary: #374151;
     --text-muted: #6b7280;
-    --border-color: #e5e7eb;
-    --border-strong: #d1d5db;
-    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.07);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+    --border-color: #f3d5df;
+    --border-strong: #f472b6;
+    --shadow-sm: 0 2px 8px rgba(255, 42, 117, 0.06);
+    --shadow-md: 0 4px 18px rgba(255, 42, 117, 0.1);
+    --shadow-lg: 0 10px 30px rgba(255, 42, 117, 0.15);
     --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-    --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Clear Ultra-Legible Dark Mode */
+/* Dark Mode Pink Edition */
 body.dark-theme {
-    --primary-color: #ff771a;
-    --primary-hover: #ff8833;
-    --primary-light: rgba(255, 102, 0, 0.15);
-    --bg-color: #0d0d12;
-    --card-bg: #181820;
-    --text-primary: #f9fafb;
-    --text-secondary: #e5e7eb;
-    --text-muted: #9ca3af;
-    --border-color: #272733;
-    --border-strong: #374151;
-    --header-bg: #181820;
-    --yad2-dark-header: #08080c;
+    --primary-color: #ff4d8d;
+    --primary-hover: #ff669d;
+    --primary-light: rgba(255, 42, 117, 0.18);
+    --bg-color: #0f0911;
+    --card-bg: #1a101d;
+    --header-bg: #140b17;
+    --text-primary: #fbf7f9;
+    --text-secondary: #e2d9e0;
+    --text-muted: #a395a0;
+    --border-color: #331f36;
+    --border-strong: #ff4d8d;
+    --yad2-pink-light: rgba(255, 42, 117, 0.15);
+    --yad2-pink-soft: rgba(255, 42, 117, 0.25);
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.6);
     --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.7);
     --shadow-lg: 0 12px 35px rgba(0, 0, 0, 0.9);
@@ -65,22 +68,22 @@ body {
     padding: 0 20px;
 }
 
-/* Clear Header & Top Navigation Bar */
-.top-navbar-dark {
-    background-color: var(--yad2-dark-header);
-    color: #ffffff;
+/* Clean White Header Bar (Yad2 Style) */
+.top-navbar-white {
+    background-color: var(--header-bg);
+    color: var(--text-primary);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 4px solid var(--yad2-orange);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    border-bottom: 2px solid var(--yad2-pink-soft);
+    box-shadow: 0 2px 12px rgba(255, 42, 117, 0.08);
 }
 
 .top-nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 62px;
+    height: 64px;
     padding: 0 15px;
     gap: 15px;
 }
@@ -88,10 +91,10 @@ body {
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
-/* Logo yhsh - Clear & Bold */
+/* Pink Yad2 Logo yhsh */
 .brand-infinity {
     display: flex;
     align-items: center;
@@ -100,7 +103,7 @@ body {
 }
 
 .brand-text-yad2 {
-    font-size: 1.75rem;
+    font-size: 1.8rem;
     font-weight: 900;
     letter-spacing: -0.5px;
     display: inline-flex;
@@ -110,33 +113,18 @@ body {
 }
 
 .brand-yh {
-    color: #ffffff;
+    color: var(--text-primary);
     font-weight: 900;
 }
 
 .brand-sh-badge {
-    background: linear-gradient(135deg, #ff6600, #ff8800);
+    background: linear-gradient(135deg, #ff2a75, #ff5593);
     color: #ffffff;
     padding: 2px 10px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 900;
     margin-right: 4px;
-    box-shadow: 0 2px 10px rgba(255, 102, 0, 0.45);
-}
-
-/* User Balance Pill */
-.user-balance-pill {
-    background-color: rgba(255, 255, 255, 0.12);
-    border: 1.5px solid var(--yad2-orange);
-    color: #ffffff;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.92rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
+    box-shadow: 0 3px 10px rgba(255, 42, 117, 0.4);
 }
 
 /* Center Nav Tabs */
@@ -154,32 +142,32 @@ body {
 
 .nav-tab {
     background: transparent;
-    color: #e5e7eb;
+    color: var(--text-secondary);
     border: 1px solid transparent;
-    padding: 7px 20px;
+    padding: 7px 18px;
     border-radius: 20px;
     font-family: inherit;
-    font-size: 0.98rem;
+    font-size: 0.96rem;
     font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     white-space: nowrap;
     text-decoration: none;
     transition: var(--transition);
 }
 
 .nav-tab:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.14);
+    color: var(--yad2-pink);
+    background-color: var(--yad2-pink-light);
 }
 
 .nav-tab.active {
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
     font-weight: 900;
-    box-shadow: 0 3px 12px rgba(255, 102, 0, 0.4);
+    box-shadow: 0 3px 12px rgba(255, 42, 117, 0.35);
 }
 
 /* Left Actions Area */
@@ -189,10 +177,45 @@ body {
     gap: 12px;
 }
 
+.user-balance-pill {
+    background-color: var(--yad2-pink-light);
+    border: 1.5px solid var(--yad2-pink);
+    color: var(--yad2-pink);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.btn-add-listing-pink {
+    background-color: #ffffff;
+    color: var(--yad2-pink);
+    border: 2px solid var(--yad2-pink);
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.btn-add-listing-pink:hover {
+    background-color: var(--yad2-pink);
+    color: #ffffff;
+}
+
 .btn-top-icon {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #f3f4f6;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -205,15 +228,15 @@ body {
 }
 
 .btn-top-icon:hover {
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
-    border-color: var(--yad2-orange);
+    border-color: var(--yad2-pink);
 }
 
 .guest-pill {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #ffffff;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
     padding: 5px 16px;
     border-radius: 20px;
     font-size: 0.9rem;
@@ -224,37 +247,67 @@ body {
 }
 
 .guest-pill:hover {
-    background-color: var(--yad2-orange);
-    border-color: var(--yad2-orange);
+    background-color: var(--yad2-pink-light);
+    border-color: var(--yad2-pink);
+    color: var(--yad2-pink);
 }
 
-.infinity-icon-edge {
-    color: var(--yad2-orange);
-    font-size: 1.25rem;
-    display: flex;
-    align-items: center;
-}
-
-/* Ultra-Clear Search Strip */
-.yad2-search-strip {
-    background: var(--card-bg);
+/* Yad2 Official AI Hero Search Section (Pastel Pink Edition) */
+.yad2-hero-ai-section {
+    background: linear-gradient(180deg, #fff0f5 0%, #ffe4ec 100%);
+    padding: 35px 0 45px 0;
+    text-align: center;
     border-bottom: 1px solid var(--border-color);
-    padding: 18px 0;
-    box-shadow: var(--shadow-sm);
 }
 
-.search-strip-box {
+body.dark-theme .yad2-hero-ai-section {
+    background: linear-gradient(180deg, #1c0e1e 0%, #140816 100%);
+}
+
+.hero-ai-title {
+    font-size: 1.85rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.hero-ai-search-box {
+    position: relative;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.ai-beta-tag {
+    position: absolute;
+    top: -12px;
+    right: 25px;
+    background-color: var(--yad2-pink);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(255, 42, 117, 0.4);
+    z-index: 2;
+}
+
+.ai-search-input-wrapper {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background-color: var(--bg-color);
-    border: 2px solid var(--yad2-orange);
+    background-color: #ffffff;
+    border: 2px solid var(--yad2-pink);
     border-radius: 30px;
     padding: 6px 18px;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 6px 25px rgba(255, 42, 117, 0.15);
 }
 
-.search-strip-input {
+body.dark-theme .ai-search-input-wrapper {
+    background-color: var(--card-bg);
+}
+
+.ai-search-input {
     flex: 1;
     border: none;
     background: transparent;
@@ -263,28 +316,115 @@ body {
     font-weight: 600;
     color: var(--text-primary);
     outline: none;
-    padding: 8px 10px;
+    padding: 10px 14px;
 }
 
-.search-strip-btn {
-    background-color: var(--yad2-orange);
+.ai-search-btn {
+    background-color: var(--yad2-pink);
     color: #ffffff;
     border: none;
-    padding: 9px 24px;
-    border-radius: 22px;
-    font-weight: 800;
-    font-family: inherit;
-    font-size: 0.98rem;
-    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
     transition: var(--transition);
-    box-shadow: 0 3px 10px rgba(255, 102, 0, 0.3);
+    box-shadow: 0 3px 10px rgba(255, 42, 117, 0.35);
 }
 
-.search-strip-btn:hover {
-    background-color: var(--yad2-orange-hover);
+.ai-search-btn:hover {
+    background-color: var(--yad2-pink-hover);
+    transform: scale(1.05);
+}
+
+/* 7 Circular Category Icons Grid (Yad2 Official Style) */
+.yad2-category-circles-section {
+    padding: 35px 0 20px 0;
+}
+
+.category-circles-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+}
+
+.category-circles-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.category-circle-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+    min-width: 100px;
+}
+
+.circle-icon-box {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: var(--card-bg);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.category-circle-item:hover .circle-icon-box {
+    border-color: var(--yad2-pink);
+    background-color: var(--yad2-pink-light);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.category-circle-item:hover span {
+    color: var(--yad2-pink);
+}
+
+/* Promo Banner Strip */
+.promo-strip {
+    padding-top: 15px;
+}
+
+.promo-box {
+    background-color: var(--card-bg);
+    border: 2px solid var(--yad2-pink);
+    border-radius: var(--radius-md);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    color: var(--text-primary);
+    font-weight: 800;
+    font-size: 1.02rem;
+    box-shadow: var(--shadow-md);
+}
+
+.promo-tag {
+    background-color: var(--yad2-pink);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 900;
+    padding: 4px 14px;
+    border-radius: 14px;
 }
 
 /* Buttons */
@@ -305,31 +445,31 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
-    border-color: var(--yad2-orange);
-    box-shadow: 0 3px 10px rgba(255, 102, 0, 0.25);
+    border-color: var(--yad2-pink);
+    box-shadow: 0 3px 12px rgba(255, 42, 117, 0.3);
 }
 
 .btn-primary:hover {
-    background-color: var(--yad2-orange-hover);
+    background-color: var(--yad2-pink-hover);
     transform: translateY(-1px);
 }
 
 .btn-outline {
     background-color: transparent;
-    border-color: var(--yad2-orange);
-    color: var(--yad2-orange);
+    border-color: var(--yad2-pink);
+    color: var(--yad2-pink);
 }
 
 .btn-outline:hover {
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
 }
 
-/* Clear Ticker Bar */
+/* Ticker Bar */
 .ticker-bar {
-    background-color: #181820;
+    background-color: #1a0b17;
     color: #ffffff;
     padding: 9px 0;
     border-bottom: 1px solid var(--border-color);
@@ -343,7 +483,7 @@ body {
 }
 
 .ticker-title {
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
     padding: 4px 14px;
     border-radius: 6px;
@@ -377,7 +517,7 @@ body {
 }
 
 .ticker-time {
-    color: #ff9933;
+    color: #ff77a8;
     font-weight: 800;
 }
 
@@ -411,8 +551,8 @@ body {
 
 .top3-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(255, 102, 0, 0.25);
-    border-color: var(--yad2-orange);
+    box-shadow: 0 10px 25px rgba(255, 42, 117, 0.3);
+    border-color: var(--yad2-pink);
 }
 
 .top3-card img {
@@ -440,36 +580,7 @@ body {
     font-size: 1.05rem;
     line-height: 1.4;
     text-align: right;
-    border-top: 3px solid var(--yad2-orange);
-}
-
-/* Promo Banner Strip */
-.promo-strip {
-    padding-top: 22px;
-}
-
-.promo-box {
-    background-color: var(--card-bg);
-    border: 2px solid var(--yad2-orange);
-    border-radius: var(--radius-md);
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    color: var(--text-primary);
-    font-weight: 800;
-    font-size: 1.02rem;
-    box-shadow: var(--shadow-md);
-}
-
-.promo-tag {
-    background-color: var(--yad2-orange);
-    color: #ffffff;
-    font-size: 0.82rem;
-    font-weight: 900;
-    padding: 4px 14px;
-    border-radius: 14px;
+    border-top: 3px solid var(--yad2-pink);
 }
 
 /* Main Content Area (3 Columns Layout) */
@@ -506,7 +617,7 @@ body {
     justify-content: space-between;
     padding-bottom: 14px;
     margin-bottom: 20px;
-    border-bottom: 3px solid var(--yad2-orange);
+    border-bottom: 3px solid var(--yad2-pink);
 }
 
 .section-title {
@@ -522,7 +633,7 @@ body {
     font-weight: 700;
 }
 
-/* News & Listing Rows - Clear & Readable Cards */
+/* News & Listing Rows */
 .news-list-container {
     display: flex;
     flex-direction: column;
@@ -543,13 +654,13 @@ body {
 }
 
 .news-row-item:hover {
-    border-color: var(--yad2-orange);
-    box-shadow: 0 6px 20px rgba(255, 102, 0, 0.12);
+    border-color: var(--yad2-pink);
+    box-shadow: 0 6px 20px rgba(255, 42, 117, 0.15);
     transform: translateX(-4px);
 }
 
 .news-row-item:hover .row-title {
-    color: var(--yad2-orange);
+    color: var(--yad2-pink);
 }
 
 .row-content {
@@ -578,7 +689,7 @@ body {
 }
 
 .row-author {
-    color: var(--yad2-orange);
+    color: var(--yad2-pink);
     font-weight: 800;
 }
 
@@ -616,7 +727,7 @@ body {
     transform: scale(1.06);
 }
 
-/* Side Widgets Styling */
+/* Side Widgets */
 .widget-card {
     background-color: var(--card-bg);
     border-radius: var(--radius-md);
@@ -649,11 +760,11 @@ body {
     transform: translateX(50%);
     width: 60px;
     height: 3px;
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     border-radius: 2px;
 }
 
-/* Recommended Links Widget */
+/* Recommended Links */
 .recommended-list {
     display: flex;
     flex-direction: column;
@@ -677,12 +788,12 @@ body {
 }
 
 .rec-item:hover {
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
-    border-color: var(--yad2-orange);
+    border-color: var(--yad2-pink);
 }
 
-/* TOP 5 Ranked Widget */
+/* TOP 5 Widget */
 .top5-list {
     display: flex;
     flex-direction: column;
@@ -702,14 +813,14 @@ body {
 }
 
 .top5-item:hover {
-    border-color: var(--yad2-orange);
-    background-color: var(--yad2-orange-light);
+    border-color: var(--yad2-pink);
+    background-color: var(--yad2-pink-light);
 }
 
 .top5-number {
     font-size: 1.2rem;
     font-weight: 900;
-    color: var(--yad2-orange);
+    color: var(--yad2-pink);
     min-width: 30px;
     text-align: center;
 }
@@ -730,9 +841,9 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background-color: var(--yad2-orange-light);
-    color: var(--yad2-orange);
-    border: 1px solid var(--yad2-orange);
+    background-color: var(--yad2-pink-light);
+    color: var(--yad2-pink);
+    border: 1px solid var(--yad2-pink);
     padding: 5px 12px;
     border-radius: 16px;
     font-size: 0.84rem;
@@ -743,7 +854,7 @@ body {
 
 .top5-like-btn:hover {
     transform: scale(1.08);
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
 }
 
@@ -802,7 +913,7 @@ body {
 
 .trend.up { color: #16a34a; font-weight: 800; }
 .trend.down { color: #dc2626; font-weight: 800; }
-.temp { color: var(--yad2-orange); font-weight: 800; }
+.temp { color: var(--yad2-pink); font-weight: 800; }
 
 /* Trading Hero Section */
 .trading-hero {
@@ -813,7 +924,7 @@ body {
     background: var(--card-bg);
     border-radius: var(--radius-md);
     padding: 28px 34px;
-    border: 2px solid var(--yad2-orange);
+    border: 2px solid var(--yad2-pink);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -854,7 +965,7 @@ body {
 .balance-amount {
     font-size: 2.3rem;
     font-weight: 900;
-    color: var(--yad2-orange);
+    color: var(--yad2-pink);
 }
 
 /* Trading Bids Feed */
@@ -885,8 +996,8 @@ body {
 }
 
 .bid-card-item:hover {
-    border-color: var(--yad2-orange);
-    box-shadow: 0 6px 22px rgba(255, 102, 0, 0.14);
+    border-color: var(--yad2-pink);
+    box-shadow: 0 6px 22px rgba(255, 42, 117, 0.15);
 }
 
 .bid-card-header {
@@ -904,13 +1015,13 @@ body {
 }
 
 .bid-amount-tag {
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
     font-size: 1.25rem;
     font-weight: 900;
     padding: 5px 18px;
     border-radius: 20px;
-    box-shadow: 0 3px 10px rgba(255, 102, 0, 0.35);
+    box-shadow: 0 3px 10px rgba(255, 42, 117, 0.35);
 }
 
 .bid-card-body {
@@ -932,13 +1043,13 @@ body {
 }
 
 .bid-status-pill {
-    background-color: var(--yad2-orange-light);
-    color: var(--yad2-orange);
+    background-color: var(--yad2-pink-light);
+    color: var(--yad2-pink);
     font-weight: 800;
     padding: 4px 12px;
     border-radius: 14px;
     font-size: 0.85rem;
-    border: 1px solid var(--yad2-orange);
+    border: 1px solid var(--yad2-pink);
 }
 
 .bid-card-actions {
@@ -950,7 +1061,7 @@ body {
 /* Article Bidding Widget */
 .article-bidding-widget {
     background: var(--card-bg);
-    border: 2px solid var(--yad2-orange);
+    border: 2px solid var(--yad2-pink);
     border-radius: var(--radius-md);
     padding: 26px;
     margin: 32px 0;
@@ -997,7 +1108,7 @@ body {
 .current-bid-box strong {
     font-size: 1.6rem;
     font-weight: 900;
-    color: var(--yad2-orange);
+    color: var(--yad2-pink);
 }
 
 .bid-input-group {
@@ -1020,7 +1131,7 @@ body {
 }
 
 .bid-input-group input:focus {
-    border-color: var(--yad2-orange);
+    border-color: var(--yad2-pink);
 }
 
 /* Dedicated Article Page */
@@ -1040,7 +1151,7 @@ body {
 
 .article-full-category {
     display: inline-block;
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
     padding: 4px 16px;
     border-radius: 20px;
@@ -1085,8 +1196,8 @@ body {
 }
 
 .article-page-summary-box {
-    background-color: var(--yad2-orange-light);
-    border-right: 5px solid var(--yad2-orange);
+    background-color: var(--yad2-pink-light);
+    border-right: 5px solid var(--yad2-pink);
     padding: 20px 26px;
     border-radius: var(--radius-sm);
     margin-bottom: 28px;
@@ -1123,7 +1234,7 @@ body {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background-color: var(--yad2-orange);
+    background-color: var(--yad2-pink);
     color: #ffffff;
     padding: 14px 26px;
     border-radius: var(--radius-sm);

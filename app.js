@@ -124,6 +124,14 @@ async function loadStateFromStorage() {
     }
 }
 
+function filterByCategory(cat) {
+    state.activeCategory = cat;
+    state.showBookmarksOnly = false;
+    renderApp();
+    const listElem = document.getElementById('articlesList');
+    if (listElem) listElem.scrollIntoView({ behavior: 'smooth' });
+}
+
 function saveCustomArticlesToStorage(newArticle) {
     const localCustomArticles = JSON.parse(localStorage.getItem('news_custom_articles') || '[]');
     localCustomArticles.unshift(newArticle);
@@ -194,9 +202,9 @@ function renderApp() {
         } else if (state.searchQuery) {
             elements.sectionTitle.textContent = `תוצאות חיפוש עבור: "${state.searchQuery}"`;
         } else if (state.activeCategory !== 'all') {
-            elements.sectionTitle.textContent = `חדשות בקטגוריית ${state.activeCategory}`;
+            elements.sectionTitle.textContent = `מודעות וכתבות בקטגוריית ${state.activeCategory}`;
         } else {
-            elements.sectionTitle.textContent = 'כתבות וידיעות אחרונות';
+            elements.sectionTitle.textContent = 'כתבות ומודעות אחרונות';
         }
     }
 
@@ -332,7 +340,7 @@ function setupEventListeners() {
             btn.addEventListener('click', () => {
                 elements.categoryBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                state.activeCategory = btn.dataset.category;
+                state.activeCategory = btn.dataset.category || 'all';
                 state.showBookmarksOnly = false;
                 if (elements.bookmarksBtn) {
                     elements.bookmarksBtn.classList.remove('btn-primary');
