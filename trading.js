@@ -42,14 +42,27 @@ function loadOffers() {
     const saved = localStorage.getItem('news_offers');
     if (saved) {
         try {
-            offers = JSON.parse(saved);
+            const parsed = JSON.parse(saved);
+            // Purge old non-rental bids like "פסטיבל הקולנוע" or raw ISO dates
+            const cleanOffers = parsed.filter(o => o.articleTitle && !o.articleTitle.includes('פסטיבל'));
+            if (cleanOffers.length > 0) {
+                // Clean dates
+                cleanOffers.forEach(o => {
+                    if (o.date && o.date.includes('T') && o.date.includes('Z')) {
+                        o.date = 'היום, ' + o.date.split('T')[1].substring(0, 5);
+                    }
+                });
+                offers = cleanOffers;
+            } else {
+                offers = getInitialRentalOffers();
+            }
         } catch (e) {
             offers = getInitialRentalOffers();
         }
     } else {
         offers = getInitialRentalOffers();
-        localStorage.setItem('news_offers', JSON.stringify(offers));
     }
+    localStorage.setItem('news_offers', JSON.stringify(offers));
 }
 
 function getInitialRentalOffers() {
@@ -57,24 +70,24 @@ function getInitialRentalOffers() {
         {
             id: 'off-101',
             articleId: 'rent-1',
-            articleTitle: 'מצלמת Sony A7 IV + עדשת 24-70mm f/2.8 GM',
-            bidder: 'מיכאל א.',
-            amount: 300,
-            date: 'היום, 14:20',
+            articleTitle: 'מחשב נייד MacBook Pro 16" M3 Max 64GB',
+            bidder: 'אורח (אתה)',
+            amount: 250,
+            date: 'היום, 18:45',
             status: 'הצעה מובילה 🔥',
-            imageUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80',
-            isMyBid: false
+            imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
+            isMyBid: true
         },
         {
             id: 'off-102',
             articleId: 'rent-2',
-            articleTitle: 'מחשב נייד MacBook Pro 16" M3 Max 64GB',
-            bidder: 'אורח (אתה)',
-            amount: 240,
-            date: 'היום, 13:45',
+            articleTitle: 'מצלמת Sony A7 IV + עדשת 24-70mm f/2.8 GM',
+            bidder: 'מיכאל א.',
+            amount: 300,
+            date: 'היום, 18:20',
             status: 'הצעה מובילה 🔥',
-            imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
-            isMyBid: true
+            imageUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80',
+            isMyBid: false
         },
         {
             id: 'off-103',
@@ -82,7 +95,7 @@ function getInitialRentalOffers() {
             articleTitle: 'אייפון iPhone 15 Pro Max 512GB Titanium',
             bidder: 'יונתן ש.',
             amount: 110,
-            date: 'אתמול, 19:10',
+            date: 'היום, 17:10',
             status: 'הצעה מובילה 🔥',
             imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80',
             isMyBid: false
@@ -90,18 +103,29 @@ function getInitialRentalOffers() {
         {
             id: 'off-104',
             articleId: 'rent-4',
-            articleTitle: 'קונסולת Xbox Series X + 2 שלטים ו-5 משחקים',
+            articleTitle: 'פטישון BOSCH GBH 2-28 עוצמתי + סט מקדחים',
             bidder: 'אורח (אתה)',
-            amount: 130,
-            date: 'אתמול, 17:30',
+            amount: 120,
+            date: 'היום, 16:30',
+            status: 'הצעה מובילה 🔥',
+            imageUrl: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80',
+            isMyBid: true
+        },
+        {
+            id: 'off-105',
+            articleId: 'rent-5',
+            articleTitle: 'קונסולת Xbox Series X 1TB + 2 שלטים',
+            bidder: 'דניאל כ.',
+            amount: 140,
+            date: 'היום, 15:15',
             status: 'הצעה מובילה 🔥',
             imageUrl: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&w=800&q=80',
-            isMyBid: true
+            isMyBid: false
         }
     ];
 }
 
-// Render Modern Grid Box Bids Cards ("ריבועים מסודרים" - Matches Screenshot)
+// Render Modern High-End Grid Cards ("ריבועים מסודרים ויוקרתיים")
 function renderBidsFeed() {
     if (!bidsFeedList) return;
 
@@ -125,19 +149,23 @@ function renderBidsFeed() {
     bidsFeedList.className = "bids-grid-2col";
     bidsFeedList.innerHTML = filtered.map(bid => {
         const image = bid.imageUrl || 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80';
+        const displayDate = (bid.date && bid.date.includes('T') && bid.date.includes('Z'))
+            ? 'היום, ' + bid.date.split('T')[1].substring(0, 5)
+            : (bid.date || 'היום');
+
         return `
             <div class="grid-card-box">
                 
-                <!-- Top Image & Badges -->
+                <!-- Top Image Header & Badges -->
                 <div class="grid-card-image-wrapper">
-                    <img src="${image}" alt="${bid.articleTitle}">
+                    <img src="${image}" alt="${bid.articleTitle}" loading="lazy">
                     <span class="grid-badge-tag">${bid.status}</span>
                     <div class="grid-heart-btn ${bid.isMyBid ? 'active' : ''}" onclick="event.stopPropagation(); showToast('המוצר נשמר במועדפים ❤️')" title="שמור במועדפים">
                         <i class="fa-solid fa-heart"></i>
                     </div>
                 </div>
 
-                <!-- Card Content Body -->
+                <!-- Content Body -->
                 <div class="grid-card-body">
                     <div class="grid-price-tag">
                         ₪${bid.amount.toLocaleString('he-IL')} 
@@ -145,7 +173,7 @@ function renderBidsFeed() {
                     </div>
 
                     <h3 class="grid-title-text">${bid.articleTitle}</h3>
-                    <p class="grid-subtitle-text"><i class="fa-regular fa-user"></i> מציע: <strong>${bid.bidder}</strong> • ${bid.date}</p>
+                    <p class="grid-subtitle-text"><i class="fa-regular fa-user"></i> מציע: <strong>${bid.bidder}</strong> • ${displayDate}</p>
 
                     <div class="grid-spec-pills">
                         <span class="grid-pill-item">הצעה בלייב</span>
@@ -175,13 +203,16 @@ function outbidItem(bidId, articleId, articleTitle, currentAmount) {
     localStorage.setItem('news_user_balance', userBalance.toString());
     updateBalanceDisplays();
 
+    const now = new Date();
+    const timeStr = 'היום, ' + now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+
     const newOffer = {
         id: 'off-' + Date.now(),
         articleId: articleId,
         articleTitle: articleTitle,
         bidder: 'אורח (אתה)',
         amount: newAmount,
-        date: 'כרגע',
+        date: timeStr,
         status: 'הצעה מובילה 🔥',
         imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
         isMyBid: true

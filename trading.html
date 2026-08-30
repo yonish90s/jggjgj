@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>עמוד מסחר והצעות מחיר | yhsh בורוד</title>
+    <title>yhsh | עמוד מסחר והצעות השכרה בלייב</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
     <header class="top-navbar-white">
         <div class="container top-nav-container">
             
-            <!-- Right: Logo "yhsh" with Pink Yad2 Accent -->
+            <!-- Right: Logo "yhsh" in Pink Yad2 Style -->
             <div class="nav-right">
                 <a href="index.html" class="brand-infinity">
                     <span class="brand-text-yad2">
@@ -31,15 +31,19 @@
             <nav class="nav-center-tabs">
                 <a href="index.html" class="nav-tab">
                     <i class="fa-solid fa-house"></i>
-                    <span>ראשי</span>
+                    <span>כל הציוד</span>
                 </a>
                 <a href="trading.html" class="nav-tab active">
                     <i class="fa-solid fa-gavel"></i>
                     <span>עמוד מסחר והצעות</span>
                 </a>
+                <button class="nav-tab vip-tab-btn" onclick="window.location.href='index.html'">
+                    <i class="fa-solid fa-gem"></i>
+                    <span>מנוי חודשי VIP</span>
+                </button>
             </nav>
 
-            <!-- Left: Balance & Actions -->
+            <!-- Left: Actions, Balance & "+ פרסום מודעה" -->
             <div class="nav-left">
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
@@ -47,56 +51,61 @@
                     <span id="userBalanceDisplay">₪ 50,000</span>
                 </div>
 
+                <button class="btn-add-listing-pink" onclick="window.location.href='index.html'">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>חזרה לציוד להשכרה</span>
+                </button>
+
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <div class="guest-pill">
-                    <i class="fa-regular fa-user"></i>
-                    <span>אורח</span>
-                </div>
             </div>
 
         </div>
     </header>
 
-    <!-- Trading Dashboard Hero Section -->
-    <div class="trading-hero container">
-        <div class="trading-hero-card">
-            <div class="hero-wallet">
-                <i class="fa-solid fa-coins fa-3x" style="color:var(--yad2-pink);"></i>
-                <div>
-                    <h2>ארנק המסחר שלך (גרסת Pink Edition)</h2>
-                    <p>כאן תוכל להגיש הצעות מחיר בלייב על מודעות וכתבות שפרסמו משתמשים אחרים!</p>
-                </div>
-            </div>
-            <div class="wallet-balance-box">
-                <span class="balance-label">היתרה הזמינה שלך:</span>
-                <span id="heroBalanceText" class="balance-amount">₪ 50,000</span>
-                <button class="btn btn-outline" style="margin-top:8px; font-size:0.85rem;" onclick="addFunds()">
-                    <i class="fa-solid fa-plus-circle"></i> טען אשראי (+₪10,000)
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Content Container -->
-    <main class="main-content container">
-        <div class="trading-feed-container">
-            
+    <main class="main-content container" style="max-width: 1100px;">
+        
+        <!-- Premium Hero Wallet Section -->
+        <section class="trading-hero" style="margin-bottom: 30px;">
+            <div class="trading-hero-card">
+                <div class="hero-wallet">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--yad2-pink-light); border: 2px solid var(--yad2-pink); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--yad2-pink);">
+                        <i class="fa-solid fa-gavel"></i>
+                    </div>
+                    <div>
+                        <h2>ארנק מסחר וביטחון הצעות</h2>
+                        <p>הגש הצעות מחיר בלייב על ציוד ומוצרים להשכרה מפרטיים ברמת ביטחון מלאה</p>
+                    </div>
+                </div>
+
+                <div class="wallet-balance-box">
+                    <span class="balance-label">יתרה פנויה בארנק:</span>
+                    <span id="heroBalanceText" class="balance-amount">₪ 50,000</span>
+                    <button class="btn-add-listing-pink" onclick="addFunds()" style="margin-top: 8px; font-size: 0.85rem; padding: 4px 14px;">
+                        <i class="fa-solid fa-plus-circle"></i> טען ₪10,000 לארנק
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bids Feed Section Header -->
+        <div class="main-column" style="padding: 28px;">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-gavel"></i> לוח הצעות מחיר פעילות באתר (Live Bids)</h2>
+                <h2 class="section-title"><i class="fa-solid fa-chart-line" style="color:var(--yad2-pink);"></i> לוח הצעות מחיר פעילות בלייב</h2>
                 <div class="filter-bids-group">
-                    <button id="filterAllBids" class="btn btn-primary active" onclick="filterBids('all')">כל ההצעות באתר</button>
-                    <button id="filterMyBids" class="btn btn-outline" onclick="filterBids('my')">ההצעות שלי</button>
+                    <button id="filterAllBids" class="btn btn-primary" onclick="filterBids('all')">כל ההצעות באתר</button>
+                    <button id="filterMyBids" class="btn btn-outline" onclick="filterBids('my')">ההצעות שלי בלבד</button>
                 </div>
             </div>
 
-            <!-- Bids Feed Grid / Table -->
-            <div id="bidsFeedList" class="bids-feed-list">
+            <!-- Bids Feed Render Container (Modern 2-Column Grid Cards) -->
+            <div id="bidsFeedList">
                 <!-- Injected via trading.js -->
             </div>
-
         </div>
+
     </main>
 
     <!-- Toast Notification -->
