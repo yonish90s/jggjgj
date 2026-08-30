@@ -61,42 +61,47 @@ function getInitialRentalOffers() {
             bidder: 'מיכאל א.',
             amount: 300,
             date: 'היום, 14:20',
-            status: 'הצעה מובילה להשכרה 🔥',
+            status: 'הצעה מובילה 🔥',
+            imageUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80',
             isMyBid: false
         },
         {
             id: 'off-102',
             articleId: 'rent-2',
-            articleTitle: 'מקרן 4K עוצמתי 5000 Lumens + מסך 120 אינץ׳',
+            articleTitle: 'מחשב נייד MacBook Pro 16" M3 Max 64GB',
             bidder: 'אורח (אתה)',
-            amount: 400,
+            amount: 240,
             date: 'היום, 13:45',
-            status: 'הצעה מובילה להשכרה 🔥',
+            status: 'הצעה מובילה 🔥',
+            imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
             isMyBid: true
         },
         {
             id: 'off-103',
             articleId: 'rent-3',
-            articleTitle: 'אופניים חשמליים Ninebot MAX G30 (השכרה חודשית)',
+            articleTitle: 'אייפון iPhone 15 Pro Max 512GB Titanium',
             bidder: 'יונתן ש.',
-            amount: 1350,
+            amount: 110,
             date: 'אתמול, 19:10',
-            status: 'הצעה מובילה להשכרה 🔥',
+            status: 'הצעה מובילה 🔥',
+            imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80',
             isMyBid: false
         },
         {
             id: 'off-104',
-            articleId: 'rent-5',
-            articleTitle: 'אוהל קמפינג משפחתי ל-8 נפשות + מזרנים לסופ״ש',
+            articleId: 'rent-4',
+            articleTitle: 'קונסולת Xbox Series X + 2 שלטים ו-5 משחקים',
             bidder: 'אורח (אתה)',
-            amount: 220,
+            amount: 130,
             date: 'אתמול, 17:30',
-            status: 'הצעה נמוכה יותר',
+            status: 'הצעה מובילה 🔥',
+            imageUrl: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&w=800&q=80',
             isMyBid: true
         }
     ];
 }
 
+// Render Modern Grid Box Bids Cards ("ריבועים מסודרים" - Matches Screenshot)
 function renderBidsFeed() {
     if (!bidsFeedList) return;
 
@@ -106,6 +111,7 @@ function renderBidsFeed() {
     }
 
     if (filtered.length === 0) {
+        bidsFeedList.className = "";
         bidsFeedList.innerHTML = `
             <div class="empty-state">
                 <i class="fa-solid fa-gavel fa-3x"></i>
@@ -116,34 +122,45 @@ function renderBidsFeed() {
         return;
     }
 
-    bidsFeedList.innerHTML = filtered.map(bid => `
-        <div class="bid-card-item">
-            <div class="bid-card-header">
-                <div>
-                    <h3 class="bid-item-title">${bid.articleTitle}</h3>
-                    <span class="bid-status-pill">${bid.status}</span>
-                </div>
-                <div class="bid-amount-tag">₪ ${bid.amount.toLocaleString('he-IL')} / ליום</div>
-            </div>
-            
-            <div class="bid-card-body">
-                <div class="bid-meta-info">
-                    <span><i class="fa-regular fa-user"></i> מציע: <strong>${bid.bidder}</strong></span>
-                    <span>•</span>
-                    <span><i class="fa-regular fa-clock"></i> ${bid.date}</span>
-                </div>
+    bidsFeedList.className = "bids-grid-2col";
+    bidsFeedList.innerHTML = filtered.map(bid => {
+        const image = bid.imageUrl || 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80';
+        return `
+            <div class="grid-card-box">
                 
-                <div class="bid-card-actions">
-                    <button class="btn btn-primary" onclick="outbidItem('${bid.id}', '${bid.articleId}', '${escapeQuote(bid.articleTitle)}', ${bid.amount})">
-                        <i class="fa-solid fa-arrow-up"></i> הגש הצעה (+₪50)
-                    </button>
-                    <a href="article.html?id=${bid.articleId}" class="btn btn-outline">
-                        <i class="fa-solid fa-eye"></i> צפה במוצר
-                    </a>
+                <!-- Top Image & Badges -->
+                <div class="grid-card-image-wrapper">
+                    <img src="${image}" alt="${bid.articleTitle}">
+                    <span class="grid-badge-tag">${bid.status}</span>
+                    <div class="grid-heart-btn ${bid.isMyBid ? 'active' : ''}" onclick="event.stopPropagation(); showToast('המוצר נשמר במועדפים ❤️')" title="שמור במועדפים">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
                 </div>
+
+                <!-- Card Content Body -->
+                <div class="grid-card-body">
+                    <div class="grid-price-tag">
+                        ₪${bid.amount.toLocaleString('he-IL')} 
+                        <span style="font-size:0.95rem; color:var(--yad2-pink); font-weight:800;">/ ליום</span>
+                    </div>
+
+                    <h3 class="grid-title-text">${bid.articleTitle}</h3>
+                    <p class="grid-subtitle-text"><i class="fa-regular fa-user"></i> מציע: <strong>${bid.bidder}</strong> • ${bid.date}</p>
+
+                    <div class="grid-spec-pills">
+                        <span class="grid-pill-item">הצעה בלייב</span>
+                        <span class="grid-pill-item">זמין להשכרה</span>
+                        <span class="grid-pill-item">ערבות מוגנת</span>
+                    </div>
+
+                    <button class="grid-action-btn" onclick="outbidItem('${bid.id}', '${bid.articleId}', '${escapeQuote(bid.articleTitle)}', ${bid.amount})">
+                        <i class="fa-solid fa-gavel"></i> הגש הצעה גבוהה יותר (+₪50)
+                    </button>
+                </div>
+
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function outbidItem(bidId, articleId, articleTitle, currentAmount) {
@@ -154,7 +171,6 @@ function outbidItem(bidId, articleId, articleTitle, currentAmount) {
         return;
     }
 
-    // Deduct token fee and update
     userBalance -= 20;
     localStorage.setItem('news_user_balance', userBalance.toString());
     updateBalanceDisplays();
@@ -166,7 +182,8 @@ function outbidItem(bidId, articleId, articleTitle, currentAmount) {
         bidder: 'אורח (אתה)',
         amount: newAmount,
         date: 'כרגע',
-        status: 'הצעה מובילה להשכרה 🔥',
+        status: 'הצעה מובילה 🔥',
+        imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
         isMyBid: true
     };
 
