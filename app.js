@@ -62,34 +62,54 @@ let state = {
     subscription: null
 };
 
-// DOM Elements
+// DOM Elements Container (Updated dynamically)
 const elements = {
-    top3Grid: document.getElementById('top3Grid'),
-    articlesList: document.getElementById('articlesList'),
-    emptyState: document.getElementById('emptyState'),
-    sectionTitle: document.getElementById('sectionTitle'),
-    resultsCount: document.getElementById('resultsCount'),
-    searchInput: document.getElementById('searchInput'),
-    categoryBtns: document.querySelectorAll('.category-btn'),
-    themeToggle: document.getElementById('themeToggle'),
-    bookmarksBtn: document.getElementById('bookmarksBtn'),
-    favBtnLabel: document.getElementById('favBtnLabel'),
-    userBalanceDisplay: document.getElementById('userBalanceDisplay'),
-    subscriptionModal: document.getElementById('subscriptionModal'),
-    guestUserText: document.getElementById('guestUserText'),
-    priceTrendsList: document.getElementById('priceTrendsList'),
-    favBottomSheet: document.getElementById('favBottomSheet'),
-    favBottomSheetOverlay: document.getElementById('favBottomSheetOverlay'),
-    favInventoryGrid: document.getElementById('favInventoryGrid'),
-    favSheetCount: document.getElementById('favSheetCount'),
-    
-    // Toast
-    toast: document.getElementById('toast'),
-    toastMessage: document.getElementById('toastMessage')
+    top3Grid: null,
+    articlesList: null,
+    emptyState: null,
+    sectionTitle: null,
+    resultsCount: null,
+    searchInput: null,
+    categoryBtns: null,
+    themeToggle: null,
+    favBtnLabel: null,
+    userBalanceDisplay: null,
+    subscriptionModal: null,
+    guestUserText: null,
+    priceTrendsList: null,
+    favBottomSheet: null,
+    favBottomSheetOverlay: null,
+    favInventoryGrid: null,
+    favSheetCount: null,
+    toast: null,
+    toastMessage: null
 };
+
+function bindDOMElements() {
+    elements.top3Grid = document.getElementById('top3Grid');
+    elements.articlesList = document.getElementById('articlesList');
+    elements.emptyState = document.getElementById('emptyState');
+    elements.sectionTitle = document.getElementById('sectionTitle');
+    elements.resultsCount = document.getElementById('resultsCount');
+    elements.searchInput = document.getElementById('searchInput');
+    elements.categoryBtns = document.querySelectorAll('.category-btn');
+    elements.themeToggle = document.getElementById('themeToggle');
+    elements.favBtnLabel = document.getElementById('favBtnLabel');
+    elements.userBalanceDisplay = document.getElementById('userBalanceDisplay');
+    elements.subscriptionModal = document.getElementById('subscriptionModal');
+    elements.guestUserText = document.getElementById('guestUserText');
+    elements.priceTrendsList = document.getElementById('priceTrendsList');
+    elements.favBottomSheet = document.getElementById('favBottomSheet');
+    elements.favBottomSheetOverlay = document.getElementById('favBottomSheetOverlay');
+    elements.favInventoryGrid = document.getElementById('favInventoryGrid');
+    elements.favSheetCount = document.getElementById('favSheetCount');
+    elements.toast = document.getElementById('toast');
+    elements.toastMessage = document.getElementById('toastMessage');
+}
 
 // Initialize Application
 async function initApp() {
+    bindDOMElements();
     loadArticlesSync();
     setupEventListeners();
     renderApp();
@@ -175,15 +195,13 @@ async function loadStateFromStorage() {
 
 // Monthly Subscription Logic
 function openSubscriptionModal() {
-    if (elements.subscriptionModal) {
-        elements.subscriptionModal.classList.remove('hidden');
-    }
+    const modal = document.getElementById('subscriptionModal');
+    if (modal) modal.classList.remove('hidden');
 }
 
 function closeSubscriptionModal() {
-    if (elements.subscriptionModal) {
-        elements.subscriptionModal.classList.add('hidden');
-    }
+    const modal = document.getElementById('subscriptionModal');
+    if (modal) modal.classList.add('hidden');
 }
 
 function subscribePlan(planName, price, bonusWallet) {
@@ -215,16 +233,21 @@ function subscribePlan(planName, price, bonusWallet) {
 
 /* =========================================================
    BOTTOM DARK FAVORITES SHEET LOGIC ("חלון שחור מלמטה עם ריבועים")
+   Direct DOM references ensure 100% reliability on click!
    ========================================================= */
 function openFavoritesSheet() {
     renderFavoritesSheet();
-    if (elements.favBottomSheet) elements.favBottomSheet.classList.add('active');
-    if (elements.favBottomSheetOverlay) elements.favBottomSheetOverlay.classList.add('active');
+    const sheet = document.getElementById('favBottomSheet');
+    const overlay = document.getElementById('favBottomSheetOverlay');
+    if (sheet) sheet.classList.add('active');
+    if (overlay) overlay.classList.add('active');
 }
 
 function closeFavoritesSheet() {
-    if (elements.favBottomSheet) elements.favBottomSheet.classList.remove('active');
-    if (elements.favBottomSheetOverlay) elements.favBottomSheetOverlay.classList.remove('active');
+    const sheet = document.getElementById('favBottomSheet');
+    const overlay = document.getElementById('favBottomSheetOverlay');
+    if (sheet) sheet.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
 }
 
 function renderFavoritesSheet() {
@@ -261,6 +284,13 @@ function renderFavoritesSheet() {
         </div>
     `).join('');
 }
+
+// Expose globally for inline onclick attributes
+window.openFavoritesSheet = openFavoritesSheet;
+window.closeFavoritesSheet = closeFavoritesSheet;
+window.openSubscriptionModal = openSubscriptionModal;
+window.closeSubscriptionModal = closeSubscriptionModal;
+window.subscribePlan = subscribePlan;
 
 function filterByCategory(cat) {
     state.activeCategory = cat;
@@ -380,6 +410,7 @@ function renderApp() {
 
 // Render Top 3 Featured Rental Items Grid
 function renderTop3Grid(articles) {
+    if (!elements.top3Grid) return;
     elements.top3Grid.innerHTML = articles.map(article => `
         <div class="top3-card" onclick="openArticleModal('${article.id}')">
             <img src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}">
@@ -393,6 +424,7 @@ function renderTop3Grid(articles) {
 
 // Render Symmetrical Yad2 Rental Listing Row Items
 function renderArticlesList(articles) {
+    if (!elements.articlesList) return;
     elements.articlesList.innerHTML = articles.map((article) => {
         const rentalPeriod = article.rentalPeriod || (`₪ ${article.price || 150} / ליום`);
         const rentalDates = article.rentalDates || 'זמין להשכרה מיידית';
@@ -457,10 +489,6 @@ function setupEventListeners() {
                 btn.classList.add('active');
                 state.activeCategory = btn.dataset.category || 'all';
                 state.showBookmarksOnly = false;
-                if (elements.bookmarksBtn) {
-                    elements.bookmarksBtn.classList.remove('btn-primary');
-                    elements.bookmarksBtn.classList.add('btn-outline');
-                }
                 renderApp();
             });
         });
@@ -489,11 +517,13 @@ function openArticleModal(id) {
 
 // Toast Notification Helper
 function showToast(message) {
-    if (!elements.toastMessage || !elements.toast) return;
-    elements.toastMessage.textContent = message;
-    elements.toast.classList.remove('hidden');
+    const toastElem = document.getElementById('toast');
+    const toastMsgElem = document.getElementById('toastMessage');
+    if (!toastMsgElem || !toastElem) return;
+    toastMsgElem.textContent = message;
+    toastElem.classList.remove('hidden');
     setTimeout(() => {
-        elements.toast.classList.add('hidden');
+        toastElem.classList.add('hidden');
     }, 3000);
 }
 
