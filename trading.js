@@ -1,215 +1,175 @@
-// Default Initial Bids if empty
-const INITIAL_OFFERS = [
-    {
-        id: "off-101",
-        articleId: "art-1",
-        articleTitle: "אנבידיה מציגה את טכנולוגיית הזיכרון NVHBM עם 30% יותר רוחב פס",
-        bidder: "ישראל ישראלי",
-        amount: 3200,
-        date: new Date(Date.now() - 3600000).toISOString(),
-        status: "הצעה מובילה 🔥"
-    },
-    {
-        id: "off-102",
-        articleId: "art-2",
-        articleTitle: "סמסונג מציגה את כונני ה-SSD החיצוניים P9 ו-P7 במהירות 4,000MB/s",
-        bidder: "דני כהן",
-        amount: 1450,
-        date: new Date(Date.now() - 7200000).toISOString(),
-        status: "הצעה מובילה 🔥"
-    },
-    {
-        id: "off-103",
-        articleId: "art-3",
-        articleTitle: "גוגל משדרגת את Gemini Live עם ביצוע משימות קוליות",
-        bidder: "מיכל אברהם",
-        amount: 2800,
-        date: new Date(Date.now() - 14400000).toISOString(),
-        status: "הצעה מובילה 🔥"
-    }
-];
-
 let userBalance = 50000;
 let offers = [];
-let articles = [];
 let activeFilter = 'all';
-let darkMode = false;
 
 // DOM Elements
 const userBalanceDisplay = document.getElementById('userBalanceDisplay');
 const heroBalanceText = document.getElementById('heroBalanceText');
 const bidsFeedList = document.getElementById('bidsFeedList');
+const filterAllBids = document.getElementById('filterAllBids');
+const filterMyBids = document.getElementById('filterMyBids');
 const themeToggle = document.getElementById('themeToggle');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
 
-// Init Trading Page
-async function initTradingPage() {
+function initTradingPage() {
     setupTheme();
     loadBalance();
-    await loadArticlesAndOffers();
+    loadOffers();
     renderBidsFeed();
-}
-
-function setupTheme() {
-    darkMode = localStorage.getItem('news_theme') === 'dark';
-    applyTheme();
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            darkMode = !darkMode;
-            localStorage.setItem('news_theme', darkMode ? 'dark' : 'light');
-            applyTheme();
-        });
-    }
-}
-
-function applyTheme() {
-    if (darkMode) {
-        document.body.classList.add('dark-theme');
-        if (themeToggle) themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
-    } else {
-        document.body.classList.remove('dark-theme');
-        if (themeToggle) themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
-    }
+    setupEventListeners();
 }
 
 function loadBalance() {
     const saved = localStorage.getItem('news_user_balance');
-    if (saved !== null) {
-        userBalance = parseInt(saved, 10);
-    } else {
-        userBalance = 50000;
-        localStorage.setItem('news_user_balance', '50000');
-    }
-    updateBalanceDisplay();
+    userBalance = saved ? parseInt(saved, 10) : 50000;
+    updateBalanceDisplays();
 }
 
-function updateBalanceDisplay() {
-    const formatted = '₪ ' + userBalance.toLocaleString('he-IL');
-    if (userBalanceDisplay) userBalanceDisplay.textContent = formatted;
-    if (heroBalanceText) heroBalanceText.textContent = formatted;
+function updateBalanceDisplays() {
+    if (userBalanceDisplay) userBalanceDisplay.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
+    if (heroBalanceText) heroBalanceText.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
 }
 
 function addFunds() {
     userBalance += 10000;
     localStorage.setItem('news_user_balance', userBalance.toString());
-    updateBalanceDisplay();
-    showToast('נטענו ₪10,000 בהצלחה לארנק שלך! 💰');
+    updateBalanceDisplays();
+    showToast('יתרת הארנק שלך עודכנה ב-+₪10,000! 💰');
 }
 
-async function loadArticlesAndOffers() {
-    try {
-        const response = await fetch('articles.json?t=' + Date.now());
-        if (response.ok) {
-            articles = await response.json();
-        }
-    } catch (e) {
-        articles = [];
-    }
-
-    const savedOffers = localStorage.getItem('news_offers');
-    if (savedOffers) {
+function loadOffers() {
+    const saved = localStorage.getItem('news_offers');
+    if (saved) {
         try {
-            offers = JSON.parse(savedOffers);
+            offers = JSON.parse(saved);
         } catch (e) {
-            offers = [...INITIAL_OFFERS];
+            offers = getInitialRentalOffers();
         }
     } else {
-        offers = [...INITIAL_OFFERS];
+        offers = getInitialRentalOffers();
         localStorage.setItem('news_offers', JSON.stringify(offers));
     }
 }
 
-function filterBids(mode) {
-    activeFilter = mode;
-    document.getElementById('filterAllBids').classList.toggle('active', mode === 'all');
-    document.getElementById('filterAllBids').classList.toggle('btn-primary', mode === 'all');
-    document.getElementById('filterAllBids').classList.toggle('btn-outline', mode !== 'all');
-
-    document.getElementById('filterMyBids').classList.toggle('active', mode === 'my');
-    document.getElementById('filterMyBids').classList.toggle('btn-primary', mode === 'my');
-    document.getElementById('filterMyBids').classList.toggle('btn-outline', mode !== 'my');
-
-    renderBidsFeed();
+function getInitialRentalOffers() {
+    return [
+        {
+            id: 'off-101',
+            articleId: 'rent-1',
+            articleTitle: 'מצלמת Sony A7 IV + עדשת 24-70mm f/2.8 GM',
+            bidder: 'מיכאל א.',
+            amount: 300,
+            date: 'היום, 14:20',
+            status: 'הצעה מובילה להשכרה 🔥',
+            isMyBid: false
+        },
+        {
+            id: 'off-102',
+            articleId: 'rent-2',
+            articleTitle: 'מקרן 4K עוצמתי 5000 Lumens + מסך 120 אינץ׳',
+            bidder: 'אורח (אתה)',
+            amount: 400,
+            date: 'היום, 13:45',
+            status: 'הצעה מובילה להשכרה 🔥',
+            isMyBid: true
+        },
+        {
+            id: 'off-103',
+            articleId: 'rent-3',
+            articleTitle: 'אופניים חשמליים Ninebot MAX G30 (השכרה חודשית)',
+            bidder: 'יונתן ש.',
+            amount: 1350,
+            date: 'אתמול, 19:10',
+            status: 'הצעה מובילה להשכרה 🔥',
+            isMyBid: false
+        },
+        {
+            id: 'off-104',
+            articleId: 'rent-5',
+            articleTitle: 'אוהל קמפינג משפחתי ל-8 נפשות + מזרנים לסופ״ש',
+            bidder: 'אורח (אתה)',
+            amount: 220,
+            date: 'אתמול, 17:30',
+            status: 'הצעה נמוכה יותר',
+            isMyBid: true
+        }
+    ];
 }
 
 function renderBidsFeed() {
     if (!bidsFeedList) return;
 
-    let itemsToDisplay = offers;
+    let filtered = offers;
     if (activeFilter === 'my') {
-        itemsToDisplay = offers.filter(o => o.bidder.includes('אתה') || o.isMyBid);
+        filtered = offers.filter(o => o.isMyBid);
     }
 
-    if (itemsToDisplay.length === 0) {
+    if (filtered.length === 0) {
         bidsFeedList.innerHTML = `
             <div class="empty-state">
                 <i class="fa-solid fa-gavel fa-3x"></i>
-                <h3>אין הצעות מחיר להצגה</h3>
-                <p>היה הראשון להציע מחיר על מודעות וכתבות באתר!</p>
-                <a href="index.html" class="btn btn-primary" style="margin-top:15px;">למעבר למודעות</a>
+                <h3>אין הצעות להצגה בקטגוריה זו</h3>
+                <p>היכנס למוצרים להשכרה והגש את הצעת המחיר הראשונה שלך!</p>
             </div>
         `;
         return;
     }
 
-    bidsFeedList.innerHTML = itemsToDisplay.map(offer => {
-        const timeAgo = formatTimeAgo(offer.date);
-        const amountFormatted = '₪ ' + offer.amount.toLocaleString('he-IL');
-
-        return `
-            <div class="bid-card-item">
-                <div class="bid-card-header">
-                    <span class="bid-item-title">${offer.articleTitle}</span>
-                    <span class="bid-amount-tag">${amountFormatted}</span>
+    bidsFeedList.innerHTML = filtered.map(bid => `
+        <div class="bid-card-item">
+            <div class="bid-card-header">
+                <div>
+                    <h3 class="bid-item-title">${bid.articleTitle}</h3>
+                    <span class="bid-status-pill">${bid.status}</span>
                 </div>
-                <div class="bid-card-body">
-                    <div class="bid-meta-info">
-                        <span><i class="fa-solid fa-user"></i> מציע: <strong>${offer.bidder}</strong></span>
-                        <span>•</span>
-                        <span><i class="fa-regular fa-clock"></i> ${timeAgo}</span>
-                        <span>•</span>
-                        <span class="bid-status-pill">${offer.status || 'הצעה פעילה'}</span>
-                    </div>
-                    <div class="bid-card-actions">
-                        <button class="btn btn-primary" onclick="quickOutbid('${offer.articleId}', '${escapeQuote(offer.articleTitle)}', ${offer.amount})">
-                            <i class="fa-solid fa-plus-circle"></i> הגש הצעה גבוהה יותר (+₪100)
-                        </button>
-                        <a href="article.html?id=${offer.articleId}" class="btn btn-outline">
-                            <span>צפה במודעה</span>
-                            <i class="fa-solid fa-arrow-left"></i>
-                        </a>
-                    </div>
+                <div class="bid-amount-tag">₪ ${bid.amount.toLocaleString('he-IL')} / ליום</div>
+            </div>
+            
+            <div class="bid-card-body">
+                <div class="bid-meta-info">
+                    <span><i class="fa-regular fa-user"></i> מציע: <strong>${bid.bidder}</strong></span>
+                    <span>•</span>
+                    <span><i class="fa-regular fa-clock"></i> ${bid.date}</span>
+                </div>
+                
+                <div class="bid-card-actions">
+                    <button class="btn btn-primary" onclick="outbidItem('${bid.id}', '${bid.articleId}', '${escapeQuote(bid.articleTitle)}', ${bid.amount})">
+                        <i class="fa-solid fa-arrow-up"></i> הגש הצעה (+₪50)
+                    </button>
+                    <a href="article.html?id=${bid.articleId}" class="btn btn-outline">
+                        <i class="fa-solid fa-eye"></i> צפה במוצר
+                    </a>
                 </div>
             </div>
-        `;
-    }).join('');
+        </div>
+    `).join('');
 }
 
-function quickOutbid(articleId, articleTitle, currentAmount) {
-    const newBidAmount = currentAmount + 100;
+function outbidItem(bidId, articleId, articleTitle, currentAmount) {
+    const newAmount = currentAmount + 50;
 
-    if (userBalance < newBidAmount) {
-        showToast('אין לך מספיק יתרה בארנק להציע ₪' + newBidAmount.toLocaleString('he-IL'));
+    if (userBalance < newAmount) {
+        showToast('אין לך מספיק יתרה בארנק להציע ₪' + newAmount.toLocaleString('he-IL'));
         return;
     }
 
-    userBalance -= 100; // Deduct step cost or hold funds
+    // Deduct token fee and update
+    userBalance -= 20;
     localStorage.setItem('news_user_balance', userBalance.toString());
-    updateBalanceDisplay();
+    updateBalanceDisplays();
 
     const newOffer = {
         id: 'off-' + Date.now(),
         articleId: articleId,
         articleTitle: articleTitle,
         bidder: 'אורח (אתה)',
-        amount: newBidAmount,
-        date: new Date().toISOString(),
-        status: 'הצעה מובילה 🔥',
+        amount: newAmount,
+        date: 'כרגע',
+        status: 'הצעה מובילה להשכרה 🔥',
         isMyBid: true
     };
 
-    // Mark previous offers for this article as superseded
     offers.forEach(o => {
         if (o.articleId === articleId) {
             o.status = 'הצעה נמוכה יותר';
@@ -220,11 +180,48 @@ function quickOutbid(articleId, articleTitle, currentAmount) {
     localStorage.setItem('news_offers', JSON.stringify(offers));
 
     renderBidsFeed();
-    showToast('הצעתך על סך ₪' + newBidAmount.toLocaleString('he-IL') + ' הוגשה בהצלחה! 🎉');
+    showToast(`הגשת הצעה חדשה בסך ₪${newAmount.toLocaleString('he-IL')} להשכרת המוצר! 🥳`);
+}
+
+function filterBids(type) {
+    activeFilter = type;
+    if (type === 'all') {
+        filterAllBids.classList.add('btn-primary');
+        filterAllBids.classList.remove('btn-outline');
+        filterMyBids.classList.remove('btn-primary');
+        filterMyBids.classList.add('btn-outline');
+    } else {
+        filterMyBids.classList.add('btn-primary');
+        filterMyBids.classList.remove('btn-outline');
+        filterAllBids.classList.remove('btn-primary');
+        filterAllBids.classList.add('btn-outline');
+    }
+    renderBidsFeed();
 }
 
 function escapeQuote(str) {
     return str.replace(/'/g, "\\'");
+}
+
+function setupTheme() {
+    const darkMode = localStorage.getItem('news_theme') === 'dark';
+    if (darkMode) {
+        document.body.classList.add('dark-theme');
+        if (themeToggle) themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+    } else {
+        document.body.classList.remove('dark-theme');
+        if (themeToggle) themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+}
+
+function setupEventListeners() {
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark-theme');
+            localStorage.setItem('news_theme', isDark ? 'dark' : 'light');
+            themeToggle.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        });
+    }
 }
 
 function showToast(message) {
@@ -234,20 +231,6 @@ function showToast(message) {
     setTimeout(() => {
         toast.classList.add('hidden');
     }, 3000);
-}
-
-function formatTimeAgo(dateString) {
-    try {
-        const diff = Date.now() - new Date(dateString).getTime();
-        const mins = Math.floor(diff / 60000);
-        if (mins < 1) return 'ממש עכשיו';
-        if (mins < 60) return `לפני ${mins} דקות`;
-        const hours = Math.floor(mins / 60);
-        if (hours < 24) return `לפני ${hours} שעות`;
-        return `לפני ${Math.floor(hours / 24)} ימים`;
-    } catch (e) {
-        return dateString;
-    }
 }
 
 document.addEventListener('DOMContentLoaded', initTradingPage);

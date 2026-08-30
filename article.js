@@ -1,10 +1,12 @@
 // Fallback images per category
 const CATEGORY_IMAGES = {
     "ארץ": "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=800&q=80",
-    "טכנולוגיה": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    "כלכלה": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
-    "ספורט": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=80",
-    "תרבות": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80"
+    "ציוד צילום": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80",
+    "ציוד לאירועים": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80",
+    "כלי תחבורה": "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80",
+    "כלי עבודה": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+    "ציוד קמפינג": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80",
+    "טכנולוגיה": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
 };
 
 let articles = [];
@@ -42,7 +44,7 @@ function initArticlePage() {
     }
 
     if (currentArticle) {
-        document.title = `${currentArticle.title} | yhsh`;
+        document.title = `${currentArticle.title} | yhsh להשכרה`;
         renderFullArticle(currentArticle);
         renderRelatedArticles(currentArticle);
     } else {
@@ -149,21 +151,22 @@ function renderNotFound() {
     articlePageContainer.innerHTML = `
         <div class="empty-state">
             <i class="fa-solid fa-triangle-exclamation fa-3x"></i>
-            <h3>הכתבה/המודעה לא נמצאה</h3>
+            <h3>המוצר להשכרה לא נמצא</h3>
             <a href="index.html" class="btn btn-primary" style="margin-top:15px;">חזרה לדף הבית</a>
         </div>
     `;
 }
 
-// Render Article Details Page with Bidding Section
+// Render Article / Rental Product Details Page
 function renderFullArticle(article) {
     const isBookmarked = bookmarks.includes(article.id);
     const likeCount = likes[article.id] || 0;
-    const formattedDate = formatDate(article.date);
+    const rentalPeriod = article.rentalPeriod || (`₪ ${article.price || 150} / ליום`);
+    const rentalDates = article.rentalDates || 'זמין להשכרה מיידית';
 
-    // Get highest bid for this article
+    // Get highest bid for this item
     const articleBids = offers.filter(o => o.articleId === article.id);
-    const highestBid = articleBids.length > 0 ? Math.max(...articleBids.map(b => b.amount)) : 1000;
+    const highestBid = articleBids.length > 0 ? Math.max(...articleBids.map(b => b.amount)) : (article.price || 150);
 
     articlePageContainer.innerHTML = `
         <div class="article-page-header">
@@ -171,21 +174,21 @@ function renderFullArticle(article) {
             <h1 class="article-page-title">${article.title}</h1>
             
             <div class="article-page-meta">
-                <span class="meta-author">מאת: <strong style="color:var(--yad2-orange);">${article.author}</strong></span>
+                <span class="meta-author"><i class="fa-solid fa-location-dot" style="color:var(--yad2-pink);"></i> המשכיר: <strong style="color:var(--yad2-pink);">${article.author}</strong></span>
                 <span>•</span>
-                <span><i class="fa-regular fa-calendar"></i> ${formattedDate}</span>
+                <span><i class="fa-regular fa-calendar-check"></i> ${rentalDates}</span>
                 <span>•</span>
-                <span><i class="fa-regular fa-clock"></i> ${article.readTime || '3 דקות קריאה'}</span>
+                <span style="font-weight:900; color:var(--yad2-pink);"><i class="fa-solid fa-tag"></i> ${rentalPeriod}</span>
             </div>
         </div>
 
         <div class="article-page-image-wrapper">
-            <img class="article-page-image" src="${article.imageUrl || CATEGORY_IMAGES[article.category]}" alt="${article.title}">
+            <img class="article-page-image" src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['טכנולוגיה']}" alt="${article.title}">
         </div>
 
         <div class="article-page-summary-box">
-            <span class="row-star">⭐</span>
-            <p><strong>תקציר:</strong> ${article.summary}</p>
+            <span class="row-star">🔑</span>
+            <p><strong>טווח ומחירי השכרה:</strong> ${rentalPeriod} | ${rentalDates}</p>
         </div>
         
         <div class="article-page-content">
@@ -195,10 +198,10 @@ function renderFullArticle(article) {
         <!-- Yad2 Bidding & Trading Section -->
         <div class="article-bidding-widget">
             <div class="bidding-header">
-                <i class="fa-solid fa-gavel fa-2x" style="color:var(--yad2-orange);"></i>
+                <i class="fa-solid fa-gavel fa-2x" style="color:var(--yad2-pink);"></i>
                 <div>
-                    <h3>מסחר והצעות מחיר במודעה זו</h3>
-                    <p>ארנק המסחר שלך: <strong>₪ ${userBalance.toLocaleString('he-IL')}</strong> | הגש הצעה ותתחרה בלייב!</p>
+                    <h3>הגש הצעת מחיר להשכרה בלייב</h3>
+                    <p>ארנק המסחר שלך: <strong>₪ ${userBalance.toLocaleString('he-IL')}</strong> | הגש הצעה והתחרה על המוצר!</p>
                 </div>
             </div>
             <div class="bidding-body">
@@ -207,9 +210,9 @@ function renderFullArticle(article) {
                     <strong id="articleHighestBid">₪ ${highestBid.toLocaleString('he-IL')}</strong>
                 </div>
                 <div class="bid-input-group">
-                    <input type="number" id="userBidInput" placeholder="הכנס סכום ב-₪ (למשל: ${highestBid + 100})" step="50">
+                    <input type="number" id="userBidInput" placeholder="סכום הצעה ב-₪ (למשל: ${highestBid + 50})" step="10">
                     <button class="btn btn-primary" onclick="submitBidFromArticle('${article.id}', '${escapeQuote(article.title)}', ${highestBid})">
-                        <i class="fa-solid fa-gavel"></i> הגש הצעת מחיר
+                        <i class="fa-solid fa-gavel"></i> הגש הצעה
                     </button>
                 </div>
             </div>
@@ -222,7 +225,7 @@ function renderFullArticle(article) {
                     <span id="bookmarkBtnText">${isBookmarked ? 'שמור במועדפים' : 'הוסף למועדפים'}</span>
                 </button>
                 <button class="btn btn-outline" onclick="likeCurrentArticle('${article.id}')">
-                    <i class="fa-solid fa-thumbs-up"></i>
+                    <i class="fa-solid fa-heart"></i>
                     <span id="likeCountText">פרגן בלייק (${likeCount})</span>
                 </button>
                 <a href="trading.html" class="btn btn-outline">
@@ -233,7 +236,7 @@ function renderFullArticle(article) {
             
             <a href="index.html" class="btn btn-outline">
                 <i class="fa-solid fa-arrow-right"></i>
-                <span>חזרה לחדשות</span>
+                <span>חזרה ללוח ההשכרות</span>
             </a>
         </div>
     `;
@@ -258,7 +261,7 @@ function submitBidFromArticle(articleId, articleTitle, currentHighest) {
     }
 
     // Process bid
-    userBalance -= 100;
+    userBalance -= 50;
     localStorage.setItem('news_user_balance', userBalance.toString());
 
     const newOffer = {
@@ -285,7 +288,7 @@ function submitBidFromArticle(articleId, articleTitle, currentHighest) {
     const highestElem = document.getElementById('articleHighestBid');
     if (highestElem) highestElem.textContent = '₪ ' + bidAmount.toLocaleString('he-IL');
 
-    showToast('הצעתך בסך ₪' + bidAmount.toLocaleString('he-IL') + ' הוגשה בהצלחה! 🥳');
+    showToast('הצעתך להשכרה בסך ₪' + bidAmount.toLocaleString('he-IL') + ' הוגשה בהצלחה! 🥳');
 }
 
 function escapeQuote(str) {
@@ -296,8 +299,9 @@ function renderRelatedArticles(current) {
     const related = articles.filter(a => a.id !== current.id).slice(0, 3);
     relatedGrid.innerHTML = related.map(art => `
         <div class="top3-card" onclick="window.location.href='article.html?id=${art.id}'">
-            <img src="${art.imageUrl || CATEGORY_IMAGES[art.category]}" alt="${art.title}">
+            <img src="${art.imageUrl || CATEGORY_IMAGES[art.category] || CATEGORY_IMAGES['טכנולוגיה']}" alt="${art.title}">
             <div class="top3-overlay">
+                <div style="font-size:0.8rem; color:var(--yad2-pink); font-weight:800;">${art.rentalPeriod || 'להשכרה'}</div>
                 ${art.title}
             </div>
         </div>
@@ -316,10 +320,10 @@ function toggleBookmark(id) {
     const index = bookmarks.indexOf(id);
     if (index > -1) {
         bookmarks.splice(index, 1);
-        showToast('הכתבה הוסרה מהמועדפים');
+        showToast('המוצר הוסר מהמועדפים');
     } else {
         bookmarks.push(id);
-        showToast('הכתבה נשמרה במועדפים!');
+        showToast('המוצר נשמר במועדפים!');
     }
     localStorage.setItem('news_bookmarks', JSON.stringify(bookmarks));
     

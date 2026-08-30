@@ -1,18 +1,20 @@
 // Fallback images per category
 const CATEGORY_IMAGES = {
     "ארץ": "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=800&q=80",
-    "טכנולוגיה": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    "כלכלה": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
-    "ספורט": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=80",
-    "תרבות": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80"
+    "ציוד צילום": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80",
+    "ציוד לאירועים": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80",
+    "כלי תחבורה": "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80",
+    "כלי עבודה": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+    "ציוד קמפינג": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80",
+    "טכנולוגיה": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
 };
 
-// Initial Ticker Items
+// Ticker Items for Rental Equipment
 const TICKER_ITEMS = [
-    { time: "14:50", text: 'אנבידיה מציגה את טכנולוגיית הזיכרון NVHBM עם 30% יותר רוחב פס' },
-    { time: "13:33", text: 'סמסונג מציגה את כונני ה-SSD החיצוניים P9 ו-P7 במהירות 4,000MB/s' },
-    { time: "12:02", text: 'גוגל משדרגת את Gemini Live עם ביצוע משימות קוליות' },
-    { time: "11:15", text: 'גרמין משיקה את סדרת שעוני ה-fēnix 9 בהחל מ-4,399 ש"ח' }
+    { time: "14:50", text: 'מצלמת Sony A7 IV הועלתה להשכרה ב-₪250 ליום בתל אביב' },
+    { time: "13:33", text: 'ערכת מקרן 4K ומסך 120 אינץ׳ זמינים להשכרה מיידית ברמת גן' },
+    { time: "12:02", text: 'אופניים חשמליים Ninebot MAX זמינים להשכרה חודשית ב-₪1,200' },
+    { time: "11:15", text: 'אוהל קמפינג משפחתי ל-8 אנשים זמין לסופ״ש הקרוב ב-₪180' }
 ];
 
 // Application State
@@ -88,7 +90,7 @@ function loadArticlesSync() {
     try {
         state.likes = JSON.parse(localStorage.getItem('news_likes') || '{}');
     } catch (e) {
-        state.likes = { "art-1": 14, "art-2": 9, "art-3": 7, "art-4": 5, "art-5": 3 };
+        state.likes = { "rent-1": 24, "rent-2": 19, "rent-3": 15, "rent-4": 12, "rent-5": 8 };
     }
 
     const savedBal = localStorage.getItem('news_user_balance');
@@ -179,7 +181,7 @@ function renderTicker() {
 function renderApp() {
     if (elements.bookmarkCount) elements.bookmarkCount.textContent = state.bookmarks.length;
 
-    // Filter Articles
+    // Filter Articles / Rental Items
     let filtered = state.articles.filter(article => {
         const matchesCategory = state.activeCategory === 'all' || article.category === state.activeCategory;
         
@@ -198,17 +200,17 @@ function renderApp() {
     // Update Section Title & Count
     if (elements.sectionTitle) {
         if (state.showBookmarksOnly) {
-            elements.sectionTitle.textContent = 'מודעות שמורות במועדפים';
+            elements.sectionTitle.textContent = 'מוצרים ששמרת במועדפים';
         } else if (state.searchQuery) {
             elements.sectionTitle.textContent = `תוצאות חיפוש עבור: "${state.searchQuery}"`;
         } else if (state.activeCategory !== 'all') {
-            elements.sectionTitle.textContent = `מודעות בקטגוריית ${state.activeCategory}`;
+            elements.sectionTitle.textContent = `מוצרים להשכרה בקטגוריית ${state.activeCategory}`;
         } else {
-            elements.sectionTitle.textContent = 'מודעות וכתבות אחרונות';
+            elements.sectionTitle.textContent = 'מוצרים וציוד להשכרה מפרטיים';
         }
     }
 
-    if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מודעות`;
+    if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מוצרים להשכרה`;
 
     // Render Top 3 Featured Grid
     const showTop3 = state.activeCategory === 'all' && !state.searchQuery && !state.showBookmarksOnly && filtered.length >= 3;
@@ -226,7 +228,7 @@ function renderApp() {
         }
     }
 
-    // Render Symmetrical Yad2 Listings List
+    // Render Rental Listing Cards
     if (elements.articlesList) {
         if (rowArticles.length === 0 && (!showTop3 || filtered.length === 0)) {
             elements.articlesList.innerHTML = '';
@@ -242,43 +244,33 @@ function renderApp() {
     renderPollWidget();
 }
 
-// Render Top 3 Featured Grid
+// Render Top 3 Featured Rental Items Grid
 function renderTop3Grid(articles) {
     elements.top3Grid.innerHTML = articles.map(article => `
         <div class="top3-card" onclick="openArticleModal('${article.id}')">
-            <img src="${article.imageUrl || CATEGORY_IMAGES[article.category]}" alt="${article.title}">
+            <img src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['טכנולוגיה']}" alt="${article.title}">
             <div class="top3-overlay">
+                <div style="font-size:0.8rem; color:var(--yad2-pink); font-weight:800; margin-bottom:2px;">${article.rentalPeriod || 'להשכרה'}</div>
                 ${article.title}
             </div>
         </div>
     `).join('');
 }
 
-// Render Exact Symmetrical Yad2 Listing Row Items (Matches Screenshot)
+// Render Symmetrical Yad2 Rental Listing Row Items
 function renderArticlesList(articles) {
-    const samplePrices = [108000, 128000, 63275, 220000, 95000, 145000, 88000];
-    const samplePills = [
-        ['היברידי', 'גלגלי מגנזיום', 'בקרת שמירת מרחק'],
-        ['מנוע חזק', 'בקרת שמירת מרחק', 'בהזדמנות'],
-        ['גלגלי מגנזיום', 'בקרת שמירת מרחק', 'נסיעת מבחן'],
-        ['מיכל דלק גדול', 'בקרת שמירת מרחק', 'בקרת שיוט אדפטיבית'],
-        ['אחריות יצרן', 'שמורה מרופא', 'טסט לשנה'],
-        ['זמין במלאי', 'איסוף מיידי', 'אחריות מלאה']
-    ];
-
-    elements.articlesList.innerHTML = articles.map((article, idx) => {
-        const timeFormatted = formatTimeOrDate(article.date);
-        const priceNum = article.price || samplePrices[idx % samplePrices.length];
-        const priceFormatted = '₪ ' + priceNum.toLocaleString('he-IL');
+    elements.articlesList.innerHTML = articles.map((article) => {
+        const rentalPeriod = article.rentalPeriod || (`₪ ${article.price || 150} / ליום`);
+        const rentalDates = article.rentalDates || 'זמין להשכרה מיידית';
         const isBookmarked = state.bookmarks.includes(article.id);
-        const pills = article.tags || samplePills[idx % samplePills.length];
+        const pills = article.tags || ['השכרה יומית', 'ציוד שמור', 'איסוף מהיר'];
 
         return `
             <article class="news-row-item" onclick="openArticleModal('${article.id}')">
                 
                 <!-- Right Side Image (240px Fixed) -->
                 <div class="row-image">
-                    <img src="${article.imageUrl || CATEGORY_IMAGES[article.category]}" alt="${article.title}" loading="lazy">
+                    <img src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['טכנולוגיה']}" alt="${article.title}" loading="lazy">
                 </div>
 
                 <!-- Center Details Area -->
@@ -286,19 +278,21 @@ function renderArticlesList(articles) {
                     <h3 class="row-title">${article.title}</h3>
                     <div class="row-subtitle">${article.summary}</div>
                     <div class="row-meta-yad2">
-                        <span>2024 • יד 1 • ${article.author}</span>
+                        <span><i class="fa-solid fa-location-dot" style="color:var(--yad2-pink);"></i> ${article.author}</span>
+                        <span>•</span>
+                        <span><i class="fa-regular fa-calendar-check"></i> ${rentalDates}</span>
                     </div>
                     <div class="row-tags-pills">
                         ${pills.map(p => `<span class="yad2-tag-pill">${p}</span>`).join('')}
                     </div>
                 </div>
 
-                <!-- Left Price & Heart Favorite Area -->
+                <!-- Left Price & Rental Period Tag -->
                 <div class="row-left-yad2">
                     <div class="row-heart-btn ${isBookmarked ? 'active' : ''}" onclick="event.stopPropagation(); toggleBookmarkMain('${article.id}')" title="שמור במועדפים">
                         <i class="${isBookmarked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
                     </div>
-                    <div class="row-price-yad2">${priceFormatted}</div>
+                    <div class="row-price-yad2" style="font-size:1.25rem; text-align:left; color:var(--yad2-pink);">${rentalPeriod}</div>
                 </div>
 
             </article>
@@ -310,16 +304,16 @@ function toggleBookmarkMain(id) {
     const idx = state.bookmarks.indexOf(id);
     if (idx > -1) {
         state.bookmarks.splice(idx, 1);
-        showToast('המודעה הוסרה מהמועדפים');
+        showToast('המוצר הוסר מהמועדפים');
     } else {
         state.bookmarks.push(id);
-        showToast('המודעה נשמרה במועדפים! ❤️');
+        showToast('המוצר נשמר במועדפים! ❤️');
     }
     saveBookmarksToStorage();
     renderApp();
 }
 
-// Render TOP 5 Articles Widget
+// Render TOP 5 Requested Products Widget
 function renderTop5Widget() {
     if (!elements.top5List) return;
 
@@ -334,7 +328,7 @@ function renderTop5Widget() {
                 <span class="top5-number">${num}</span>
                 <span class="top5-title">${article.title}</span>
                 <button class="top5-like-btn" onclick="event.stopPropagation(); likeArticle('${article.id}')">
-                    <i class="fa-solid fa-thumbs-up"></i>
+                    <i class="fa-solid fa-heart"></i>
                     <span>${count}</span>
                 </button>
             </div>
@@ -358,7 +352,7 @@ function renderPollWidget() {
         elements.pollContainer.innerHTML = `
             <p class="poll-question">תודה שהשתתפת בסקר!</p>
             <div style="background:var(--primary-light); padding:10px; border-radius:8px; font-weight:700; color:var(--primary-color);">
-                84% תומכים בפיתוח בינה מלאכותית בישראל 🚀
+                92% מעדיפים להשכיר ציוד במקום לקנות יקר! 🚀
             </div>
         `;
     }

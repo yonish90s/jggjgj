@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yhsh | פורטל המסחר בסגנון יד2 בורוד</title>
+    <title>yhsh | מוצרים וציוד להשכרה בסגנון יד2 בורוד</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,23 +31,23 @@
             <nav class="nav-center-tabs">
                 <button class="nav-tab category-btn active" data-category="all">
                     <i class="fa-solid fa-house"></i>
-                    <span>ראשי</span>
+                    <span>כל הציוד להשכרה</span>
                 </button>
                 <a href="trading.html" class="nav-tab">
                     <i class="fa-solid fa-gavel"></i>
                     <span>עמוד מסחר והצעות</span>
                 </a>
-                <button class="nav-tab category-btn" data-category="נדל״ן">
-                    <span>נדל״ן</span>
+                <button class="nav-tab category-btn" data-category="ציוד צילום">
+                    <span>ציוד צילום</span>
                 </button>
-                <button class="nav-tab category-btn" data-category="רכב">
-                    <span>רכב</span>
+                <button class="nav-tab category-btn" data-category="ציוד לאירועים">
+                    <span>ציוד לאירועים</span>
                 </button>
-                <button class="nav-tab category-btn" data-category="מוצרים">
-                    <span>מוצרים</span>
+                <button class="nav-tab category-btn" data-category="כלי תחבורה">
+                    <span>כלי תחבורה</span>
                 </button>
-                <button class="nav-tab category-btn" data-category="טכנולוגיה">
-                    <span>טכנולוגיה</span>
+                <button class="nav-tab category-btn" data-category="כלי עבודה">
+                    <span>כלי עבודה</span>
                 </button>
             </nav>
 
@@ -61,7 +61,7 @@
 
                 <button class="btn-add-listing-pink" onclick="window.location.href='trading.html'">
                     <i class="fa-solid fa-plus"></i>
-                    <span>פרסום מודעה</span>
+                    <span>פרסום מוצר להשכרה</span>
                 </button>
 
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
@@ -81,11 +81,11 @@
     <!-- Hero AI Search Section (Matches Official Yad2 Screenshot in Pink) -->
     <section class="yad2-hero-ai-section">
         <div class="container">
-            <h1 class="hero-ai-title">חדש! חיפוש AI - לכתוב חופשי, למצוא מהר</h1>
+            <h1 class="hero-ai-title">חדש! חיפוש AI - מוצרים וציוד להשכרה מפרטיים</h1>
             <div class="hero-ai-search-box">
                 <span class="ai-beta-tag">BETA</span>
                 <div class="ai-search-input-wrapper">
-                    <input type="text" id="searchInput" class="ai-search-input" placeholder="מה תרצו לחפש היום? (דירה למכירה, רכב, כונני SSD, בינה מלאכותית)...">
+                    <input type="text" id="searchInput" class="ai-search-input" placeholder="חפש ציוד להשכרה (מצלמה, מקרן, אופניים חשמליים, פטישון, אוהל קמפינג)...">
                     <button class="ai-search-btn" onclick="document.getElementById('searchInput').focus()">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                     </button>
@@ -97,33 +97,33 @@
     <!-- 7 Circular Category Icons Section (Matches Official Yad2 Screenshot) -->
     <section class="yad2-category-circles-section container">
         <div class="category-circles-grid">
-            <div class="category-circle-item" onclick="filterByCategory('ארץ')">
-                <div class="circle-icon-box">🏢</div>
-                <span>דירות חדשות</span>
+            <div class="category-circle-item" onclick="filterByCategory('ציוד צילום')">
+                <div class="circle-icon-box">📷</div>
+                <span>ציוד צילום</span>
             </div>
-            <div class="category-circle-item" onclick="filterByCategory('ארץ')">
-                <div class="circle-icon-box">🏠</div>
-                <span>נדל״ן</span>
+            <div class="category-circle-item" onclick="filterByCategory('ציוד לאירועים')">
+                <div class="circle-icon-box">📽️</div>
+                <span>ציוד לאירועים</span>
             </div>
-            <div class="category-circle-item" onclick="filterByCategory('טכנולוגיה')">
-                <div class="circle-icon-box">🚗</div>
-                <span>רכב</span>
+            <div class="category-circle-item" onclick="filterByCategory('כלי תחבורה')">
+                <div class="circle-icon-box">🚲</div>
+                <span>כלי תחבורה</span>
             </div>
-            <div class="category-circle-item" onclick="filterByCategory('טכנולוגיה')">
-                <div class="circle-icon-box">🛋️</div>
-                <span>מוצרים</span>
-            </div>
-            <div class="category-circle-item" onclick="filterByCategory('כלכלה')">
-                <div class="circle-icon-box">💼</div>
-                <span>דרושים</span>
-            </div>
-            <div class="category-circle-item" onclick="filterByCategory('תרבות')">
+            <div class="category-circle-item" onclick="filterByCategory('כלי עבודה')">
                 <div class="circle-icon-box">🧰</div>
-                <span>בעלי מקצוע</span>
+                <span>כלי עבודה</span>
             </div>
-            <div class="category-circle-item" onclick="filterByCategory('כלכלה')">
-                <div class="circle-icon-box">☕</div>
-                <span>עסקים למכירה</span>
+            <div class="category-circle-item" onclick="filterByCategory('ציוד קמפינג')">
+                <div class="circle-icon-box">⛺</div>
+                <span>ציוד קמפינג</span>
+            </div>
+            <div class="category-circle-item" onclick="filterByCategory('סאונד ואירועים')">
+                <div class="circle-icon-box">🔊</div>
+                <span>סאונד ובידור</span>
+            </div>
+            <div class="category-circle-item" onclick="filterByCategory('טכנולוגיה')">
+                <div class="circle-icon-box">💻</div>
+                <span>מחשבים וגיימינג</span>
             </div>
         </div>
     </section>
@@ -133,7 +133,7 @@
         <div class="container ticker-container">
             <div class="ticker-title">
                 <i class="fa-solid fa-bolt"></i>
-                <span>מבזקים</span>
+                <span>עדכוני השכרה</span>
             </div>
             <div class="ticker-content" id="tickerContent">
                 <!-- Ticker items injected via JS -->
@@ -148,11 +148,11 @@
         </div>
     </div>
 
-    <!-- Promo Banner Strip (Matches Yad2 Event Strip in Pink) -->
+    <!-- Promo Banner Strip -->
     <div class="promo-strip container">
         <div class="promo-box">
-            <span class="promo-tag">אירוע מיוחד 💖</span>
-            <span class="promo-text">מאות מודעות, כתבות והצעות מסחר חמות נפתחות עכשיו בלייב ב-yhsh!</span>
+            <span class="promo-tag">השכרה מפרטיים 💖</span>
+            <span class="promo-text">מאות מוצרים וציוד מקצועי להשכרה יומית, שבועית וחודשית זמינים עכשיו ב-yhsh!</span>
         </div>
     </div>
 
@@ -217,24 +217,24 @@
 
             </aside>
 
-            <!-- Center Column: Yad2 Pink Style Listing Feed -->
+            <!-- Center Column: Yad2 Pink Style Rental Listings Feed -->
             <div class="main-column">
                 <div class="section-header">
-                    <h2 id="sectionTitle" class="section-title">כתבות ומודעות אחרונות</h2>
+                    <h2 id="sectionTitle" class="section-title">מוצרים וציוד להשכרה מפרטיים</h2>
                     <div class="sort-filter">
-                        <span id="resultsCount" class="results-count">מציג 0 כתבות</span>
+                        <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
                     </div>
                 </div>
 
-                <!-- Articles Horizontal Rows Container -->
+                <!-- Symmetrical Listing Rows Container -->
                 <div id="articlesList" class="news-list-container">
                     <!-- News rows injected via JS -->
                 </div>
 
                 <!-- Empty State (No results) -->
                 <div id="emptyState" class="empty-state hidden">
-                    <i class="fa-solid fa-newspaper fa-3x"></i>
-                    <h3>לא נמצאו כתבות</h3>
+                    <i class="fa-solid fa-box-open fa-3x"></i>
+                    <h3>לא נמצאו מוצרים להשכרה</h3>
                     <p>נסה לחפש מילה אחרת או לבחור קטגוריה שונה</p>
                 </div>
             </div>
@@ -255,27 +255,27 @@
                     </div>
                 </div>
 
-                <!-- Widget 2: חמשת הכתבות המובילות -->
+                <!-- Widget 2: חמשת הציודים המבוקשים -->
                 <div class="widget-card widget-top5">
                     <div class="widget-title accent-mono">
-                        <span>מודעות מבוקשות 🔥</span>
+                        <span>ציוד מבוקש להשכרה 🔥</span>
                     </div>
                     <div class="top5-list" id="top5List">
                         <!-- TOP 5 Items Dynamic Injected via JS -->
                     </div>
                 </div>
 
-                <!-- Widget 3: סקר חדשות היומי -->
+                <!-- Widget 3: סקר השכרה היומי -->
                 <div class="widget-card widget-poll">
                     <div class="widget-title">
                         <i class="fa-solid fa-square-poll-vertical"></i>
                         <span>סקר היומי</span>
                     </div>
                     <div id="pollContainer" class="poll-container">
-                        <p class="poll-question">האם פיתוח בינה מלאכותית בישראל ישפר את המשק?</p>
+                        <p class="poll-question">האם עדיף להשכיר ציוד יקר מאשר לקנות אותו?</p>
                         <div class="poll-options">
-                            <button class="btn btn-outline poll-btn" onclick="votePoll('yes')">כן, בהחלט 👍</button>
-                            <button class="btn btn-outline poll-btn" onclick="votePoll('no')">לא בטוח 🤔</button>
+                            <button class="btn btn-outline poll-btn" onclick="votePoll('yes')">כן, חוסך ים כסף! 👍</button>
+                            <button class="btn btn-outline poll-btn" onclick="votePoll('no')">מעדיף לקנות 🤔</button>
                         </div>
                     </div>
                 </div>
