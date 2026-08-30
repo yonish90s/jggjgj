@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yhsh | מוצרים וציוד להשכרה בסגנון יד2 בורוד</title>
+    <title>yhsh | מחשבים, פלאפונים, כלי עבודה, אקסבוקס ומצלמות להשכרה</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,27 +27,30 @@
                 </a>
             </div>
 
-            <!-- Center: Yad2 Navigation Tabs -->
+            <!-- Center: Yad2 Navigation Tabs for requested categories -->
             <nav class="nav-center-tabs">
                 <button class="nav-tab category-btn active" data-category="all">
                     <i class="fa-solid fa-house"></i>
-                    <span>כל הציוד להשכרה</span>
+                    <span>כל הציוד</span>
                 </button>
                 <a href="trading.html" class="nav-tab">
                     <i class="fa-solid fa-gavel"></i>
                     <span>עמוד מסחר והצעות</span>
                 </a>
-                <button class="nav-tab category-btn" data-category="ציוד צילום">
-                    <span>ציוד צילום</span>
+                <button class="nav-tab category-btn" data-category="מחשבים">
+                    <span>מחשבים</span>
                 </button>
-                <button class="nav-tab category-btn" data-category="ציוד לאירועים">
-                    <span>ציוד לאירועים</span>
-                </button>
-                <button class="nav-tab category-btn" data-category="כלי תחבורה">
-                    <span>כלי תחבורה</span>
+                <button class="nav-tab category-btn" data-category="פלאפונים">
+                    <span>פלאפונים</span>
                 </button>
                 <button class="nav-tab category-btn" data-category="כלי עבודה">
                     <span>כלי עבודה</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="אקסבוקס וגיימינג">
+                    <span>אקסבוקס</span>
+                </button>
+                <button class="nav-tab category-btn" data-category="מצלמות">
+                    <span>מצלמות</span>
                 </button>
             </nav>
 
@@ -78,14 +81,14 @@
         </div>
     </header>
 
-    <!-- Hero AI Search Section (Matches Official Yad2 Screenshot in Pink) -->
+    <!-- Hero AI Search Section -->
     <section class="yad2-hero-ai-section">
         <div class="container">
-            <h1 class="hero-ai-title">חדש! חיפוש AI - מוצרים וציוד להשכרה מפרטיים</h1>
+            <h1 class="hero-ai-title">חדש! חיפוש AI - מחשבים, פלאפונים, כלי עבודה, אקסבוקס ומצלמות</h1>
             <div class="hero-ai-search-box">
                 <span class="ai-beta-tag">BETA</span>
                 <div class="ai-search-input-wrapper">
-                    <input type="text" id="searchInput" class="ai-search-input" placeholder="חפש ציוד להשכרה (מצלמה, מקרן, אופניים חשמליים, פטישון, אוהל קמפינג)...">
+                    <input type="text" id="searchInput" class="ai-search-input" placeholder="מה תרצו להשכיר? (MacBook M3, iPhone 15 Pro, Xbox Series X, פטישון BOSCH, Sony A7)...">
                     <button class="ai-search-btn" onclick="document.getElementById('searchInput').focus()">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                     </button>
@@ -94,36 +97,28 @@
         </div>
     </section>
 
-    <!-- 7 Circular Category Icons Section (Matches Official Yad2 Screenshot) -->
+    <!-- 5 Circular Category Icons Section (Requested Categories) -->
     <section class="yad2-category-circles-section container">
         <div class="category-circles-grid">
-            <div class="category-circle-item" onclick="filterByCategory('ציוד צילום')">
-                <div class="circle-icon-box">📷</div>
-                <span>ציוד צילום</span>
+            <div class="category-circle-item" onclick="filterByCategory('מחשבים')">
+                <div class="circle-icon-box">💻</div>
+                <span>מחשבים</span>
             </div>
-            <div class="category-circle-item" onclick="filterByCategory('ציוד לאירועים')">
-                <div class="circle-icon-box">📽️</div>
-                <span>ציוד לאירועים</span>
-            </div>
-            <div class="category-circle-item" onclick="filterByCategory('כלי תחבורה')">
-                <div class="circle-icon-box">🚲</div>
-                <span>כלי תחבורה</span>
+            <div class="category-circle-item" onclick="filterByCategory('פלאפונים')">
+                <div class="circle-icon-box">📱</div>
+                <span>פלאפונים</span>
             </div>
             <div class="category-circle-item" onclick="filterByCategory('כלי עבודה')">
                 <div class="circle-icon-box">🧰</div>
                 <span>כלי עבודה</span>
             </div>
-            <div class="category-circle-item" onclick="filterByCategory('ציוד קמפינג')">
-                <div class="circle-icon-box">⛺</div>
-                <span>ציוד קמפינג</span>
+            <div class="category-circle-item" onclick="filterByCategory('אקסבוקס וגיימינג')">
+                <div class="circle-icon-box">🎮</div>
+                <span>אקסבוקס</span>
             </div>
-            <div class="category-circle-item" onclick="filterByCategory('סאונד ואירועים')">
-                <div class="circle-icon-box">🔊</div>
-                <span>סאונד ובידור</span>
-            </div>
-            <div class="category-circle-item" onclick="filterByCategory('טכנולוגיה')">
-                <div class="circle-icon-box">💻</div>
-                <span>מחשבים וגיימינג</span>
+            <div class="category-circle-item" onclick="filterByCategory('מצלמות')">
+                <div class="circle-icon-box">📷</div>
+                <span>מצלמות</span>
             </div>
         </div>
     </section>
@@ -152,7 +147,7 @@
     <div class="promo-strip container">
         <div class="promo-box">
             <span class="promo-tag">השכרה מפרטיים 💖</span>
-            <span class="promo-text">מאות מוצרים וציוד מקצועי להשכרה יומית, שבועית וחודשית זמינים עכשיו ב-yhsh!</span>
+            <span class="promo-text">מאות מחשבים, פלאפונים, כלי עבודה, אקסבוקס ומצלמות זמינים עכשיו ב-yhsh!</span>
         </div>
     </div>
 
@@ -220,7 +215,7 @@
             <!-- Center Column: Yad2 Pink Style Rental Listings Feed -->
             <div class="main-column">
                 <div class="section-header">
-                    <h2 id="sectionTitle" class="section-title">מוצרים וציוד להשכרה מפרטיים</h2>
+                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה (מחשבים, פלאפונים, כלי עבודה, אקסבוקס, מצלמות)</h2>
                     <div class="sort-filter">
                         <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
                     </div>
@@ -272,7 +267,7 @@
                         <span>סקר היומי</span>
                     </div>
                     <div id="pollContainer" class="poll-container">
-                        <p class="poll-question">האם עדיף להשכיר ציוד יקר מאשר לקנות אותו?</p>
+                        <p class="poll-question">האם עדיף להשכיר מחשב, פלאפון או אקסבוקס מאשר לקנות יקר?</p>
                         <div class="poll-options">
                             <button class="btn btn-outline poll-btn" onclick="votePoll('yes')">כן, חוסך ים כסף! 👍</button>
                             <button class="btn btn-outline poll-btn" onclick="votePoll('no')">מעדיף לקנות 🤔</button>

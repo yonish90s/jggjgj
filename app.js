@@ -1,20 +1,19 @@
 // Fallback images per category
 const CATEGORY_IMAGES = {
-    "ארץ": "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=800&q=80",
-    "ציוד צילום": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80",
-    "ציוד לאירועים": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80",
-    "כלי תחבורה": "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80",
+    "מחשבים": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
+    "פלאפונים": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
     "כלי עבודה": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
-    "ציוד קמפינג": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80",
-    "טכנולוגיה": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+    "אקסבוקס וגיימינג": "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&w=800&q=80",
+    "מצלמות": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80"
 };
 
 // Ticker Items for Rental Equipment
 const TICKER_ITEMS = [
-    { time: "14:50", text: 'מצלמת Sony A7 IV הועלתה להשכרה ב-₪250 ליום בתל אביב' },
-    { time: "13:33", text: 'ערכת מקרן 4K ומסך 120 אינץ׳ זמינים להשכרה מיידית ברמת גן' },
-    { time: "12:02", text: 'אופניים חשמליים Ninebot MAX זמינים להשכרה חודשית ב-₪1,200' },
-    { time: "11:15", text: 'אוהל קמפינג משפחתי ל-8 אנשים זמין לסופ״ש הקרוב ב-₪180' }
+    { time: "14:50", text: 'מחשב נייד MacBook Pro M3 Max הועלה להשכרה ב-₪200 ליום בהרצליה' },
+    { time: "13:33", text: 'אייפון 15 Pro Max 512GB זמין להשכרה מיידית ב-₪95 ליום ברמת גן' },
+    { time: "12:02", text: 'קונסולת Xbox Series X + 2 שלטים זמינה לסופ״ש הקרוב ב-₪250' },
+    { time: "11:15", text: 'מצלמת Sony A7 IV + עדשת 24-70mm f/2.8 זמינה להשכרה ב-₪250 ליום' },
+    { time: "10:05", text: 'פטישון BOSCH GBH מקצועי זמין להשכרה יומית ב-₪85 בחולון' }
 ];
 
 // Application State
@@ -90,7 +89,7 @@ function loadArticlesSync() {
     try {
         state.likes = JSON.parse(localStorage.getItem('news_likes') || '{}');
     } catch (e) {
-        state.likes = { "rent-1": 24, "rent-2": 19, "rent-3": 15, "rent-4": 12, "rent-5": 8 };
+        state.likes = { "rent-1": 32, "rent-2": 28, "rent-3": 21, "rent-4": 17, "rent-5": 14 };
     }
 
     const savedBal = localStorage.getItem('news_user_balance');
@@ -206,7 +205,7 @@ function renderApp() {
         } else if (state.activeCategory !== 'all') {
             elements.sectionTitle.textContent = `מוצרים להשכרה בקטגוריית ${state.activeCategory}`;
         } else {
-            elements.sectionTitle.textContent = 'מוצרים וציוד להשכרה מפרטיים';
+            elements.sectionTitle.textContent = 'ציוד ומוצרים להשכרה (מחשבים, פלאפונים, כלי עבודה, אקסבוקס, מצלמות)';
         }
     }
 
@@ -248,7 +247,7 @@ function renderApp() {
 function renderTop3Grid(articles) {
     elements.top3Grid.innerHTML = articles.map(article => `
         <div class="top3-card" onclick="openArticleModal('${article.id}')">
-            <img src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['טכנולוגיה']}" alt="${article.title}">
+            <img src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}">
             <div class="top3-overlay">
                 <div style="font-size:0.8rem; color:var(--yad2-pink); font-weight:800; margin-bottom:2px;">${article.rentalPeriod || 'להשכרה'}</div>
                 ${article.title}
@@ -263,14 +262,14 @@ function renderArticlesList(articles) {
         const rentalPeriod = article.rentalPeriod || (`₪ ${article.price || 150} / ליום`);
         const rentalDates = article.rentalDates || 'זמין להשכרה מיידית';
         const isBookmarked = state.bookmarks.includes(article.id);
-        const pills = article.tags || ['השכרה יומית', 'ציוד שמור', 'איסוף מהיר'];
+        const pills = article.tags || ['השכרה יומית', 'שמור כחדש', 'איסוף מהיר'];
 
         return `
             <article class="news-row-item" onclick="openArticleModal('${article.id}')">
                 
-                <!-- Right Side Image (240px Fixed) -->
+                <!-- Right Side Image (200px Fixed) -->
                 <div class="row-image">
-                    <img src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['טכנולוגיה']}" alt="${article.title}" loading="lazy">
+                    <img src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}" loading="lazy">
                 </div>
 
                 <!-- Center Details Area -->
@@ -352,7 +351,7 @@ function renderPollWidget() {
         elements.pollContainer.innerHTML = `
             <p class="poll-question">תודה שהשתתפת בסקר!</p>
             <div style="background:var(--primary-light); padding:10px; border-radius:8px; font-weight:700; color:var(--primary-color);">
-                92% מעדיפים להשכיר ציוד במקום לקנות יקר! 🚀
+                94% מעדיפים להשכיר מחשב, פלאפון או קונסולה מאשר לקנות יקר! 🚀
             </div>
         `;
     }
