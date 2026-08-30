@@ -73,15 +73,15 @@ const elements = {
     categoryBtns: document.querySelectorAll('.category-btn'),
     themeToggle: document.getElementById('themeToggle'),
     bookmarksBtn: document.getElementById('bookmarksBtn'),
-    bookmarkCount: document.getElementById('bookmarkCount'),
-    addArticleBtn: document.getElementById('addArticleBtn'),
-    tickerContent: document.getElementById('tickerContent'),
-    top5List: document.getElementById('top5List'),
-    pollContainer: document.getElementById('pollContainer'),
+    favBtnLabel: document.getElementById('favBtnLabel'),
     userBalanceDisplay: document.getElementById('userBalanceDisplay'),
     subscriptionModal: document.getElementById('subscriptionModal'),
     guestUserText: document.getElementById('guestUserText'),
     priceTrendsList: document.getElementById('priceTrendsList'),
+    favBottomSheet: document.getElementById('favBottomSheet'),
+    favBottomSheetOverlay: document.getElementById('favBottomSheetOverlay'),
+    favInventoryGrid: document.getElementById('favInventoryGrid'),
+    favSheetCount: document.getElementById('favSheetCount'),
     
     // Toast
     toast: document.getElementById('toast'),
@@ -213,6 +213,55 @@ function subscribePlan(planName, price, bonusWallet) {
     showToast(`מזל טוב! הצטרפת ל-${planName} וקיבלת ₪${bonusWallet.toLocaleString('he-IL')} בונוס לארנק! 🥳💎`);
 }
 
+/* =========================================================
+   BOTTOM DARK FAVORITES SHEET LOGIC ("חלון שחור מלמטה עם ריבועים")
+   ========================================================= */
+function openFavoritesSheet() {
+    renderFavoritesSheet();
+    if (elements.favBottomSheet) elements.favBottomSheet.classList.add('active');
+    if (elements.favBottomSheetOverlay) elements.favBottomSheetOverlay.classList.add('active');
+}
+
+function closeFavoritesSheet() {
+    if (elements.favBottomSheet) elements.favBottomSheet.classList.remove('active');
+    if (elements.favBottomSheetOverlay) elements.favBottomSheetOverlay.classList.remove('active');
+}
+
+function renderFavoritesSheet() {
+    const gridContainer = document.getElementById('favInventoryGrid');
+    const countBadge = document.getElementById('favSheetCount');
+    if (!gridContainer) return;
+
+    const bookmarkedArticles = state.articles.filter(a => state.bookmarks.includes(a.id));
+
+    if (countBadge) countBadge.textContent = `${bookmarkedArticles.length} מוצרים`;
+
+    if (bookmarkedArticles.length === 0) {
+        gridContainer.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #a0a0b0;">
+                <i class="fa-solid fa-heart-crack fa-3x" style="margin-bottom: 12px; color: #444455;"></i>
+                <h4 style="font-size: 1.2rem; color: #ffffff; margin-bottom: 4px;">אין עדיין מוצרים שמורים</h4>
+                <p>לחץ על סמל הלב במודעות ההשכרה כדי לשמור פריטים כאן!</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Square Inventory Tiles (Matches Screenshot 2)
+    gridContainer.innerHTML = bookmarkedArticles.map(article => `
+        <div class="fav-tile-card" onclick="openArticleModal('${article.id}')">
+            <img class="fav-tile-image" src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}">
+            <button class="fav-tile-remove-btn" onclick="event.stopPropagation(); toggleBookmarkMain('${article.id}'); renderFavoritesSheet();" title="הסר מהמועדפים">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="fav-tile-content">
+                <div class="fav-tile-title">${article.title}</div>
+                <div class="fav-tile-price">${article.rentalPeriod || ('₪' + (article.price || 150) + '/יום')}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
 function filterByCategory(cat) {
     state.activeCategory = cat;
     state.showBookmarksOnly = false;
@@ -265,7 +314,7 @@ function renderPriceTrendsWidget() {
 
 // Main Render Function
 function renderApp() {
-    if (elements.bookmarkCount) elements.bookmarkCount.textContent = state.bookmarks.length;
+    if (elements.favBtnLabel) elements.favBtnLabel.textContent = `מועדפים (${state.bookmarks.length})`;
 
     // Filter Articles / Rental Items
     let filtered = state.articles.filter(article => {
@@ -393,6 +442,7 @@ function toggleBookmarkMain(id) {
     } else {
         state.bookmarks.push(id);
         showToast('המוצר נשמר במועדפים! ❤️');
+        openFavoritesSheet();
     }
     saveBookmarksToStorage();
     renderApp();

@@ -203,6 +203,26 @@ body {
     white-space: nowrap;
 }
 
+.btn-favorites-pink {
+    background-color: var(--yad2-pink-light);
+    color: var(--yad2-pink);
+    border: 1.5px solid var(--yad2-pink);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.92rem;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.btn-favorites-pink:hover {
+    background-color: var(--yad2-pink);
+    color: #ffffff;
+}
+
 .btn-add-listing-pink {
     background-color: #ffffff;
     color: var(--yad2-pink);
@@ -608,169 +628,176 @@ body.dark-theme .ai-search-input-wrapper {
 }
 
 /* =========================================================
-   NEW MODERN VERTICAL GRID CARDS (סגנון הריבועים וההצעות המבוקש)
-   Matches Screenshot exact 2-Column Grid style!
+   DARK BOTTOM FAVORITES SHEET / DRAWER WITH SQUARE TILES ("חלון שחור מלמטה עם ריבועים")
+   Matches Screenshot 2 exact dark inventory grid style!
    ========================================================= */
-.bids-grid-2col {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-top: 20px;
+.fav-bottom-sheet-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 3500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.grid-card-box {
-    background-color: var(--card-bg);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-color);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
+.fav-bottom-sheet-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.fav-bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1a1a20;
+    color: #f1f1f5;
+    border-top: 3px solid var(--yad2-pink);
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.7);
+    z-index: 3600;
+    max-height: 75vh;
     display: flex;
     flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fav-bottom-sheet.active {
+    transform: translateY(0);
+}
+
+.fav-sheet-header {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    transition: var(--transition);
-    position: relative;
+    padding: 20px 30px;
+    border-bottom: 1px solid #2d2d38;
 }
 
-.grid-card-box:hover {
-    border-color: var(--yad2-pink);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-4px);
-}
-
-.grid-card-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    background-color: #000000;
-}
-
-.grid-card-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-}
-
-.grid-card-box:hover .grid-card-image-wrapper img {
-    transform: scale(1.05);
-}
-
-.grid-badge-tag {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    background: linear-gradient(135deg, #ff2a75, #ff5593);
-    color: #ffffff;
-    font-size: 0.84rem;
+.fav-sheet-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.35rem;
     font-weight: 900;
-    padding: 4px 14px;
-    border-radius: 14px;
-    box-shadow: 0 3px 10px rgba(255, 42, 117, 0.4);
-    z-index: 2;
+    color: #ffffff;
 }
 
-.grid-heart-btn {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--text-primary);
-    width: 38px;
-    height: 38px;
+.fav-sheet-count-badge {
+    background-color: var(--yad2-pink);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 900;
+    padding: 3px 12px;
+    border-radius: 14px;
+}
+
+.close-fav-sheet-btn {
+    background: #282832;
+    color: #a0a0b0;
+    border: none;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.15rem;
-    cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    z-index: 2;
 }
 
-.grid-heart-btn:hover,
-.grid-heart-btn.active {
+.close-fav-sheet-btn:hover {
     background-color: var(--yad2-pink);
     color: #ffffff;
 }
 
-.grid-card-body {
-    padding: 22px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.fav-sheet-body {
+    padding: 24px 30px;
+    overflow-y: auto;
     flex: 1;
 }
 
-.grid-price-tag {
-    font-size: 1.85rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
-    line-height: 1;
+/* Dark Inventory Tile Grid (Square Tiles - Matches Screenshot 2) */
+.fav-inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 16px;
 }
 
-.grid-price-tag span {
-    font-size: 0.95rem;
-    color: var(--yad2-pink);
-    font-weight: 800;
-    margin-right: 4px;
-}
-
-.grid-title-text {
-    font-size: 1.3rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    line-height: 1.3;
-}
-
-.grid-subtitle-text {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    line-height: 1.45;
-}
-
-.grid-spec-pills {
+.fav-tile-card {
+    background-color: #24242e;
+    border: 1px solid #333342;
+    border-radius: 14px;
+    overflow: hidden;
     display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 4px;
+    flex-direction: column;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
 }
 
-.grid-pill-item {
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 700;
+.fav-tile-card:hover {
+    border-color: var(--yad2-pink);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(255, 42, 117, 0.3);
 }
 
-.grid-action-btn {
+.fav-tile-image {
     width: 100%;
-    margin-top: 10px;
-    padding: 12px;
-    font-size: 1rem;
-    font-weight: 900;
-    border-radius: var(--radius-sm);
-    background-color: var(--yad2-pink);
+    height: 120px;
+    object-fit: cover;
+    background-color: #111116;
+}
+
+.fav-tile-remove-btn {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.7);
     color: #ffffff;
     border: none;
-    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 4px 14px rgba(255, 42, 117, 0.3);
 }
 
-.grid-action-btn:hover {
-    background-color: var(--yad2-pink-hover);
-    transform: translateY(-1px);
+.fav-tile-remove-btn:hover {
+    background-color: #dc2626;
+}
+
+.fav-tile-content {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fav-tile-title {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fav-tile-price {
+    font-size: 0.92rem;
+    font-weight: 900;
+    color: var(--yad2-pink);
 }
 
 /* Symmetrical Listing Rows */
@@ -925,7 +952,7 @@ body.dark-theme .ai-search-input-wrapper {
     text-align: left;
 }
 
-/* Subscription Modal */
+/* Modal Overlay */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -1113,9 +1140,6 @@ body.dark-theme .ai-search-input-wrapper {
 /* Responsive Layout Breakpoints */
 @media (max-width: 1000px) {
     .page-layout-with-widget {
-        grid-template-columns: 1fr;
-    }
-    .bids-grid-2col {
         grid-template-columns: 1fr;
     }
 }

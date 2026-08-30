@@ -27,7 +27,7 @@
                 </a>
             </div>
 
-            <!-- Center: Clean Navigation Tabs (Only Main Tabs) -->
+            <!-- Center: Navigation Tabs -->
             <nav class="nav-center-tabs">
                 <button class="nav-tab category-btn active" data-category="all">
                     <i class="fa-solid fa-house"></i>
@@ -43,8 +43,14 @@
                 </button>
             </nav>
 
-            <!-- Left: Actions, Balance & "+ פרסום מודעה" -->
+            <!-- Left: Actions, Balance, Favorites & "+ פרסום מודעה" -->
             <div class="nav-left">
+                <!-- Favorites Quick Button -->
+                <button class="btn-favorites-pink" onclick="openFavoritesSheet()" title="פתח מוצרים שמורים">
+                    <i class="fa-solid fa-heart"></i>
+                    <span id="favBtnLabel">מועדפים (0)</span>
+                </button>
+
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
                     <i class="fa-solid fa-wallet" style="color:var(--yad2-pink);"></i>
@@ -243,6 +249,26 @@
                     <button class="btn btn-outline" onclick="subscribePlan('מנוי עסקי PRO', 199, 100000)">הצטרף ב-₪199</button>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Dark Favorites Inventory Sheet ("חלון שחור מלמטה עם ריבועים") -->
+    <div id="favBottomSheetOverlay" class="fav-bottom-sheet-overlay" onclick="closeFavoritesSheet()"></div>
+    <div id="favBottomSheet" class="fav-bottom-sheet">
+        <div class="fav-sheet-header">
+            <div class="fav-sheet-title">
+                <i class="fa-solid fa-heart" style="color:var(--yad2-pink);"></i>
+                <span>המוצרים השמורים שלך</span>
+                <span id="favSheetCount" class="fav-sheet-count-badge">0 מוצרים</span>
+            </div>
+            <button class="close-fav-sheet-btn" onclick="closeFavoritesSheet()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="fav-sheet-body">
+            <div id="favInventoryGrid" class="fav-inventory-grid">
+                <!-- Rendered dynamically via JS -->
             </div>
         </div>
     </div>
