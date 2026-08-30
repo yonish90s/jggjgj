@@ -198,17 +198,17 @@ function renderApp() {
     // Update Section Title & Count
     if (elements.sectionTitle) {
         if (state.showBookmarksOnly) {
-            elements.sectionTitle.textContent = 'כתבות שמורות';
+            elements.sectionTitle.textContent = 'מודעות שמורות במועדפים';
         } else if (state.searchQuery) {
             elements.sectionTitle.textContent = `תוצאות חיפוש עבור: "${state.searchQuery}"`;
         } else if (state.activeCategory !== 'all') {
-            elements.sectionTitle.textContent = `מודעות וכתבות בקטגוריית ${state.activeCategory}`;
+            elements.sectionTitle.textContent = `מודעות בקטגוריית ${state.activeCategory}`;
         } else {
-            elements.sectionTitle.textContent = 'כתבות ומודעות אחרונות';
+            elements.sectionTitle.textContent = 'מודעות וכתבות אחרונות';
         }
     }
 
-    if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} כתבות`;
+    if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מודעות`;
 
     // Render Top 3 Featured Grid
     const showTop3 = state.activeCategory === 'all' && !state.searchQuery && !state.showBookmarksOnly && filtered.length >= 3;
@@ -226,7 +226,7 @@ function renderApp() {
         }
     }
 
-    // Render Main Articles Horizontal List
+    // Render Symmetrical Yad2 Listings List
     if (elements.articlesList) {
         if (rowArticles.length === 0 && (!showTop3 || filtered.length === 0)) {
             elements.articlesList.innerHTML = '';
@@ -254,31 +254,69 @@ function renderTop3Grid(articles) {
     `).join('');
 }
 
-// Render Horizontal Articles List
+// Render Exact Symmetrical Yad2 Listing Row Items (Matches Screenshot)
 function renderArticlesList(articles) {
-    elements.articlesList.innerHTML = articles.map(article => {
+    const samplePrices = [108000, 128000, 63275, 220000, 95000, 145000, 88000];
+    const samplePills = [
+        ['היברידי', 'גלגלי מגנזיום', 'בקרת שמירת מרחק'],
+        ['מנוע חזק', 'בקרת שמירת מרחק', 'בהזדמנות'],
+        ['גלגלי מגנזיום', 'בקרת שמירת מרחק', 'נסיעת מבחן'],
+        ['מיכל דלק גדול', 'בקרת שמירת מרחק', 'בקרת שיוט אדפטיבית'],
+        ['אחריות יצרן', 'שמורה מרופא', 'טסט לשנה'],
+        ['זמין במלאי', 'איסוף מיידי', 'אחריות מלאה']
+    ];
+
+    elements.articlesList.innerHTML = articles.map((article, idx) => {
         const timeFormatted = formatTimeOrDate(article.date);
+        const priceNum = article.price || samplePrices[idx % samplePrices.length];
+        const priceFormatted = '₪ ' + priceNum.toLocaleString('he-IL');
+        const isBookmarked = state.bookmarks.includes(article.id);
+        const pills = article.tags || samplePills[idx % samplePills.length];
 
         return `
             <article class="news-row-item" onclick="openArticleModal('${article.id}')">
-                <div class="row-content">
-                    <h3 class="row-title">${article.title}</h3>
-                    <div class="row-meta">
-                        <span class="row-author">${article.author}</span>
-                        <span>|</span>
-                        <span>${timeFormatted}</span>
-                    </div>
-                    <div class="row-summary">
-                        <span class="row-star">⭐</span>
-                        <span>${article.summary}</span>
-                    </div>
-                </div>
+                
+                <!-- Right Side Image (240px Fixed) -->
                 <div class="row-image">
                     <img src="${article.imageUrl || CATEGORY_IMAGES[article.category]}" alt="${article.title}" loading="lazy">
                 </div>
+
+                <!-- Center Details Area -->
+                <div class="row-content">
+                    <h3 class="row-title">${article.title}</h3>
+                    <div class="row-subtitle">${article.summary}</div>
+                    <div class="row-meta-yad2">
+                        <span>2024 • יד 1 • ${article.author}</span>
+                    </div>
+                    <div class="row-tags-pills">
+                        ${pills.map(p => `<span class="yad2-tag-pill">${p}</span>`).join('')}
+                    </div>
+                </div>
+
+                <!-- Left Price & Heart Favorite Area -->
+                <div class="row-left-yad2">
+                    <div class="row-heart-btn ${isBookmarked ? 'active' : ''}" onclick="event.stopPropagation(); toggleBookmarkMain('${article.id}')" title="שמור במועדפים">
+                        <i class="${isBookmarked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                    </div>
+                    <div class="row-price-yad2">${priceFormatted}</div>
+                </div>
+
             </article>
         `;
     }).join('');
+}
+
+function toggleBookmarkMain(id) {
+    const idx = state.bookmarks.indexOf(id);
+    if (idx > -1) {
+        state.bookmarks.splice(idx, 1);
+        showToast('המודעה הוסרה מהמועדפים');
+    } else {
+        state.bookmarks.push(id);
+        showToast('המודעה נשמרה במועדפים! ❤️');
+    }
+    saveBookmarksToStorage();
+    renderApp();
 }
 
 // Render TOP 5 Articles Widget

@@ -8,20 +8,20 @@
     --primary-color: #ff2a75;
     --primary-hover: #d81b60;
     --primary-light: #fff0f5;
-    --bg-color: #f9fafe;
+    --bg-color: #f8f9fc;
     --card-bg: #ffffff;
     --header-bg: #ffffff;
     --text-primary: #111827;
     --text-secondary: #374151;
     --text-muted: #6b7280;
-    --border-color: #f3d5df;
-    --border-strong: #f472b6;
-    --shadow-sm: 0 2px 8px rgba(255, 42, 117, 0.06);
+    --border-color: #e5e7eb;
+    --border-strong: #ff2a75;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 18px rgba(255, 42, 117, 0.1);
     --shadow-lg: 0 10px 30px rgba(255, 42, 117, 0.15);
     --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 24px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
     --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -36,7 +36,7 @@ body.dark-theme {
     --text-primary: #fbf7f9;
     --text-secondary: #e2d9e0;
     --text-muted: #a395a0;
-    --border-color: #331f36;
+    --border-color: #2b1f2e;
     --border-strong: #ff4d8d;
     --yad2-pink-light: rgba(255, 42, 117, 0.15);
     --yad2-pink-soft: rgba(255, 42, 117, 0.25);
@@ -55,7 +55,7 @@ body {
     font-family: 'Assistant', 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-primary);
-    line-height: 1.65;
+    line-height: 1.6;
     font-size: 16px;
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
@@ -252,7 +252,7 @@ body {
     color: var(--yad2-pink);
 }
 
-/* Yad2 Official AI Hero Search Section (Pastel Pink Edition) */
+/* Hero AI Search Section */
 .yad2-hero-ai-section {
     background: linear-gradient(180deg, #fff0f5 0%, #ffe4ec 100%);
     padding: 35px 0 45px 0;
@@ -340,9 +340,9 @@ body.dark-theme .ai-search-input-wrapper {
     transform: scale(1.05);
 }
 
-/* 7 Circular Category Icons Grid (Yad2 Official Style) */
+/* 7 Circular Category Icons Section */
 .yad2-category-circles-section {
-    padding: 35px 0 20px 0;
+    padding: 30px 0 20px 0;
 }
 
 .category-circles-grid {
@@ -374,8 +374,8 @@ body.dark-theme .ai-search-input-wrapper {
 }
 
 .circle-icon-box {
-    width: 90px;
-    height: 90px;
+    width: 85px;
+    height: 85px;
     border-radius: 50%;
     background-color: var(--card-bg);
     border: 2px solid var(--border-color);
@@ -398,76 +398,7 @@ body.dark-theme .ai-search-input-wrapper {
     color: var(--yad2-pink);
 }
 
-/* Promo Banner Strip */
-.promo-strip {
-    padding-top: 15px;
-}
-
-.promo-box {
-    background-color: var(--card-bg);
-    border: 2px solid var(--yad2-pink);
-    border-radius: var(--radius-md);
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    color: var(--text-primary);
-    font-weight: 800;
-    font-size: 1.02rem;
-    box-shadow: var(--shadow-md);
-}
-
-.promo-tag {
-    background-color: var(--yad2-pink);
-    color: #ffffff;
-    font-size: 0.82rem;
-    font-weight: 900;
-    padding: 4px 14px;
-    border-radius: 14px;
-}
-
-/* Buttons */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 22px;
-    font-family: inherit;
-    font-size: 0.96rem;
-    font-weight: 800;
-    border-radius: var(--radius-sm);
-    border: 1.5px solid transparent;
-    cursor: pointer;
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.btn-primary {
-    background-color: var(--yad2-pink);
-    color: #ffffff;
-    border-color: var(--yad2-pink);
-    box-shadow: 0 3px 12px rgba(255, 42, 117, 0.3);
-}
-
-.btn-primary:hover {
-    background-color: var(--yad2-pink-hover);
-    transform: translateY(-1px);
-}
-
-.btn-outline {
-    background-color: transparent;
-    border-color: var(--yad2-pink);
-    color: var(--yad2-pink);
-}
-
-.btn-outline:hover {
-    background-color: var(--yad2-pink);
-    color: #ffffff;
-}
-
-/* Ticker Bar */
+/* Breaking Ticker Bar */
 .ticker-bar {
     background-color: #1a0b17;
     color: #ffffff;
@@ -539,7 +470,7 @@ body.dark-theme .ai-search-input-wrapper {
 
 .top3-card {
     position: relative;
-    height: 245px;
+    height: 240px;
     border-radius: var(--radius-md);
     overflow: hidden;
     cursor: pointer;
@@ -583,7 +514,36 @@ body.dark-theme .ai-search-input-wrapper {
     border-top: 3px solid var(--yad2-pink);
 }
 
-/* Main Content Area (3 Columns Layout) */
+/* Promo Banner Strip */
+.promo-strip {
+    padding-top: 20px;
+}
+
+.promo-box {
+    background-color: var(--card-bg);
+    border: 2px solid var(--yad2-pink);
+    border-radius: var(--radius-md);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    color: var(--text-primary);
+    font-weight: 800;
+    font-size: 1.02rem;
+    box-shadow: var(--shadow-md);
+}
+
+.promo-tag {
+    background-color: var(--yad2-pink);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 900;
+    padding: 4px 14px;
+    border-radius: 14px;
+}
+
+/* Main Content Area (3 Columns) */
 .main-content {
     padding-top: 25px;
     padding-bottom: 55px;
@@ -605,7 +565,7 @@ body.dark-theme .ai-search-input-wrapper {
 .main-column {
     background-color: var(--card-bg);
     border-radius: var(--radius-md);
-    padding: 26px;
+    padding: 24px;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
     min-width: 0;
@@ -633,84 +593,43 @@ body.dark-theme .ai-search-input-wrapper {
     font-weight: 700;
 }
 
-/* News & Listing Rows */
+/* =========================================================
+   EXACT SYMMETRICAL YAD2 LISTING CARD (תואם בדיוק לצילום המסך)
+   ========================================================= */
 .news-list-container {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
 }
 
 .news-row-item {
     display: flex;
-    gap: 22px;
+    flex-direction: row;
     align-items: center;
-    padding: 18px 20px;
+    justify-content: space-between;
+    height: 175px; /* Symmetrical uniform height */
     background-color: var(--card-bg);
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
+    padding: 14px 18px;
+    gap: 18px;
+    box-shadow: var(--shadow-sm);
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: var(--shadow-sm);
+    position: relative;
 }
 
 .news-row-item:hover {
     border-color: var(--yad2-pink);
-    box-shadow: 0 6px 20px rgba(255, 42, 117, 0.15);
-    transform: translateX(-4px);
+    box-shadow: 0 6px 22px rgba(255, 42, 117, 0.15);
+    transform: translateY(-2px);
 }
 
-.news-row-item:hover .row-title {
-    color: var(--yad2-pink);
-}
-
-.row-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.row-title {
-    font-size: 1.35rem;
-    font-weight: 800;
-    line-height: 1.38;
-    color: var(--text-primary);
-    margin-bottom: 8px;
-    letter-spacing: -0.3px;
-    transition: var(--transition);
-}
-
-.row-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-}
-
-.row-author {
-    color: var(--yad2-pink);
-    font-weight: 800;
-}
-
-.row-summary {
-    font-size: 0.98rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-}
-
-.row-star {
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
+/* Right Side Image (240px Fixed) */
 .row-image {
-    width: 200px;
-    height: 130px;
-    border-radius: var(--radius-sm);
+    width: 240px;
+    height: 147px;
+    border-radius: 10px;
     overflow: hidden;
     flex-shrink: 0;
     border: 1px solid var(--border-color);
@@ -724,7 +643,88 @@ body.dark-theme .ai-search-input-wrapper {
 }
 
 .news-row-item:hover .row-image img {
-    transform: scale(1.06);
+    transform: scale(1.05);
+}
+
+/* Center Details Area */
+.row-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-left: 10px;
+}
+
+.row-title {
+    font-size: 1.35rem;
+    font-weight: 900;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+}
+
+.row-subtitle {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.row-meta-yad2 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.row-tags-pills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.yad2-tag-pill {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+/* Left Price & Heart Favorite Area */
+.row-left-yad2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100%;
+    min-width: 145px;
+    padding: 4px 0;
+}
+
+.row-heart-btn {
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.row-heart-btn:hover,
+.row-heart-btn.active {
+    color: var(--yad2-pink);
+}
+
+.row-price-yad2 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    line-height: 1;
 }
 
 /* Side Widgets */
@@ -1310,6 +1310,7 @@ body.dark-theme .ai-search-input-wrapper {
     .news-row-item {
         flex-direction: column-reverse;
         align-items: stretch;
+        height: auto;
     }
 
     .row-image {
