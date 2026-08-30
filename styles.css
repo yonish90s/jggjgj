@@ -1,38 +1,41 @@
-/* Reset & Custom Properties - High-End Editorial Black & White */
+/* Reset & Yad2 (יד2) Inspired Theme Variables */
 :root {
-    --primary-color: #000000;
-    --primary-hover: #1f1f1f;
-    --primary-light: #f2f2f2;
-    --dark-topbar-bg: #000000;
-    --bg-color: #fafafa;
+    --yad2-orange: #ff6600;
+    --yad2-orange-hover: #e55c00;
+    --yad2-orange-light: #fff4ec;
+    --yad2-dark-header: #22222b;
+    --primary-color: #ff6600;
+    --primary-hover: #e55c00;
+    --primary-light: #fff4ec;
+    --bg-color: #f4f5f8;
     --card-bg: #ffffff;
-    --text-primary: #0a0a0a;
-    --text-secondary: #333333;
-    --text-muted: #666666;
-    --border-color: #e5e5e5;
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --text-muted: #8c93a0;
+    --border-color: #e2e4e9;
     --header-bg: #ffffff;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 14px rgba(255, 102, 0, 0.08);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 16px;
-    --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Pure Black (OLED / AMOLED) Dark Mode */
+/* Yad2 Dark Mode */
 body.dark-theme {
-    --primary-color: #ffffff;
-    --primary-hover: #e5e5e5;
-    --primary-light: #222222;
-    --bg-color: #000000;
-    --card-bg: #111111;
-    --text-primary: #ffffff;
-    --text-secondary: #d1d1d1;
-    --text-muted: #888888;
-    --border-color: #242424;
-    --header-bg: #111111;
-    --dark-topbar-bg: #000000;
+    --primary-color: #ff771a;
+    --primary-hover: #ff8833;
+    --primary-light: rgba(255, 102, 0, 0.15);
+    --bg-color: #0b0b0e;
+    --card-bg: #16161b;
+    --text-primary: #f3f4f6;
+    --text-secondary: #d1d5db;
+    --text-muted: #8b92a0;
+    --border-color: #282832;
+    --header-bg: #16161b;
+    --yad2-dark-header: #070709;
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.6);
     --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.7);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.9);
@@ -60,22 +63,22 @@ body {
     padding: 0 20px;
 }
 
-/* Dark Top Header Bar */
+/* Yad2 Style Top Header Bar */
 .top-navbar-dark {
-    background-color: #000000;
+    background-color: var(--yad2-dark-header);
     color: #ffffff;
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid var(--yad2-orange);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .top-nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 54px;
+    height: 58px;
     padding: 0 15px;
     gap: 15px;
 }
@@ -86,7 +89,7 @@ body {
     gap: 10px;
 }
 
-/* Clean White on Black Logo "yhsh" */
+/* Iconic Yad2 Logo Badge for yhsh */
 .brand-infinity {
     display: flex;
     align-items: center;
@@ -94,16 +97,32 @@ body {
     text-decoration: none;
 }
 
-.brand-text {
-    color: #ffffff;
+.brand-text-yad2 {
     font-size: 1.6rem;
     font-weight: 900;
     letter-spacing: -0.5px;
-    font-family: 'Heebo', sans-serif;
+    display: inline-flex;
+    align-items: center;
     user-select: none;
+    font-family: 'Heebo', sans-serif;
 }
 
-/* Center Tabs */
+.brand-yh {
+    color: #ffffff;
+    font-weight: 900;
+}
+
+.brand-sh-badge {
+    background: linear-gradient(135deg, #ff6600, #ff8800);
+    color: #ffffff;
+    padding: 2px 9px;
+    border-radius: 6px;
+    font-weight: 900;
+    margin-right: 3px;
+    box-shadow: 0 2px 8px rgba(255, 102, 0, 0.4);
+}
+
+/* Center Nav Tabs */
 .nav-center-tabs {
     display: flex;
     align-items: center;
@@ -118,12 +137,12 @@ body {
 
 .nav-tab {
     background: transparent;
-    color: #d1d5db;
+    color: #e2e8f0;
     border: 1px solid transparent;
-    padding: 5px 18px;
+    padding: 6px 18px;
     border-radius: 20px;
     font-family: inherit;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
     display: flex;
@@ -137,14 +156,13 @@ body {
 .nav-tab:hover {
     color: #ffffff;
     background-color: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .nav-tab.active {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--yad2-orange);
+    color: #ffffff;
     font-weight: 800;
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.15);
+    box-shadow: 0 2px 10px rgba(255, 102, 0, 0.35);
 }
 
 /* Left Actions Area */
@@ -158,30 +176,31 @@ body {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.25);
     color: #f3f4f6;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     transition: var(--transition);
 }
 
 .btn-top-icon:hover {
-    background-color: #ffffff;
-    color: #000000;
-    border-color: #ffffff;
+    background-color: var(--yad2-orange);
+    color: #ffffff;
+    border-color: var(--yad2-orange);
 }
 
-/* Guest Pill */
+/* Yad2 Style Guest Pill */
 .guest-pill {
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     color: #ffffff;
-    padding: 4px 15px;
-    border-radius: 16px;
-    font-size: 0.85rem;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.88rem;
     font-weight: 700;
     cursor: pointer;
     white-space: nowrap;
@@ -189,18 +208,64 @@ body {
 }
 
 .guest-pill:hover {
-    background-color: #ffffff;
-    color: #000000;
-    border-color: #ffffff;
+    background-color: var(--yad2-orange);
+    border-color: var(--yad2-orange);
 }
 
 .infinity-icon-edge {
-    color: #ffffff;
-    font-size: 1.15rem;
-    opacity: 0.9;
-    margin-right: 2px;
+    color: var(--yad2-orange);
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
+}
+
+/* Yad2 Styled Search & Filter Strip */
+.yad2-search-strip {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.search-strip-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--bg-color);
+    border: 2px solid var(--yad2-orange);
+    border-radius: 30px;
+    padding: 6px 16px;
+}
+
+.search-strip-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-primary);
+    outline: none;
+    padding: 6px 10px;
+}
+
+.search-strip-btn {
+    background-color: var(--yad2-orange);
+    color: #ffffff;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-family: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.search-strip-btn:hover {
+    background-color: var(--yad2-orange-hover);
 }
 
 /* Buttons */
@@ -209,10 +274,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 18px;
+    padding: 10px 20px;
     font-family: inherit;
-    font-size: 0.92rem;
-    font-weight: 700;
+    font-size: 0.95rem;
+    font-weight: 800;
     border-radius: var(--radius-sm);
     border: 1px solid transparent;
     cursor: pointer;
@@ -221,35 +286,35 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--text-primary);
-    color: var(--card-bg);
-    border-color: var(--text-primary);
+    background-color: var(--yad2-orange);
+    color: #ffffff;
+    border-color: var(--yad2-orange);
+    box-shadow: 0 3px 10px rgba(255, 102, 0, 0.25);
 }
 
 .btn-primary:hover {
-    opacity: 0.88;
+    background-color: var(--yad2-orange-hover);
     transform: translateY(-1px);
 }
 
 .btn-outline {
     background-color: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
+    border: 1.5px solid var(--yad2-orange);
+    color: var(--yad2-orange);
 }
 
 .btn-outline:hover {
-    background-color: var(--text-primary);
-    color: var(--card-bg);
-    border-color: var(--text-primary);
+    background-color: var(--yad2-orange);
+    color: #ffffff;
 }
 
-/* Article Dedicated Page Styling */
+/* Article Dedicated Page Styling (Yad2 Style) */
 .article-page-box {
     background-color: var(--card-bg);
     border-radius: var(--radius-md);
-    padding: 40px;
+    padding: 35px;
     border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
     margin-top: 25px;
     margin-bottom: 40px;
 }
@@ -260,18 +325,17 @@ body {
 
 .article-full-category {
     display: inline-block;
-    background-color: var(--text-primary);
-    color: var(--card-bg);
-    padding: 3px 12px;
-    border-radius: 4px;
-    font-size: 0.8rem;
+    background-color: var(--yad2-orange);
+    color: #ffffff;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
     font-weight: 800;
-    margin-bottom: 12px;
-    letter-spacing: 0.5px;
+    margin-bottom: 14px;
 }
 
 .article-page-title {
-    font-size: 2.3rem;
+    font-size: 2.4rem;
     font-weight: 900;
     line-height: 1.25;
     margin-bottom: 15px;
@@ -284,7 +348,7 @@ body {
     align-items: center;
     gap: 12px;
     color: var(--text-muted);
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     padding-bottom: 18px;
     border-bottom: 1px solid var(--border-color);
 }
@@ -306,24 +370,28 @@ body {
 }
 
 .article-page-summary-box {
-    background-color: var(--bg-color);
-    border-right: 4px solid var(--text-primary);
-    padding: 18px 22px;
+    background-color: var(--yad2-orange-light);
+    border-right: 5px solid var(--yad2-orange);
+    padding: 18px 24px;
     border-radius: var(--radius-sm);
     margin-bottom: 25px;
     display: flex;
     gap: 12px;
     align-items: flex-start;
-    font-size: 1.08rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--text-primary);
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
     border-left: 1px solid var(--border-color);
 }
 
+body.dark-theme .article-page-summary-box {
+    background-color: rgba(255, 102, 0, 0.12);
+}
+
 .article-page-content {
-    font-size: 1.15rem;
+    font-size: 1.18rem;
     line-height: 1.85;
     color: var(--text-primary);
     margin-bottom: 35px;
@@ -350,12 +418,12 @@ body {
     margin-bottom: 40px;
 }
 
-/* Ticker Bar */
+/* Breaking Ticker (Yad2 Style) */
 .ticker-bar {
-    background-color: #000000;
+    background-color: #1a1a22;
     color: #ffffff;
     padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-color);
     overflow: hidden;
 }
 
@@ -366,22 +434,16 @@ body {
 }
 
 .ticker-title {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--yad2-orange);
+    color: #ffffff;
     padding: 3px 12px;
     border-radius: 4px;
     font-weight: 900;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     display: flex;
     align-items: center;
     gap: 6px;
     white-space: nowrap;
-    letter-spacing: 0.5px;
-}
-
-body.dark-theme .ticker-title {
-    background-color: #ffffff;
-    color: #000000;
 }
 
 .ticker-content {
@@ -401,16 +463,13 @@ body.dark-theme .ticker-title {
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    font-size: 0.88rem;
-    color: #e5e5e5;
+    font-size: 0.9rem;
+    color: #f3f4f6;
 }
 
 .ticker-time {
-    color: #ffffff;
+    color: #ff9933;
     font-weight: 800;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 1px 6px;
-    border-radius: 3px;
 }
 
 @keyframes ticker {
@@ -418,7 +477,7 @@ body.dark-theme .ticker-title {
     100% { transform: translateX(50%); }
 }
 
-/* TOP 3 Featured Grid Section */
+/* Yad2 TOP 3 Hot Listings Section */
 .top3-section {
     padding-top: 25px;
 }
@@ -431,20 +490,27 @@ body.dark-theme .ticker-title {
 
 .top3-card {
     position: relative;
-    height: 235px;
-    border-radius: var(--radius-sm);
+    height: 240px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     cursor: pointer;
     box-shadow: var(--shadow-md);
     background-color: #000000;
     border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.top3-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 102, 0, 0.2);
+    border-color: var(--yad2-orange);
 }
 
 .top3-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease, filter 0.4s ease;
+    transition: transform 0.4s ease;
     opacity: 0.92;
 }
 
@@ -458,43 +524,43 @@ body.dark-theme .ticker-title {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.92);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.92) 100%);
     color: #ffffff;
-    padding: 14px 16px;
+    padding: 16px;
     font-weight: 800;
-    font-size: 0.98rem;
+    font-size: 1rem;
     line-height: 1.35;
     text-align: right;
-    border-top: 2px solid #ffffff;
+    border-top: 2px solid var(--yad2-orange);
 }
 
-/* Promo Banner Strip */
+/* Promo Banner Strip (Yad2 Style) */
 .promo-strip {
     padding-top: 20px;
 }
 
 .promo-box {
     background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
+    border: 2px solid var(--yad2-orange);
+    border-radius: var(--radius-md);
     padding: 14px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
     color: var(--text-primary);
-    font-weight: 700;
-    font-size: 0.95rem;
-    box-shadow: var(--shadow-sm);
+    font-weight: 800;
+    font-size: 0.98rem;
+    box-shadow: var(--shadow-md);
 }
 
 .promo-tag {
-    background-color: var(--text-primary);
-    color: var(--card-bg);
-    font-size: 0.75rem;
+    background-color: var(--yad2-orange);
+    color: #ffffff;
+    font-size: 0.78rem;
     font-weight: 900;
-    padding: 2px 10px;
-    border-radius: 4px;
+    padding: 3px 12px;
+    border-radius: 12px;
 }
 
 /* Main Content Area (3 Columns) */
@@ -531,43 +597,49 @@ body.dark-theme .ticker-title {
     justify-content: space-between;
     padding-bottom: 14px;
     margin-bottom: 18px;
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 3px solid var(--yad2-orange);
 }
 
 .section-title {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     font-weight: 900;
-    letter-spacing: -0.3px;
+    color: var(--text-primary);
 }
 
 .results-count {
     color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.88rem;
+    font-weight: 700;
 }
 
-/* News List Container & Horizontal Rows */
+/* Yad2 Style Listing Items Container & Horizontal Rows */
 .news-list-container {
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
 
 .news-row-item {
     display: flex;
-    gap: 22px;
+    gap: 20px;
     align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--border-color);
+    padding: 16px;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
     cursor: pointer;
     transition: var(--transition);
+    box-shadow: var(--shadow-sm);
 }
 
-.news-row-item:last-child {
-    border-bottom: none;
+.news-row-item:hover {
+    border-color: var(--yad2-orange);
+    box-shadow: 0 4px 16px rgba(255, 102, 0, 0.12);
+    transform: translateX(-3px);
 }
 
 .news-row-item:hover .row-title {
-    opacity: 0.7;
+    color: var(--yad2-orange);
 }
 
 .row-content {
@@ -577,25 +649,25 @@ body.dark-theme .ticker-title {
 }
 
 .row-title {
-    font-size: 1.32rem;
+    font-size: 1.3rem;
     font-weight: 800;
     line-height: 1.35;
     color: var(--text-primary);
     margin-bottom: 8px;
-    letter-spacing: -0.2px;
+    transition: var(--transition);
 }
 
 .row-meta {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-size: 0.88rem;
     color: var(--text-muted);
     margin-bottom: 10px;
 }
 
 .row-author {
-    color: var(--text-primary);
+    color: var(--yad2-orange);
     font-weight: 800;
 }
 
@@ -609,12 +681,12 @@ body.dark-theme .ticker-title {
 }
 
 .row-star {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     line-height: 1.6;
 }
 
 .row-image {
-    width: 200px;
+    width: 190px;
     height: 125px;
     border-radius: var(--radius-sm);
     overflow: hidden;
@@ -626,14 +698,14 @@ body.dark-theme .ticker-title {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.35 ease;
+    transition: transform 0.35s ease;
 }
 
 .news-row-item:hover .row-image img {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
-/* Side Widgets Styling */
+/* Side Widgets Styling (Yad2 Style) */
 .widget-card {
     background-color: var(--card-bg);
     border-radius: var(--radius-md);
@@ -666,7 +738,7 @@ body.dark-theme .ticker-title {
     transform: translateX(50%);
     width: 60px;
     height: 3px;
-    background-color: var(--text-primary);
+    background-color: var(--yad2-orange);
     border-radius: 2px;
 }
 
@@ -698,12 +770,12 @@ body.dark-theme .ticker-title {
 }
 
 .rec-item:hover {
-    background-color: var(--text-primary);
-    color: var(--card-bg);
-    border-color: var(--text-primary);
+    background-color: var(--yad2-orange);
+    color: #ffffff;
+    border-color: var(--yad2-orange);
 }
 
-/* TOP 5 Widget */
+/* Yad2 TOP 5 Ranked Listings Widget */
 .top5-list {
     display: flex;
     flex-direction: column;
@@ -714,7 +786,7 @@ body.dark-theme .ticker-title {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 12px;
+    padding: 10px 14px;
     background-color: var(--bg-color);
     border-radius: 25px;
     border: 1px solid var(--border-color);
@@ -723,21 +795,21 @@ body.dark-theme .ticker-title {
 }
 
 .top5-item:hover {
-    border-color: var(--text-primary);
-    background-color: var(--primary-light);
+    border-color: var(--yad2-orange);
+    background-color: var(--yad2-orange-light);
 }
 
 .top5-number {
     font-size: 1.15rem;
     font-weight: 900;
-    color: var(--text-primary);
+    color: var(--yad2-orange);
     min-width: 28px;
     text-align: center;
 }
 
 .top5-title {
     font-size: 0.88rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-primary);
     flex: 1;
     margin: 0 8px;
@@ -751,9 +823,9 @@ body.dark-theme .ticker-title {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background-color: var(--card-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
+    background-color: var(--yad2-orange-light);
+    color: var(--yad2-orange);
+    border: 1px solid var(--yad2-orange);
     padding: 4px 10px;
     border-radius: 16px;
     font-size: 0.82rem;
@@ -764,12 +836,11 @@ body.dark-theme .ticker-title {
 
 .top5-like-btn:hover {
     transform: scale(1.08);
-    border-color: var(--text-primary);
-    background-color: var(--text-primary);
-    color: var(--card-bg);
+    background-color: var(--yad2-orange);
+    color: #ffffff;
 }
 
-/* Social Grid */
+/* Yad2 Social Network Buttons */
 .social-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -784,9 +855,7 @@ body.dark-theme .ticker-title {
     padding: 10px 8px;
     border-radius: var(--radius-sm);
     text-decoration: none;
-    color: var(--card-bg);
-    background-color: var(--text-primary);
-    border: 1px solid var(--border-color);
+    color: #ffffff;
     font-weight: 800;
     font-size: 0.88rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -795,8 +864,15 @@ body.dark-theme .ticker-title {
 
 .social-btn:hover {
     transform: translateY(-2px);
-    opacity: 0.85;
+    opacity: 0.9;
 }
+
+.social-btn.facebook { background: linear-gradient(135deg, #1877f2, #0d5cb6); }
+.social-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888); }
+.social-btn.discord { background: linear-gradient(135deg, #5865f2, #4752c4); }
+.social-btn.telegram { background: linear-gradient(135deg, #2aabee, #229ed9); }
+.social-btn.twitter { background: #000000; }
+.social-btn.reddit { background: linear-gradient(135deg, #ff4500, #d93a00); }
 
 /* Markets Widget */
 .market-list {
@@ -817,12 +893,9 @@ body.dark-theme .ticker-title {
     font-weight: 700;
 }
 
-.trend.up,
-.trend.down,
-.temp {
-    color: var(--text-primary);
-    font-weight: 800;
-}
+.trend.up { color: #16a34a; font-weight: 800; }
+.trend.down { color: #dc2626; font-weight: 800; }
+.temp { color: var(--yad2-orange); font-weight: 800; }
 
 /* Poll Widget */
 .poll-container {
@@ -849,13 +922,13 @@ body.dark-theme .ticker-title {
     font-size: 0.88rem;
 }
 
-/* Toast */
+/* Toast Notification */
 .toast {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background-color: var(--text-primary);
-    color: var(--card-bg);
+    background-color: var(--yad2-orange);
+    color: #ffffff;
     padding: 12px 24px;
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow-lg);
@@ -863,7 +936,7 @@ body.dark-theme .ticker-title {
     align-items: center;
     gap: 10px;
     z-index: 3000;
-    font-weight: 700;
+    font-weight: 800;
     border: 1px solid var(--border-color);
 }
 

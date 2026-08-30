@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yhsh | פורטל החדשות והטכנולוגיה</title>
+    <title>yhsh | פורטל החדשות בסגנון יד2</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,18 +14,20 @@
 </head>
 <body>
 
-    <!-- Dark Top Header Bar -->
+    <!-- Yad2 Style Top Navbar Header -->
     <header class="top-navbar-dark">
         <div class="container top-nav-container">
             
-            <!-- Right: Logo "yhsh" White on Black -->
+            <!-- Right: Logo "yhsh" with Yad2 Orange Accent Badge -->
             <div class="nav-right">
                 <a href="index.html" class="brand-infinity">
-                    <span class="brand-text">yhsh</span>
+                    <span class="brand-text-yad2">
+                        <span class="brand-yh">yh</span><span class="brand-sh-badge">sh</span>
+                    </span>
                 </a>
             </div>
 
-            <!-- Center: Single "ראשי" Tab -->
+            <!-- Center: Navigation Tabs (Yad2 Orange Active Pill) -->
             <nav class="nav-center-tabs">
                 <button class="nav-tab category-btn active" data-category="all">
                     <i class="fa-solid fa-house"></i>
@@ -66,7 +68,20 @@
         </div>
     </div>
 
-    <!-- Top 3 Featured Grid Section -->
+    <!-- Yad2 Search Filter Banner Bar -->
+    <div class="yad2-search-strip">
+        <div class="container">
+            <div class="search-strip-box">
+                <i class="fa-solid fa-magnifying-glass" style="color:var(--yad2-orange); font-size:1.1rem;"></i>
+                <input type="text" id="searchInput" class="search-strip-input" placeholder="מה תרצו לחפש היום ב-yhsh? (כתבות, טכנולוגיה, רכב, נדל״ן)...">
+                <button class="search-strip-btn" onclick="document.getElementById('searchInput').focus()">
+                    <span>חיפוש</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top 3 Hot Featured Grid Section -->
     <div class="top3-section container">
         <div id="top3Grid" class="top3-grid">
             <!-- 3 Featured Cards Injected via JS -->
@@ -76,8 +91,8 @@
     <!-- Promo Banner Strip -->
     <div class="promo-strip container">
         <div class="promo-box">
-            <span class="promo-tag">מומלץ</span>
-            <span class="promo-text">חדשות הטכנולוגיה, השווקים וההיי-טק העדכניות ביותר בישראל 24/7 ב-yhsh</span>
+            <span class="promo-tag">מודעה חמה 🔥</span>
+            <span class="promo-text">כל הידיעות, העדכונים והחדשות המובילות בישראל בסגנון יד2 24/7 ב-yhsh</span>
         </div>
     </div>
 
@@ -142,10 +157,10 @@
 
             </aside>
 
-            <!-- Center Column: Clean Horizontal News List -->
+            <!-- Center Column: Clean Yad2 Style Listing Feed -->
             <div class="main-column">
                 <div class="section-header">
-                    <h2 id="sectionTitle" class="section-title">חדשות אחרונות</h2>
+                    <h2 id="sectionTitle" class="section-title">כתבות וידיעות אחרונות</h2>
                     <div class="sort-filter">
                         <span id="resultsCount" class="results-count">מציג 0 כתבות</span>
                     </div>
@@ -183,7 +198,7 @@
                 <!-- Widget 2: חמשת הכתבות המובילות -->
                 <div class="widget-card widget-top5">
                     <div class="widget-title accent-mono">
-                        <span>חמשת הכתבות המובילות</span>
+                        <span>מודעות מבוקשות 🔥</span>
                     </div>
                     <div class="top5-list" id="top5List">
                         <!-- TOP 5 Items Dynamic Injected via JS -->
