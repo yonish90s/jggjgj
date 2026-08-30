@@ -26,7 +26,8 @@ let state = {
     showBookmarksOnly: false,
     darkMode: false,
     pollVoted: false,
-    userBalance: 50000
+    userBalance: 50000,
+    subscription: null
 };
 
 // DOM Elements
@@ -46,6 +47,8 @@ const elements = {
     top5List: document.getElementById('top5List'),
     pollContainer: document.getElementById('pollContainer'),
     userBalanceDisplay: document.getElementById('userBalanceDisplay'),
+    subscriptionModal: document.getElementById('subscriptionModal'),
+    guestUserText: document.getElementById('guestUserText'),
     
     // Toast
     toast: document.getElementById('toast'),
@@ -56,7 +59,6 @@ const elements = {
 async function initApp() {
     loadArticlesSync();
     setupEventListeners();
-    renderTicker();
     renderApp();
     
     // Background async update
@@ -98,6 +100,19 @@ function loadArticlesSync() {
         elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
     }
 
+    // Load Subscription State
+    try {
+        const subData = localStorage.getItem('news_user_subscription');
+        if (subData) {
+            state.subscription = JSON.parse(subData);
+            if (elements.guestUserText && state.subscription && state.subscription.active) {
+                elements.guestUserText.textContent = `👑 ${state.subscription.planName}`;
+                elements.guestUserText.parentElement.style.borderColor = 'var(--yad2-pink)';
+                elements.guestUserText.parentElement.style.color = 'var(--yad2-pink)';
+            }
+        }
+    } catch (e) {}
+
     state.pollVoted = localStorage.getItem('news_poll_voted') === 'true';
     state.darkMode = localStorage.getItem('news_theme') === 'dark';
     applyTheme();
@@ -123,6 +138,47 @@ async function loadStateFromStorage() {
     } catch (e) {
         // Keep cached
     }
+}
+
+// Monthly Subscription Logic
+function openSubscriptionModal() {
+    if (elements.subscriptionModal) {
+        elements.subscriptionModal.classList.remove('hidden');
+    }
+}
+
+function closeSubscriptionModal() {
+    if (elements.subscriptionModal) {
+        elements.subscriptionModal.classList.add('hidden');
+    }
+}
+
+function subscribePlan(planName, price, bonusWallet) {
+    state.subscription = {
+        planName: planName,
+        price: price,
+        bonusWallet: bonusWallet,
+        active: true,
+        startDate: new Date().toISOString()
+    };
+    
+    // Grant bonus wallet credits
+    state.userBalance += bonusWallet;
+    localStorage.setItem('news_user_balance', state.userBalance.toString());
+    localStorage.setItem('news_user_subscription', JSON.stringify(state.subscription));
+
+    if (elements.userBalanceDisplay) {
+        elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
+    }
+
+    if (elements.guestUserText) {
+        elements.guestUserText.textContent = `👑 ${planName}`;
+        elements.guestUserText.parentElement.style.borderColor = 'var(--yad2-pink)';
+        elements.guestUserText.parentElement.style.color = 'var(--yad2-pink)';
+    }
+
+    closeSubscriptionModal();
+    showToast(`מזל טוב! הצטרפת ל-${planName} וקיבלת ₪${bonusWallet.toLocaleString('he-IL')} בונוס לארנק! 🥳💎`);
 }
 
 function filterByCategory(cat) {
@@ -155,25 +211,6 @@ function applyTheme() {
         document.body.classList.remove('dark-theme');
         if (elements.themeToggle) elements.themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
     }
-}
-
-// Render Ticker
-function renderTicker() {
-    if (!elements.tickerContent) return;
-    const track = document.createElement('div');
-    track.className = 'ticker-track';
-    
-    const itemsToRender = [...TICKER_ITEMS, ...TICKER_ITEMS];
-    
-    track.innerHTML = itemsToRender.map(item => `
-        <div class="ticker-item">
-            <span class="ticker-time">${item.time}</span>
-            <span>${item.text}</span>
-        </div>
-    `).join('');
-    
-    elements.tickerContent.innerHTML = '';
-    elements.tickerContent.appendChild(track);
 }
 
 // Main Render Function
@@ -237,10 +274,6 @@ function renderApp() {
             renderArticlesList(rowArticles);
         }
     }
-
-    // Render Sidebar Widgets
-    renderTop5Widget();
-    renderPollWidget();
 }
 
 // Render Top 3 Featured Rental Items Grid
@@ -312,58 +345,6 @@ function toggleBookmarkMain(id) {
     renderApp();
 }
 
-// Render TOP 5 Requested Products Widget
-function renderTop5Widget() {
-    if (!elements.top5List) return;
-
-    const sorted = [...state.articles].sort((a, b) => (state.likes[b.id] || 0) - (state.likes[a.id] || 0));
-    const top5 = sorted.slice(0, 5);
-
-    elements.top5List.innerHTML = top5.map((article, idx) => {
-        const num = String(idx + 1).padStart(2, '0');
-        const count = state.likes[article.id] || 0;
-        return `
-            <div class="top5-item" onclick="openArticleModal('${article.id}')">
-                <span class="top5-number">${num}</span>
-                <span class="top5-title">${article.title}</span>
-                <button class="top5-like-btn" onclick="event.stopPropagation(); likeArticle('${article.id}')">
-                    <i class="fa-solid fa-heart"></i>
-                    <span>${count}</span>
-                </button>
-            </div>
-        `;
-    }).join('');
-}
-
-// Like Article Function
-function likeArticle(id) {
-    state.likes[id] = (state.likes[id] || 0) + 1;
-    saveLikesToStorage();
-    renderTop5Widget();
-    showToast('תודה שפרגנת בלייק! 👍');
-}
-
-// Poll Widget Handler
-function renderPollWidget() {
-    if (!elements.pollContainer) return;
-
-    if (state.pollVoted) {
-        elements.pollContainer.innerHTML = `
-            <p class="poll-question">תודה שהשתתפת בסקר!</p>
-            <div style="background:var(--primary-light); padding:10px; border-radius:8px; font-weight:700; color:var(--primary-color);">
-                94% מעדיפים להשכיר מחשב, פלאפון או קונסולה מאשר לקנות יקר! 🚀
-            </div>
-        `;
-    }
-}
-
-function votePoll(option) {
-    state.pollVoted = true;
-    localStorage.setItem('news_poll_voted', 'true');
-    renderPollWidget();
-    showToast('הצבעתך נקלטה בהצלחה!');
-}
-
 // Event Listeners Setup
 function setupEventListeners() {
     if (elements.categoryBtns) {
@@ -411,18 +392,6 @@ function showToast(message) {
     setTimeout(() => {
         elements.toast.classList.add('hidden');
     }, 3000);
-}
-
-// Time/Date Formatter
-function formatTimeOrDate(dateString) {
-    try {
-        const date = new Date(dateString);
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `היום, ${hours}:${minutes}`;
-    } catch (e) {
-        return dateString;
-    }
 }
 
 // Run App on Load

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yhsh | מוצרים וציוד להשכרה מפרטיים</title>
+    <title>yhsh | מוצרים וציוד להשכרה מפרטיים + מנוי חודשי VIP</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
                 </a>
             </div>
 
-            <!-- Center: Clean Navigation Tabs -->
+            <!-- Center: Yad2 Navigation Tabs + VIP Subscription Button -->
             <nav class="nav-center-tabs">
                 <button class="nav-tab category-btn active" data-category="all">
                     <i class="fa-solid fa-house"></i>
@@ -37,6 +37,10 @@
                     <i class="fa-solid fa-gavel"></i>
                     <span>עמוד מסחר והצעות</span>
                 </a>
+                <button class="nav-tab vip-tab-btn" onclick="openSubscriptionModal()">
+                    <i class="fa-solid fa-gem"></i>
+                    <span>מנוי חודשי VIP</span>
+                </button>
                 <button class="nav-tab category-btn" data-category="מחשבים">
                     <span>מחשבים</span>
                 </button>
@@ -54,7 +58,7 @@
                 </button>
             </nav>
 
-            <!-- Left: Actions, Balance & "+ פרסום מוצר להשכרה" -->
+            <!-- Left: Actions, Balance & "+ פרסום מודעה" -->
             <div class="nav-left">
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
@@ -71,9 +75,9 @@
                     <i class="fa-solid fa-moon"></i>
                 </button>
 
-                <div class="guest-pill" title="חשבון משתמש">
+                <div class="guest-pill" id="guestUserPill" onclick="openSubscriptionModal()" title="לחץ לשדרוג למנוי VIP">
                     <i class="fa-regular fa-user"></i>
-                    <span>אורח</span>
+                    <span id="guestUserText">אורח</span>
                 </div>
             </div>
 
@@ -152,6 +156,64 @@
         </div>
 
     </main>
+
+    <!-- Monthly Subscription Modal (מנוי חודשי VIP) -->
+    <div id="subscriptionModal" class="modal-overlay hidden">
+        <div class="subscription-modal-box">
+            <button class="close-modal-btn" onclick="closeSubscriptionModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="sub-header-title">
+                <h2>💎 הצטרף למנוי חודשי VIP ב-yhsh</h2>
+                <p>השכרת מוצרים ללא הגבלה, בונוסים חודשיים לארנק ותגית משכיר VIP מומלץ!</p>
+            </div>
+
+            <div class="subscription-grid">
+                
+                <!-- Plan 1: Basic -->
+                <div class="sub-plan-card">
+                    <h3 class="sub-plan-name">מנוי בסיסי</h3>
+                    <div class="sub-plan-price">₪49 <span>/ לחודש</span></div>
+                    <ul class="sub-features-list">
+                        <li><i class="fa-solid fa-check"></i> עד 5 פרסומי מוצרים בחודש</li>
+                        <li><i class="fa-solid fa-check"></i> ₪10,000 בונוס לארנק בחודש</li>
+                        <li><i class="fa-solid fa-check"></i> תגית משכיר מורשה</li>
+                        <li><i class="fa-solid fa-check"></i> תמיכה במייל</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="subscribePlan('מנוי בסיסי', 49, 10000)">הירשם ב-₪49</button>
+                </div>
+
+                <!-- Plan 2: Pro VIP (Popular) -->
+                <div class="sub-plan-card popular">
+                    <span class="popular-badge">הכי משתלם 🔥</span>
+                    <h3 class="sub-plan-name" style="color:var(--yad2-pink);">מנוי פרימיום VIP</h3>
+                    <div class="sub-plan-price">₪99 <span>/ לחודש</span></div>
+                    <ul class="sub-features-list">
+                        <li><i class="fa-solid fa-check"></i> פרסום מוצרים ללא הגבלה</li>
+                        <li><i class="fa-solid fa-check"></i> ₪30,000 בונוס לארנק בחודש</li>
+                        <li><i class="fa-solid fa-check"></i> הקפצת מודעות אוטומטית לראש הלוח</li>
+                        <li><i class="fa-solid fa-check"></i> תגית VIP ורודה בולטת</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="subscribePlan('מנוי פרימיום VIP', 99, 30000)">הצטרף ל-VIP ב-₪99</button>
+                </div>
+
+                <!-- Plan 3: Business Pro -->
+                <div class="sub-plan-card">
+                    <h3 class="sub-plan-name">מנוי עסקי PRO</h3>
+                    <div class="sub-plan-price">₪199 <span>/ לחודש</span></div>
+                    <ul class="sub-features-list">
+                        <li><i class="fa-solid fa-check"></i> לוח מסחר עסקי מלא</li>
+                        <li><i class="fa-solid fa-check"></i> ₪100,000 בונוס לארנק בחודש</li>
+                        <li><i class="fa-solid fa-check"></i> ערבות וביטוח ציוד מורחב</li>
+                        <li><i class="fa-solid fa-check"></i> מנהל תיק לקוח אישי 24/7</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="subscribePlan('מנוי עסקי PRO', 199, 100000)">הצטרף ב-₪199</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast hidden">
