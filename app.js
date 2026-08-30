@@ -24,7 +24,8 @@ let state = {
     searchQuery: '',
     showBookmarksOnly: false,
     darkMode: false,
-    pollVoted: false
+    pollVoted: false,
+    userBalance: 50000
 };
 
 // DOM Elements
@@ -43,16 +44,7 @@ const elements = {
     tickerContent: document.getElementById('tickerContent'),
     top5List: document.getElementById('top5List'),
     pollContainer: document.getElementById('pollContainer'),
-    
-    // Modals
-    articleModal: document.getElementById('articleModal'),
-    closeArticleModal: document.getElementById('closeArticleModal'),
-    articleModalContent: document.getElementById('articleModalContent'),
-    
-    addArticleModal: document.getElementById('addArticleModal'),
-    closeAddModal: document.getElementById('closeAddModal'),
-    cancelAddBtn: document.getElementById('cancelAddBtn'),
-    addArticleForm: document.getElementById('addArticleForm'),
+    userBalanceDisplay: document.getElementById('userBalanceDisplay'),
     
     // Toast
     toast: document.getElementById('toast'),
@@ -97,6 +89,12 @@ function loadArticlesSync() {
         state.likes = JSON.parse(localStorage.getItem('news_likes') || '{}');
     } catch (e) {
         state.likes = { "art-1": 14, "art-2": 9, "art-3": 7, "art-4": 5, "art-5": 3 };
+    }
+
+    const savedBal = localStorage.getItem('news_user_balance');
+    state.userBalance = savedBal ? parseInt(savedBal, 10) : 50000;
+    if (elements.userBalanceDisplay) {
+        elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
     }
 
     state.pollVoted = localStorage.getItem('news_poll_voted') === 'true';
@@ -198,7 +196,7 @@ function renderApp() {
         } else if (state.activeCategory !== 'all') {
             elements.sectionTitle.textContent = `חדשות בקטגוריית ${state.activeCategory}`;
         } else {
-            elements.sectionTitle.textContent = 'חדשות אחרונות';
+            elements.sectionTitle.textContent = 'כתבות וידיעות אחרונות';
         }
     }
 
@@ -359,95 +357,11 @@ function setupEventListeners() {
             applyTheme();
         });
     }
-
-    if (elements.bookmarksBtn) {
-        elements.bookmarksBtn.addEventListener('click', () => {
-            state.showBookmarksOnly = !state.showBookmarksOnly;
-            if (state.showBookmarksOnly) {
-                elements.bookmarksBtn.classList.add('btn-primary');
-                elements.bookmarksBtn.classList.remove('btn-outline');
-            } else {
-                elements.bookmarksBtn.classList.remove('btn-primary');
-                elements.bookmarksBtn.classList.add('btn-outline');
-            }
-            renderApp();
-        });
-    }
-
-    if (elements.addArticleBtn) elements.addArticleBtn.addEventListener('click', openAddModal);
-    if (elements.closeAddModal) elements.closeAddModal.addEventListener('click', closeAddModal);
-    if (elements.cancelAddBtn) elements.cancelAddBtn.addEventListener('click', closeAddModal);
-
-    if (elements.closeArticleModal) elements.closeArticleModal.addEventListener('click', closeArticleModal);
-
-    if (elements.articleModal) elements.articleModal.querySelector('.modal-overlay').addEventListener('click', closeArticleModal);
-    if (elements.addArticleModal) elements.addArticleModal.querySelector('.modal-overlay').addEventListener('click', closeAddModal);
-
-    if (elements.addArticleForm) elements.addArticleForm.addEventListener('submit', handleAddArticleSubmit);
 }
 
 // Redirect to Dedicated Article Page INSTANTLY
 function openArticleModal(id) {
     window.location.href = 'article.html?id=' + id;
-}
-
-function closeArticleModal() {
-    if (elements.articleModal) elements.articleModal.classList.add('hidden');
-    document.body.style.overflow = '';
-}
-
-function openAddModal() {
-    if (elements.addArticleModal) {
-        elements.addArticleModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeAddModal() {
-    if (elements.addArticleModal) {
-        elements.addArticleModal.classList.add('hidden');
-        document.body.style.overflow = '';
-        if (elements.addArticleForm) elements.addArticleForm.reset();
-    }
-}
-
-// Handle Adding Article Form
-function handleAddArticleSubmit(e) {
-    e.preventDefault();
-
-    const title = document.getElementById('formTitle').value.trim();
-    const category = document.getElementById('formCategory').value;
-    const author = document.getElementById('formAuthor').value.trim();
-    let imageUrl = document.getElementById('formImageUrl').value.trim();
-    const summary = document.getElementById('formSummary').value.trim();
-    const content = document.getElementById('formContent').value.trim();
-
-    if (!imageUrl) {
-        imageUrl = CATEGORY_IMAGES[category] || CATEGORY_IMAGES["ארץ"];
-    }
-
-    const wordCount = content.split(/\s+/).length;
-    const readMinutes = Math.max(1, Math.ceil(wordCount / 100));
-
-    const newArticle = {
-        id: 'art-' + Date.now(),
-        title,
-        category,
-        author,
-        date: new Date().toISOString(),
-        readTime: `${readMinutes} דקות קריאה`,
-        imageUrl,
-        summary,
-        content,
-        isFeatured: false
-    };
-
-    state.articles.unshift(newArticle);
-    saveCustomArticlesToStorage(newArticle);
-
-    closeAddModal();
-    renderApp();
-    showToast('הכתבה פורסמה בהצלחה!');
 }
 
 // Toast Notification Helper

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עמוד מסחר והצעות מחיר | yhsh</title>
+    <!-- Google Fonts: Heebo & Assistant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Yad2 Style Top Navbar Header -->
+    <header class="top-navbar-dark">
+        <div class="container top-nav-container">
+            
+            <!-- Right: Logo "yhsh" with Yad2 Accent -->
+            <div class="nav-right">
+                <a href="index.html" class="brand-infinity">
+                    <span class="brand-text-yad2">
+                        <span class="brand-yh">yh</span><span class="brand-sh-badge">sh</span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Center: Navigation Tabs -->
+            <nav class="nav-center-tabs">
+                <a href="index.html" class="nav-tab">
+                    <i class="fa-solid fa-house"></i>
+                    <span>ראשי</span>
+                </a>
+                <a href="trading.html" class="nav-tab active">
+                    <i class="fa-solid fa-gavel"></i>
+                    <span>עמוד מסחר והצעות</span>
+                </a>
+            </nav>
+
+            <!-- Left: Balance & Actions -->
+            <div class="nav-left">
+                <!-- User Balance Pill -->
+                <div class="user-balance-pill" title="היתרה שלך">
+                    <i class="fa-solid fa-wallet" style="color:var(--yad2-orange);"></i>
+                    <span id="userBalanceDisplay">₪ 50,000</span>
+                </div>
+
+                <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="guest-pill">
+                    <span>אורח</span>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Trading Dashboard Hero Section -->
+    <div class="trading-hero container">
+        <div class="trading-hero-card">
+            <div class="hero-wallet">
+                <i class="fa-solid fa-coins fa-3x" style="color:var(--yad2-orange);"></i>
+                <div>
+                    <h2>ארנק המסחר שלך</h2>
+                    <p>כאן תוכל להגיש הצעות מחיר בלייב על מודעות וכתבות שפרסמו משתמשים אחרים!</p>
+                </div>
+            </div>
+            <div class="wallet-balance-box">
+                <span class="balance-label">היתרה הזמינה שלך:</span>
+                <span id="heroBalanceText" class="balance-amount">₪ 50,000</span>
+                <button class="btn btn-outline" style="margin-top:8px; font-size:0.82rem;" onclick="addFunds()">
+                    <i class="fa-solid fa-plus-circle"></i> טען אשראי (+₪10,000)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="main-content container">
+        <div class="trading-feed-container">
+            
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-gavel"></i> לוח הצעות מחיר פעילות באתר (Live Bids)</h2>
+                <div class="filter-bids-group">
+                    <button id="filterAllBids" class="btn btn-primary active" onclick="filterBids('all')">כל ההצעות באתר</button>
+                    <button id="filterMyBids" class="btn btn-outline" onclick="filterBids('my')">ההצעות שלי</button>
+                </div>
+            </div>
+
+            <!-- Bids Feed Grid / Table -->
+            <div id="bidsFeedList" class="bids-feed-list">
+                <!-- Injected via trading.js -->
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <script src="trading.js"></script>
+</body>
+</html>

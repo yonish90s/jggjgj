@@ -12,6 +12,8 @@ let bookmarks = [];
 let likes = {};
 let currentArticle = null;
 let darkMode = false;
+let userBalance = 50000;
+let offers = [];
 
 // DOM Elements
 const articlePageContainer = document.getElementById('articlePageContainer');
@@ -20,15 +22,15 @@ const themeToggle = document.getElementById('themeToggle');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
 
-// Initialize Article Page - INSTANT 0ms RENDER
+// Initialize Article Page
 function initArticlePage() {
     setupTheme();
     setupEventListeners();
+    loadBalance();
 
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get('id');
 
-    // 1. Load synchronously from cache/localStorage for INSTANT display
     loadArticlesSync();
 
     if (articleId) {
@@ -47,11 +49,14 @@ function initArticlePage() {
         renderNotFound();
     }
 
-    // 2. Fetch fresh articles.json asynchronously in background without blocking UI
     fetchBackgroundArticles(articleId);
 }
 
-// Synchronous fast load
+function loadBalance() {
+    const saved = localStorage.getItem('news_user_balance');
+    userBalance = saved ? parseInt(saved, 10) : 50000;
+}
+
 function loadArticlesSync() {
     try {
         const custom = JSON.parse(localStorage.getItem('news_custom_articles') || '[]');
@@ -79,9 +84,14 @@ function loadArticlesSync() {
     } catch (e) {
         likes = {};
     }
+
+    try {
+        offers = JSON.parse(localStorage.getItem('news_offers') || '[]');
+    } catch (e) {
+        offers = [];
+    }
 }
 
-// Background fetch for articles.json
 async function fetchBackgroundArticles(targetId) {
     try {
         const response = await fetch('articles.json?t=' + Date.now());
@@ -98,7 +108,6 @@ async function fetchBackgroundArticles(targetId) {
             articles = combined;
             localStorage.setItem('news_articles', JSON.stringify(fileArticles));
 
-            // Re-render if new data arrived
             if (targetId) {
                 const freshArticle = articles.find(a => a.id === targetId);
                 if (freshArticle && JSON.stringify(freshArticle) !== JSON.stringify(currentArticle)) {
@@ -108,12 +117,9 @@ async function fetchBackgroundArticles(targetId) {
                 }
             }
         }
-    } catch (e) {
-        // Silently keep cached version
-    }
+    } catch (e) {}
 }
 
-// Theme handler
 function setupTheme() {
     darkMode = localStorage.getItem('news_theme') === 'dark';
     applyTheme();
@@ -143,17 +149,21 @@ function renderNotFound() {
     articlePageContainer.innerHTML = `
         <div class="empty-state">
             <i class="fa-solid fa-triangle-exclamation fa-3x"></i>
-            <h3>הכתבה לא נמצאה</h3>
+            <h3>הכתבה/המודעה לא נמצאה</h3>
             <a href="index.html" class="btn btn-primary" style="margin-top:15px;">חזרה לדף הבית</a>
         </div>
     `;
 }
 
-// Render Article Details Page
+// Render Article Details Page with Bidding Section
 function renderFullArticle(article) {
     const isBookmarked = bookmarks.includes(article.id);
     const likeCount = likes[article.id] || 0;
     const formattedDate = formatDate(article.date);
+
+    // Get highest bid for this article
+    const articleBids = offers.filter(o => o.articleId === article.id);
+    const highestBid = articleBids.length > 0 ? Math.max(...articleBids.map(b => b.amount)) : 1000;
 
     articlePageContainer.innerHTML = `
         <div class="article-page-header">
@@ -161,7 +171,7 @@ function renderFullArticle(article) {
             <h1 class="article-page-title">${article.title}</h1>
             
             <div class="article-page-meta">
-                <span class="meta-author">מאת: <strong style="color:var(--orange-accent);">${article.author}</strong></span>
+                <span class="meta-author">מאת: <strong style="color:var(--yad2-orange);">${article.author}</strong></span>
                 <span>•</span>
                 <span><i class="fa-regular fa-calendar"></i> ${formattedDate}</span>
                 <span>•</span>
@@ -182,6 +192,29 @@ function renderFullArticle(article) {
             ${article.content}
         </div>
 
+        <!-- Yad2 Bidding & Trading Section -->
+        <div class="article-bidding-widget">
+            <div class="bidding-header">
+                <i class="fa-solid fa-gavel fa-2x" style="color:var(--yad2-orange);"></i>
+                <div>
+                    <h3>מסחר והצעות מחיר במודעה זו</h3>
+                    <p>ארנק המסחר שלך: <strong>₪ ${userBalance.toLocaleString('he-IL')}</strong> | הגש הצעה ותתחרה בלייב!</p>
+                </div>
+            </div>
+            <div class="bidding-body">
+                <div class="current-bid-box">
+                    <span>הצעה מובילה כרגע:</span>
+                    <strong id="articleHighestBid">₪ ${highestBid.toLocaleString('he-IL')}</strong>
+                </div>
+                <div class="bid-input-group">
+                    <input type="number" id="userBidInput" placeholder="הכנס סכום ב-₪ (למשל: ${highestBid + 100})" step="50">
+                    <button class="btn btn-primary" onclick="submitBidFromArticle('${article.id}', '${escapeQuote(article.title)}', ${highestBid})">
+                        <i class="fa-solid fa-gavel"></i> הגש הצעת מחיר
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div class="article-page-actions">
             <div class="action-buttons-group">
                 <button class="btn ${isBookmarked ? 'btn-primary' : 'btn-outline'}" onclick="toggleBookmark('${article.id}')">
@@ -192,10 +225,10 @@ function renderFullArticle(article) {
                     <i class="fa-solid fa-thumbs-up"></i>
                     <span id="likeCountText">פרגן בלייק (${likeCount})</span>
                 </button>
-                <button class="btn btn-outline" onclick="shareArticle('${article.title}')">
-                    <i class="fa-solid fa-share-nodes"></i>
-                    <span>שתף כתבה</span>
-                </button>
+                <a href="trading.html" class="btn btn-outline">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>כל ההצעות באתר</span>
+                </a>
             </div>
             
             <a href="index.html" class="btn btn-outline">
@@ -206,7 +239,59 @@ function renderFullArticle(article) {
     `;
 }
 
-// Render Related Articles
+function submitBidFromArticle(articleId, articleTitle, currentHighest) {
+    const input = document.getElementById('userBidInput');
+    if (!input || !input.value) {
+        showToast('אנא הזן סכום הצעה תקף');
+        return;
+    }
+
+    const bidAmount = parseInt(input.value, 10);
+    if (isNaN(bidAmount) || bidAmount <= currentHighest) {
+        showToast(`ההצעה חייבת להיות גבוהה מההצעה הנוכחית (₪${currentHighest.toLocaleString('he-IL')})`);
+        return;
+    }
+
+    if (userBalance < bidAmount) {
+        showToast('אין לך מספיק יתרה בארנק להציע ₪' + bidAmount.toLocaleString('he-IL'));
+        return;
+    }
+
+    // Process bid
+    userBalance -= 100;
+    localStorage.setItem('news_user_balance', userBalance.toString());
+
+    const newOffer = {
+        id: 'off-' + Date.now(),
+        articleId: articleId,
+        articleTitle: articleTitle,
+        bidder: 'אורח (אתה)',
+        amount: bidAmount,
+        date: new Date().toISOString(),
+        status: 'הצעה מובילה 🔥',
+        isMyBid: true
+    };
+
+    offers.forEach(o => {
+        if (o.articleId === articleId) {
+            o.status = 'הצעה נמוכה יותר';
+        }
+    });
+
+    offers.unshift(newOffer);
+    localStorage.setItem('news_offers', JSON.stringify(offers));
+
+    input.value = '';
+    const highestElem = document.getElementById('articleHighestBid');
+    if (highestElem) highestElem.textContent = '₪ ' + bidAmount.toLocaleString('he-IL');
+
+    showToast('הצעתך בסך ₪' + bidAmount.toLocaleString('he-IL') + ' הוגשה בהצלחה! 🥳');
+}
+
+function escapeQuote(str) {
+    return str.replace(/'/g, "\\'");
+}
+
 function renderRelatedArticles(current) {
     const related = articles.filter(a => a.id !== current.id).slice(0, 3);
     relatedGrid.innerHTML = related.map(art => `
@@ -219,7 +304,6 @@ function renderRelatedArticles(current) {
     `).join('');
 }
 
-// Like helper
 function likeCurrentArticle(id) {
     likes[id] = (likes[id] || 0) + 1;
     localStorage.setItem('news_likes', JSON.stringify(likes));
@@ -228,7 +312,6 @@ function likeCurrentArticle(id) {
     showToast('תודה שפרגנת בלייק! 👍');
 }
 
-// Bookmark helper
 function toggleBookmark(id) {
     const index = bookmarks.indexOf(id);
     if (index > -1) {
@@ -246,22 +329,8 @@ function toggleBookmark(id) {
     }
 }
 
-// Share helper
-function shareArticle(title) {
-    if (navigator.share) {
-        navigator.share({
-            title: title,
-            url: window.location.href
-        }).catch(() => {});
-    } else {
-        navigator.clipboard.writeText(window.location.href);
-        showToast('הקישור לכתבה הועתק ללוח!');
-    }
-}
-
-// Toast helper
 function showToast(message) {
-    if (!toastMessage) return;
+    if (!toastMessage || !toast) return;
     toastMessage.textContent = message;
     toast.classList.remove('hidden');
     setTimeout(() => {
@@ -269,7 +338,6 @@ function showToast(message) {
     }, 3000);
 }
 
-// Format Date
 function formatDate(dateString) {
     try {
         const date = new Date(dateString);
@@ -283,5 +351,4 @@ function formatDate(dateString) {
     }
 }
 
-// Run on load
 document.addEventListener('DOMContentLoaded', initArticlePage);

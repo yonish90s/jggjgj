@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yhsh | פורטל החדשות בסגנון יד2</title>
+    <title>yhsh | פורטל החדשות והמסחר בסגנון יד2</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,16 +27,26 @@
                 </a>
             </div>
 
-            <!-- Center: Navigation Tabs (Yad2 Orange Active Pill) -->
+            <!-- Center: Navigation Tabs -->
             <nav class="nav-center-tabs">
                 <button class="nav-tab category-btn active" data-category="all">
                     <i class="fa-solid fa-house"></i>
                     <span>ראשי</span>
                 </button>
+                <a href="trading.html" class="nav-tab">
+                    <i class="fa-solid fa-gavel"></i>
+                    <span>עמוד מסחר והצעות</span>
+                </a>
             </nav>
 
-            <!-- Left: Actions (Guest Pill & Theme Toggle) -->
+            <!-- Left: Actions & User Balance Pill -->
             <div class="nav-left">
+                <!-- User Balance Pill -->
+                <div class="user-balance-pill" title="היתרה שלך">
+                    <i class="fa-solid fa-wallet" style="color:var(--yad2-orange);"></i>
+                    <span id="userBalanceDisplay">₪ 50,000</span>
+                </div>
+
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
@@ -73,7 +83,7 @@
         <div class="container">
             <div class="search-strip-box">
                 <i class="fa-solid fa-magnifying-glass" style="color:var(--yad2-orange); font-size:1.1rem;"></i>
-                <input type="text" id="searchInput" class="search-strip-input" placeholder="מה תרצו לחפש היום ב-yhsh? (כתבות, טכנולוגיה, רכב, נדל״ן)...">
+                <input type="text" id="searchInput" class="search-strip-input" placeholder="מה תרצו לחפש היום ב-yhsh? (כתבות, הצעות מחיר, טכנולוגיה, נדל״ן)...">
                 <button class="search-strip-btn" onclick="document.getElementById('searchInput').focus()">
                     <span>חיפוש</span>
                 </button>
@@ -92,7 +102,7 @@
     <div class="promo-strip container">
         <div class="promo-box">
             <span class="promo-tag">מודעה חמה 🔥</span>
-            <span class="promo-text">כל הידיעות, העדכונים והחדשות המובילות בישראל בסגנון יד2 24/7 ב-yhsh</span>
+            <span class="promo-text">כל הידיעות, העדכונים והצעות המסחר החמות בישראל בסגנון יד2 24/7 ב-yhsh</span>
         </div>
     </div>
 

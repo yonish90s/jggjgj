@@ -122,6 +122,21 @@ body {
     box-shadow: 0 2px 8px rgba(255, 102, 0, 0.4);
 }
 
+/* User Balance Pill */
+.user-balance-pill {
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1.5px solid var(--yad2-orange);
+    color: #ffffff;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
 /* Center Nav Tabs */
 .nav-center-tabs {
     display: flex;
@@ -193,7 +208,7 @@ body {
     border-color: var(--yad2-orange);
 }
 
-/* Yad2 Style Guest Pill */
+/* Guest Pill */
 .guest-pill {
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -308,7 +323,226 @@ body {
     color: #ffffff;
 }
 
-/* Article Dedicated Page Styling (Yad2 Style) */
+/* Trading Hero & Dashboard Section */
+.trading-hero {
+    padding-top: 25px;
+}
+
+.trading-hero-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: 25px 30px;
+    border: 2px solid var(--yad2-orange);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-md);
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.hero-wallet {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.hero-wallet h2 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--text-primary);
+}
+
+.hero-wallet p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.wallet-balance-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.balance-label {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+.balance-amount {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--yad2-orange);
+}
+
+/* Trading Live Bids Feed Grid */
+.trading-feed-container {
+    margin-top: 15px;
+}
+
+.filter-bids-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bids-feed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.bid-card-item {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.bid-card-item:hover {
+    border-color: var(--yad2-orange);
+    box-shadow: 0 4px 18px rgba(255, 102, 0, 0.12);
+}
+
+.bid-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 15px;
+}
+
+.bid-item-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.bid-amount-tag {
+    background-color: var(--yad2-orange);
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 900;
+    padding: 4px 16px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3);
+}
+
+.bid-card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.bid-meta-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.bid-status-pill {
+    background-color: var(--yad2-orange-light);
+    color: var(--yad2-orange);
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    border: 1px solid var(--yad2-orange);
+}
+
+.bid-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Article Bidding Widget */
+.article-bidding-widget {
+    background: var(--card-bg);
+    border: 2px solid var(--yad2-orange);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin: 30px 0;
+    box-shadow: var(--shadow-md);
+}
+
+.bidding-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.bidding-header h3 {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--text-primary);
+}
+
+.bidding-header p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.bidding-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: var(--bg-color);
+    padding: 16px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.current-bid-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+}
+
+.current-bid-box strong {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--yad2-orange);
+}
+
+.bid-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bid-input-group input {
+    padding: 9px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    outline: none;
+    width: 200px;
+}
+
+.bid-input-group input:focus {
+    border-color: var(--yad2-orange);
+}
+
+/* Article Dedicated Page Styling */
 .article-page-box {
     background-color: var(--card-bg);
     border-radius: var(--radius-md);
@@ -705,7 +939,7 @@ body.dark-theme .article-page-summary-box {
     transform: scale(1.06);
 }
 
-/* Side Widgets Styling (Yad2 Style) */
+/* Side Widgets Styling */
 .widget-card {
     background-color: var(--card-bg);
     border-radius: var(--radius-md);
