@@ -255,7 +255,7 @@ body {
 /* Hero AI Search Section */
 .yad2-hero-ai-section {
     background: linear-gradient(180deg, #fff0f5 0%, #ffe4ec 100%);
-    padding: 35px 0 45px 0;
+    padding: 35px 0 40px 0;
     text-align: center;
     border-bottom: 1px solid var(--border-color);
 }
@@ -342,7 +342,7 @@ body.dark-theme .ai-search-input-wrapper {
 
 /* 7 Circular Category Icons Section */
 .yad2-category-circles-section {
-    padding: 30px 0 20px 0;
+    padding: 25px 0 15px 0;
 }
 
 .category-circles-grid {
@@ -363,7 +363,7 @@ body.dark-theme .ai-search-input-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     text-decoration: none;
     color: var(--text-primary);
     font-weight: 800;
@@ -374,15 +374,15 @@ body.dark-theme .ai-search-input-wrapper {
 }
 
 .circle-icon-box {
-    width: 85px;
-    height: 85px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background-color: var(--card-bg);
     border: 2px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.2rem;
+    font-size: 2rem;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
 }
@@ -390,7 +390,7 @@ body.dark-theme .ai-search-input-wrapper {
 .category-circle-item:hover .circle-icon-box {
     border-color: var(--yad2-pink);
     background-color: var(--yad2-pink-light);
-    transform: translateY(-5px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-md);
 }
 
@@ -402,7 +402,7 @@ body.dark-theme .ai-search-input-wrapper {
 .ticker-bar {
     background-color: #1a0b17;
     color: #ffffff;
-    padding: 9px 0;
+    padding: 8px 0;
     border-bottom: 1px solid var(--border-color);
     overflow: hidden;
 }
@@ -459,7 +459,7 @@ body.dark-theme .ai-search-input-wrapper {
 
 /* TOP 3 Featured Grid */
 .top3-section {
-    padding-top: 25px;
+    padding-top: 20px;
 }
 
 .top3-grid {
@@ -470,7 +470,7 @@ body.dark-theme .ai-search-input-wrapper {
 
 .top3-card {
     position: relative;
-    height: 240px;
+    height: 200px;
     border-radius: var(--radius-md);
     overflow: hidden;
     cursor: pointer;
@@ -491,7 +491,7 @@ body.dark-theme .ai-search-input-wrapper {
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
-    opacity: 0.92;
+    opacity: 0.9;
 }
 
 .top3-card:hover img {
@@ -504,14 +504,16 @@ body.dark-theme .ai-search-input-wrapper {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.92) 100%);
     color: #ffffff;
-    padding: 18px;
+    padding: 12px 14px;
     font-weight: 800;
-    font-size: 1.05rem;
-    line-height: 1.4;
+    font-size: 0.98rem;
+    line-height: 1.35;
     text-align: right;
-    border-top: 3px solid var(--yad2-pink);
+    border-top: 2px solid var(--yad2-pink);
+    max-height: 85px;
+    overflow: hidden;
 }
 
 /* Promo Banner Strip */
@@ -523,15 +525,16 @@ body.dark-theme .ai-search-input-wrapper {
     background-color: var(--card-bg);
     border: 2px solid var(--yad2-pink);
     border-radius: var(--radius-md);
-    padding: 16px 24px;
+    padding: 14px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 14px;
     color: var(--text-primary);
     font-weight: 800;
-    font-size: 1.02rem;
+    font-size: 0.98rem;
     box-shadow: var(--shadow-md);
+    overflow: hidden;
 }
 
 .promo-tag {
@@ -569,6 +572,7 @@ body.dark-theme .ai-search-input-wrapper {
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
     min-width: 0;
+    overflow: hidden;
 }
 
 .section-header {
@@ -581,7 +585,7 @@ body.dark-theme .ai-search-input-wrapper {
 }
 
 .section-title {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
     font-weight: 900;
     color: var(--text-primary);
     letter-spacing: -0.3px;
@@ -594,12 +598,13 @@ body.dark-theme .ai-search-input-wrapper {
 }
 
 /* =========================================================
-   EXACT SYMMETRICAL YAD2 LISTING CARD (תואם בדיוק לצילום המסך)
+   FIXED SYMMETRICAL YAD2 CARD LIST (ZERO OVERLAP GUARANTEED!)
    ========================================================= */
 .news-list-container {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 100%;
 }
 
 .news-row-item {
@@ -607,7 +612,7 @@ body.dark-theme .ai-search-input-wrapper {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 175px; /* Symmetrical uniform height */
+    min-height: 165px;
     background-color: var(--card-bg);
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
@@ -617,6 +622,7 @@ body.dark-theme .ai-search-input-wrapper {
     cursor: pointer;
     transition: var(--transition);
     position: relative;
+    overflow: hidden; /* Crucial: Prevents any text from overflowing outside card boundaries */
 }
 
 .news-row-item:hover {
@@ -625,10 +631,10 @@ body.dark-theme .ai-search-input-wrapper {
     transform: translateY(-2px);
 }
 
-/* Right Side Image (240px Fixed) */
+/* Right Side Image (200px Fixed) */
 .row-image {
-    width: 240px;
-    height: 147px;
+    width: 200px;
+    height: 135px;
     border-radius: 10px;
     overflow: hidden;
     flex-shrink: 0;
@@ -646,54 +652,73 @@ body.dark-theme .ai-search-input-wrapper {
     transform: scale(1.05);
 }
 
-/* Center Details Area */
+/* Center Details Area (Strict Overflow Control) */
 .row-content {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%;
+    min-width: 0; /* Enables text truncation inside flex child */
+    overflow: hidden;
     padding-left: 10px;
 }
 
 .row-title {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 900;
-    line-height: 1.3;
+    line-height: 1.35;
     color: var(--text-primary);
     margin-bottom: 4px;
     letter-spacing: -0.3px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .row-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: var(--text-secondary);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .row-meta-yad2 {
-    font-size: 0.9rem;
+    font-size: 0.86rem;
     font-weight: 700;
     color: var(--text-muted);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .row-tags-pills {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
+    max-height: 28px;
+    overflow: hidden;
 }
 
 .yad2-tag-pill {
     background-color: var(--bg-color);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    padding: 3px 10px;
+    padding: 2px 9px;
     border-radius: 6px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 /* Left Price & Heart Favorite Area */
@@ -702,9 +727,10 @@ body.dark-theme .ai-search-input-wrapper {
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    height: 100%;
-    min-width: 145px;
-    padding: 4px 0;
+    align-self: stretch;
+    min-width: 140px;
+    padding: 2px 0;
+    flex-shrink: 0;
 }
 
 .row-heart-btn {
@@ -720,11 +746,12 @@ body.dark-theme .ai-search-input-wrapper {
 }
 
 .row-price-yad2 {
-    font-size: 1.6rem;
+    font-size: 1.25rem;
     font-weight: 900;
-    color: var(--text-primary);
+    color: var(--yad2-pink);
     letter-spacing: -0.5px;
-    line-height: 1;
+    line-height: 1.2;
+    text-align: left;
 }
 
 /* Side Widgets */
@@ -735,6 +762,7 @@ body.dark-theme .ai-search-input-wrapper {
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
+    overflow: hidden;
 }
 
 .widget-title {
@@ -1293,7 +1321,7 @@ body.dark-theme .ai-search-input-wrapper {
     }
 
     .top3-card {
-        height: 190px;
+        height: 180px;
     }
 
     .page-layout-3col {
@@ -1310,12 +1338,12 @@ body.dark-theme .ai-search-input-wrapper {
     .news-row-item {
         flex-direction: column-reverse;
         align-items: stretch;
-        height: auto;
+        min-height: auto;
     }
 
     .row-image {
         width: 100%;
-        height: 180px;
+        height: 160px;
     }
 
     .article-page-title {
