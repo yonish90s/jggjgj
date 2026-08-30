@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yhsh | מוצרים וציוד להשכרה מפרטיים + מנוי חודשי VIP</title>
+    <title>yhsh | מוצרים וציוד להשכרה מפרטיים + עדכוני מחיר בלייב</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
                 </a>
             </div>
 
-            <!-- Center: Yad2 Navigation Tabs + VIP Subscription Button -->
+            <!-- Center: Navigation Tabs + VIP Subscription Button -->
             <nav class="nav-center-tabs">
                 <button class="nav-tab category-btn active" data-category="all">
                     <i class="fa-solid fa-house"></i>
@@ -126,33 +126,70 @@
         </div>
     </section>
 
-    <!-- Main Clean Single Column Rental Feed -->
-    <main class="main-content container" style="max-width: 1020px;">
+    <!-- Main Rental Feed + Live Price Trends Widget -->
+    <main class="main-content container">
         
         <!-- Top 3 Featured Grid -->
         <div id="top3Grid" class="top3-grid" style="margin-bottom: 25px;">
             <!-- 3 Featured Cards Injected via JS -->
         </div>
 
-        <div class="main-column" style="padding: 28px;">
-            <div class="section-header">
-                <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה (מחשבים, פלאפונים, כלי עבודה, אקסבוקס, מצלמות)</h2>
-                <div class="sort-filter">
-                    <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
+        <div class="page-layout-with-widget">
+            
+            <!-- Center Column: Rental Listing Feed -->
+            <div class="main-column" style="padding: 28px;">
+                <div class="section-header">
+                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה (מחשבים, פלאפונים, כלי עבודה, אקסבוקס, מצלמות)</h2>
+                    <div class="sort-filter">
+                        <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
+                    </div>
+                </div>
+
+                <!-- Symmetrical Listing Rows Container -->
+                <div id="articlesList" class="news-list-container">
+                    <!-- News rows injected via JS -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state hidden">
+                    <i class="fa-solid fa-box-open fa-3x"></i>
+                    <h3>לא נמצאו מוצרים להשכרה</h3>
+                    <p>נסה לחפש מילה אחרת או לבחור קטגוריה שונה</p>
                 </div>
             </div>
 
-            <!-- Symmetrical Listing Rows Container -->
-            <div id="articlesList" class="news-list-container">
-                <!-- News rows injected via JS -->
-            </div>
+            <!-- Side Column: Live Price Trends Widget (עדכונים מהירים - שינויי מחיר) -->
+            <aside class="sidebar-widget">
+                <div class="widget-card widget-markets">
+                    <div class="widget-title">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>עדכונים מהירים 📉</span>
+                    </div>
+                    <div class="market-list" id="priceTrendsList">
+                        <div class="market-item">
+                            <span class="market-name">MacBook M3 (ביקוש חם)</span>
+                            <span class="trend up"><i class="fa-solid fa-caret-up"></i> +8.5%</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-name">Sony A7 IV (הוזלה!)</span>
+                            <span class="trend down"><i class="fa-solid fa-caret-down"></i> -14% (₪250)</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-name">iPhone 15 Pro Max</span>
+                            <span class="trend down"><i class="fa-solid fa-caret-down"></i> -10% (₪95)</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-name">Xbox Series X</span>
+                            <span class="trend up"><i class="fa-solid fa-caret-up"></i> +5.2%</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-name">פטישון BOSCH (מבצע)</span>
+                            <span class="trend down"><i class="fa-solid fa-caret-down"></i> -18% (₪85)</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
 
-            <!-- Empty State -->
-            <div id="emptyState" class="empty-state hidden">
-                <i class="fa-solid fa-box-open fa-3x"></i>
-                <h3>לא נמצאו מוצרים להשכרה</h3>
-                <p>נסה לחפש מילה אחרת או לבחור קטגוריה שונה</p>
-            </div>
         </div>
 
     </main>
