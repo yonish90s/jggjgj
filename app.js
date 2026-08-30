@@ -7,14 +7,46 @@ const CATEGORY_IMAGES = {
     "מצלמות": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80"
 };
 
-// Ticker Items for Rental Equipment
-const TICKER_ITEMS = [
-    { time: "14:50", text: 'מחשב נייד MacBook Pro M3 Max הועלה להשכרה ב-₪200 ליום בהרצליה' },
-    { time: "13:33", text: 'אייפון 15 Pro Max 512GB זמין להשכרה מיידית ב-₪95 ליום ברמת גן' },
-    { time: "12:02", text: 'קונסולת Xbox Series X + 2 שלטים זמינה לסופ״ש הקרוב ב-₪250' },
-    { time: "11:15", text: 'מצלמת Sony A7 IV + עדשת 24-70mm f/2.8 זמינה להשכרה ב-₪250 ליום' },
-    { time: "10:05", text: 'פטישון BOSCH GBH מקצועי זמין להשכרה יומית ב-₪85 בחולון' }
-];
+// Database of Category-Specific Live Price Trends
+const CATEGORY_PRICE_TRENDS = {
+    "all": [
+        { name: "MacBook M3 Max (הוזלה!)", type: "down", change: "-12%", price: "₪200/יום" },
+        { name: "Sony A7 IV (מבצע חם)", type: "down", change: "-14%", price: "₪250/יום" },
+        { name: "iPhone 15 Pro Max", type: "down", change: "-10%", price: "₪95/יום" },
+        { name: "Xbox Series X (ביקוש גבוה)", type: "up", change: "+5.2%", price: "₪110/יום" },
+        { name: "פטישון BOSCH GBH", type: "down", change: "-18%", price: "₪85/יום" }
+    ],
+    "מחשבים": [
+        { name: "MacBook Pro 16\" M3 (הוזלה!)", type: "down", change: "-12%", price: "₪200/יום" },
+        { name: "MacBook Air M2 15\"", type: "up", change: "+5.4%", price: "₪130/יום" },
+        { name: "Lenovo Legion i7 (מבצע)", type: "down", change: "-15%", price: "₪150/יום" },
+        { name: "Dell XPS 15 OLED", type: "down", change: "-8%", price: "₪170/יום" }
+    ],
+    "פלאפונים": [
+        { name: "iPhone 15 Pro Max 512GB", type: "down", change: "-10%", price: "₪95/יום" },
+        { name: "Samsung Galaxy S24 Ultra", type: "up", change: "+6.8%", price: "₪110/יום" },
+        { name: "Google Pixel 8 Pro (הוזלה!)", type: "down", change: "-16%", price: "₪80/יום" },
+        { name: "iPhone 14 Pro 256GB", type: "down", change: "-12%", price: "₪75/יום" }
+    ],
+    "כלי עבודה": [
+        { name: "פטישון BOSCH GBH (מבצע)", type: "down", change: "-18%", price: "₪85/יום" },
+        { name: "סט מברגות DEWALT 18V", type: "up", change: "+4.5%", price: "₪90/יום" },
+        { name: "משחזת זווית Makita", type: "down", change: "-11%", price: "₪70/יום" },
+        { name: "מסור עגול Milwaukee", type: "down", change: "-14%", price: "₪95/יום" }
+    ],
+    "אקסבוקס וגיימינג": [
+        { name: "Xbox Series X 1TB (ביקוש חם)", type: "up", change: "+5.2%", price: "₪110/יום" },
+        { name: "PlayStation 5 Slim (הוזלה!)", type: "down", change: "-14%", price: "₪120/יום" },
+        { name: "Nintendo Switch OLED", type: "down", change: "-9%", price: "₪75/יום" },
+        { name: "הגה מרוצים Logitech G29", type: "up", change: "+8.0%", price: "₪65/יום" }
+    ],
+    "מצלמות": [
+        { name: "Sony A7 IV + 24-70mm (הוזלה!)", type: "down", change: "-14%", price: "₪250/יום" },
+        { name: "Canon EOS R6 Mark II", type: "up", change: "+7.1%", price: "₪280/יום" },
+        { name: "רחפן DJI Mini 4 Pro (מבצע)", type: "down", change: "-10%", price: "₪160/יום" },
+        { name: "עדשת Sony 70-200mm f/2.8", type: "down", change: "-13%", price: "₪180/יום" }
+    ]
+};
 
 // Application State
 let state = {
@@ -49,6 +81,7 @@ const elements = {
     userBalanceDisplay: document.getElementById('userBalanceDisplay'),
     subscriptionModal: document.getElementById('subscriptionModal'),
     guestUserText: document.getElementById('guestUserText'),
+    priceTrendsList: document.getElementById('priceTrendsList'),
     
     // Toast
     toast: document.getElementById('toast'),
@@ -162,7 +195,6 @@ function subscribePlan(planName, price, bonusWallet) {
         startDate: new Date().toISOString()
     };
     
-    // Grant bonus wallet credits
     state.userBalance += bonusWallet;
     localStorage.setItem('news_user_balance', state.userBalance.toString());
     localStorage.setItem('news_user_subscription', JSON.stringify(state.subscription));
@@ -211,6 +243,24 @@ function applyTheme() {
         document.body.classList.remove('dark-theme');
         if (elements.themeToggle) elements.themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
     }
+}
+
+// Render Dynamic Category-Relevant Live Price Trends Widget
+function renderPriceTrendsWidget() {
+    const trendsContainer = document.getElementById('priceTrendsList');
+    if (!trendsContainer) return;
+
+    const currentCat = state.activeCategory || 'all';
+    const trendsData = CATEGORY_PRICE_TRENDS[currentCat] || CATEGORY_PRICE_TRENDS['all'];
+
+    trendsContainer.innerHTML = trendsData.map(item => `
+        <div class="market-item">
+            <span class="market-name">${item.name}</span>
+            <span class="trend ${item.type}">
+                <i class="fa-solid fa-caret-${item.type}"></i> ${item.change} (${item.price})
+            </span>
+        </div>
+    `).join('');
 }
 
 // Main Render Function
@@ -274,6 +324,9 @@ function renderApp() {
             renderArticlesList(rowArticles);
         }
     }
+
+    // Render Category-Relevant Price Trends Widget
+    renderPriceTrendsWidget();
 }
 
 // Render Top 3 Featured Rental Items Grid
