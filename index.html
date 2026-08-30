@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yhsh | כל הציוד ועמוד מסחר - מחשבים, פלאפונים, כלי עבודה, אקסבוקס ומצלמות</title>
+    <title>yhsh | מוצרים וציוד להשכרה מפרטיים</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
                 </a>
             </div>
 
-            <!-- Center: Yad2 Navigation Tabs for "כל הציוד", "עמוד מסחר" and all categories -->
+            <!-- Center: Clean Navigation Tabs -->
             <nav class="nav-center-tabs">
                 <button class="nav-tab category-btn active" data-category="all">
                     <i class="fa-solid fa-house"></i>
@@ -54,7 +54,7 @@
                 </button>
             </nav>
 
-            <!-- Left: Actions, Balance & "+ פרסום מודעה" in Pink -->
+            <!-- Left: Actions, Balance & "+ פרסום מוצר להשכרה" -->
             <div class="nav-left">
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
@@ -71,7 +71,6 @@
                     <i class="fa-solid fa-moon"></i>
                 </button>
 
-                <!-- Guest Pill Button -->
                 <div class="guest-pill" title="חשבון משתמש">
                     <i class="fa-regular fa-user"></i>
                     <span>אורח</span>
@@ -84,7 +83,7 @@
     <!-- Hero AI Search Section -->
     <section class="yad2-hero-ai-section">
         <div class="container">
-            <h1 class="hero-ai-title">חדש! חיפוש AI - מחשבים, פלאפונים, כלי עבודה, אקסבוקס ומצלמות</h1>
+            <h1 class="hero-ai-title">חדש! חיפוש AI - מוצרים וציוד להשכרה מפרטיים</h1>
             <div class="hero-ai-search-box">
                 <span class="ai-beta-tag">BETA</span>
                 <div class="ai-search-input-wrapper">
@@ -123,160 +122,35 @@
         </div>
     </section>
 
-    <!-- Breaking Ticker -->
-    <div class="ticker-bar">
-        <div class="container ticker-container">
-            <div class="ticker-title">
-                <i class="fa-solid fa-bolt"></i>
-                <span>עדכוני השכרה</span>
-            </div>
-            <div class="ticker-content" id="tickerContent">
-                <!-- Ticker items injected via JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Top 3 Hot Featured Grid Section -->
-    <div class="top3-section container">
-        <div id="top3Grid" class="top3-grid">
+    <!-- Main Clean Single Column Rental Feed -->
+    <main class="main-content container" style="max-width: 1020px;">
+        
+        <!-- Top 3 Featured Grid -->
+        <div id="top3Grid" class="top3-grid" style="margin-bottom: 25px;">
             <!-- 3 Featured Cards Injected via JS -->
         </div>
-    </div>
 
-    <!-- Promo Banner Strip -->
-    <div class="promo-strip container">
-        <div class="promo-box">
-            <span class="promo-tag">השכרה מפרטיים 💖</span>
-            <span class="promo-text">מאות מחשבים, פלאפונים, כלי עבודה, אקסבוקס ומצלמות זמינים עכשיו ב-yhsh!</span>
-        </div>
-    </div>
-
-    <!-- Main Content Container with 3-Column Layout -->
-    <main class="main-content container">
-        <div class="page-layout-3col">
-            
-            <!-- Right Sidebar -->
-            <aside class="sidebar sidebar-right">
-                
-                <!-- Widget 1: הקהילות שלנו ברשת -->
-                <div class="widget-card widget-social">
-                    <div class="widget-title accent-mono">
-                        <i class="fa-solid fa-users"></i>
-                        <span>הקהילות שלנו ברשת</span>
-                    </div>
-                    <div class="social-grid">
-                        <a href="https://facebook.com" target="_blank" class="social-btn facebook">
-                            <span>Facebook</span>
-                        </a>
-                        <a href="https://instagram.com" target="_blank" class="social-btn instagram">
-                            <span>Instagram</span>
-                        </a>
-                        <a href="https://discord.com" target="_blank" class="social-btn discord">
-                            <i class="fa-brands fa-discord"></i>
-                            <span>Discord</span>
-                        </a>
-                        <a href="https://telegram.org" target="_blank" class="social-btn telegram">
-                            <i class="fa-paper-plane"></i>
-                            <span>Telegram</span>
-                        </a>
-                        <a href="https://twitter.com" target="_blank" class="social-btn twitter">
-                            <span>Twitter / X</span>
-                        </a>
-                        <a href="https://reddit.com" target="_blank" class="social-btn reddit">
-                            <span>Reddit</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Widget 2: שוק ההון ומזג אוויר -->
-                <div class="widget-card widget-markets">
-                    <div class="widget-title">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <span>עדכונים מהירים</span>
-                    </div>
-                    <div class="market-list">
-                        <div class="market-item">
-                            <span class="market-name">תל אביב 35</span>
-                            <span class="trend up"><i class="fa-solid fa-caret-up"></i> +1.4%</span>
-                        </div>
-                        <div class="market-item">
-                            <span class="market-name">דולר / שקל</span>
-                            <span class="trend down"><i class="fa-solid fa-caret-down"></i> 3.65 ₪</span>
-                        </div>
-                        <div class="market-item">
-                            <span class="market-name">מזג אוויר ת"א</span>
-                            <span class="temp"><i class="fa-solid fa-sun"></i> 28°C</span>
-                        </div>
-                    </div>
-                </div>
-
-            </aside>
-
-            <!-- Center Column: Yad2 Pink Style Rental Listings Feed -->
-            <div class="main-column">
-                <div class="section-header">
-                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה (מחשבים, פלאפונים, כלי עבודה, אקסבוקס, מצלמות)</h2>
-                    <div class="sort-filter">
-                        <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
-                    </div>
-                </div>
-
-                <!-- Symmetrical Listing Rows Container -->
-                <div id="articlesList" class="news-list-container">
-                    <!-- News rows injected via JS -->
-                </div>
-
-                <!-- Empty State (No results) -->
-                <div id="emptyState" class="empty-state hidden">
-                    <i class="fa-solid fa-box-open fa-3x"></i>
-                    <h3>לא נמצאו מוצרים להשכרה</h3>
-                    <p>נסה לחפש מילה אחרת או לבחור קטגוריה שונה</p>
+        <div class="main-column" style="padding: 28px;">
+            <div class="section-header">
+                <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה (מחשבים, פלאפונים, כלי עבודה, אקסבוקס, מצלמות)</h2>
+                <div class="sort-filter">
+                    <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
                 </div>
             </div>
 
-            <!-- Left Sidebar -->
-            <aside class="sidebar sidebar-left">
-                
-                <!-- Widget 1: אתרים מומלצים -->
-                <div class="widget-card widget-recommended">
-                    <div class="widget-title">
-                        <span>אתרים מומלצים</span>
-                    </div>
-                    <div class="recommended-list">
-                        <a href="https://youtube.com" target="_blank" class="rec-item">
-                            <i class="fa-solid fa-video"></i>
-                            <span>יוטיוב (YouTube)</span>
-                        </a>
-                    </div>
-                </div>
+            <!-- Symmetrical Listing Rows Container -->
+            <div id="articlesList" class="news-list-container">
+                <!-- News rows injected via JS -->
+            </div>
 
-                <!-- Widget 2: חמשת הציודים המבוקשים -->
-                <div class="widget-card widget-top5">
-                    <div class="widget-title accent-mono">
-                        <span>ציוד מבוקש להשכרה 🔥</span>
-                    </div>
-                    <div class="top5-list" id="top5List">
-                        <!-- TOP 5 Items Dynamic Injected via JS -->
-                    </div>
-                </div>
-
-                <!-- Widget 3: סקר השכרה היומי -->
-                <div class="widget-card widget-poll">
-                    <div class="widget-title">
-                        <i class="fa-solid fa-square-poll-vertical"></i>
-                        <span>סקר היומי</span>
-                    </div>
-                    <div id="pollContainer" class="poll-container">
-                        <p class="poll-question">האם עדיף להשכיר מחשב, פלאפון או אקסבוקס מאשר לקנות יקר?</p>
-                        <div class="poll-options">
-                            <button class="btn btn-outline poll-btn" onclick="votePoll('yes')">כן, חוסך ים כסף! 👍</button>
-                            <button class="btn btn-outline poll-btn" onclick="votePoll('no')">מעדיף לקנות 🤔</button>
-                        </div>
-                    </div>
-                </div>
-
-            </aside>
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state hidden">
+                <i class="fa-solid fa-box-open fa-3x"></i>
+                <h3>לא נמצאו מוצרים להשכרה</h3>
+                <p>נסה לחפש מילה אחרת או לבחור קטגוריה שונה</p>
+            </div>
         </div>
+
     </main>
 
     <!-- Toast Notification -->
