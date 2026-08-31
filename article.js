@@ -1,12 +1,10 @@
 // Fallback images per category
 const CATEGORY_IMAGES = {
-    "ארץ": "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=800&q=80",
-    "ציוד צילום": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80",
-    "ציוד לאירועים": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80",
-    "כלי תחבורה": "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80",
+    "מחשבים": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
+    "פלאפונים": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
     "כלי עבודה": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
-    "ציוד קמפינג": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80",
-    "טכנולוגיה": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+    "אקסבוקס וגיימינג": "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&w=800&q=80",
+    "מצלמות": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80"
 };
 
 let articles = [];
@@ -44,7 +42,7 @@ function initArticlePage() {
     }
 
     if (currentArticle) {
-        document.title = `${currentArticle.title} | yhsh להשכרה`;
+        document.title = `${currentArticle.title} | yhsh להשכרה או קנייה`;
         renderFullArticle(currentArticle);
         renderRelatedArticles(currentArticle);
     } else {
@@ -57,6 +55,8 @@ function initArticlePage() {
 function loadBalance() {
     const saved = localStorage.getItem('news_user_balance');
     userBalance = saved ? parseInt(saved, 10) : 50000;
+    const balDisplay = document.getElementById('userBalanceDisplay');
+    if (balDisplay) balDisplay.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
 }
 
 function loadArticlesSync() {
@@ -151,18 +151,38 @@ function renderNotFound() {
     articlePageContainer.innerHTML = `
         <div class="empty-state">
             <i class="fa-solid fa-triangle-exclamation fa-3x"></i>
-            <h3>המוצר להשכרה לא נמצא</h3>
+            <h3>המוצר אינו נמצא</h3>
             <a href="index.html" class="btn btn-primary" style="margin-top:15px;">חזרה לדף הבית</a>
         </div>
     `;
 }
 
-// Render Article / Rental Product Details Page
+// Buy Item Outright
+function buyCurrentArticle(buyPrice, title) {
+    const cost = buyPrice || 4000;
+    if (userBalance < cost) {
+        showToast(`אין מספיק יתרה בארנק! מחיר קנייה: ₪${cost.toLocaleString('he-IL')}, יתרה: ₪${userBalance.toLocaleString('he-IL')}`);
+        return;
+    }
+
+    if (confirm(`האם ברצונך לרכוש את ${title} בקנייה סופית בסך ₪${cost.toLocaleString('he-IL')}?`)) {
+        userBalance -= cost;
+        localStorage.setItem('news_user_balance', userBalance.toString());
+        loadBalance();
+        showToast(`מזל טוב! רכשת בהצלחה את ${title} ב-₪${cost.toLocaleString('he-IL')}! 🛒🎉`);
+    }
+}
+
+window.buyCurrentArticle = buyCurrentArticle;
+
+// Render Article / Rental & Purchase Product Details Page
 function renderFullArticle(article) {
     const isBookmarked = bookmarks.includes(article.id);
     const likeCount = likes[article.id] || 0;
-    const rentalPeriod = article.rentalPeriod || (`₪ ${article.price || 150} / ליום`);
-    const rentalDates = article.rentalDates || 'זמין להשכרה מיידית';
+    const rentalPeriod = article.rentalPeriod || (`🔑 ₪ ${article.price || 150} / ליום`);
+    const buyPeriod = article.buyPeriod || (`🛒 ₪ ${(article.buyPrice || 4000).toLocaleString('he-IL')} לקנייה`);
+    const rentalDates = article.rentalDates || 'זמין להשכרה/קנייה מיידית';
+    const buyPriceNum = article.buyPrice || 4000;
 
     // Get highest bid for this item
     const articleBids = offers.filter(o => o.articleId === article.id);
@@ -174,33 +194,46 @@ function renderFullArticle(article) {
             <h1 class="article-page-title">${article.title}</h1>
             
             <div class="article-page-meta">
-                <span class="meta-author"><i class="fa-solid fa-location-dot" style="color:var(--yad2-pink);"></i> המשכיר: <strong style="color:var(--yad2-pink);">${article.author}</strong></span>
+                <span class="meta-author"><i class="fa-solid fa-location-dot"></i> המשכיר/מוכר: <strong>${article.author}</strong></span>
                 <span>•</span>
                 <span><i class="fa-regular fa-calendar-check"></i> ${rentalDates}</span>
-                <span>•</span>
-                <span style="font-weight:900; color:var(--yad2-pink);"><i class="fa-solid fa-tag"></i> ${rentalPeriod}</span>
             </div>
         </div>
 
         <div class="article-page-image-wrapper">
-            <img class="article-page-image" src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['טכנולוגיה']}" alt="${article.title}">
+            <img class="article-page-image" src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}">
         </div>
 
-        <div class="article-page-summary-box">
-            <span class="row-star">🔑</span>
-            <p><strong>טווח ומחירי השכרה:</strong> ${rentalPeriod} | ${rentalDates}</p>
+        <!-- Dual Option Banner: Rent/Borrow vs Buy Outright -->
+        <div class="article-page-summary-box" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; background:var(--card-bg); border:2px solid var(--border-color); border-radius:var(--radius-md); padding:20px;">
+            <div>
+                <h3 style="font-size:1.3rem; font-weight:900; color:var(--text-primary); margin-bottom:4px;">בחר אפשרות: השאלה/השכרה או קנייה סופית</h3>
+                <p style="color:var(--text-muted); font-size:0.95rem;">
+                    <strong>השכרה יומית:</strong> ${rentalPeriod} &nbsp;|&nbsp; 
+                    <strong style="color:#16a34a;">קנייה סופית:</strong> ${buyPeriod}
+                </p>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <button class="btn btn-primary" onclick="document.getElementById('biddingSection').scrollIntoView({behavior:'smooth'})" style="padding:10px 18px;">
+                    <i class="fa-solid fa-key"></i> השכר / השאל
+                </button>
+                <button class="btn" onclick="buyCurrentArticle(${buyPriceNum}, '${escapeQuote(article.title)}')" style="background-color:#16a34a; color:#ffffff; padding:10px 18px; border:none; font-weight:900;">
+                    <i class="fa-solid fa-cart-shopping"></i> קנה עכשיו (₪${buyPriceNum.toLocaleString('he-IL')})
+                </button>
+            </div>
         </div>
         
         <div class="article-page-content">
             ${article.content}
         </div>
 
-        <!-- Yad2 Bidding & Trading Section -->
-        <div class="article-bidding-widget">
+        <!-- Bidding & Rental Section -->
+        <div id="biddingSection" class="article-bidding-widget">
             <div class="bidding-header">
-                <i class="fa-solid fa-gavel fa-2x" style="color:var(--yad2-pink);"></i>
+                <i class="fa-solid fa-gavel fa-2x"></i>
                 <div>
-                    <h3>הגש הצעת מחיר להשכרה בלייב</h3>
+                    <h3>הגש הצעת מחיר להשכרה / השאלה בלייב</h3>
                     <p>ארנק המסחר שלך: <strong>₪ ${userBalance.toLocaleString('he-IL')}</strong> | הגש הצעה והתחרה על המוצר!</p>
                 </div>
             </div>
@@ -299,9 +332,9 @@ function renderRelatedArticles(current) {
     const related = articles.filter(a => a.id !== current.id).slice(0, 3);
     relatedGrid.innerHTML = related.map(art => `
         <div class="top3-card" onclick="window.location.href='article.html?id=${art.id}'">
-            <img src="${art.imageUrl || CATEGORY_IMAGES[art.category] || CATEGORY_IMAGES['טכנולוגיה']}" alt="${art.title}">
+            <img src="${art.imageUrl || CATEGORY_IMAGES[art.category] || CATEGORY_IMAGES['מחשבים']}" alt="${art.title}">
             <div class="top3-overlay">
-                <div style="font-size:0.8rem; color:var(--yad2-pink); font-weight:800;">${art.rentalPeriod || 'להשכרה'}</div>
+                <div style="font-size:0.8rem; color:var(--text-primary); font-weight:800;">${art.rentalPeriod || 'להשכרה'}</div>
                 ${art.title}
             </div>
         </div>
@@ -340,19 +373,6 @@ function showToast(message) {
     setTimeout(() => {
         toast.classList.add('hidden');
     }, 3000);
-}
-
-function formatDate(dateString) {
-    try {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('he-IL', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-    } catch (e) {
-        return dateString;
-    }
 }
 
 document.addEventListener('DOMContentLoaded', initArticlePage);

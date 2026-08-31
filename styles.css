@@ -430,14 +430,14 @@ body {
 }
 
 /* =========================================================
-   100% PERFECTLY SYMMETRICAL 5-COLUMN GRID CARDS ("חמש על חמש סימטרי")
+   100% PERFECTLY SYMMETRICAL 5-COLUMN GRID CARDS WITH DUAL ACTIONS ("השאל/השכר OR קנה")
    ========================================================= */
 .cube-cards-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 16px;
     width: 100%;
-    align-items: stretch; /* Forces equal height for all grid columns */
+    align-items: stretch;
 }
 
 .cube-card-box {
@@ -449,8 +449,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* 100% Symmetrical Height */
-    min-height: 470px; /* Uniform height baseline */
+    height: 100%;
+    min-height: 480px;
     transition: var(--transition);
     position: relative;
     cursor: pointer;
@@ -531,21 +531,26 @@ body {
 }
 
 .cube-price-tag {
-    font-size: 1.22rem;
+    font-size: 1.1rem;
     font-weight: 900;
     color: var(--text-primary);
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-    min-height: 38px;
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+    min-height: 42px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.cube-price-tag span {
-    font-size: 0.8rem;
-    color: #18181b;
+.cube-price-tag .rent-price {
+    color: var(--text-primary);
+    font-weight: 900;
+}
+
+.cube-price-tag .buy-price {
+    font-size: 0.78rem;
+    color: #16a34a;
     font-weight: 800;
-    margin-right: 2px;
 }
 
 .cube-title-text {
@@ -610,7 +615,7 @@ body {
     gap: 4px;
     flex-wrap: nowrap;
     overflow: hidden;
-    height: 26px; /* Uniform 1-line tag row across all cards */
+    height: 26px;
 }
 
 .cube-pill-item {
@@ -624,11 +629,19 @@ body {
     white-space: nowrap;
 }
 
-.cube-action-btn {
+/* DUAL ACTIONS BUTTONS ("השכר / השאל" VS "קנה עכשיו") */
+.cube-dual-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
     width: 100%;
-    margin-top: auto; /* Pinned at exact bottom position for 100% symmetry */
-    padding: 9px;
-    font-size: 0.88rem;
+}
+
+.btn-rent-option {
+    flex: 1;
+    padding: 9px 4px;
+    font-size: 0.82rem;
     font-weight: 900;
     border-radius: var(--radius-sm);
     background-color: #18181b;
@@ -638,107 +651,37 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 4px;
+    white-space: nowrap;
     transition: var(--transition);
-    box-shadow: var(--shadow-sm);
 }
 
-.cube-action-btn:hover {
+.btn-rent-option:hover {
     background-color: #27272a;
     transform: translateY(-1px);
 }
 
-/* Live Price Trends Widget */
-.widget-card {
-    background-color: var(--card-bg);
-    border-radius: var(--radius-md);
-    padding: 22px 20px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
-    overflow: hidden;
-}
-
-.widget-title {
-    font-size: 1.2rem;
+.btn-buy-option {
+    flex: 1;
+    padding: 9px 4px;
+    font-size: 0.82rem;
     font-weight: 900;
-    text-align: center;
-    color: var(--text-primary);
-    padding-bottom: 12px;
-    margin-bottom: 16px;
-    position: relative;
+    border-radius: var(--radius-sm);
+    background-color: #16a34a;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.widget-title::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    right: 50%;
-    transform: translateX(50%);
-    width: 65px;
-    height: 3px;
-    background-color: #18181b;
-    border-radius: 2px;
-}
-
-.market-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 12px;
-}
-
-.market-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    background-color: var(--bg-color);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-    font-size: 0.95rem;
-    font-weight: 800;
+    gap: 4px;
+    white-space: nowrap;
     transition: var(--transition);
 }
 
-.market-item:hover {
-    border-color: #18181b;
-    transform: translateX(-2px);
-}
-
-.market-name {
-    color: var(--text-primary);
-    font-weight: 800;
-}
-
-.trend.up {
-    color: #16a34a;
-    font-weight: 900;
-    background-color: rgba(22, 163, 74, 0.1);
-    padding: 4px 12px;
-    border-radius: 12px;
-    border: 1px solid #16a34a;
-    font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.trend.down {
-    color: #dc2626;
-    font-weight: 900;
-    background-color: rgba(220, 38, 38, 0.1);
-    padding: 4px 12px;
-    border-radius: 12px;
-    border: 1px solid #dc2626;
-    font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+.btn-buy-option:hover {
+    background-color: #15803d;
+    transform: translateY(-1px);
 }
 
 /* Bottom Dark Favorites Sheet */

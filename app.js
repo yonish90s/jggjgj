@@ -146,6 +146,25 @@ async function loadStateFromStorage() {
     }
 }
 
+// Instant Buy Action
+function buyArticleNow(id, buyPrice, title) {
+    const cost = buyPrice || 4000;
+    if (state.userBalance < cost) {
+        showToast(`אין מספיק יתרה בארנק! מחיר קנייה: ₪${cost.toLocaleString('he-IL')}, יתרה: ₪${state.userBalance.toLocaleString('he-IL')}`);
+        openSubscriptionModal();
+        return;
+    }
+
+    if (confirm(`האם ברצונך לרכוש את ${title} בקנייה סופית בסך ₪${cost.toLocaleString('he-IL')}?`)) {
+        state.userBalance -= cost;
+        localStorage.setItem('news_user_balance', state.userBalance.toString());
+        if (elements.userBalanceDisplay) {
+            elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
+        }
+        showToast(`מזל טוב! רכשת בהצלחה את ${title} ב-₪${cost.toLocaleString('he-IL')}! 🛒🎉`);
+    }
+}
+
 // Monthly Subscription Logic
 function openSubscriptionModal() {
     const modal = document.getElementById('subscriptionModal');
@@ -260,6 +279,7 @@ window.openSubscriptionModal = openSubscriptionModal;
 window.closeSubscriptionModal = closeSubscriptionModal;
 window.subscribePlan = subscribePlan;
 window.toggleReadMore = toggleReadMore;
+window.buyArticleNow = buyArticleNow;
 
 function filterByCategory(cat) {
     state.activeCategory = cat;
@@ -312,13 +332,13 @@ function renderApp() {
         } else if (state.activeCategory !== 'all') {
             elements.sectionTitle.textContent = `מוצרים להשכרה בקטגוריית ${state.activeCategory}`;
         } else {
-            elements.sectionTitle.textContent = 'ציוד ומוצרים להשכרה (מחשבים, פלאפונים, כלי עבודה, אקסבוקס, מצלמות)';
+            elements.sectionTitle.textContent = 'ציוד ומוצרים להשכרה / קנייה סופית מפרטיים';
         }
     }
 
-    if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מוצרים להשכרה`;
+    if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מוצרים זמינים להשכרה ולקנייה`;
 
-    // Render Rental Listing Cards in 100% Symmetrical 5-Column Cube Grid Layout ("חמש על חמש סימטרי")
+    // Render Rental/Buy Listing Cards in 100% Symmetrical 5-Column Cube Grid Layout ("השאל/השכר VS קנה עכשיו")
     if (elements.articlesList) {
         if (filtered.length === 0) {
             elements.articlesList.innerHTML = '';
@@ -330,19 +350,21 @@ function renderApp() {
     }
 }
 
-// Render 100% Symmetrical Vertical Cube Grid Cards in 5 Columns ("חמש על חמש סימטרי")
+// Render 100% Symmetrical Vertical Cube Grid Cards with Dual "השאל/השכר" & "קנה" Options
 function renderArticlesList(articles) {
     if (!elements.articlesList) return;
     
     elements.articlesList.className = "cube-cards-grid";
     elements.articlesList.innerHTML = articles.map((article) => {
-        const rentalPeriod = article.rentalPeriod || (`₪ ${article.price || 150} / ליום`);
-        const rentalDates = article.rentalDates || 'זמין להשכרה מיידית';
+        const rentalPeriod = article.rentalPeriod || (`🔑 ₪ ${article.price || 150} / ליום`);
+        const buyPeriod = article.buyPeriod || (`🛒 ₪ ${(article.buyPrice || 3500).toLocaleString('he-IL')} לקנייה`);
+        const rentalDates = article.rentalDates || 'זמין להשכרה/קנייה מיידית';
         const isBookmarked = state.bookmarks.includes(article.id);
-        const pills = article.tags || ['השכרה יומית', 'שמור כחדש', 'איסוף מהיר'];
+        const pills = article.tags || ['השכרה/קנייה', 'שמור כחדש', 'איסוף מהיר'];
         const image = article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים'];
-        const summaryText = article.summary || 'ציוד איכותי שמור כחדש זמין להשכרה מיידית מפרטי.';
+        const summaryText = article.summary || 'ציוד איכותי שמור כחדש זמין להשכרה או קנייה מיידית מפרטי.';
         const hasLongSummary = summaryText.length > 55;
+        const buyPriceNum = article.buyPrice || 4000;
 
         return `
             <div class="cube-card-box" onclick="openArticleModal('${article.id}')">
@@ -358,7 +380,10 @@ function renderArticlesList(articles) {
 
                 <!-- Card Content Body -->
                 <div class="cube-card-body">
-                    <div class="cube-price-tag">${rentalPeriod}</div>
+                    <div class="cube-price-tag">
+                        <span class="rent-price">${rentalPeriod}</span>
+                        <span class="buy-price">${buyPeriod}</span>
+                    </div>
 
                     <h3 class="cube-title-text">${article.title}</h3>
                     
@@ -377,9 +402,16 @@ function renderArticlesList(articles) {
                         ${pills.map(p => `<span class="cube-pill-item">${p}</span>`).join('')}
                     </div>
 
-                    <button class="cube-action-btn">
-                        <i class="fa-solid fa-eye"></i> צפה בפרטי הציוד
-                    </button>
+                    <!-- Dual Option Action Buttons: "השאל / השכר" vs "קנה עכשיו" -->
+                    <div class="cube-dual-actions">
+                        <button class="btn-rent-option" onclick="event.stopPropagation(); openArticleModal('${article.id}')">
+                            <i class="fa-solid fa-key"></i> השכר/השאל
+                        </button>
+                        <button class="btn-buy-option" onclick="event.stopPropagation(); buyArticleNow('${article.id}', ${buyPriceNum}, '${article.title.replace(/'/g, "\\'")}')">
+                            <i class="fa-solid fa-cart-shopping"></i> קנה עכשיו
+                        </button>
+                    </div>
+
                 </div>
 
             </div>
