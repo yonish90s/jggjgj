@@ -58,15 +58,12 @@ body {
 
 /* Container */
 .container {
-    max-width: 1240px;
+    max-width: 1400px; /* Expanded for 5-card grid */
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* =========================================================
-   EXACT HEADER BAR MATCHING USER SCREENSHOT
-   Dark Charcoal (#383838), Infinity logo (♾️), dark pill button, thin outlined guest pill
-   ========================================================= */
+/* HEADER BAR MATCHING USER SCREENSHOT */
 .top-navbar-white {
     background-color: #383838 !important;
     color: #e5e5e5 !important;
@@ -123,7 +120,7 @@ body {
     box-shadow: none !important;
 }
 
-/* Center Tabs Matching Screenshot */
+/* Center Tabs */
 .nav-center-tabs {
     display: flex;
     align-items: center;
@@ -165,7 +162,6 @@ body {
     font-weight: 800 !important;
 }
 
-/* Dark Pill Tab Button matching screenshot */
 .nav-tab.pill-tab {
     background-color: #262626 !important;
     color: #ffffff !important;
@@ -178,7 +174,7 @@ body {
     background-color: #1f1f1f !important;
 }
 
-/* Left Actions Area Matching Screenshot */
+/* Left Actions Area */
 .nav-left {
     display: flex;
     align-items: center;
@@ -235,7 +231,6 @@ body {
     color: #ffffff !important;
 }
 
-/* Thin Outlined Guest Pill Matching Screenshot */
 .guest-pill {
     background-color: transparent !important;
     border: 1px solid #777777 !important;
@@ -455,10 +450,9 @@ body {
 }
 
 .page-layout-with-widget {
-    display: grid;
-    grid-template-columns: 1fr 300px;
+    display: flex;
+    flex-direction: column;
     gap: 25px;
-    align-items: start;
 }
 
 .main-column {
@@ -467,7 +461,7 @@ body {
     padding: 24px;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
-    min-width: 0;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -491,6 +485,192 @@ body {
     color: var(--text-muted);
     font-size: 0.9rem;
     font-weight: 700;
+}
+
+/* =========================================================
+   5 COLUMNS PER ROW GRID CARDS LAYOUT ("חמש על חמש / 5X5 GRID")
+   ========================================================= */
+.cube-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* EXACTLY 5 COLUMNS */
+    gap: 16px;
+    width: 100%;
+}
+
+.cube-card-box {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition);
+    position: relative;
+    cursor: pointer;
+}
+
+.cube-card-box:hover {
+    border-color: #18181b;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+
+.cube-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 155px; /* Compact height for 5-column layout */
+    overflow: hidden;
+    background-color: #000000;
+}
+
+.cube-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.cube-card-box:hover .cube-image-wrapper img {
+    transform: scale(1.06);
+}
+
+.cube-badge-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #18181b;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    z-index: 2;
+}
+
+.cube-heart-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #000000;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+}
+
+.cube-heart-btn:hover,
+.cube-heart-btn.active {
+    background-color: #18181b;
+    color: #ffffff;
+}
+
+.cube-card-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.cube-price-tag {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+
+.cube-price-tag span {
+    font-size: 0.8rem;
+    color: #18181b;
+    font-weight: 800;
+    margin-right: 2px;
+}
+
+.cube-title-text {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cube-subtitle-text {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cube-meta-row {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cube-spec-pills {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+}
+
+.cube-pill-item {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.74rem;
+    font-weight: 700;
+}
+
+.cube-action-btn {
+    width: 100%;
+    margin-top: 6px;
+    padding: 9px;
+    font-size: 0.88rem;
+    font-weight: 900;
+    border-radius: var(--radius-sm);
+    background-color: #18181b;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.cube-action-btn:hover {
+    background-color: #27272a;
+    transform: translateY(-1px);
 }
 
 /* Live Price Trends Widget */
@@ -532,8 +712,8 @@ body {
 }
 
 .market-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 12px;
 }
 
@@ -584,190 +764,6 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-}
-
-/* Symmetrical Cube Cards Grid */
-.cube-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-    width: 100%;
-}
-
-.cube-card-box {
-    background-color: var(--card-bg);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: var(--transition);
-    position: relative;
-    cursor: pointer;
-}
-
-.cube-card-box:hover {
-    border-color: #18181b;
-    box-shadow: var(--shadow-md);
-    transform: translateY(-4px);
-}
-
-.cube-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 195px;
-    overflow: hidden;
-    background-color: #000000;
-}
-
-.cube-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-}
-
-.cube-card-box:hover .cube-image-wrapper img {
-    transform: scale(1.06);
-}
-
-.cube-badge-tag {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: #18181b;
-    color: #ffffff;
-    font-size: 0.8rem;
-    font-weight: 900;
-    padding: 3px 12px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-sm);
-    z-index: 2;
-}
-
-.cube-heart-btn {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(255, 255, 255, 0.92);
-    color: #000000;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    z-index: 2;
-}
-
-.cube-heart-btn:hover,
-.cube-heart-btn.active {
-    background-color: #18181b;
-    color: #ffffff;
-}
-
-.cube-card-body {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-}
-
-.cube-price-tag {
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-}
-
-.cube-price-tag span {
-    font-size: 0.9rem;
-    color: #18181b;
-    font-weight: 800;
-    margin-right: 4px;
-}
-
-.cube-title-text {
-    font-size: 1.2rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    line-height: 1.35;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.cube-subtitle-text {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.cube-meta-row {
-    font-size: 0.84rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.cube-spec-pills {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 4px;
-}
-
-.cube-pill-item {
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    padding: 3px 10px;
-    border-radius: 14px;
-    font-size: 0.8rem;
-    font-weight: 700;
-}
-
-.cube-action-btn {
-    width: 100%;
-    margin-top: 8px;
-    padding: 11px;
-    font-size: 0.95rem;
-    font-weight: 900;
-    border-radius: var(--radius-sm);
-    background-color: #18181b;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: var(--transition);
-    box-shadow: var(--shadow-sm);
-}
-
-.cube-action-btn:hover {
-    background-color: #27272a;
-    transform: translateY(-1px);
 }
 
 /* Bottom Dark Favorites Sheet */
@@ -978,35 +974,35 @@ body {
     display: none !important;
 }
 
-/* Responsive Layout Breakpoints */
-@media (max-width: 1000px) {
-    .page-layout-with-widget {
-        grid-template-columns: 1fr;
-    }
+/* Responsive Grid Breakpoints for 5-Column Cards */
+@media (max-width: 1300px) {
     .cube-cards-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
-@media (max-width: 900px) {
-    .subscription-grid {
-        grid-template-columns: 1fr;
+@media (max-width: 1050px) {
+    .cube-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
+    .cube-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
     .top-nav-container {
-        flex-direction: flex-start;
-        height: auto;
-        padding: 12px 15px;
         flex-wrap: wrap;
+        height: auto;
+        padding: 10px 15px;
     }
-
     .top3-grid {
         grid-template-columns: 1fr;
     }
+}
 
-    .top3-card {
-        height: 180px;
+@media (max-width: 480px) {
+    .cube-cards-grid {
+        grid-template-columns: 1fr;
     }
 }
