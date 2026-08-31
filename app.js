@@ -134,11 +134,11 @@ function loadArticlesSync() {
 
 function updateBalanceDisplays() {
     if (elements.userBalanceDisplay) {
-        elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
+        elements.userBalanceDisplay.textContent = 'yhsh ' + state.userBalance.toLocaleString('he-IL');
     }
     const heroBalText = document.getElementById('heroBalanceText');
     if (heroBalText) {
-        heroBalText.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
+        heroBalText.textContent = 'yhsh ' + state.userBalance.toLocaleString('he-IL');
     }
 }
 
@@ -146,7 +146,7 @@ function addFundsGlobal() {
     state.userBalance += 10000;
     localStorage.setItem('news_user_balance', state.userBalance.toString());
     updateBalanceDisplays();
-    showToast('נטענו ₪10,000 בהצלחה לארנק! 💰');
+    showToast('נטענו yhsh 10,000 בהצלחה לארנק! 💰');
 }
 
 // Load State from LocalStorage & articles.json file
@@ -172,7 +172,7 @@ async function loadStateFromStorage() {
 }
 
 /* =========================================================
-   USER RATING & TRUST PROFILE SYSTEM (דירוג משתמש/מוכר, ותק ועסקאות)
+   USER RATING & TRUST PROFILE SYSTEM
    ========================================================= */
 function openRateUserModal(author, title) {
     state.pendingRateTarget = { author, title };
@@ -211,14 +211,12 @@ function submitUserRating(event) {
     event.preventDefault();
     if (!state.pendingRateTarget) return;
 
-    const review = document.getElementById('rateReviewInput').value.trim();
-
     closeRateUserModal();
     showToast(`תודה! הדירוג (${state.selectedStarRating} ⭐) והביקורת עבור ${state.pendingRateTarget.author} נשמרו בהצלחה! 🥳`);
 }
 
 /* =========================================================
-   REPORT & APPEAL SYSTEM (ערעור ודיווח על משתמש/מוכר)
+   REPORT & APPEAL SYSTEM
    ========================================================= */
 function openReportModal(author, title) {
     state.pendingReportTarget = { author, title };
@@ -286,7 +284,7 @@ function openRentalContractModal(id, title, price) {
     
     const titleElem = document.getElementById('contractModalItemTitle');
     const chkElem = document.getElementById('modalContractCheckbox');
-    if (titleElem) titleElem.textContent = `מוצר להשכרה: ${title} (₪${price}/יום)`;
+    if (titleElem) titleElem.textContent = `מוצר להשכרה: ${title} (yhsh ${price}/יום)`;
     if (chkElem) chkElem.checked = false;
 
     const modal = document.getElementById('rentalContractModal');
@@ -314,7 +312,7 @@ function confirmRentalWithContract() {
     const totalPrice = price + deliveryFee;
 
     if (state.userBalance < totalPrice) {
-        showToast(`אין מספיק יתרה בארנק! סה"כ לתשלום (השכרה + משלוח): ₪${totalPrice}, יתרה: ₪${state.userBalance.toLocaleString('he-IL')}`);
+        showToast(`אין מספיק יתרה בארנק! סה"כ לתשלום (השכרה + משלוח): yhsh ${totalPrice}, יתרה: yhsh ${state.userBalance.toLocaleString('he-IL')}`);
         openSubscriptionModal();
         return;
     }
@@ -324,7 +322,7 @@ function confirmRentalWithContract() {
     updateBalanceDisplays();
 
     closeRentalContractModal();
-    const deliveryText = deliveryFee > 0 ? ` (כולל משלוח עד הבית 🛵 ₪${deliveryFee})` : '';
+    const deliveryText = deliveryFee > 0 ? ` (כולל משלוח עד הבית 🛵 yhsh ${deliveryFee})` : '';
     showToast(`נחתם חוזה השכרה וערבות נזק/הרס בהצלחה עבור ${title}${deliveryText}! ✍️📜🎉`);
 }
 
@@ -332,16 +330,16 @@ function confirmRentalWithContract() {
 function buyArticleNow(id, buyPrice, title) {
     const cost = buyPrice || 4000;
     if (state.userBalance < cost) {
-        showToast(`אין מספיק יתרה בארנק! מחיר קנייה: ₪${cost.toLocaleString('he-IL')}, יתרה: ₪${state.userBalance.toLocaleString('he-IL')}`);
+        showToast(`אין מספיק יתרה בארנק! מחיר קנייה: yhsh ${cost.toLocaleString('he-IL')}, יתרה: yhsh ${state.userBalance.toLocaleString('he-IL')}`);
         openSubscriptionModal();
         return;
     }
 
-    if (confirm(`האם ברצונך לרכוש את ${title} בקנייה סופית בסך ₪${cost.toLocaleString('he-IL')}?`)) {
+    if (confirm(`האם ברצונך לרכוש את ${title} בקנייה סופית בסך yhsh ${cost.toLocaleString('he-IL')}?`)) {
         state.userBalance -= cost;
         localStorage.setItem('news_user_balance', state.userBalance.toString());
         updateBalanceDisplays();
-        showToast(`מזל טוב! רכשת בהצלחה את ${title} ב-₪${cost.toLocaleString('he-IL')}! 🛒🎉`);
+        showToast(`מזל טוב! רכשת בהצלחה את ${title} ב-yhsh ${cost.toLocaleString('he-IL')}! 🛒🎉`);
     }
 }
 
@@ -376,7 +374,7 @@ function subscribePlan(planName, price, bonusWallet) {
     }
 
     closeSubscriptionModal();
-    showToast(`מזל טוב! הצטרפת ל-${planName} וקיבלת ₪${bonusWallet.toLocaleString('he-IL')} בונוס לארנק! 🥳💎`);
+    showToast(`מזל טוב! הצטרפת ל-${planName} וקיבלת yhsh ${bonusWallet.toLocaleString('he-IL')} בונוס לארנק! 🥳💎`);
 }
 
 /* =========================================================
@@ -426,7 +424,7 @@ function renderFavoritesSheet() {
             </button>
             <div class="fav-tile-content">
                 <div class="fav-tile-title">${article.title}</div>
-                <div class="fav-tile-price">${article.rentalPeriod || ('₪' + (article.price || 150) + '/יום')}</div>
+                <div class="fav-tile-price">${article.rentalPeriod || ('yhsh ' + (article.price || 150) + '/יום')}</div>
             </div>
         </div>
     `).join('');
@@ -545,8 +543,12 @@ function renderArticlesList(articles) {
     
     elements.articlesList.className = "cube-cards-grid";
     elements.articlesList.innerHTML = articles.map((article) => {
-        const rentalPeriod = article.rentalPeriod || (`🔑 ₪ ${article.price || 150} / ליום`);
-        const buyPeriod = article.buyPeriod || (`🛒 ₪ ${(article.buyPrice || 3500).toLocaleString('he-IL')} לקנייה`);
+        let rentalPeriod = article.rentalPeriod || (`🔑 yhsh ${article.price || 150} / ליום`);
+        let buyPeriod = article.buyPeriod || (`🛒 yhsh ${(article.buyPrice || 3500).toLocaleString('he-IL')} לקנייה`);
+        
+        rentalPeriod = rentalPeriod.replace(/₪/g, 'yhsh');
+        buyPeriod = buyPeriod.replace(/₪/g, 'yhsh');
+
         const isBookmarked = state.bookmarks.includes(article.id);
         const image = article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים'];
         const summaryText = article.summary || 'ציוד איכותי שמור כחדש זמין להשכרה או קנייה מיידית מפרטי.';
@@ -585,10 +587,10 @@ function renderArticlesList(articles) {
                         ${hasLongSummary ? `<button class="cube-read-more-btn" onclick="toggleReadMore(event, this)">עוד...</button>` : ''}
                     </div>
 
-                    <!-- Clean Section Divider (חוצץ לעיצוב נקי) -->
+                    <!-- Clean Section Divider -->
                     <div style="border-top: 1px solid var(--border-color); margin: 8px 0;"></div>
 
-                    <!-- Seller Trust, Tenure & Completed Deals Row (מדד אמינות, ותק ועסקאות) -->
+                    <!-- Seller Trust, Tenure & Completed Deals Row -->
                     <div class="cube-meta-row" style="flex-direction: column; align-items: flex-start; gap: 4px; font-size: 0.82rem;">
                         <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
                             <span><i class="fa-solid fa-user-check" style="color: #16a34a;"></i> <strong>${article.author}</strong></span>
@@ -604,7 +606,7 @@ function renderArticlesList(articles) {
                         </div>
                     </div>
 
-                    <!-- Clean Section Divider (חוצץ תחתון) -->
+                    <!-- Clean Section Divider -->
                     <div style="border-top: 1px solid var(--border-color); margin: 8px 0;"></div>
 
                     <div class="cube-spec-pills">

@@ -16,15 +16,15 @@ function loadBalance() {
     pricingState.userBalance = saved ? parseInt(saved, 10) : 50000;
     const balDisplay = document.getElementById('userBalanceDisplay');
     const heroBalText = document.getElementById('heroBalanceText');
-    if (balDisplay) balDisplay.textContent = '₪ ' + pricingState.userBalance.toLocaleString('he-IL');
-    if (heroBalText) heroBalText.textContent = '₪ ' + pricingState.userBalance.toLocaleString('he-IL');
+    if (balDisplay) balDisplay.textContent = 'yhsh ' + pricingState.userBalance.toLocaleString('he-IL');
+    if (heroBalText) heroBalText.textContent = 'yhsh ' + pricingState.userBalance.toLocaleString('he-IL');
 }
 
 function addFundsGlobal() {
     pricingState.userBalance += 10000;
     localStorage.setItem('news_user_balance', pricingState.userBalance.toString());
     loadBalance();
-    showToast('נטענו ₪10,000 בהצלחה לארנק! 💰');
+    showToast('נטענו yhsh 10,000 בהצלחה לארנק! 💰');
 }
 
 function setupTheme() {
@@ -70,7 +70,7 @@ function renderSubscriptionStatus() {
 
     if (pricingState.subscription && pricingState.subscription.active) {
         if (banner) banner.classList.remove('hidden');
-        if (subText) subText.textContent = `המנוי החודשי שלך פעיל: ${pricingState.subscription.planName} (קיבלת ₪${pricingState.subscription.bonusWallet.toLocaleString('he-IL')} בונוס לארנק!)`;
+        if (subText) subText.textContent = `המנוי החודשי שלך פעיל: ${pricingState.subscription.planName} (קיבלת yhsh ${pricingState.subscription.bonusWallet.toLocaleString('he-IL')} בונוס לארנק!)`;
         if (guestText) guestText.textContent = `👑 ${pricingState.subscription.planName}`;
     } else {
         if (banner) banner.classList.add('hidden');
@@ -94,7 +94,7 @@ function subscribePlanPage(planName, price, bonusWallet) {
     loadBalance();
     renderSubscriptionStatus();
 
-    showToast(`מזל טוב! הצטרפת ל-${planName} וקיבלת ₪${bonusWallet.toLocaleString('he-IL')} בונוס לארנק! 🥳💎`);
+    showToast(`מזל טוב! הצטרפת ל-${planName} וקיבלת yhsh ${bonusWallet.toLocaleString('he-IL')} בונוס לארנק! 🥳💎`);
 }
 
 function cancelSubscription() {

@@ -82,15 +82,15 @@ function loadBalance() {
     
     const balDisplay = document.getElementById('userBalanceDisplay');
     const heroBalText = document.getElementById('heroBalanceText');
-    if (balDisplay) balDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
-    if (heroBalText) heroBalText.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
+    if (balDisplay) balDisplay.textContent = 'yhsh ' + state.userBalance.toLocaleString('he-IL');
+    if (heroBalText) heroBalText.textContent = 'yhsh ' + state.userBalance.toLocaleString('he-IL');
 }
 
 function addFundsGlobal() {
     state.userBalance += 10000;
     localStorage.setItem('news_user_balance', state.userBalance.toString());
     loadBalance();
-    showToast('נטענו ₪10,000 בהצלחה לארנק! 💰');
+    showToast('נטענו yhsh 10,000 בהצלחה לארנק! 💰');
 }
 
 function setupTheme() {
@@ -190,7 +190,7 @@ function renderBidsFeed() {
 
                 <div class="cube-card-body">
                     <div class="cube-price-tag">
-                        <span class="rent-price">₪ ${offer.amount.toLocaleString('he-IL')} / ליום</span>
+                        <span class="rent-price">yhsh ${offer.amount.toLocaleString('he-IL')} / ליום</span>
                     </div>
 
                     <h3 class="cube-title-text">${offer.articleTitle}</h3>
@@ -207,7 +207,7 @@ function renderBidsFeed() {
                         ` : ''}
                         
                         <button class="btn btn-trade-action btn-bid-dark" onclick="event.stopPropagation(); placeHigherBid('${offer.articleId}', '${offer.articleTitle.replace(/'/g, "\\'")}', ${offer.amount})">
-                            <i class="fa-solid fa-gavel"></i> הגדל הצעה (+₪20)
+                            <i class="fa-solid fa-gavel"></i> הגדל הצעה (+yhsh 20)
                         </button>
                     </div>
                 </div>
@@ -218,7 +218,7 @@ function renderBidsFeed() {
 }
 
 function acceptBid(offerId, amount, title) {
-    if (confirm(`האם לאשר ולסגור את ההשכרה עבור "${title}" בסך ₪${amount}?`)) {
+    if (confirm(`האם לאשר ולסגור את ההשכרה עבור "${title}" בסך yhsh ${amount}?`)) {
         state.userBalance += amount;
         localStorage.setItem('news_user_balance', state.userBalance.toString());
         
@@ -227,14 +227,14 @@ function acceptBid(offerId, amount, title) {
         loadBalance();
         renderBidsFeed();
         
-        showToast(`אישרת בהצלחה את ההצעה! ₪${amount} התווספו לארנק שלך 🎉`);
+        showToast(`אישרת בהצלחה את ההצעה! yhsh ${amount} התווספו לארנק שלך 🎉`);
     }
 }
 
 function placeHigherBid(articleId, title, currentAmount) {
     const newAmount = currentAmount + 20;
     if (state.userBalance < newAmount) {
-        showToast('אין לך מספיק יתרה בארנק להציע ₪' + newAmount);
+        showToast('אין לך מספיק יתרה בארנק להציע yhsh ' + newAmount);
         return;
     }
 
@@ -263,7 +263,7 @@ function placeHigherBid(articleId, title, currentAmount) {
     loadBalance();
     renderBidsFeed();
 
-    showToast(`הצעתך להשכרה בסך ₪${newAmount} הוגשה בהצלחה! 🥳`);
+    showToast(`הצעתך להשכרה בסך yhsh ${newAmount} הוגשה בהצלחה! 🥳`);
 }
 
 window.filterBids = filterBids;

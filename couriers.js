@@ -63,15 +63,15 @@ function loadBalance() {
     couriersState.userBalance = saved ? parseInt(saved, 10) : 50000;
     const balDisplay = document.getElementById('userBalanceDisplay');
     const heroBalText = document.getElementById('heroBalanceText');
-    if (balDisplay) balDisplay.textContent = '₪ ' + couriersState.userBalance.toLocaleString('he-IL');
-    if (heroBalText) heroBalText.textContent = '₪ ' + couriersState.userBalance.toLocaleString('he-IL');
+    if (balDisplay) balDisplay.textContent = 'yhsh ' + couriersState.userBalance.toLocaleString('he-IL');
+    if (heroBalText) heroBalText.textContent = 'yhsh ' + couriersState.userBalance.toLocaleString('he-IL');
 }
 
 function addFundsGlobal() {
     couriersState.userBalance += 10000;
     localStorage.setItem('news_user_balance', couriersState.userBalance.toString());
     loadBalance();
-    showToast('נטענו ₪10,000 בהצלחה לארנק! 💰');
+    showToast('נטענו yhsh 10,000 בהצלחה לארנק! 💰');
 }
 
 function setupTheme() {
@@ -143,7 +143,7 @@ function renderCouriers() {
             </div>
 
             <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px; border-top: 1px solid var(--border-color); padding-top: 10px;">
-                <span style="font-size: 1.15rem; font-weight: 900; color: var(--text-primary);">₪${cour.price} <span style="font-size:0.75rem; color:var(--text-muted);">/ למשלוח</span></span>
+                <span style="font-size: 1.15rem; font-weight: 900; color: var(--text-primary);">yhsh ${cour.price} <span style="font-size:0.75rem; color:var(--text-muted);">/ למשלוח</span></span>
                 <button class="btn" onclick="orderCourier('${cour.name}', ${cour.price})" style="background-color: #18181b; color: #ffffff; font-size: 0.82rem; font-weight: 900; padding: 6px 14px; border: none; border-radius: var(--radius-sm);">
                     <i class="fa-solid fa-paper-plane"></i> הזמן משלוח
                 </button>
@@ -154,11 +154,11 @@ function renderCouriers() {
 
 function orderCourier(name, price) {
     if (couriersState.userBalance < price) {
-        showToast(`אין מספיק יתרה בארנק! מחיר משלוח: ₪${price}, יתרה: ₪${couriersState.userBalance.toLocaleString('he-IL')}`);
+        showToast(`אין מספיק יתרה בארנק! מחיר משלוח: yhsh ${price}, יתרה: yhsh ${couriersState.userBalance.toLocaleString('he-IL')}`);
         return;
     }
 
-    if (confirm(`האם ברצונך להזמין משלוח ציוד ע"י השליח ${name} בעלות ₪${price}?`)) {
+    if (confirm(`האם ברצונך להזמין משלוח ציוד ע"י השליח ${name} בעלות yhsh ${price}?`)) {
         couriersState.userBalance -= price;
         localStorage.setItem('news_user_balance', couriersState.userBalance.toString());
         loadBalance();
@@ -199,7 +199,6 @@ function submitCourierRegistration(event) {
 
     showToast(`מזל טוב ${name}! נרשמת בהצלחה כשליח ציוד מורשה! 🥳🛵`);
 
-    // Reset Form
     event.target.reset();
 }
 

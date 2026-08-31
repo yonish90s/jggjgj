@@ -22,15 +22,15 @@ function loadBalance() {
     userBalance = saved ? parseInt(saved, 10) : 50000;
     const balDisplay = document.getElementById('userBalanceDisplay');
     const heroBalText = document.getElementById('heroBalanceText');
-    if (balDisplay) balDisplay.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
-    if (heroBalText) heroBalText.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
+    if (balDisplay) balDisplay.textContent = 'yhsh ' + userBalance.toLocaleString('he-IL');
+    if (heroBalText) heroBalText.textContent = 'yhsh ' + userBalance.toLocaleString('he-IL');
 }
 
 function addFundsGlobal() {
     userBalance += 10000;
     localStorage.setItem('news_user_balance', userBalance.toString());
     loadBalance();
-    showToast('נטענו ₪10,000 בהצלחה לארנק! 💰');
+    showToast('נטענו yhsh 10,000 בהצלחה לארנק! 💰');
 }
 
 function setupTheme() {
@@ -58,24 +58,20 @@ function applyTheme() {
     }
 }
 
-// Step 1: Select Category Card
 function selectFormCategory(catName) {
     selectedCategory = catName;
     
-    // Hide Step 1, Show Step 2 Form
     const step1 = document.getElementById('stepCategorySelect');
     const form = document.getElementById('listingForm');
     if (step1) step1.classList.add('hidden');
     if (form) form.classList.remove('hidden');
 
-    // Update Select Dropdown
     const selectElem = document.getElementById('inputCategory');
     if (selectElem) selectElem.value = catName;
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Select Product Condition Pill
 function selectCondition(el, conditionName) {
     selectedCondition = conditionName;
     const pills = document.querySelectorAll('.condition-pill');
@@ -83,7 +79,6 @@ function selectCondition(el, conditionName) {
     el.classList.add('active');
 }
 
-// Update Image Preview
 function updateImagePreview(url) {
     const previewBox = document.getElementById('imagePreview1');
     if (!previewBox) return;
@@ -106,7 +101,6 @@ window.updateImagePreview = updateImagePreview;
 window.triggerImageUrlInput = triggerImageUrlInput;
 window.addFundsGlobal = addFundsGlobal;
 
-// Submit New Listing Form
 function submitNewListing(event) {
     event.preventDefault();
 
@@ -136,8 +130,8 @@ function submitNewListing(event) {
         readTime: 'טווח השכרה: יומי / שבועי',
         price: price,
         buyPrice: buyPrice,
-        rentalPeriod: `🔑 ₪ ${price} / ליום`,
-        buyPeriod: `🛒 ₪ ${buyPrice.toLocaleString('he-IL')} לקנייה`,
+        rentalPeriod: `🔑 yhsh ${price} / ליום`,
+        buyPeriod: `🛒 yhsh ${buyPrice.toLocaleString('he-IL')} לקנייה`,
         rentalDates: 'זמין להשכרה/קנייה מיידית',
         imageUrl: imageUrl,
         summary: summary,
@@ -146,15 +140,17 @@ function submitNewListing(event) {
             <p>${summary}</p>
             <br>
             <p><strong>מצב המוצר:</strong> ${selectedCondition}</p>
-            <p><strong>תנאי השכרה:</strong> השכרה יומית ב-₪${price}. קנייה סופית ב-₪${buyPrice.toLocaleString('he-IL')}.</p>
+            <p><strong>תנאי השכרה:</strong> השכרה יומית ב-yhsh ${price}. קנייה סופית ב-yhsh ${buyPrice.toLocaleString('he-IL')}.</p>
             <p><strong>חוזה אחריות:</strong> השוכר חתם על חוזה אחריות נזק/הרס במקרה של קלקול או נזק לציוד.</p>
         `,
         tags: [category, selectedCondition, "חוזה נזק מאושר"],
         condition: selectedCondition,
-        contractApproved: true
+        contractApproved: true,
+        sellerRating: 5.0,
+        sellerTenure: "חדש באתר (2026)",
+        completedDeals: 1
     };
 
-    // Save to LocalStorage
     try {
         const existingCustom = JSON.parse(localStorage.getItem('news_custom_articles') || '[]');
         existingCustom.unshift(newArticle);

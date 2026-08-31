@@ -60,15 +60,15 @@ function loadBalance() {
     userBalance = saved ? parseInt(saved, 10) : 50000;
     const balDisplay = document.getElementById('userBalanceDisplay');
     const heroBalText = document.getElementById('heroBalanceText');
-    if (balDisplay) balDisplay.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
-    if (heroBalText) heroBalText.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
+    if (balDisplay) balDisplay.textContent = 'yhsh ' + userBalance.toLocaleString('he-IL');
+    if (heroBalText) heroBalText.textContent = 'yhsh ' + userBalance.toLocaleString('he-IL');
 }
 
 function addFundsGlobal() {
     userBalance += 10000;
     localStorage.setItem('news_user_balance', userBalance.toString());
     loadBalance();
-    showToast('נטענו ₪10,000 בהצלחה לארנק! 💰');
+    showToast('נטענו yhsh 10,000 בהצלחה לארנק! 💰');
 }
 
 function loadArticlesSync() {
@@ -287,15 +287,15 @@ window.addFundsGlobal = addFundsGlobal;
 function buyCurrentArticle(buyPrice, title) {
     const cost = buyPrice || 4000;
     if (userBalance < cost) {
-        showToast(`אין מספיק יתרה בארנק! מחיר קנייה: ₪${cost.toLocaleString('he-IL')}, יתרה: ₪${userBalance.toLocaleString('he-IL')}`);
+        showToast(`אין מספיק יתרה בארנק! מחיר קנייה: yhsh ${cost.toLocaleString('he-IL')}, יתרה: yhsh ${userBalance.toLocaleString('he-IL')}`);
         return;
     }
 
-    if (confirm(`האם ברצונך לרכוש את ${title} בקנייה סופית בסך ₪${cost.toLocaleString('he-IL')}?`)) {
+    if (confirm(`האם ברצונך לרכוש את ${title} בקנייה סופית בסך yhsh ${cost.toLocaleString('he-IL')}?`)) {
         userBalance -= cost;
         localStorage.setItem('news_user_balance', userBalance.toString());
         loadBalance();
-        showToast(`מזל טוב! רכשת בהצלחה את ${title} ב-₪${cost.toLocaleString('he-IL')}! 🛒🎉`);
+        showToast(`מזל טוב! רכשת בהצלחה את ${title} ב-yhsh ${cost.toLocaleString('he-IL')}! 🛒🎉`);
     }
 }
 
@@ -305,8 +305,8 @@ window.buyCurrentArticle = buyCurrentArticle;
 function renderFullArticle(article) {
     const isBookmarked = bookmarks.includes(article.id);
     const likeCount = likes[article.id] || 0;
-    const rentalPeriod = article.rentalPeriod || (`🔑 ₪ ${article.price || 150} / ליום`);
-    const buyPeriod = article.buyPeriod || (`🛒 ₪ ${(article.buyPrice || 4000).toLocaleString('he-IL')} לקנייה`);
+    let rentalPeriod = (article.rentalPeriod || (`🔑 yhsh ${article.price || 150} / ליום`)).replace(/₪/g, 'yhsh');
+    let buyPeriod = (article.buyPeriod || (`🛒 yhsh ${(article.buyPrice || 4000).toLocaleString('he-IL')} לקנייה`)).replace(/₪/g, 'yhsh');
     const rentalDates = article.rentalDates || 'זמין להשכרה/קנייה מיידית';
     const buyPriceNum = article.buyPrice || 4000;
 
@@ -332,7 +332,7 @@ function renderFullArticle(article) {
             </div>
         </div>
 
-        <!-- Seller Trust Profile Rating Box (פרופיל אמינות, ותק ועסקאות) -->
+        <!-- Seller Trust Profile Rating Box -->
         <div class="seller-profile-trust-box">
             <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
                 <div style="width:56px; height:56px; border-radius:50%; background:#18181b; color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;">
@@ -366,7 +366,7 @@ function renderFullArticle(article) {
             </div>
         </div>
 
-        <!-- Clean Section Divider (חוצץ מעוצב) -->
+        <!-- Clean Section Divider -->
         <div style="border-top: 2px solid var(--border-color); margin: 25px 0;"></div>
 
         <div class="article-page-image-wrapper">
@@ -388,7 +388,7 @@ function renderFullArticle(article) {
                     <i class="fa-solid fa-key"></i> השכר / השאל
                 </button>
                 <button class="btn" onclick="buyCurrentArticle(${buyPriceNum}, '${escapeQuote(article.title)}')" style="background-color:#16a34a; color:#ffffff; padding:10px 18px; border:none; font-weight:900;">
-                    <i class="fa-solid fa-cart-shopping"></i> קנה עכשיו (₪${buyPriceNum.toLocaleString('he-IL')})
+                    <i class="fa-solid fa-cart-shopping"></i> קנה עכשיו (yhsh ${buyPriceNum.toLocaleString('he-IL')})
                 </button>
             </div>
         </div>
@@ -403,16 +403,16 @@ function renderFullArticle(article) {
                 <i class="fa-solid fa-gavel fa-2x"></i>
                 <div>
                     <h3>הגש הצעת מחיר להשכרה / השאלה בלייב</h3>
-                    <p>ארנק המסחר שלך: <strong>₪ ${userBalance.toLocaleString('he-IL')}</strong> | הגש הצעה והתחרה על המוצר!</p>
+                    <p>ארנק המסחר שלך: <strong>yhsh ${userBalance.toLocaleString('he-IL')}</strong> | הגש הצעה והתחרה על המוצר!</p>
                 </div>
             </div>
             <div class="bidding-body">
                 <div class="current-bid-box">
                     <span>הצעה מובילה כרגע:</span>
-                    <strong id="articleHighestBid">₪ ${highestBid.toLocaleString('he-IL')}</strong>
+                    <strong id="articleHighestBid">yhsh ${highestBid.toLocaleString('he-IL')}</strong>
                 </div>
                 <div class="bid-input-group">
-                    <input type="number" id="userBidInput" placeholder="סכום הצעה ב-₪ (למשל: ${highestBid + 50})" step="10">
+                    <input type="number" id="userBidInput" placeholder="סכום הצעה ב-yhsh (למשל: ${highestBid + 50})" step="10">
                     <button class="btn btn-primary" onclick="submitBidFromArticle('${article.id}', '${escapeQuote(article.title)}', ${highestBid})">
                         <i class="fa-solid fa-gavel"></i> הגש הצעה
                     </button>
@@ -453,12 +453,12 @@ function submitBidFromArticle(articleId, articleTitle, currentHighest) {
 
     const bidAmount = parseInt(input.value, 10);
     if (isNaN(bidAmount) || bidAmount <= currentHighest) {
-        showToast(`ההצעה חייבת להיות גבוהה מההצעה הנוכחית (₪${currentHighest.toLocaleString('he-IL')})`);
+        showToast(`ההצעה חייבת להיות גבוהה מההצעה הנוכחית (yhsh ${currentHighest.toLocaleString('he-IL')})`);
         return;
     }
 
     if (userBalance < bidAmount) {
-        showToast('אין לך מספיק יתרה בארנק להציע ₪' + bidAmount.toLocaleString('he-IL'));
+        showToast('אין לך מספיק יתרה בארנק להציע yhsh ' + bidAmount.toLocaleString('he-IL'));
         return;
     }
 
@@ -488,9 +488,9 @@ function submitBidFromArticle(articleId, articleTitle, currentHighest) {
 
     input.value = '';
     const highestElem = document.getElementById('articleHighestBid');
-    if (highestElem) highestElem.textContent = '₪ ' + bidAmount.toLocaleString('he-IL');
+    if (highestElem) highestElem.textContent = 'yhsh ' + bidAmount.toLocaleString('he-IL');
 
-    showToast('הצעתך להשכרה בסך ₪' + bidAmount.toLocaleString('he-IL') + ' הוגשה בהצלחה! 🥳');
+    showToast('הצעתך להשכרה בסך yhsh ' + bidAmount.toLocaleString('he-IL') + ' הוגשה בהצלחה! 🥳');
 }
 
 function escapeQuote(str) {
@@ -503,7 +503,7 @@ function renderRelatedArticles(current) {
         <div class="top3-card" onclick="window.location.href='article.html?id=${art.id}'">
             <img src="${art.imageUrl || CATEGORY_IMAGES[art.category] || CATEGORY_IMAGES['מחשבים']}" alt="${art.title}">
             <div class="top3-overlay">
-                <div style="font-size:0.8rem; color:var(--text-primary); font-weight:800;">${art.rentalPeriod || 'להשכרה'}</div>
+                <div style="font-size:0.8rem; color:var(--text-primary); font-weight:800;">${art.rentalPeriod ? art.rentalPeriod.replace(/₪/g, 'yhsh') : 'להשכרה'}</div>
                 ${art.title}
             </div>
         </div>

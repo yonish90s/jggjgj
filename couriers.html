@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1300">
+    <link rel="stylesheet" href="styles.css?v=1700">
     <style>
         .courier-card {
             background-color: var(--card-bg);
@@ -121,6 +121,16 @@
                     <span>סיעורים</span>
                 </a>
 
+                <a href="repository.html" class="nav-tab">
+                    <i class="fa-solid fa-database"></i>
+                    <span>המאגר</span>
+                </a>
+
+                <a href="store.html" class="nav-tab">
+                    <i class="fa-solid fa-store"></i>
+                    <span>החנות שלי</span>
+                </a>
+
                 <a href="add-listing.html" class="nav-tab">
                     <i class="fa-solid fa-plus"></i>
                     <span>פרסום מודעה</span>
@@ -140,7 +150,7 @@
             <div class="nav-left">
                 <div class="user-balance-pill" title="היתרה שלך">
                     <i class="fa-solid fa-wallet"></i>
-                    <span id="userBalanceDisplay">₪ 50,000</span>
+                    <span id="userBalanceDisplay">yhsh 50,000</span>
                 </div>
 
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
@@ -157,24 +167,36 @@
 
     <!-- Global Hero Wallet Banner Card -->
     <section class="trading-hero container" style="margin-top: 20px; margin-bottom: 20px;">
-        <div class="trading-hero-card" style="background: var(--card-bg); border-radius: var(--radius-md); padding: 22px 28px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 20px; box-shadow: var(--shadow-sm); flex-wrap: wrap;">
+        <div class="trading-hero-card" style="background: var(--card-bg); border-radius: var(--radius-md); padding: 22px 28px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-sm);">
             
-            <div class="hero-wallet" style="display: flex; align-items: center; gap: 16px;">
-                <div style="width: 54px; height: 54px; border-radius: 50%; background: #18181b; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
-                    <i class="fa-solid fa-truck-fast"></i>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                <div class="hero-wallet" style="display: flex; align-items: center; gap: 16px;">
+                    <div style="width: 54px; height: 54px; border-radius: 50%; background: #18181b; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div>
+                        <h2 style="font-size: 1.4rem; font-weight: 900; color: var(--text-primary);">מערך שליחי הציוד והמשלוחים</h2>
+                        <p style="color: var(--text-muted); font-size: 0.92rem;">רשימת שליחים זמינים בלייב והרשמה כמשלוחן ציוד מורשה</p>
+                    </div>
                 </div>
-                <div>
-                    <h2 style="font-size: 1.4rem; font-weight: 900; color: var(--text-primary);">מערך שליחי הציוד והמשלוחים</h2>
-                    <p style="color: var(--text-muted); font-size: 0.92rem;">רשימת שליחים זמינים בלייב והרשמה כמשלוחן ציוד מורשה</p>
+
+                <div class="wallet-balance-box" style="text-align: left; display: flex; flex-direction: column; align-items: flex-end;">
+                    <span class="balance-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700;">יתרה פנויה בארנק:</span>
+                    <span id="heroBalanceText" class="balance-amount" style="font-size: 1.6rem; font-weight: 900; color: var(--text-primary);">yhsh 50,000</span>
+                    <button onclick="addFundsGlobal()" style="margin-top: 6px; font-size: 0.82rem; padding: 5px 14px; background-color: var(--bg-color); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-plus-circle"></i> טען yhsh 10,000 לארנק
+                    </button>
                 </div>
             </div>
 
-            <div class="wallet-balance-box" style="text-align: left; display: flex; flex-direction: column; align-items: flex-end;">
-                <span class="balance-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700;">יתרה פנויה בארנק:</span>
-                <span id="heroBalanceText" class="balance-amount" style="font-size: 1.6rem; font-weight: 900; color: var(--text-primary);">₪ 50,000</span>
-                <button onclick="addFundsGlobal()" style="margin-top: 6px; font-size: 0.82rem; padding: 5px 14px; background-color: var(--bg-color); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-                    <i class="fa-solid fa-plus-circle"></i> טען ₪10,000 לארנק
-                </button>
+            <div style="border-top: 1px solid var(--border-color);"></div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 0.88rem; font-weight: 700; color: var(--text-secondary);">
+                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <span style="color: #16a34a; font-weight: 900;"><i class="fa-solid fa-circle-check"></i> ✅ חשבון מאומת</span>
+                    <span style="color: var(--border-color);">|</span>
+                    <span style="color: #eab308; font-weight: 900;"><i class="fa-solid fa-star"></i> ⭐ 4.9 (98% מדד אמינות)</span>
+                </div>
             </div>
 
         </div>
@@ -183,14 +205,12 @@
     <!-- Main Content Container -->
     <main class="main-content container" style="max-width: 1100px;">
         
-        <!-- Section 1: Active Couriers Directory -->
         <section>
             <div class="section-header">
                 <h2 class="section-title"><i class="fa-solid fa-motorcycle"></i> רשימת שליחים זמינים להובלת ציוד בלייב</h2>
                 <span id="couriersCount" style="font-weight: 700; color: var(--text-muted); font-size: 0.9rem;">מציג שליחים פעילים</span>
             </div>
 
-            <!-- Couriers Grid -->
             <div id="couriersGrid" class="courier-grid">
                 <!-- Rendered dynamically via couriers.js -->
             </div>
@@ -230,7 +250,7 @@
                     </div>
 
                     <div>
-                        <label style="display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px;">מחיר משלוח בסיסי (₪) *</label>
+                        <label style="display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px;">מחיר משלוח בסיסי (yhsh) *</label>
                         <input type="number" id="inputCourierPrice" style="width: 100%; padding: 12px; font-family: inherit; border-radius: var(--radius-sm); border: 1.5px solid var(--border-color); background: var(--bg-color); color: var(--text-primary);" placeholder="35" min="15" required>
                     </div>
                 </div>
