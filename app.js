@@ -64,7 +64,6 @@ let state = {
 
 // DOM Elements Container
 const elements = {
-    top3Grid: null,
     articlesList: null,
     emptyState: null,
     sectionTitle: null,
@@ -86,7 +85,6 @@ const elements = {
 };
 
 function bindDOMElements() {
-    elements.top3Grid = document.getElementById('top3Grid');
     elements.articlesList = document.getElementById('articlesList');
     elements.emptyState = document.getElementById('emptyState');
     elements.sectionTitle = document.getElementById('sectionTitle');
@@ -160,8 +158,6 @@ function loadArticlesSync() {
             state.subscription = JSON.parse(subData);
             if (elements.guestUserText && state.subscription && state.subscription.active) {
                 elements.guestUserText.textContent = `👑 ${state.subscription.planName}`;
-                elements.guestUserText.parentElement.style.borderColor = 'var(--yad2-pink)';
-                elements.guestUserText.parentElement.style.color = 'var(--yad2-pink)';
             }
         }
     } catch (e) {}
@@ -223,8 +219,6 @@ function subscribePlan(planName, price, bonusWallet) {
 
     if (elements.guestUserText) {
         elements.guestUserText.textContent = `👑 ${planName}`;
-        elements.guestUserText.parentElement.style.borderColor = 'var(--yad2-pink)';
-        elements.guestUserText.parentElement.style.color = 'var(--yad2-pink)';
     }
 
     closeSubscriptionModal();
@@ -232,7 +226,7 @@ function subscribePlan(planName, price, bonusWallet) {
 }
 
 /* =========================================================
-   BOTTOM DARK FAVORITES SHEET LOGIC ("חלון שחור מלמטה עם ריבועים")
+   BOTTOM DARK FAVORITES SHEET LOGIC
    ========================================================= */
 function openFavoritesSheet() {
     renderFavoritesSheet();
@@ -299,18 +293,8 @@ function filterByCategory(cat) {
     if (listElem) listElem.scrollIntoView({ behavior: 'smooth' });
 }
 
-function saveCustomArticlesToStorage(newArticle) {
-    const localCustomArticles = JSON.parse(localStorage.getItem('news_custom_articles') || '[]');
-    localCustomArticles.unshift(newArticle);
-    localStorage.setItem('news_custom_articles', JSON.stringify(localCustomArticles));
-}
-
 function saveBookmarksToStorage() {
     localStorage.setItem('news_bookmarks', JSON.stringify(state.bookmarks));
-}
-
-function saveLikesToStorage() {
-    localStorage.setItem('news_likes', JSON.stringify(state.likes));
 }
 
 function applyTheme() {
@@ -376,30 +360,14 @@ function renderApp() {
 
     if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מוצרים להשכרה`;
 
-    // Render Top 3 Featured Grid
-    const showTop3 = state.activeCategory === 'all' && !state.searchQuery && !state.showBookmarksOnly && filtered.length >= 3;
-    
-    let rowArticles = filtered;
-
-    if (elements.top3Grid) {
-        if (showTop3) {
-            const top3Articles = filtered.slice(0, 3);
-            renderTop3Grid(top3Articles);
-            elements.top3Grid.parentElement.classList.remove('hidden');
-            rowArticles = filtered.slice(3);
-        } else {
-            elements.top3Grid.parentElement.classList.add('hidden');
-        }
-    }
-
-    // Render Rental Listing Cards in Cube Grid Layout ("קוביות מסודרות לעין")
+    // Render Rental Listing Cards in 5-Column Cube Grid Layout ("חמש על חמש")
     if (elements.articlesList) {
-        if (rowArticles.length === 0 && (!showTop3 || filtered.length === 0)) {
+        if (filtered.length === 0) {
             elements.articlesList.innerHTML = '';
             if (elements.emptyState) elements.emptyState.classList.remove('hidden');
         } else {
             if (elements.emptyState) elements.emptyState.classList.add('hidden');
-            renderArticlesList(rowArticles);
+            renderArticlesList(filtered);
         }
     }
 
@@ -407,21 +375,7 @@ function renderApp() {
     renderPriceTrendsWidget();
 }
 
-// Render Top 3 Featured Rental Items Grid
-function renderTop3Grid(articles) {
-    if (!elements.top3Grid) return;
-    elements.top3Grid.innerHTML = articles.map(article => `
-        <div class="top3-card" onclick="openArticleModal('${article.id}')">
-            <img src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}">
-            <div class="top3-overlay">
-                <div style="font-size:0.8rem; color:var(--yad2-pink); font-weight:800; margin-bottom:2px;">${article.rentalPeriod || 'להשכרה'}</div>
-                ${article.title}
-            </div>
-        </div>
-    `).join('');
-}
-
-// Render Symmetrical Vertical Cube Grid Cards ("קוביות מסודרות לעין")
+// Render Symmetrical Vertical Cube Grid Cards in 5 Columns ("חמש על חמש")
 function renderArticlesList(articles) {
     if (!elements.articlesList) return;
     
@@ -453,7 +407,7 @@ function renderArticlesList(articles) {
                     <p class="cube-subtitle-text">${article.summary}</p>
 
                     <div class="cube-meta-row">
-                        <span><i class="fa-solid fa-location-dot" style="color:var(--yad2-pink);"></i> ${article.author}</span>
+                        <span><i class="fa-solid fa-location-dot"></i> ${article.author}</span>
                         <span>•</span>
                         <span><i class="fa-regular fa-calendar-check"></i> ${rentalDates}</span>
                     </div>
