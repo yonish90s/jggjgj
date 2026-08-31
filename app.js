@@ -19,7 +19,8 @@ let state = {
     pollVoted: false,
     userBalance: 50000,
     subscription: null,
-    pendingRentalArticle: null
+    pendingRentalArticle: null,
+    pendingReportTarget: null
 };
 
 // DOM Elements Container
@@ -41,7 +42,8 @@ const elements = {
     favSheetCount: null,
     toast: null,
     toastMessage: null,
-    rentalContractModal: null
+    rentalContractModal: null,
+    reportUserModal: null
 };
 
 function bindDOMElements() {
@@ -63,6 +65,7 @@ function bindDOMElements() {
     elements.toast = document.getElementById('toast');
     elements.toastMessage = document.getElementById('toastMessage');
     elements.rentalContractModal = document.getElementById('rentalContractModal');
+    elements.reportUserModal = document.getElementById('reportUserModal');
 }
 
 // Initialize Application
@@ -147,6 +150,67 @@ async function loadStateFromStorage() {
     } catch (e) {
         // Keep cached
     }
+}
+
+/* =========================================================
+   REPORT & APPEAL SYSTEM (ערעור ודיווח על משתמש/מוכר)
+   ========================================================= */
+function openReportModal(author, title) {
+    state.pendingReportTarget = { author, title };
+    
+    const targetText = document.getElementById('reportTargetText');
+    const detailsInput = document.getElementById('reportDetailsInput');
+    const chk = document.getElementById('reportDeclareChk');
+
+    if (targetText) targetText.textContent = `דיווח על המשכיר/מוכר: ${author} (מודעה: "${title}")`;
+    if (detailsInput) detailsInput.value = '';
+    if (chk) chk.checked = false;
+
+    const modal = document.getElementById('reportUserModal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeReportModal() {
+    const modal = document.getElementById('reportUserModal');
+    if (modal) modal.classList.add('hidden');
+    state.pendingReportTarget = null;
+}
+
+function submitReportForm(event) {
+    event.preventDefault();
+
+    const chk = document.getElementById('reportDeclareChk');
+    if (!chk || !chk.checked) {
+        showToast('יש לסמן V ולהצהיר על אמינות פרטי הערעור!');
+        return;
+    }
+
+    const reason = document.getElementById('reportReasonSelect').value;
+    const details = document.getElementById('reportDetailsInput').value.trim();
+
+    if (!state.pendingReportTarget) return;
+
+    const newReport = {
+        id: 'report-' + Date.now(),
+        targetAuthor: state.pendingReportTarget.author,
+        targetTitle: state.pendingReportTarget.title,
+        reason: reason,
+        details: details,
+        reporter: 'אורח (אתה)',
+        date: new Date().toISOString(),
+        status: 'בטיפול משפטי 🛡️'
+    };
+
+    try {
+        const existingReports = JSON.parse(localStorage.getItem('news_user_reports') || '[]');
+        existingReports.unshift(newReport);
+        localStorage.setItem('news_user_reports', JSON.stringify(existingReports));
+    } catch (e) {
+        localStorage.setItem('news_user_reports', JSON.stringify([newReport]));
+    }
+
+    closeReportModal();
+    showToast('דיווחך/ערעורך נקלט בהצלחה ויועבר לבדיקה משפטית 🛡️!');
 }
 
 /* =========================================================
@@ -334,6 +398,9 @@ window.buyArticleNow = buyArticleNow;
 window.openRentalContractModal = openRentalContractModal;
 window.closeRentalContractModal = closeRentalContractModal;
 window.confirmRentalWithContract = confirmRentalWithContract;
+window.openReportModal = openReportModal;
+window.closeReportModal = closeReportModal;
+window.submitReportForm = submitReportForm;
 
 function filterByCategory(cat) {
     state.activeCategory = cat;
@@ -386,13 +453,13 @@ function renderApp() {
         } else if (state.activeCategory !== 'all') {
             elements.sectionTitle.textContent = `מוצרים להשכרה בקטגוריית ${state.activeCategory}`;
         } else {
-            elements.sectionTitle.textContent = 'ציוד ומוצרים להשכרה / קנייה סופית מפרטיים';
+            elements.sectionTitle.textContent = 'ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (מדד אמינות ⭐)';
         }
     }
 
     if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מוצרים זמינים להשכרה ולקנייה`;
 
-    // Render Rental/Buy Listing Cards in 100% Symmetrical 5-Column Cube Grid Layout ("השאל/השכר VS קנה עכשיו")
+    // Render Rental/Buy Listing Cards with Seller Rating & Report Button
     if (elements.articlesList) {
         if (filtered.length === 0) {
             elements.articlesList.innerHTML = '';
@@ -404,7 +471,7 @@ function renderApp() {
     }
 }
 
-// Render 100% Symmetrical Vertical Cube Grid Cards with Dual "השאל/השכר" & "קנה" Options
+// Render 100% Symmetrical Grid Cards with Seller Trust Rating Badge & Report Icon
 function renderArticlesList(articles) {
     if (!elements.articlesList) return;
     
@@ -412,19 +479,19 @@ function renderArticlesList(articles) {
     elements.articlesList.innerHTML = articles.map((article) => {
         const rentalPeriod = article.rentalPeriod || (`🔑 ₪ ${article.price || 150} / ליום`);
         const buyPeriod = article.buyPeriod || (`🛒 ₪ ${(article.buyPrice || 3500).toLocaleString('he-IL')} לקנייה`);
-        const rentalDates = article.rentalDates || 'זמין להשכרה/קנייה מיידית';
         const isBookmarked = state.bookmarks.includes(article.id);
-        const pills = article.tags || ['השכרה/קנייה', 'חוזה נזק מאושר', 'איסוף מהיר'];
         const image = article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים'];
         const summaryText = article.summary || 'ציוד איכותי שמור כחדש זמין להשכרה או קנייה מיידית מפרטי.';
         const hasLongSummary = summaryText.length > 55;
         const buyPriceNum = article.buyPrice || 4000;
         const rentPriceNum = article.price || 150;
+        const rating = article.sellerRating || 4.9;
+        const trustPct = article.trustScore || "98%";
 
         return `
             <div class="cube-card-box" onclick="openArticleModal('${article.id}')">
                 
-                <!-- Image Header with Floating Badges -->
+                <!-- Image Header with Floating Badges & Report Button -->
                 <div class="cube-image-wrapper">
                     <img src="${image}" alt="${article.title}" loading="lazy">
                     <span class="cube-badge-tag">${article.category}</span>
@@ -447,17 +514,21 @@ function renderArticlesList(articles) {
                         ${hasLongSummary ? `<button class="cube-read-more-btn" onclick="toggleReadMore(event, this)">עוד...</button>` : ''}
                     </div>
 
-                    <div class="cube-meta-row">
-                        <span><i class="fa-solid fa-location-dot"></i> ${article.author}</span>
-                        <span>•</span>
-                        <span><i class="fa-regular fa-calendar-check"></i> ${rentalDates}</span>
+                    <!-- Seller Trust & Reliability Rating Row -->
+                    <div class="cube-meta-row" style="justify-content: space-between;">
+                        <span><i class="fa-solid fa-user-check" style="color: #16a34a;"></i> ${article.author}</span>
+                        <span style="color: #eab308; font-weight: 900;"><i class="fa-solid fa-star"></i> ${rating} (${trustPct})</span>
+                        <button onclick="event.stopPropagation(); openReportModal('${article.author.replace(/'/g, "\\'")}', '${article.title.replace(/'/g, "\\'")}')" style="background:none; border:none; color: var(--text-muted); cursor:pointer; font-size: 0.8rem;" title="דיווח / ערעור על משתמש">
+                            <i class="fa-solid fa-flag"></i>
+                        </button>
                     </div>
 
                     <div class="cube-spec-pills">
-                        ${pills.map(p => `<span class="cube-pill-item">${p}</span>`).join('')}
+                        <span class="cube-pill-item" style="color: #16a34a; font-weight: 800;">⭐ ${rating} מדד אמינות</span>
+                        <span class="cube-pill-item">מאומת</span>
                     </div>
 
-                    <!-- Dual Option Action Buttons: "השכר / השאל" (Opens Contract Modal) vs "קנה עכשיו" -->
+                    <!-- Dual Option Action Buttons -->
                     <div class="cube-dual-actions">
                         <button class="btn-rent-option" onclick="event.stopPropagation(); openRentalContractModal('${article.id}', '${article.title.replace(/'/g, "\\'")}', ${rentPriceNum})">
                             <i class="fa-solid fa-key"></i> השכר/השאל

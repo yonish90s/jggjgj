@@ -14,6 +14,7 @@ let currentArticle = null;
 let darkMode = false;
 let userBalance = 50000;
 let offers = [];
+let pendingReportTarget = null;
 
 // DOM Elements
 const articlePageContainer = document.getElementById('articlePageContainer');
@@ -157,7 +158,72 @@ function renderNotFound() {
     `;
 }
 
-// Buy Item Outright
+/* =========================================================
+   REPORT & APPEAL MODAL LOGIC
+   ========================================================= */
+function openReportModal(author, title) {
+    pendingReportTarget = { author, title };
+    
+    const targetText = document.getElementById('reportTargetText');
+    const detailsInput = document.getElementById('reportDetailsInput');
+    const chk = document.getElementById('reportDeclareChk');
+
+    if (targetText) targetText.textContent = `דיווח/ערעור על: ${author} (מודעה: "${title}")`;
+    if (detailsInput) detailsInput.value = '';
+    if (chk) chk.checked = false;
+
+    const modal = document.getElementById('reportUserModal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeReportModal() {
+    const modal = document.getElementById('reportUserModal');
+    if (modal) modal.classList.add('hidden');
+    pendingReportTarget = null;
+}
+
+function submitReportFormArticle(event) {
+    event.preventDefault();
+
+    const chk = document.getElementById('reportDeclareChk');
+    if (!chk || !chk.checked) {
+        showToast('יש לסמן V ולהצהיר על אמינות פרטי הערעור!');
+        return;
+    }
+
+    const reason = document.getElementById('reportReasonSelect').value;
+    const details = document.getElementById('reportDetailsInput').value.trim();
+
+    if (!pendingReportTarget) return;
+
+    const newReport = {
+        id: 'report-' + Date.now(),
+        targetAuthor: pendingReportTarget.author,
+        targetTitle: pendingReportTarget.title,
+        reason: reason,
+        details: details,
+        reporter: 'אורח (אתה)',
+        date: new Date().toISOString(),
+        status: 'בטיפול משפטי 🛡️'
+    };
+
+    try {
+        const existingReports = JSON.parse(localStorage.getItem('news_user_reports') || '[]');
+        existingReports.unshift(newReport);
+        localStorage.setItem('news_user_reports', JSON.stringify(existingReports));
+    } catch (e) {
+        localStorage.setItem('news_user_reports', JSON.stringify([newReport]));
+    }
+
+    closeReportModal();
+    showToast('דיווחך/ערעורך נקלט בהצלחה ויועבר לבדיקה משפטית 🛡️!');
+}
+
+window.openReportModal = openReportModal;
+window.closeReportModal = closeReportModal;
+window.submitReportFormArticle = submitReportFormArticle;
+
+// Instant Buy Action
 function buyCurrentArticle(buyPrice, title) {
     const cost = buyPrice || 4000;
     if (userBalance < cost) {
@@ -184,6 +250,10 @@ function renderFullArticle(article) {
     const rentalDates = article.rentalDates || 'זמין להשכרה/קנייה מיידית';
     const buyPriceNum = article.buyPrice || 4000;
 
+    const rating = article.sellerRating || 4.9;
+    const reviewsCount = article.sellerReviews || 42;
+    const trustPct = article.trustScore || "98%";
+
     // Get highest bid for this item
     const articleBids = offers.filter(o => o.articleId === article.id);
     const highestBid = articleBids.length > 0 ? Math.max(...articleBids.map(b => b.amount)) : (article.price || 150);
@@ -198,6 +268,27 @@ function renderFullArticle(article) {
                 <span>•</span>
                 <span><i class="fa-regular fa-calendar-check"></i> ${rentalDates}</span>
             </div>
+        </div>
+
+        <!-- Seller Trust Profile Rating Box (פרופיל ומדד אמינות מוכר) -->
+        <div class="seller-profile-trust-box">
+            <div style="display:flex; align-items:center; gap:14px;">
+                <div style="width:50px; height:50px; border-radius:50%; background:#18181b; color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:1.4rem;">
+                    <i class="fa-solid fa-user-check"></i>
+                </div>
+                <div>
+                    <h4 style="font-size:1.1rem; font-weight:900; color:var(--text-primary); margin-bottom:2px;">
+                        ${article.author} <span style="color:#16a34a; font-size:0.85rem; background:var(--bg-color); padding:2px 8px; border-radius:10px; border:1px solid var(--border-color);">✅ משכיר מאומת</span>
+                    </h4>
+                    <p style="font-size:0.88rem; color:var(--text-muted);">
+                        <span style="color:#eab308; font-weight:900;"><i class="fa-solid fa-star"></i> ${rating}</span> (${reviewsCount} ביקורות) • <strong style="color:var(--text-primary);">🛡️ ${trustPct} מדד אמינות</strong>
+                    </p>
+                </div>
+            </div>
+
+            <button class="btn btn-outline" onclick="openReportModal('${escapeQuote(article.author)}', '${escapeQuote(article.title)}')" style="color:#dc2626; border-color:#dc2626; font-size:0.88rem; font-weight:800;">
+                <i class="fa-solid fa-flag"></i> הגש ערעור / דיווח על משכיר זה
+            </button>
         </div>
 
         <div class="article-page-image-wrapper">

@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=900">
+    <link rel="stylesheet" href="styles.css?v=1000">
 </head>
 <body>
 
@@ -131,7 +131,7 @@
             <!-- Center Column: Rental Listing Feed (5 Columns per Row Grid!) -->
             <div class="main-column" style="padding: 24px;">
                 <div class="section-header">
-                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה / קנייה סופית מפרטיים</h2>
+                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (כולל מדד אמינות מוכרים ⭐)</h2>
                     <div class="sort-filter">
                         <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
                     </div>
@@ -153,6 +153,50 @@
         </div>
 
     </main>
+
+    <!-- User Report & Appeal Modal (מודאל דיווח וערעור על משתמש/מוכר) -->
+    <div id="reportUserModal" class="modal-overlay hidden">
+        <div class="subscription-modal-box" style="max-width: 540px;">
+            <button class="close-modal-btn" onclick="closeReportModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="sub-header-title" style="text-align: right; margin-bottom: 15px;">
+                <h2 style="font-size: 1.35rem; color: #dc2626;"><i class="fa-solid fa-flag"></i> הגשת ערעור / דיווח על משתמש או מודעה</h2>
+                <p id="reportTargetText" style="font-weight: 800; color: var(--text-primary); margin-top: 4px;"></p>
+            </div>
+
+            <form onsubmit="submitReportForm(event)">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px;">סיבת הדיווח / הערעור *</label>
+                    <select id="reportReasonSelect" style="width: 100%; padding: 10px; font-family: inherit; font-size: 0.95rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary);" required>
+                        <option value="מוצר פגום / תיאור מטעה">⚠️ מוצר פגום / תיאור מטעה ומטעה</option>
+                        <option value="מחלוקת כספית / אי-החזרת פיקדון">💸 מחלוקת כספית / אי-החזרת פיקדון</option>
+                        <option value="אי-עמידה בזמני מסירה/החזרה">⏱️ אי-עמידה בזמני מסירה או החזרה</option>
+                        <option value="התנהגות בלתי הולמת / חשד להונאה">🛑 התנהגות בלתי הולמת / חשד להונאה</option>
+                        <option value="אחר">❓ סיבה אחרת</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px;">פירוט הערעור והטענות *</label>
+                    <textarea id="reportDetailsInput" style="width: 100%; padding: 10px; font-family: inherit; font-size: 0.9rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary);" rows="4" placeholder="תאר בקצרה את המקרה כולל תאריך ההשכרה והנזק/מחלוקת..." required></textarea>
+                </div>
+
+                <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; margin-bottom: 20px;">
+                    <input type="checkbox" id="reportDeclareChk" style="width: 18px; height: 18px; accent-color: #dc2626;" required>
+                    <span>אני מצהיר/ה שכל הפרטים המופיעים בערעור זה מדויקים ונכונים.</span>
+                </label>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeReportModal()">ביטול</button>
+                    <button type="submit" class="btn" style="background-color: #dc2626; color: #ffffff; font-weight: 900; padding: 10px 20px;">
+                        שליחת ערעור לבדיקה 🛡️
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Mandatory Rental Damage Contract Approval Modal (חוזה אחריות נזק/הרס המוצר) -->
     <div id="rentalContractModal" class="modal-overlay hidden">

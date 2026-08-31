@@ -3,74 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>טוען כתבה... | yhsh בורוד</title>
+    <title>yhsh | פרטי ציוד להשכרה או קנייה</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1000">
+    <style>
+        .article-page-container {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .article-page-header {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .article-full-category {
+            display: inline-block;
+            background-color: #18181b;
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .article-page-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            line-height: 1.25;
+            margin-bottom: 14px;
+        }
+
+        .article-page-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+
+        .article-page-image-wrapper {
+            width: 100%;
+            max-height: 500px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 25px;
+            background-color: #000000;
+        }
+
+        .article-page-image {
+            width: 100%;
+            height: 100%;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .article-page-content {
+            font-size: 1.12rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            white-space: pre-line;
+        }
+
+        .article-page-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .action-buttons-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .article-bidding-widget {
+            background-color: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .bidding-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .bidding-header h3 {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        .bidding-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .current-bid-box {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .current-bid-box strong {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-right: 8px;
+        }
+
+        .bid-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bid-input-group input {
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border-color);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            width: 180px;
+            outline: none;
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        .seller-profile-trust-box {
+            background-color: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .top3-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .top3-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            height: 200px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .top3-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .top3-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .top3-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+            color: #ffffff;
+            padding: 20px 15px 12px 15px;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .article-page-container {
+                padding: 20px;
+            }
+            .article-page-title {
+                font-size: 1.6rem;
+            }
+            .bidding-body {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .bid-input-group {
+                flex-direction: column;
+            }
+            .bid-input-group input {
+                width: 100%;
+            }
+            .top3-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Yad2 Style White Header Bar -->
+    <!-- Header Bar -->
     <header class="top-navbar-white">
         <div class="container top-nav-container">
             
-            <!-- Right: Logo "yhsh" in Pink -->
             <div class="nav-right">
                 <a href="index.html" class="brand-infinity">
                     <span class="brand-text-yad2">
-                        <span class="brand-yh">yh</span><span class="brand-sh-badge">sh</span>
+                        <span class="brand-sh-badge"><i class="fa-solid fa-infinity"></i></span>
                     </span>
                 </a>
             </div>
 
-            <!-- Center: Navigation Tab - Single "ראשי" tab -->
             <nav class="nav-center-tabs">
-                <a href="index.html" class="nav-tab active">
-                    <i class="fa-solid fa-house"></i>
-                    <span>ראשי</span>
+                <a href="index.html" class="nav-tab">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
                 </a>
+
                 <a href="trading.html" class="nav-tab">
-                    <i class="fa-solid fa-gavel"></i>
-                    <span>עמוד מסחר והצעות</span>
+                    <span>סיעורים</span>
+                </a>
+
+                <a href="add-listing.html" class="nav-tab">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>פרסום מודעה</span>
                 </a>
             </nav>
 
-            <!-- Left: Actions & Guest Pill -->
             <div class="nav-left">
+                <div class="user-balance-pill" title="היתרה שלך">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span id="userBalanceDisplay">₪ 50,000</span>
+                </div>
+
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <div class="guest-pill">
-                    <i class="fa-regular fa-user"></i>
-                    <span>אורח</span>
+
+                <div class="guest-pill" id="guestUserPill">
+                    <span id="guestUserText">אורח</span>
                 </div>
             </div>
 
         </div>
     </header>
 
-    <!-- Main Full Article View Container -->
-    <main class="main-content container">
-        <div id="articlePageContainer" class="article-page-box">
-            <!-- Article Details Injected via JS -->
-            <div class="loading-state">
-                <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
-                <p>טוען את הכתבה...</p>
-            </div>
+    <!-- Main Article Page Content Container -->
+    <main class="main-content container" style="max-width: 1000px;">
+        
+        <div id="articlePageContainer" class="article-page-container">
+            <!-- Rendered dynamically via article.js -->
         </div>
 
-        <!-- Related Articles Section -->
-        <section class="related-section">
-            <h3 class="section-title">כתבות נוספות שאינך רוצה לפספס</h3>
-            <div id="relatedGrid" class="top3-grid" style="margin-top: 15px;">
-                <!-- Related Cards injected via JS -->
+        <!-- Related Products Section -->
+        <section style="margin-top: 40px;">
+            <div class="section-header">
+                <h3 class="section-title">מוצרים נוספים להשכרה/קנייה</h3>
+            </div>
+            <div id="relatedGrid" class="top3-grid">
+                <!-- Injected via article.js -->
             </div>
         </section>
+
     </main>
+
+    <!-- User Report & Appeal Modal (מודאל דיווח וערעור על משתמש/מוכר) -->
+    <div id="reportUserModal" class="modal-overlay hidden">
+        <div class="subscription-modal-box" style="max-width: 540px;">
+            <button class="close-modal-btn" onclick="closeReportModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="sub-header-title" style="text-align: right; margin-bottom: 15px;">
+                <h2 style="font-size: 1.35rem; color: #dc2626;"><i class="fa-solid fa-flag"></i> הגשת ערעור / דיווח על משתמש או מודעה</h2>
+                <p id="reportTargetText" style="font-weight: 800; color: var(--text-primary); margin-top: 4px;"></p>
+            </div>
+
+            <form onsubmit="submitReportFormArticle(event)">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px;">סיבת הדיווח / הערעור *</label>
+                    <select id="reportReasonSelect" style="width: 100%; padding: 10px; font-family: inherit; font-size: 0.95rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary);" required>
+                        <option value="מוצר פגום / תיאור מטעה">⚠️ מוצר פגום / תיאור מטעה</option>
+                        <option value="מחלוקת כספית / אי-החזרת פיקדון">💸 מחלוקת כספית / אי-החזרת פיקדון</option>
+                        <option value="אי-עמידה בזמני מסירה/החזרה">⏱️ אי-עמידה בזמני מסירה או החזרה</option>
+                        <option value="התנהגות בלתי הולמת / חשד להונאה">🛑 התנהגות בלתי הולמת / חשד להונאה</option>
+                        <option value="אחר">❓ סיבה אחרת</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px;">פירוט הערעור והטענות *</label>
+                    <textarea id="reportDetailsInput" style="width: 100%; padding: 10px; font-family: inherit; font-size: 0.9rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary);" rows="4" placeholder="תאר בקצרה את המקרה כולל תאריך ההשכרה והנזק/מחלוקת..." required></textarea>
+                </div>
+
+                <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; margin-bottom: 20px;">
+                    <input type="checkbox" id="reportDeclareChk" style="width: 18px; height: 18px; accent-color: #dc2626;" required>
+                    <span>אני מצהיר/ה שכל הפרטים המופיעים בערעור זה מדויקים ונכונים.</span>
+                </label>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeReportModal()">ביטול</button>
+                    <button type="submit" class="btn" style="background-color: #dc2626; color: #ffffff; font-weight: 900; padding: 10px 20px;">
+                        שליחת ערעור לבדיקה 🛡️
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast hidden">
