@@ -214,7 +214,7 @@ function submitReportForm(event) {
 }
 
 /* =========================================================
-   RENTAL DAMAGE CONTRACT MODAL WORKFLOW (חוזה נזק/הרס)
+   RENTAL DAMAGE CONTRACT & COURIER DELIVERY WORKFLOW
    ========================================================= */
 function openRentalContractModal(id, title, price) {
     state.pendingRentalArticle = { id, title, price: price || 200 };
@@ -244,21 +244,25 @@ function confirmRentalWithContract() {
     if (!state.pendingRentalArticle) return;
 
     const { title, price } = state.pendingRentalArticle;
+    const deliverySelect = document.getElementById('modalDeliveryTypeSelect');
+    const deliveryFee = deliverySelect ? parseInt(deliverySelect.value || '0', 10) : 0;
+    const totalPrice = price + deliveryFee;
 
-    if (state.userBalance < price) {
-        showToast(`אין מספיק יתרה בארנק להשכרה! מחיר: ₪${price}, יתרה: ₪${state.userBalance.toLocaleString('he-IL')}`);
+    if (state.userBalance < totalPrice) {
+        showToast(`אין מספיק יתרה בארנק! סה"כ לתשלום (השכרה + משלוח): ₪${totalPrice}, יתרה: ₪${state.userBalance.toLocaleString('he-IL')}`);
         openSubscriptionModal();
         return;
     }
 
-    state.userBalance -= price;
+    state.userBalance -= totalPrice;
     localStorage.setItem('news_user_balance', state.userBalance.toString());
     if (elements.userBalanceDisplay) {
         elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
     }
 
     closeRentalContractModal();
-    showToast(`נחתם חוזה השכרה וערבות נזק/הרס בהצלחה עבור ${title}! ✍️📜🎉`);
+    const deliveryText = deliveryFee > 0 ? ` (כולל משלוח עד הבית 🛵 ₪${deliveryFee})` : '';
+    showToast(`נחתם חוזה השכרה וערבות נזק/הרס בהצלחה עבור ${title}${deliveryText}! ✍️📜🎉`);
 }
 
 // Instant Buy Action
@@ -525,7 +529,7 @@ function renderArticlesList(articles) {
 
                     <div class="cube-spec-pills">
                         <span class="cube-pill-item" style="color: #16a34a; font-weight: 800;">⭐ ${rating} מדד אמינות</span>
-                        <span class="cube-pill-item">מאומת</span>
+                        <span class="cube-pill-item">משלוח זמין 🛵</span>
                     </div>
 
                     <!-- Dual Option Action Buttons -->

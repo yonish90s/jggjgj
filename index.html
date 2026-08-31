@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1000">
+    <link rel="stylesheet" href="styles.css?v=1100">
 </head>
 <body>
 
@@ -18,7 +18,6 @@
     <header class="top-navbar-white">
         <div class="container top-nav-container">
             
-            <!-- Right: Infinity Logo (♾️) -->
             <div class="nav-right">
                 <a href="index.html" class="brand-infinity">
                     <span class="brand-text-yad2">
@@ -27,7 +26,6 @@
                 </a>
             </div>
 
-            <!-- Center: Navigation Tabs -->
             <nav class="nav-center-tabs">
                 <a href="index.html" class="nav-tab pill-tab">
                     <i class="fa-regular fa-image"></i>
@@ -38,15 +36,18 @@
                     <span>סיעורים</span>
                 </a>
 
-                <a href="add-listing.html" class="nav-tab" style="border: 1px dashed #ffffff !important;">
+                <a href="add-listing.html" class="nav-tab">
                     <i class="fa-solid fa-plus"></i>
                     <span>פרסום מודעה</span>
                 </a>
+
+                <a href="couriers.html" class="nav-tab">
+                    <i class="fa-solid fa-motorcycle"></i>
+                    <span>שליחים</span>
+                </a>
             </nav>
 
-            <!-- Left: Actions & Guest Pill at VERY FAR LEFT -->
             <div class="nav-left">
-                <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
                     <i class="fa-solid fa-wallet"></i>
                     <span id="userBalanceDisplay">₪ 50,000</span>
@@ -57,12 +58,10 @@
                     <span id="favBtnLabel">מועדפים (0)</span>
                 </button>
 
-                <!-- Theme Toggle Button -->
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
 
-                <!-- VERY FAR LEFT: Guest Pill -->
                 <div class="guest-pill" id="guestUserPill" onclick="openSubscriptionModal()">
                     <span id="guestUserText">אורח</span>
                 </div>
@@ -128,21 +127,18 @@
 
         <div class="page-layout-with-widget">
             
-            <!-- Center Column: Rental Listing Feed (5 Columns per Row Grid!) -->
             <div class="main-column" style="padding: 24px;">
                 <div class="section-header">
-                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (כולל מדד אמינות מוכרים ⭐)</h2>
+                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (כולל משלוחים עד הבית 🛵)</h2>
                     <div class="sort-filter">
                         <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
                     </div>
                 </div>
 
-                <!-- Symmetrical 5-Column Grid Container -->
                 <div id="articlesList" class="cube-cards-grid">
                     <!-- News rows injected via JS -->
                 </div>
 
-                <!-- Empty State -->
                 <div id="emptyState" class="empty-state hidden">
                     <i class="fa-solid fa-box-open fa-3x"></i>
                     <h3>לא נמצאו מוצרים להשכרה</h3>
@@ -154,7 +150,52 @@
 
     </main>
 
-    <!-- User Report & Appeal Modal (מודאל דיווח וערעור על משתמש/מוכר) -->
+    <!-- Mandatory Rental Damage Contract & Courier Delivery Modal -->
+    <div id="rentalContractModal" class="modal-overlay hidden">
+        <div class="subscription-modal-box" style="max-width: 620px;">
+            <button class="close-modal-btn" onclick="closeRentalContractModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="sub-header-title" style="text-align: right; margin-bottom: 15px;">
+                <h2 style="font-size: 1.4rem; color: #dc2626;"><i class="fa-solid fa-file-contract"></i> חוזה השכרה, ערבות נזק ובחירת משלוח</h2>
+                <p id="contractModalItemTitle" style="font-weight: 800; color: var(--text-primary); margin-top: 4px;"></p>
+            </div>
+
+            <!-- Delivery Option Selection -->
+            <div style="margin-bottom: 16px; background: var(--bg-color); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <label style="display: block; font-weight: 900; font-size: 0.92rem; margin-bottom: 6px;">🛵 אופן אספקת הציוד:</label>
+                <select id="modalDeliveryTypeSelect" style="width: 100%; padding: 10px; font-family: inherit; font-size: 0.95rem; border-radius: var(--radius-sm); border: 1.5px solid var(--border-color); background: var(--card-bg); color: var(--text-primary);">
+                    <option value="0">📦 איסוף עצמי מהמשכיר (₪0)</option>
+                    <option value="35">🛵 משלוח מהיר עד הבית ע"י שליח מורשה (+₪35)</option>
+                    <option value="90">🚐 הובלה במסחרית לציוד כבד (+₪90)</option>
+                </select>
+            </div>
+
+            <div style="background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); padding: 16px; font-size: 0.9rem; line-height: 1.6; max-height: 180px; overflow-y: auto; margin-bottom: 20px;">
+                <h4 style="font-weight: 900; margin-bottom: 6px;">📋 תנאי החוזה המחייב להשאלת/השכרת הציוד:</h4>
+                <ol style="padding-right: 18px;">
+                    <li><strong>חובת שמירה על הציוד:</strong> השוכר מתחייב לשמור על הציוד ולהחזירו באותו מצב בו התקבל.</li>
+                    <li><strong>אחריות נזק/הרס:</strong> במקרה של קלקול, שבירה, נזק מים, אובדן או הרס מלא/חלקי של המוצר במהלך תקופת ההשכרה, השוכר יישא באחריות כספית מלאה וישלם את עלות התיקון במעבדה מורשת או את שווי המוצר המלא.</li>
+                    <li><strong>חילוט מיתרת הארנק/אשראי:</strong> האתר ובעלי המוצר מורשים לחלט מיתרת הארנק או פיקדון האשראי של השוכר את גובה הנזק.</li>
+                </ol>
+            </div>
+
+            <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.92rem; font-weight: 800; cursor: pointer; margin-bottom: 20px;">
+                <input type="checkbox" id="modalContractCheckbox" style="width: 20px; height: 20px; accent-color: #18181b;">
+                <span>אני מאשר/ת את חוזה ההשכרה ומסכים/ה לערבות הנזק/הרס במקרה של קלקול או נזק למוצר *</span>
+            </label>
+
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button class="btn btn-outline" onclick="closeRentalContractModal()">ביטול</button>
+                <button class="btn" onclick="confirmRentalWithContract()" style="background-color: #18181b; color: #ffffff; font-weight: 900; padding: 10px 22px;">
+                    חתימה ואישור חוזה ✍️
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Report & Appeal Modal -->
     <div id="reportUserModal" class="modal-overlay hidden">
         <div class="subscription-modal-box" style="max-width: 540px;">
             <button class="close-modal-btn" onclick="closeReportModal()">
@@ -170,7 +211,7 @@
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px;">סיבת הדיווח / הערעור *</label>
                     <select id="reportReasonSelect" style="width: 100%; padding: 10px; font-family: inherit; font-size: 0.95rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary);" required>
-                        <option value="מוצר פגום / תיאור מטעה">⚠️ מוצר פגום / תיאור מטעה ומטעה</option>
+                        <option value="מוצר פגום / תיאור מטעה">⚠️ מוצר פגום / תיאור מטעה</option>
                         <option value="מחלוקת כספית / אי-החזרת פיקדון">💸 מחלוקת כספית / אי-החזרת פיקדון</option>
                         <option value="אי-עמידה בזמני מסירה/החזרה">⏱️ אי-עמידה בזמני מסירה או החזרה</option>
                         <option value="התנהגות בלתי הולמת / חשד להונאה">🛑 התנהגות בלתי הולמת / חשד להונאה</option>
@@ -195,41 +236,6 @@
                     </button>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <!-- Mandatory Rental Damage Contract Approval Modal (חוזה אחריות נזק/הרס המוצר) -->
-    <div id="rentalContractModal" class="modal-overlay hidden">
-        <div class="subscription-modal-box" style="max-width: 600px;">
-            <button class="close-modal-btn" onclick="closeRentalContractModal()">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="sub-header-title" style="text-align: right; margin-bottom: 15px;">
-                <h2 style="font-size: 1.4rem; color: #dc2626;"><i class="fa-solid fa-file-contract"></i> חוזה השכרה וערבות אחריות בגין נזק/הרס</h2>
-                <p id="contractModalItemTitle" style="font-weight: 800; color: var(--text-primary); margin-top: 4px;"></p>
-            </div>
-
-            <div style="background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); padding: 16px; font-size: 0.9rem; line-height: 1.6; max-height: 220px; overflow-y: auto; margin-bottom: 20px;">
-                <h4 style="font-weight: 900; margin-bottom: 6px;">📋 תנאי החוזה המחייב להשאלת/השכרת הציוד:</h4>
-                <ol style="padding-right: 18px;">
-                    <li><strong>חובת שמירה על הציוד:</strong> השוכר מתחייב לשמור על הציוד ולהחזירו באותו מצב בו התקבל.</li>
-                    <li><strong>אחריות נזק/הרס:</strong> במקרה של קלקול, שבירה, נזק מים, אובדן או הרס מלא/חלקי של המוצר במהלך תקופת ההשכרה, השוכר יישא באחריות כספית מלאה וישלם את עלות התיקון במעבדה מורשת או את שווי המוצר המלא.</li>
-                    <li><strong>חילוט מיתרת הארנק/אשראי:</strong> האתר ובעלי המוצר מורשים לחלט מיתרת הארנק או פיקדון האשראי של השוכר את גובה הנזק.</li>
-                </ol>
-            </div>
-
-            <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.92rem; font-weight: 800; cursor: pointer; margin-bottom: 20px;">
-                <input type="checkbox" id="modalContractCheckbox" style="width: 20px; height: 20px; accent-color: #18181b;">
-                <span>אני מאשר/ת את חוזה ההשכרה ומסכים/ה לערבות הנזק/הרס במקרה של קלקול או נזק למוצר *</span>
-            </label>
-
-            <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                <button class="btn btn-outline" onclick="closeRentalContractModal()">ביטול</button>
-                <button class="btn" onclick="confirmRentalWithContract()" style="background-color: #18181b; color: #ffffff; font-weight: 900; padding: 10px 22px;">
-                    חתימה ואישור חוזה ✍️
-                </button>
-            </div>
         </div>
     </div>
 
@@ -286,7 +292,7 @@
         </div>
     </div>
 
-    <!-- Bottom Dark Favorites Inventory Sheet -->
+    <!-- Bottom Dark Favorites Sheet -->
     <div id="favBottomSheetOverlay" class="fav-bottom-sheet-overlay" onclick="closeFavoritesSheet()"></div>
     <div id="favBottomSheet" class="fav-bottom-sheet">
         <div class="fav-sheet-header">
