@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1300">
+    <link rel="stylesheet" href="styles.css?v=1400">
     <style>
         .article-page-container {
             background-color: var(--card-bg);
@@ -302,7 +302,7 @@
                 </div>
                 <div>
                     <h2 style="font-size: 1.4rem; font-weight: 900; color: var(--text-primary);">פרטי מודעה ומוצר להשכרה / קנייה</h2>
-                    <p style="color: var(--text-muted); font-size: 0.92rem;">צפייה בפרטים מלאים, מדד אמינות מוכר והגשת הצעות מחיר בלייב</p>
+                    <p style="color: var(--text-muted); font-size: 0.92rem;">צפייה בפרטים מלאים, מדד אמינות מוכר, ותק, עסקאות והגשת הצעות בלייב</p>
                 </div>
             </div>
 
@@ -335,6 +335,45 @@
         </section>
 
     </main>
+
+    <!-- Interactive Rate User Modal (דירוג משתמש/מוכר) -->
+    <div id="rateUserModal" class="modal-overlay hidden">
+        <div class="subscription-modal-box" style="max-width: 500px;">
+            <button class="close-modal-btn" onclick="closeRateUserModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="sub-header-title" style="text-align: right; margin-bottom: 15px;">
+                <h2 style="font-size: 1.35rem; color: #18181b;"><i class="fa-solid fa-star" style="color:#eab308;"></i> דירוג משתמש וחוות דעת</h2>
+                <p id="rateTargetText" style="font-weight: 800; color: var(--text-primary); margin-top: 4px;"></p>
+            </div>
+
+            <form onsubmit="submitUserRatingArticle(event)">
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <label style="display: block; font-weight: 800; font-size: 0.95rem; margin-bottom: 8px;">בחר כמות כוכבים *</label>
+                    <div id="starPickerContainer" style="font-size: 2rem; color: #eab308; cursor: pointer; display: flex; justify-content: center; gap: 8px;">
+                        <i class="fa-solid fa-star" onclick="setStarRating(1)"></i>
+                        <i class="fa-solid fa-star" onclick="setStarRating(2)"></i>
+                        <i class="fa-solid fa-star" onclick="setStarRating(3)"></i>
+                        <i class="fa-solid fa-star" onclick="setStarRating(4)"></i>
+                        <i class="fa-solid fa-star" onclick="setStarRating(5)"></i>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px;">חוות דעת וביקורת *</label>
+                    <textarea id="rateReviewInput" style="width: 100%; padding: 10px; font-family: inherit; font-size: 0.9rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary);" rows="3" placeholder="ספר על חווית ההשכרה/קנייה מול משתמש זה..." required></textarea>
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeRateUserModal()">ביטול</button>
+                    <button type="submit" class="btn" style="background-color: #18181b; color: #ffffff; font-weight: 900; padding: 10px 22px;">
+                        שליחת דירוג ⭐
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- User Report & Appeal Modal -->
     <div id="reportUserModal" class="modal-overlay hidden">

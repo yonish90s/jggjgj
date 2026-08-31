@@ -20,7 +20,9 @@ let state = {
     userBalance: 50000,
     subscription: null,
     pendingRentalArticle: null,
-    pendingReportTarget: null
+    pendingReportTarget: null,
+    selectedStarRating: 5,
+    pendingRateTarget: null
 };
 
 // DOM Elements Container
@@ -43,7 +45,8 @@ const elements = {
     toast: null,
     toastMessage: null,
     rentalContractModal: null,
-    reportUserModal: null
+    reportUserModal: null,
+    rateUserModal: null
 };
 
 function bindDOMElements() {
@@ -66,6 +69,7 @@ function bindDOMElements() {
     elements.toastMessage = document.getElementById('toastMessage');
     elements.rentalContractModal = document.getElementById('rentalContractModal');
     elements.reportUserModal = document.getElementById('reportUserModal');
+    elements.rateUserModal = document.getElementById('rateUserModal');
 }
 
 // Initialize Application
@@ -165,6 +169,52 @@ async function loadStateFromStorage() {
     } catch (e) {
         // Keep cached
     }
+}
+
+/* =========================================================
+   USER RATING & TRUST PROFILE SYSTEM (דירוג משתמש/מוכר, ותק ועסקאות)
+   ========================================================= */
+function openRateUserModal(author, title) {
+    state.pendingRateTarget = { author, title };
+    state.selectedStarRating = 5;
+    
+    const targetText = document.getElementById('rateTargetText');
+    const reviewInput = document.getElementById('rateReviewInput');
+    if (targetText) targetText.textContent = `דירוג וחוות דעת עבור המשכיר: ${author}`;
+    if (reviewInput) reviewInput.value = '';
+    
+    setStarRating(5);
+
+    const modal = document.getElementById('rateUserModal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeRateUserModal() {
+    const modal = document.getElementById('rateUserModal');
+    if (modal) modal.classList.add('hidden');
+    state.pendingRateTarget = null;
+}
+
+function setStarRating(stars) {
+    state.selectedStarRating = stars;
+    const starIcons = document.querySelectorAll('#starPickerContainer i');
+    starIcons.forEach((icon, idx) => {
+        if (idx < stars) {
+            icon.className = 'fa-solid fa-star';
+        } else {
+            icon.className = 'fa-regular fa-star';
+        }
+    });
+}
+
+function submitUserRating(event) {
+    event.preventDefault();
+    if (!state.pendingRateTarget) return;
+
+    const review = document.getElementById('rateReviewInput').value.trim();
+
+    closeRateUserModal();
+    showToast(`תודה! הדירוג (${state.selectedStarRating} ⭐) והביקורת עבור ${state.pendingRateTarget.author} נשמרו בהצלחה! 🥳`);
 }
 
 /* =========================================================
@@ -415,6 +465,10 @@ window.openReportModal = openReportModal;
 window.closeReportModal = closeReportModal;
 window.submitReportForm = submitReportForm;
 window.addFundsGlobal = addFundsGlobal;
+window.openRateUserModal = openRateUserModal;
+window.closeRateUserModal = closeRateUserModal;
+window.setStarRating = setStarRating;
+window.submitUserRating = submitUserRating;
 
 function filterByCategory(cat) {
     state.activeCategory = cat;
@@ -467,13 +521,13 @@ function renderApp() {
         } else if (state.activeCategory !== 'all') {
             elements.sectionTitle.textContent = `מוצרים להשכרה בקטגוריית ${state.activeCategory}`;
         } else {
-            elements.sectionTitle.textContent = 'ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (מדד אמינות ⭐)';
+            elements.sectionTitle.textContent = 'ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (מדד אמינות ⭐, ותק ועסקאות)';
         }
     }
 
     if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מוצרים זמינים להשכרה ולקנייה`;
 
-    // Render Rental/Buy Listing Cards with Seller Rating & Report Button
+    // Render Rental/Buy Listing Cards with Seller Tenure, Deals Count, Rating & Report Button
     if (elements.articlesList) {
         if (filtered.length === 0) {
             elements.articlesList.innerHTML = '';
@@ -485,7 +539,7 @@ function renderApp() {
     }
 }
 
-// Render 100% Symmetrical Grid Cards with Seller Trust Rating Badge & Report Icon
+// Render 100% Symmetrical Grid Cards with Seller Trust Rating Badge, Tenure & Completed Deals
 function renderArticlesList(articles) {
     if (!elements.articlesList) return;
     
@@ -499,8 +553,11 @@ function renderArticlesList(articles) {
         const hasLongSummary = summaryText.length > 55;
         const buyPriceNum = article.buyPrice || 4000;
         const rentPriceNum = article.price || 150;
+
         const rating = article.sellerRating || 4.9;
         const trustPct = article.trustScore || "98%";
+        const tenure = article.sellerTenure || "3 שנים באתר";
+        const deals = article.completedDeals || 45;
 
         return `
             <div class="cube-card-box" onclick="openArticleModal('${article.id}')">
@@ -528,17 +585,30 @@ function renderArticlesList(articles) {
                         ${hasLongSummary ? `<button class="cube-read-more-btn" onclick="toggleReadMore(event, this)">עוד...</button>` : ''}
                     </div>
 
-                    <!-- Seller Trust & Reliability Rating Row -->
-                    <div class="cube-meta-row" style="justify-content: space-between;">
-                        <span><i class="fa-solid fa-user-check" style="color: #16a34a;"></i> ${article.author}</span>
-                        <span style="color: #eab308; font-weight: 900;"><i class="fa-solid fa-star"></i> ${rating} (${trustPct})</span>
-                        <button onclick="event.stopPropagation(); openReportModal('${article.author.replace(/'/g, "\\'")}', '${article.title.replace(/'/g, "\\'")}')" style="background:none; border:none; color: var(--text-muted); cursor:pointer; font-size: 0.8rem;" title="דיווח / ערעור על משתמש">
-                            <i class="fa-solid fa-flag"></i>
-                        </button>
+                    <!-- Clean Section Divider (חוצץ לעיצוב נקי) -->
+                    <div style="border-top: 1px solid var(--border-color); margin: 8px 0;"></div>
+
+                    <!-- Seller Trust, Tenure & Completed Deals Row (מדד אמינות, ותק ועסקאות) -->
+                    <div class="cube-meta-row" style="flex-direction: column; align-items: flex-start; gap: 4px; font-size: 0.82rem;">
+                        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                            <span><i class="fa-solid fa-user-check" style="color: #16a34a;"></i> <strong>${article.author}</strong></span>
+                            <button onclick="event.stopPropagation(); openRateUserModal('${article.author.replace(/'/g, "\\'")}', '${article.title.replace(/'/g, "\\'")}')" style="background: none; border: 1px solid var(--border-color); border-radius: 10px; padding: 2px 8px; color: #eab308; cursor: pointer; font-size: 0.78rem; font-weight: 800;" title="דרג משתמש זה">
+                                ⭐ דרג (${rating})
+                            </button>
+                        </div>
+
+                        <div style="color: var(--text-muted); display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px;">
+                            <span>⏳ ותק: <strong>${tenure}</strong></span>
+                            <span>•</span>
+                            <span>🤝 <strong>${deals} עסקאות</strong></span>
+                        </div>
                     </div>
 
+                    <!-- Clean Section Divider (חוצץ תחתון) -->
+                    <div style="border-top: 1px solid var(--border-color); margin: 8px 0;"></div>
+
                     <div class="cube-spec-pills">
-                        <span class="cube-pill-item" style="color: #16a34a; font-weight: 800;">⭐ ${rating} מדד אמינות</span>
+                        <span class="cube-pill-item" style="color: #16a34a; font-weight: 800;">⭐ ${trustPct} אמינות</span>
                         <span class="cube-pill-item">משלוח זמין 🛵</span>
                     </div>
 

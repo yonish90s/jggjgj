@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1300">
+    <link rel="stylesheet" href="styles.css?v=1400">
 </head>
 <body>
 
@@ -75,7 +75,7 @@
         </div>
     </header>
 
-    <!-- Global Hero Wallet Banner Card (הופיע בצילום המסך - מופיע בכל עמוד) -->
+    <!-- Global Hero Wallet Banner Card -->
     <section class="trading-hero container" style="margin-top: 20px; margin-bottom: 20px;">
         <div class="trading-hero-card" style="background: var(--card-bg); border-radius: var(--radius-md); padding: 22px 28px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 20px; box-shadow: var(--shadow-sm); flex-wrap: wrap;">
             
@@ -159,7 +159,7 @@
             
             <div class="main-column" style="padding: 24px;">
                 <div class="section-header">
-                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (כולל משלוחים עד הבית 🛵)</h2>
+                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (מדד אמינות ⭐, ותק ועסקאות)</h2>
                     <div class="sort-filter">
                         <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
                     </div>
@@ -179,6 +179,45 @@
         </div>
 
     </main>
+
+    <!-- Interactive Rate User Modal (דירוג משתמש/מוכר) -->
+    <div id="rateUserModal" class="modal-overlay hidden">
+        <div class="subscription-modal-box" style="max-width: 500px;">
+            <button class="close-modal-btn" onclick="closeRateUserModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="sub-header-title" style="text-align: right; margin-bottom: 15px;">
+                <h2 style="font-size: 1.35rem; color: #18181b;"><i class="fa-solid fa-star" style="color:#eab308;"></i> דירוג משתמש וחוות דעת</h2>
+                <p id="rateTargetText" style="font-weight: 800; color: var(--text-primary); margin-top: 4px;"></p>
+            </div>
+
+            <form onsubmit="submitUserRating(event)">
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <label style="display: block; font-weight: 800; font-size: 0.95rem; margin-bottom: 8px;">בחר כמות כוכבים *</label>
+                    <div id="starPickerContainer" style="font-size: 2rem; color: #eab308; cursor: pointer; display: flex; justify-content: center; gap: 8px;">
+                        <i class="fa-solid fa-star" data-star="1" onclick="setStarRating(1)"></i>
+                        <i class="fa-solid fa-star" data-star="2" onclick="setStarRating(2)"></i>
+                        <i class="fa-solid fa-star" data-star="3" onclick="setStarRating(3)"></i>
+                        <i class="fa-solid fa-star" data-star="4" onclick="setStarRating(4)"></i>
+                        <i class="fa-solid fa-star" data-star="5" onclick="setStarRating(5)"></i>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px;">חוות דעת וביקורת *</label>
+                    <textarea id="rateReviewInput" style="width: 100%; padding: 10px; font-family: inherit; font-size: 0.9rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-primary);" rows="3" placeholder="ספר על חווית ההשכרה/קנייה מול משתמש זה..." required></textarea>
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeRateUserModal()">ביטול</button>
+                    <button type="submit" class="btn" style="background-color: #18181b; color: #ffffff; font-weight: 900; padding: 10px 22px;">
+                        שליחת דירוג ⭐
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Mandatory Rental Damage Contract & Courier Delivery Modal -->
     <div id="rentalContractModal" class="modal-overlay hidden">

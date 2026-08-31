@@ -15,6 +15,8 @@ let darkMode = false;
 let userBalance = 50000;
 let offers = [];
 let pendingReportTarget = null;
+let selectedStarRating = 5;
+let pendingRateTarget = null;
 
 // DOM Elements
 const articlePageContainer = document.getElementById('articlePageContainer');
@@ -168,6 +170,50 @@ function renderNotFound() {
 }
 
 /* =========================================================
+   USER RATING & TRUST PROFILE LOGIC
+   ========================================================= */
+function openRateUserModal(author, title) {
+    pendingRateTarget = { author, title };
+    selectedStarRating = 5;
+    
+    const targetText = document.getElementById('rateTargetText');
+    const reviewInput = document.getElementById('rateReviewInput');
+    if (targetText) targetText.textContent = `דירוג וחוות דעת עבור המשכיר: ${author}`;
+    if (reviewInput) reviewInput.value = '';
+    
+    setStarRating(5);
+
+    const modal = document.getElementById('rateUserModal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeRateUserModal() {
+    const modal = document.getElementById('rateUserModal');
+    if (modal) modal.classList.add('hidden');
+    pendingRateTarget = null;
+}
+
+function setStarRating(stars) {
+    selectedStarRating = stars;
+    const starIcons = document.querySelectorAll('#starPickerContainer i');
+    starIcons.forEach((icon, idx) => {
+        if (idx < stars) {
+            icon.className = 'fa-solid fa-star';
+        } else {
+            icon.className = 'fa-regular fa-star';
+        }
+    });
+}
+
+function submitUserRatingArticle(event) {
+    event.preventDefault();
+    if (!pendingRateTarget) return;
+
+    closeRateUserModal();
+    showToast(`תודה! הדירוג (${selectedStarRating} ⭐) והביקורת עבור ${pendingRateTarget.author} נשמרו בהצלחה! 🥳`);
+}
+
+/* =========================================================
    REPORT & APPEAL MODAL LOGIC
    ========================================================= */
 function openReportModal(author, title) {
@@ -231,6 +277,10 @@ function submitReportFormArticle(event) {
 window.openReportModal = openReportModal;
 window.closeReportModal = closeReportModal;
 window.submitReportFormArticle = submitReportFormArticle;
+window.openRateUserModal = openRateUserModal;
+window.closeRateUserModal = closeRateUserModal;
+window.setStarRating = setStarRating;
+window.submitUserRatingArticle = submitUserRatingArticle;
 window.addFundsGlobal = addFundsGlobal;
 
 // Instant Buy Action
@@ -263,6 +313,8 @@ function renderFullArticle(article) {
     const rating = article.sellerRating || 4.9;
     const reviewsCount = article.sellerReviews || 42;
     const trustPct = article.trustScore || "98%";
+    const tenure = article.sellerTenure || "3 שנים באתר";
+    const deals = article.completedDeals || 58;
 
     // Get highest bid for this item
     const articleBids = offers.filter(o => o.articleId === article.id);
@@ -280,26 +332,42 @@ function renderFullArticle(article) {
             </div>
         </div>
 
-        <!-- Seller Trust Profile Rating Box -->
+        <!-- Seller Trust Profile Rating Box (פרופיל אמינות, ותק ועסקאות) -->
         <div class="seller-profile-trust-box">
-            <div style="display:flex; align-items:center; gap:14px;">
-                <div style="width:50px; height:50px; border-radius:50%; background:#18181b; color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:1.4rem;">
+            <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+                <div style="width:56px; height:56px; border-radius:50%; background:#18181b; color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;">
                     <i class="fa-solid fa-user-check"></i>
                 </div>
                 <div>
-                    <h4 style="font-size:1.1rem; font-weight:900; color:var(--text-primary); margin-bottom:2px;">
-                        ${article.author} <span style="color:#16a34a; font-size:0.85rem; background:var(--bg-color); padding:2px 8px; border-radius:10px; border:1px solid var(--border-color);">✅ משכיר מאומת</span>
+                    <h4 style="font-size:1.15rem; font-weight:900; color:var(--text-primary); margin-bottom:4px; display:flex; align-items:center; gap:10px;">
+                        ${article.author} 
+                        <span style="color:#16a34a; font-size:0.85rem; background:var(--bg-color); padding:2px 10px; border-radius:12px; border:1px solid var(--border-color);">✅ משכיר מאומת</span>
                     </h4>
-                    <p style="font-size:0.88rem; color:var(--text-muted);">
-                        <span style="color:#eab308; font-weight:900;"><i class="fa-solid fa-star"></i> ${rating}</span> (${reviewsCount} ביקורות) • <strong style="color:var(--text-primary);">🛡️ ${trustPct} מדד אמינות</strong>
-                    </p>
+                    
+                    <div style="font-size:0.9rem; color:var(--text-muted); display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:2px;">
+                        <span style="color:#eab308; font-weight:900;"><i class="fa-solid fa-star"></i> ${rating}</span> (${reviewsCount} ביקורות)
+                        <span>•</span>
+                        <strong style="color:var(--text-primary);">🛡️ ${trustPct} מדד אמינות</strong>
+                        <span>•</span>
+                        <span>⏳ ותק: <strong>${tenure}</strong></span>
+                        <span>•</span>
+                        <span>🤝 <strong>${deals} עסקאות בוצעו</strong></span>
+                    </div>
                 </div>
             </div>
 
-            <button class="btn btn-outline" onclick="openReportModal('${escapeQuote(article.author)}', '${escapeQuote(article.title)}')" style="color:#dc2626; border-color:#dc2626; font-size:0.88rem; font-weight:800;">
-                <i class="fa-solid fa-flag"></i> הגש ערעור / דיווח על משכיר זה
-            </button>
+            <div style="display:flex; gap:10px;">
+                <button class="btn btn-outline" onclick="openRateUserModal('${escapeQuote(article.author)}', '${escapeQuote(article.title)}')" style="color:#eab308; border-color:#eab308; font-size:0.88rem; font-weight:800;">
+                    ⭐ דרג משתמש זה
+                </button>
+                <button class="btn btn-outline" onclick="openReportModal('${escapeQuote(article.author)}', '${escapeQuote(article.title)}')" style="color:#dc2626; border-color:#dc2626; font-size:0.88rem; font-weight:800;">
+                    <i class="fa-solid fa-flag"></i> הגש ערעור
+                </button>
+            </div>
         </div>
+
+        <!-- Clean Section Divider (חוצץ מעוצב) -->
+        <div style="border-top: 2px solid var(--border-color); margin: 25px 0;"></div>
 
         <div class="article-page-image-wrapper">
             <img class="article-page-image" src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}">
