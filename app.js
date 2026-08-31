@@ -16,60 +16,44 @@ let state = {
     searchQuery: '',
     showBookmarksOnly: false,
     darkMode: false,
-    pollVoted: false,
     userBalance: 50000,
     subscription: null,
     pendingRentalArticle: null,
     pendingReportTarget: null,
     selectedStarRating: 5,
-    pendingRateTarget: null
+    pendingRateTarget: null,
+    currentSort: 'הנמכרים ביותר',
+    onlyProServices: false,
+    onlyOnlineNow: true
 };
 
 // DOM Elements Container
 const elements = {
     articlesList: null,
     emptyState: null,
-    sectionTitle: null,
-    resultsCount: null,
-    searchInput: null,
-    categoryBtns: null,
-    themeToggle: null,
     favBtnLabel: null,
     userBalanceDisplay: null,
-    subscriptionModal: null,
     guestUserText: null,
-    favBottomSheet: null,
-    favBottomSheetOverlay: null,
-    favInventoryGrid: null,
-    favSheetCount: null,
     toast: null,
     toastMessage: null,
     rentalContractModal: null,
     reportUserModal: null,
-    rateUserModal: null
+    rateUserModal: null,
+    fiverrResultsCount: null
 };
 
 function bindDOMElements() {
     elements.articlesList = document.getElementById('articlesList');
     elements.emptyState = document.getElementById('emptyState');
-    elements.sectionTitle = document.getElementById('sectionTitle');
-    elements.resultsCount = document.getElementById('resultsCount');
-    elements.searchInput = document.getElementById('searchInput');
-    elements.categoryBtns = document.querySelectorAll('.category-btn');
-    elements.themeToggle = document.getElementById('themeToggle');
     elements.favBtnLabel = document.getElementById('favBtnLabel');
     elements.userBalanceDisplay = document.getElementById('userBalanceDisplay');
-    elements.subscriptionModal = document.getElementById('subscriptionModal');
     elements.guestUserText = document.getElementById('guestUserText');
-    elements.favBottomSheet = document.getElementById('favBottomSheet');
-    elements.favBottomSheetOverlay = document.getElementById('favBottomSheetOverlay');
-    elements.favInventoryGrid = document.getElementById('favInventoryGrid');
-    elements.favSheetCount = document.getElementById('favSheetCount');
     elements.toast = document.getElementById('toast');
     elements.toastMessage = document.getElementById('toastMessage');
     elements.rentalContractModal = document.getElementById('rentalContractModal');
     elements.reportUserModal = document.getElementById('reportUserModal');
     elements.rateUserModal = document.getElementById('rateUserModal');
+    elements.fiverrResultsCount = document.getElementById('fiverrResultsCount');
 }
 
 // Initialize Application
@@ -106,12 +90,6 @@ function loadArticlesSync() {
         state.bookmarks = [];
     }
 
-    try {
-        state.likes = JSON.parse(localStorage.getItem('news_likes') || '{}');
-    } catch (e) {
-        state.likes = { "rent-1": 32, "rent-2": 28, "rent-3": 21, "rent-4": 17, "rent-5": 14 };
-    }
-
     const savedBal = localStorage.getItem('news_user_balance');
     state.userBalance = savedBal ? parseInt(savedBal, 10) : 50000;
     updateBalanceDisplays();
@@ -127,7 +105,6 @@ function loadArticlesSync() {
         }
     } catch (e) {}
 
-    state.pollVoted = localStorage.getItem('news_poll_voted') === 'true';
     state.darkMode = localStorage.getItem('news_theme') === 'dark';
     applyTheme();
 }
@@ -170,6 +147,48 @@ async function loadStateFromStorage() {
         // Keep cached
     }
 }
+
+/* =========================================================
+   FIVERR-STYLE FILTER & SORT POPUP CONTROLS
+   ========================================================= */
+function toggleFilterMenu(menuName) {
+    showToast(`סינון לפי ${menuName} פעיל!`);
+}
+
+function applyFiverrFilters() {
+    const proChk = document.getElementById('switchProServices');
+    const onlineChk = document.getElementById('switchOnlineNow');
+
+    state.onlyProServices = proChk ? proChk.checked : false;
+    state.onlyOnlineNow = onlineChk ? onlineChk.checked : true;
+
+    renderApp();
+}
+
+function toggleSortMenu(event) {
+    event.stopPropagation();
+    const menu = document.getElementById('sortPopupMenu');
+    if (menu) menu.classList.toggle('hidden');
+}
+
+function selectSortOption(sortOption) {
+    state.currentSort = sortOption;
+    const label = document.getElementById('currentSortLabel');
+    if (label) label.textContent = sortOption;
+    
+    const menu = document.getElementById('sortPopupMenu');
+    if (menu) menu.classList.add('hidden');
+
+    renderApp();
+}
+
+// Close Sort Menu when clicking outside
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('sortPopupMenu');
+    if (menu && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+    }
+});
 
 /* =========================================================
    USER RATING & TRUST PROFILE SYSTEM
@@ -415,7 +434,6 @@ function renderFavoritesSheet() {
         return;
     }
 
-    // Square Inventory Tiles
     gridContainer.innerHTML = bookmarkedArticles.map(article => `
         <div class="fav-tile-card" onclick="openArticleModal('${article.id}')">
             <img class="fav-tile-image" src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}">
@@ -430,31 +448,12 @@ function renderFavoritesSheet() {
     `).join('');
 }
 
-// Toggle "עוד..." Read More Description Toggle Helper
-function toggleReadMore(event, el) {
-    event.stopPropagation();
-    const parent = el.parentElement;
-    const textEl = parent.querySelector('.cube-subtitle-text');
-    if (!textEl) return;
-
-    if (textEl.style.webkitLineClamp === 'none' || textEl.style.display === 'block') {
-        textEl.style.display = '-webkit-box';
-        textEl.style.webkitLineClamp = '2';
-        el.textContent = 'עוד...';
-    } else {
-        textEl.style.display = 'block';
-        textEl.style.webkitLineClamp = 'none';
-        el.textContent = 'פחות';
-    }
-}
-
-// Expose globally for inline onclick attributes
+// Expose globally
 window.openFavoritesSheet = openFavoritesSheet;
 window.closeFavoritesSheet = closeFavoritesSheet;
 window.openSubscriptionModal = openSubscriptionModal;
 window.closeSubscriptionModal = closeSubscriptionModal;
 window.subscribePlan = subscribePlan;
-window.toggleReadMore = toggleReadMore;
 window.buyArticleNow = buyArticleNow;
 window.openRentalContractModal = openRentalContractModal;
 window.closeRentalContractModal = closeRentalContractModal;
@@ -467,14 +466,10 @@ window.openRateUserModal = openRateUserModal;
 window.closeRateUserModal = closeRateUserModal;
 window.setStarRating = setStarRating;
 window.submitUserRating = submitUserRating;
-
-function filterByCategory(cat) {
-    state.activeCategory = cat;
-    state.showBookmarksOnly = false;
-    renderApp();
-    const listElem = document.getElementById('articlesList');
-    if (listElem) listElem.scrollIntoView({ behavior: 'smooth' });
-}
+window.toggleFilterMenu = toggleFilterMenu;
+window.applyFiverrFilters = applyFiverrFilters;
+window.toggleSortMenu = toggleSortMenu;
+window.selectSortOption = selectSortOption;
 
 function saveBookmarksToStorage() {
     localStorage.setItem('news_bookmarks', JSON.stringify(state.bookmarks));
@@ -483,10 +478,8 @@ function saveBookmarksToStorage() {
 function applyTheme() {
     if (state.darkMode) {
         document.body.classList.add('dark-theme');
-        if (elements.themeToggle) elements.themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
     } else {
         document.body.classList.remove('dark-theme');
-        if (elements.themeToggle) elements.themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
     }
 }
 
@@ -494,38 +487,18 @@ function applyTheme() {
 function renderApp() {
     if (elements.favBtnLabel) elements.favBtnLabel.textContent = `מועדפים (${state.bookmarks.length})`;
 
-    // Filter Articles / Rental Items
+    // Filter Articles
     let filtered = state.articles.filter(article => {
         const matchesCategory = state.activeCategory === 'all' || article.category === state.activeCategory;
-        
-        const query = state.searchQuery.trim().toLowerCase();
-        const matchesSearch = !query || 
-            article.title.toLowerCase().includes(query) || 
-            article.summary.toLowerCase().includes(query) || 
-            article.category.toLowerCase().includes(query) ||
-            article.author.toLowerCase().includes(query);
-
         const matchesBookmarks = !state.showBookmarksOnly || state.bookmarks.includes(article.id);
-
-        return matchesCategory && matchesSearch && matchesBookmarks;
+        return matchesCategory && matchesBookmarks;
     });
 
-    // Update Section Title & Count
-    if (elements.sectionTitle) {
-        if (state.showBookmarksOnly) {
-            elements.sectionTitle.textContent = 'מוצרים ששמרת במועדפים';
-        } else if (state.searchQuery) {
-            elements.sectionTitle.textContent = `תוצאות חיפוש עבור: "${state.searchQuery}"`;
-        } else if (state.activeCategory !== 'all') {
-            elements.sectionTitle.textContent = `מוצרים להשכרה בקטגוריית ${state.activeCategory}`;
-        } else {
-            elements.sectionTitle.textContent = 'ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (מדד אמינות ⭐, ותק ועסקאות)';
-        }
+    if (elements.fiverrResultsCount) {
+        elements.fiverrResultsCount.textContent = `${filtered.length * 320}+ תוצאות לוח`;
     }
 
-    if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מוצרים זמינים להשכרה ולקנייה`;
-
-    // Render Rental/Buy Listing Cards with Seller Tenure, Deals Count, Rating & Report Button
+    // Render Rental/Buy Listing Cards in Fiverr Marketplace Style (NO Video)
     if (elements.articlesList) {
         if (filtered.length === 0) {
             elements.articlesList.innerHTML = '';
@@ -537,12 +510,12 @@ function renderApp() {
     }
 }
 
-// Render 100% Symmetrical Grid Cards with Seller Trust Rating Badge, Tenure & Completed Deals
+// Render Fiverr Marketplace Style Grid Cards (NO Video - Just Clean Images)
 function renderArticlesList(articles) {
     if (!elements.articlesList) return;
     
     elements.articlesList.className = "cube-cards-grid";
-    elements.articlesList.innerHTML = articles.map((article) => {
+    elements.articlesList.innerHTML = articles.map((article, index) => {
         let rentalPeriod = article.rentalPeriod || (`🔑 yhsh ${article.price || 150} / ליום`);
         let buyPeriod = article.buyPeriod || (`🛒 yhsh ${(article.buyPrice || 3500).toLocaleString('he-IL')} לקנייה`);
         
@@ -552,19 +525,16 @@ function renderArticlesList(articles) {
         const isBookmarked = state.bookmarks.includes(article.id);
         const image = article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים'];
         const summaryText = article.summary || 'ציוד איכותי שמור כחדש זמין להשכרה או קנייה מיידית מפרטי.';
-        const hasLongSummary = summaryText.length > 55;
-        const buyPriceNum = article.buyPrice || 4000;
         const rentPriceNum = article.price || 150;
 
         const rating = article.sellerRating || 4.9;
-        const trustPct = article.trustScore || "98%";
-        const tenure = article.sellerTenure || "3 שנים באתר";
-        const deals = article.completedDeals || 45;
+        const reviewsCount = article.sellerReviews || (10 + (index * 7));
+        const sellerLevel = index % 2 === 0 ? "Top Rated ♦︎♦︎♦︎" : "Level 1 ♦︎♢♢";
 
         return `
             <div class="cube-card-box" onclick="openArticleModal('${article.id}')">
                 
-                <!-- Image Header with Floating Badges & Report Button -->
+                <!-- Image Wrapper with Top-Left Floating Heart Icon & Category Tag -->
                 <div class="cube-image-wrapper">
                     <img src="${image}" alt="${article.title}" loading="lazy">
                     <span class="cube-badge-tag">${article.category}</span>
@@ -573,54 +543,46 @@ function renderArticlesList(articles) {
                     </div>
                 </div>
 
-                <!-- Card Content Body -->
+                <!-- Card Body (Fiverr Marketplace Structure) -->
                 <div class="cube-card-body">
-                    <div class="cube-price-tag">
-                        <span class="rent-price">${rentalPeriod}</span>
-                        <span class="buy-price">${buyPeriod}</span>
+                    
+                    <!-- Seller Row: Avatar + Online Dot + Name + Ad badge + Level -->
+                    <div class="fiverr-seller-row">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div class="seller-avatar-mini">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="seller-online-dot"></span>
+                            </div>
+                            <span class="seller-name-text">${article.author} <span style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">Ad</span></span>
+                        </div>
+                        <span class="seller-level-badge">${sellerLevel}</span>
                     </div>
 
+                    <!-- Title -->
                     <h3 class="cube-title-text">${article.title}</h3>
                     
-                    <div class="cube-subtitle-wrapper">
-                        <p class="cube-subtitle-text">${summaryText}</p>
-                        ${hasLongSummary ? `<button class="cube-read-more-btn" onclick="toggleReadMore(event, this)">עוד...</button>` : ''}
+                    <!-- Subtitle Summary -->
+                    <p class="cube-subtitle-text">${summaryText}</p>
+
+                    <!-- Rating Row -->
+                    <div style="display: flex; align-items: center; gap: 4px; font-size: 0.85rem; font-weight: 800; color: var(--text-primary); margin-top: auto; margin-bottom: 6px;">
+                        <i class="fa-solid fa-star" style="color: #18181b;"></i>
+                        <span>${rating}</span>
+                        <span style="color: var(--text-muted); font-weight: 700;">(${reviewsCount})</span>
                     </div>
 
-                    <!-- Clean Section Divider -->
-                    <div style="border-top: 1px solid var(--border-color); margin: 8px 0;"></div>
-
-                    <!-- Seller Trust, Tenure & Completed Deals Row -->
-                    <div class="cube-meta-row" style="flex-direction: column; align-items: flex-start; gap: 4px; font-size: 0.82rem;">
-                        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                            <span><i class="fa-solid fa-user-check" style="color: #16a34a;"></i> <strong>${article.author}</strong></span>
-                            <button onclick="event.stopPropagation(); openRateUserModal('${article.author.replace(/'/g, "\\'")}', '${article.title.replace(/'/g, "\\'")}')" style="background: none; border: 1px solid var(--border-color); border-radius: 10px; padding: 2px 8px; color: #eab308; cursor: pointer; font-size: 0.78rem; font-weight: 800;" title="דרג משתמש זה">
-                                ⭐ דרג (${rating})
-                            </button>
-                        </div>
-
-                        <div style="color: var(--text-muted); display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px;">
-                            <span>⏳ ותק: <strong>${tenure}</strong></span>
-                            <span>•</span>
-                            <span>🤝 <strong>${deals} עסקאות</strong></span>
-                        </div>
-                    </div>
-
-                    <!-- Clean Section Divider -->
-                    <div style="border-top: 1px solid var(--border-color); margin: 8px 0;"></div>
-
-                    <div class="cube-spec-pills">
-                        <span class="cube-pill-item" style="color: #16a34a; font-weight: 800;">⭐ ${trustPct} אמינות</span>
-                        <span class="cube-pill-item">משלוח זמין 🛵</span>
+                    <!-- Price Row (החל מ-yhsh...) -->
+                    <div class="cube-price-tag" style="font-size: 0.95rem; font-weight: 900; margin-bottom: 8px;">
+                        החל מ-<strong>yhsh ${rentPriceNum}</strong> / ליום
                     </div>
 
                     <!-- Dual Option Action Buttons -->
                     <div class="cube-dual-actions">
                         <button class="btn-rent-option" onclick="event.stopPropagation(); openRentalContractModal('${article.id}', '${article.title.replace(/'/g, "\\'")}', ${rentPriceNum})">
-                            <i class="fa-solid fa-key"></i> השכר/השאל
+                            <i class="fa-solid fa-key"></i> השכר
                         </button>
-                        <button class="btn-buy-option" onclick="event.stopPropagation(); buyArticleNow('${article.id}', ${buyPriceNum}, '${article.title.replace(/'/g, "\\'")}')">
-                            <i class="fa-solid fa-cart-shopping"></i> קנה עכשיו
+                        <button class="btn-buy-option" onclick="event.stopPropagation(); buyArticleNow('${article.id}', ${article.buyPrice || 4000}, '${article.title.replace(/'/g, "\\'")}')">
+                            <i class="fa-solid fa-cart-shopping"></i> קנה
                         </button>
                     </div>
 
@@ -645,32 +607,11 @@ function toggleBookmarkMain(id) {
     renderApp();
 }
 
-// Event Listeners Setup
 function setupEventListeners() {
-    if (elements.categoryBtns) {
-        elements.categoryBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                elements.categoryBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                state.activeCategory = btn.dataset.category || 'all';
-                state.showBookmarksOnly = false;
-                renderApp();
-            });
-        });
-    }
-
     if (elements.searchInput) {
         elements.searchInput.addEventListener('input', (e) => {
             state.searchQuery = e.target.value;
             renderApp();
-        });
-    }
-
-    if (elements.themeToggle) {
-        elements.themeToggle.addEventListener('click', () => {
-            state.darkMode = !state.darkMode;
-            localStorage.setItem('news_theme', state.darkMode ? 'dark' : 'light');
-            applyTheme();
         });
     }
 }

@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1600">
+    <link rel="stylesheet" href="styles.css?v=1800">
 </head>
 <body>
 
@@ -65,7 +65,7 @@
             <div class="nav-left">
                 <div class="user-balance-pill" title="היתרה שלך">
                     <i class="fa-solid fa-wallet"></i>
-                    <span id="userBalanceDisplay">₪ 50,000</span>
+                    <span id="userBalanceDisplay">yhsh 50,000</span>
                 </div>
 
                 <button class="btn-favorites-pink" onclick="openFavoritesSheet()" title="מועדפים">
@@ -85,7 +85,7 @@
         </div>
     </header>
 
-    <!-- Enhanced Global Hero Wallet & Trust Banner Card -->
+    <!-- Global Hero Wallet & Trust Banner Card -->
     <section class="trading-hero container" style="margin-top: 20px; margin-bottom: 20px;">
         <div class="trading-hero-card" style="background: var(--card-bg); border-radius: var(--radius-md); padding: 22px 28px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-sm);">
             
@@ -103,9 +103,9 @@
 
                 <div class="wallet-balance-box" style="text-align: left; display: flex; flex-direction: column; align-items: flex-end;">
                     <span class="balance-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700;">יתרה פנויה בארנק:</span>
-                    <span id="heroBalanceText" class="balance-amount" style="font-size: 1.6rem; font-weight: 900; color: var(--text-primary);">₪ 50,000</span>
+                    <span id="heroBalanceText" class="balance-amount" style="font-size: 1.6rem; font-weight: 900; color: var(--text-primary);">yhsh 50,000</span>
                     <button onclick="addFundsGlobal()" style="margin-top: 6px; font-size: 0.82rem; padding: 5px 14px; background-color: var(--bg-color); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-                        <i class="fa-solid fa-plus-circle"></i> טען ₪10,000 לארנק
+                        <i class="fa-solid fa-plus-circle"></i> טען yhsh 10,000 לארנק
                     </button>
                 </div>
             </div>
@@ -138,73 +138,87 @@
         </div>
     </section>
 
-    <!-- Hero AI Search Section -->
-    <section class="yad2-hero-ai-section">
-        <div class="container">
-            <h1 class="hero-ai-title">חדש! חיפוש AI - מוצרים וציוד להשכרה מפרטיים</h1>
-            <div class="hero-ai-search-box">
-                <span class="ai-beta-tag">BETA</span>
-                <div class="ai-search-input-wrapper">
-                    <input type="text" id="searchInput" class="ai-search-input" placeholder="מה תרצו להשכיר או לקנות? (MacBook M3, iPhone 15 Pro, Xbox Series X, פטישון BOSCH, Sony A7)...">
-                    <button class="ai-search-btn" onclick="document.getElementById('searchInput').focus()">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    </button>
+    <!-- Fiverr-Style Filter Bar & Switches Section (תפריט סינונים, מתגי פרימיום ומיון מותאם) -->
+    <section class="fiverr-filter-bar container">
+        <div class="fiverr-filter-top-row">
+            
+            <!-- Left Side Dropdown Pills (Service options, Seller details, Budget, Delivery time) -->
+            <div class="filter-pills-group">
+                <button class="filter-pill-dropdown" onclick="toggleFilterMenu('serviceOptions')">
+                    <span>אפשרויות ציוד</span>
+                    <i class="fa-solid fa-chevron-down fa-xs"></i>
+                </button>
+                
+                <button class="filter-pill-dropdown" onclick="toggleFilterMenu('sellerDetails')">
+                    <span>פרטי משכיר</span>
+                    <i class="fa-solid fa-chevron-down fa-xs"></i>
+                </button>
+
+                <button class="filter-pill-dropdown" onclick="toggleFilterMenu('budgetRange')">
+                    <span>תקציב (yhsh)</span>
+                    <i class="fa-solid fa-chevron-down fa-xs"></i>
+                </button>
+
+                <button class="filter-pill-dropdown" onclick="toggleFilterMenu('deliveryTime')">
+                    <span>זמן אספקה / משלוח</span>
+                    <i class="fa-solid fa-chevron-down fa-xs"></i>
+                </button>
+            </div>
+
+            <!-- Right Side Toggle Switches (Pro services / Online now) -->
+            <div class="switches-group">
+                <label class="toggle-switch-label">
+                    <input type="checkbox" id="switchProServices" class="toggle-switch-input" onchange="applyFiverrFilters()">
+                    <span class="switch-track"></span>
+                    <span>משכיר VIP</span>
+                </label>
+
+                <label class="toggle-switch-label">
+                    <input type="checkbox" id="switchOnlineNow" class="toggle-switch-input" checked onchange="applyFiverrFilters()">
+                    <span class="switch-track"></span>
+                    <span style="color: #16a34a;">זמין כעת 🟢</span>
+                </label>
+            </div>
+
+        </div>
+
+        <!-- Fiverr Sub-bar (Results count + Sort by dropdown) -->
+        <div class="fiverr-sub-bar">
+            <span id="fiverrResultsCount">19,000+ תוצאות לוח</span>
+
+            <div class="sort-dropdown-box">
+                <button class="sort-dropdown-btn" onclick="toggleSortMenu(event)">
+                    <span>מיון לפי:</span>
+                    <strong id="currentSortLabel">הנמכרים ביותר</strong>
+                    <i class="fa-solid fa-chevron-down fa-xs"></i>
+                </button>
+
+                <div id="sortPopupMenu" class="sort-popup-menu hidden">
+                    <div class="sort-option-item" onclick="selectSortOption('מומלצים')">
+                        <i class="fa-solid fa-check" style="opacity: 0;"></i>
+                        <span>מומלצים</span>
+                    </div>
+                    <div class="sort-option-item selected" onclick="selectSortOption('הנמכרים ביותר')">
+                        <i class="fa-solid fa-check" style="color: #18181b;"></i>
+                        <span>הנמכרים ביותר</span>
+                    </div>
+                    <div class="sort-option-item" onclick="selectSortOption('החדשים ביותר')">
+                        <i class="fa-solid fa-check" style="opacity: 0;"></i>
+                        <span>החדשים ביותר</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5 Circular Category Icons Section -->
-    <section class="yad2-category-circles-section container">
-        <div class="category-circles-grid">
-            <div class="category-circle-item" onclick="filterByCategory('מחשבים')">
-                <div class="circle-icon-box">
-                    <i class="fa-solid fa-laptop"></i>
-                </div>
-                <span>מחשבים</span>
-            </div>
-            <div class="category-circle-item" onclick="filterByCategory('פלאפונים')">
-                <div class="circle-icon-box">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                </div>
-                <span>פלאפונים</span>
-            </div>
-            <div class="category-circle-item" onclick="filterByCategory('כלי עבודה')">
-                <div class="circle-icon-box">
-                    <i class="fa-solid fa-toolbox"></i>
-                </div>
-                <span>כלי עבודה</span>
-            </div>
-            <div class="category-circle-item" onclick="filterByCategory('אקסבוקס וגיימינג')">
-                <div class="circle-icon-box">
-                    <i class="fa-solid fa-gamepad"></i>
-                </div>
-                <span>אקסבוקס</span>
-            </div>
-            <div class="category-circle-item" onclick="filterByCategory('מצלמות')">
-                <div class="circle-icon-box">
-                    <i class="fa-solid fa-camera"></i>
-                </div>
-                <span>מצלמות</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Rental & Sale Feed -->
+    <!-- Main Rental & Sale Feed Grid -->
     <main class="main-content container">
 
         <div class="page-layout-with-widget">
             
-            <div class="main-column" style="padding: 24px;">
-                <div class="section-header">
-                    <h2 id="sectionTitle" class="section-title">ציוד ומוצרים להשכרה / קנייה סופית מפרטיים (מדד אמינות ⭐, ותק ועסקאות)</h2>
-                    <div class="sort-filter">
-                        <span id="resultsCount" class="results-count">מציג 0 מוצרים להשכרה</span>
-                    </div>
-                </div>
-
+            <div class="main-column" style="padding: 10px 0;">
                 <div id="articlesList" class="cube-cards-grid">
-                    <!-- News rows injected via JS -->
+                    <!-- Cards injected via app.js -->
                 </div>
 
                 <div id="emptyState" class="empty-state hidden">
@@ -218,7 +232,7 @@
 
     </main>
 
-    <!-- Interactive Rate User Modal (דירוג משתמש/מוכר) -->
+    <!-- Interactive Rate User Modal -->
     <div id="rateUserModal" class="modal-overlay hidden">
         <div class="subscription-modal-box" style="max-width: 500px;">
             <button class="close-modal-btn" onclick="closeRateUserModal()">
@@ -272,9 +286,9 @@
             <div style="margin-bottom: 16px; background: var(--bg-color); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
                 <label style="display: block; font-weight: 900; font-size: 0.92rem; margin-bottom: 6px;">🛵 אופן אספקת הציוד:</label>
                 <select id="modalDeliveryTypeSelect" style="width: 100%; padding: 10px; font-family: inherit; font-size: 0.95rem; border-radius: var(--radius-sm); border: 1.5px solid var(--border-color); background: var(--card-bg); color: var(--text-primary);">
-                    <option value="0">📦 איסוף עצמי מהמשכיר (₪0)</option>
-                    <option value="35">🛵 משלוח מהיר עד הבית ע"י שליח מורשה (+₪35)</option>
-                    <option value="90">🚐 הובלה במסחרית לציוד כבד (+₪90)</option>
+                    <option value="0">📦 איסוף עצמי מהמשכיר (yhsh 0)</option>
+                    <option value="35">🛵 משלוח מהיר עד הבית ע"י שליח מורשה (+yhsh 35)</option>
+                    <option value="90">🚐 הובלה במסחרית לציוד כבד (+yhsh 90)</option>
                 </select>
             </div>
 
@@ -360,39 +374,39 @@
             <div class="subscription-grid">
                 <div class="sub-plan-card">
                     <h3 class="sub-plan-name">מנוי בסיסי</h3>
-                    <div class="sub-plan-price">₪49 <span>/ לחודש</span></div>
+                    <div class="sub-plan-price">yhsh 49 <span>/ לחודש</span></div>
                     <ul class="sub-features-list">
                         <li><i class="fa-solid fa-check"></i> עד 5 פרסומי מוצרים בחודש</li>
-                        <li><i class="fa-solid fa-check"></i> ₪10,000 בונוס לארנק בחודש</li>
+                        <li><i class="fa-solid fa-check"></i> yhsh 10,000 בונוס לארנק בחודש</li>
                         <li><i class="fa-solid fa-check"></i> תגית משכיר מורשה</li>
                         <li><i class="fa-solid fa-check"></i> תמיכה במייל</li>
                     </ul>
-                    <button class="btn btn-outline" onclick="subscribePlan('מנוי בסיסי', 49, 10000)">הירשם ב-₪49</button>
+                    <button class="btn btn-outline" onclick="subscribePlan('מנוי בסיסי', 49, 10000)">הירשם ב-yhsh 49</button>
                 </div>
 
                 <div class="sub-plan-card popular">
                     <span class="popular-badge">הכי משתלם 🔥</span>
                     <h3 class="sub-plan-name">מנוי פרימיום VIP</h3>
-                    <div class="sub-plan-price">₪99 <span>/ לחודש</span></div>
+                    <div class="sub-plan-price">yhsh 99 <span>/ לחודש</span></div>
                     <ul class="sub-features-list">
                         <li><i class="fa-solid fa-check"></i> פרסום מוצרים ללא הגבלה</li>
-                        <li><i class="fa-solid fa-check"></i> ₪30,000 בונוס לארנק בחודש</li>
+                        <li><i class="fa-solid fa-check"></i> yhsh 30,000 בונוס לארנק בחודש</li>
                         <li><i class="fa-solid fa-check"></i> הקפצת מודעות אוטומטית לראש הלוח</li>
                         <li><i class="fa-solid fa-check"></i> תגית VIP בולטת</li>
                     </ul>
-                    <button class="btn btn-primary" onclick="subscribePlan('מנוי פרימיום VIP', 99, 30000)">הצטרף ל-VIP ב-₪99</button>
+                    <button class="btn btn-primary" onclick="subscribePlan('מנוי פרימיום VIP', 99, 30000)">הצטרף ל-VIP ב-yhsh 99</button>
                 </div>
 
                 <div class="sub-plan-card">
                     <h3 class="sub-plan-name">מנוי עסקי PRO</h3>
-                    <div class="sub-plan-price">₪199 <span>/ לחודש</span></div>
+                    <div class="sub-plan-price">yhsh 199 <span>/ לחודש</span></div>
                     <ul class="sub-features-list">
                         <li><i class="fa-solid fa-check"></i> לוח מסחר עסקי מלא</li>
-                        <li><i class="fa-solid fa-check"></i> ₪100,000 בונוס לארנק בחודש</li>
+                        <li><i class="fa-solid fa-check"></i> yhsh 100,000 בונוס לארנק בחודש</li>
                         <li><i class="fa-solid fa-check"></i> ערבות וביטוח ציוד מורחב</li>
                         <li><i class="fa-solid fa-check"></i> מנהל תיק לקוח אישי 24/7</li>
                     </ul>
-                    <button class="btn btn-outline" onclick="subscribePlan('מנוי עסקי PRO', 199, 100000)">הצטרף ב-₪199</button>
+                    <button class="btn btn-outline" onclick="subscribePlan('מנוי עסקי PRO', 199, 100000)">הצטרף ב-yhsh 199</button>
                 </div>
             </div>
         </div>
