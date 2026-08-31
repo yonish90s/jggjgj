@@ -278,12 +278,31 @@ function renderFavoritesSheet() {
     `).join('');
 }
 
+// Toggle "עוד..." Read More Description Toggle Helper
+function toggleReadMore(event, el) {
+    event.stopPropagation();
+    const parent = el.parentElement;
+    const textEl = parent.querySelector('.cube-subtitle-text');
+    if (!textEl) return;
+
+    if (textEl.style.webkitLineClamp === 'none' || textEl.style.display === 'block') {
+        textEl.style.display = '-webkit-box';
+        textEl.style.webkitLineClamp = '2';
+        el.textContent = 'עוד...';
+    } else {
+        textEl.style.display = 'block';
+        textEl.style.webkitLineClamp = 'none';
+        el.textContent = 'פחות';
+    }
+}
+
 // Expose globally for inline onclick attributes
 window.openFavoritesSheet = openFavoritesSheet;
 window.closeFavoritesSheet = closeFavoritesSheet;
 window.openSubscriptionModal = openSubscriptionModal;
 window.closeSubscriptionModal = closeSubscriptionModal;
 window.subscribePlan = subscribePlan;
+window.toggleReadMore = toggleReadMore;
 
 function filterByCategory(cat) {
     state.activeCategory = cat;
@@ -360,7 +379,7 @@ function renderApp() {
 
     if (elements.resultsCount) elements.resultsCount.textContent = `מציג ${filtered.length} מוצרים להשכרה`;
 
-    // Render Rental Listing Cards in 5-Column Cube Grid Layout ("חמש על חמש")
+    // Render Rental Listing Cards in 100% Symmetrical 5-Column Cube Grid Layout ("חמש על חמש סימטרי")
     if (elements.articlesList) {
         if (filtered.length === 0) {
             elements.articlesList.innerHTML = '';
@@ -375,7 +394,7 @@ function renderApp() {
     renderPriceTrendsWidget();
 }
 
-// Render Symmetrical Vertical Cube Grid Cards in 5 Columns ("חמש על חמש")
+// Render 100% Symmetrical Vertical Cube Grid Cards in 5 Columns ("חמש על חמש סימטרי")
 function renderArticlesList(articles) {
     if (!elements.articlesList) return;
     
@@ -386,6 +405,8 @@ function renderArticlesList(articles) {
         const isBookmarked = state.bookmarks.includes(article.id);
         const pills = article.tags || ['השכרה יומית', 'שמור כחדש', 'איסוף מהיר'];
         const image = article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים'];
+        const summaryText = article.summary || 'ציוד איכותי שמור כחדש זמין להשכרה מיידית מפרטי.';
+        const hasLongSummary = summaryText.length > 55;
 
         return `
             <div class="cube-card-box" onclick="openArticleModal('${article.id}')">
@@ -404,7 +425,11 @@ function renderArticlesList(articles) {
                     <div class="cube-price-tag">${rentalPeriod}</div>
 
                     <h3 class="cube-title-text">${article.title}</h3>
-                    <p class="cube-subtitle-text">${article.summary}</p>
+                    
+                    <div class="cube-subtitle-wrapper">
+                        <p class="cube-subtitle-text">${summaryText}</p>
+                        ${hasLongSummary ? `<button class="cube-read-more-btn" onclick="toggleReadMore(event, this)">עוד...</button>` : ''}
+                    </div>
 
                     <div class="cube-meta-row">
                         <span><i class="fa-solid fa-location-dot"></i> ${article.author}</span>
@@ -417,7 +442,7 @@ function renderArticlesList(articles) {
                     </div>
 
                     <button class="cube-action-btn">
-                        <i class="fa-solid fa-eye"></i> צפה בפרטי הציוד להשכרה
+                        <i class="fa-solid fa-eye"></i> צפה בפרטי הציוד
                     </button>
                 </div>
 
