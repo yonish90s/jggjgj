@@ -10,15 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=100">
 </head>
 <body>
 
-    <!-- Yad2 Style White Header Bar -->
+    <!-- Ultra Simple Plain Dark Charcoal Header Bar -->
     <header class="top-navbar-white">
         <div class="container top-nav-container">
             
-            <!-- Right: Logo "yhsh" in Pink Yad2 Style -->
+            <!-- Right: Logo "yhsh" Plain White Style -->
             <div class="nav-right">
                 <a href="index.html" class="brand-infinity">
                     <span class="brand-text-yad2">
@@ -39,7 +39,7 @@
                 </a>
                 <button class="nav-tab vip-tab-btn" onclick="window.location.href='index.html'">
                     <i class="fa-solid fa-gem"></i>
-                    <span>מנוי חודשי VIP</span>
+                    <span>מנוי VIP</span>
                 </button>
             </nav>
 
@@ -47,18 +47,23 @@
             <div class="nav-left">
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
-                    <i class="fa-solid fa-wallet" style="color:var(--yad2-pink);"></i>
+                    <i class="fa-solid fa-wallet"></i>
                     <span id="userBalanceDisplay">₪ 50,000</span>
                 </div>
 
                 <button class="btn-add-listing-pink" onclick="window.location.href='index.html'">
                     <i class="fa-solid fa-arrow-right"></i>
-                    <span>חזרה לציוד להשכרה</span>
+                    <span>חזרה לציוד</span>
                 </button>
 
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
+
+                <div class="guest-pill" id="guestUserPill" title="חשבון משתמש">
+                    <i class="fa-regular fa-user"></i>
+                    <span id="guestUserText">אורח</span>
+                </div>
             </div>
 
         </div>
@@ -100,7 +105,7 @@
                 </div>
             </div>
 
-            <!-- Bids Feed Render Container (Modern 2-Column Grid Cards) -->
+            <!-- Bids Feed Render Container -->
             <div id="bidsFeedList">
                 <!-- Injected via trading.js -->
             </div>
