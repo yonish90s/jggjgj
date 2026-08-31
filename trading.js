@@ -1,189 +1,289 @@
-let userBalance = 50000;
-let offers = [];
-let activeFilter = 'all';
+// Trading / Bids Page State
+let tradingState = {
+    bids: [],
+    filterType: 'all', // 'all', 'outgoing' (הצעות שאני הצעתי), 'incoming' (הצעות שהציעו לי על מוצרים שלי)
+    userBalance: 50000
+};
 
-// DOM Elements
-const userBalanceDisplay = document.getElementById('userBalanceDisplay');
-const heroBalanceText = document.getElementById('heroBalanceText');
-const bidsFeedList = document.getElementById('bidsFeedList');
-const filterAllBids = document.getElementById('filterAllBids');
-const filterMyBids = document.getElementById('filterMyBids');
-const themeToggle = document.getElementById('themeToggle');
-const toast = document.getElementById('toast');
-const toastMessage = document.getElementById('toastMessage');
+// Initial Bids Dataset
+const INITIAL_BIDS = [
+    {
+        id: "bid-1",
+        articleId: "rent-1",
+        title: "MacBook Pro 16\" M3 Max 64GB RAM",
+        category: "מחשבים",
+        price: 200,
+        currentBid: 180,
+        bidder: "רוני חסון (חולון)",
+        owner: "אני",
+        type: "incoming", // הצעות שהציעו לי על מוצרים שלי
+        timeLeft: "04:12:30",
+        imageUrl: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
+        summary: "מחשב עוצמתי לעריכת וידאו 8K. מגיע מותקן עם תוכנות Adobe.",
+        tags: ["64GB RAM", "M3 Max", "עריכת 8K"]
+    },
+    {
+        id: "bid-2",
+        articleId: "rent-2",
+        title: "קונסולת Xbox Series X + 2 שלטים",
+        category: "אקסבוקס וגיימינג",
+        price: 110,
+        currentBid: 125,
+        bidder: "אני",
+        owner: "עומר אביב (גבעתיים)",
+        type: "outgoing", // הצעות שאני הצעתי
+        timeLeft: "12:45:00",
+        imageUrl: "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&w=800&q=80",
+        summary: "ערכת גיימינג 4K מלאה כוללת מנוי Game Pass Ultimate אקטיבי.",
+        tags: ["Xbox Series X", "Game Pass", "2 שלטים"]
+    },
+    {
+        id: "bid-3",
+        articleId: "rent-3",
+        title: "אייפון 15 Pro Max 512GB Natural Titanium",
+        category: "פלאפונים",
+        price: 95,
+        currentBid: 90,
+        bidder: "דניאל כהן (רמת גן)",
+        owner: "אני",
+        type: "incoming", // הצעות שהציעו לי על מוצרים שלי
+        timeLeft: "08:20:15",
+        imageUrl: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
+        summary: "מכשיר דגל שמור כחדש לחלוטין כולל מגן מסך ומטען מהיר.",
+        tags: ["iPhone 15 Pro", "512GB", "זמין 24/7"]
+    },
+    {
+        id: "bid-4",
+        articleId: "rent-4",
+        title: "פטישון עוצמתי BOSCH GBH 2-28",
+        category: "כלי עבודה",
+        price: 85,
+        currentBid: 95,
+        bidder: "אני",
+        owner: "רוני חסון (חולון)",
+        type: "outgoing", // הצעות שאני הצעתי
+        timeLeft: "18:10:00",
+        imageUrl: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+        summary: "כלי עבודה מקצועי לקידוח וחציבה בבטון, מגיע עם מזוודה.",
+        tags: ["BOSCH מקצועי", "קידוח בבטון", "זמין עכשיו"]
+    },
+    {
+        id: "bid-5",
+        articleId: "rent-5",
+        title: "מצלמת Sony A7 IV + עדשת 24-70mm",
+        category: "מצלמות",
+        price: 250,
+        currentBid: 230,
+        bidder: "יוסי לוי (תל אביב)",
+        owner: "אני",
+        type: "incoming", // הצעות שהציעו לי על מוצרים שלי
+        timeLeft: "02:50:40",
+        imageUrl: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80",
+        summary: "ערכת צילום מקצועית מלאה כוללת 2 סוללות ומטען כפול.",
+        tags: ["השכרה יומית", "Sony 4K", "זמין מיידית"]
+    }
+];
 
 function initTradingPage() {
-    setupTheme();
-    loadBalance();
-    loadOffers();
-    renderBidsFeed();
-    setupEventListeners();
+    loadTradingState();
+    renderTradingPage();
 }
 
-function loadBalance() {
-    const saved = localStorage.getItem('news_user_balance');
-    userBalance = saved ? parseInt(saved, 10) : 50000;
-    updateBalanceDisplays();
+function loadTradingState() {
+    const savedBal = localStorage.getItem('news_user_balance');
+    tradingState.userBalance = savedBal ? parseInt(savedBal, 10) : 50000;
+
+    const savedBids = localStorage.getItem('news_live_bids');
+    if (savedBids) {
+        try {
+            tradingState.bids = JSON.parse(savedBids);
+        } catch (e) {
+            tradingState.bids = INITIAL_BIDS;
+        }
+    } else {
+        tradingState.bids = INITIAL_BIDS;
+        saveBidsToStorage();
+    }
 }
 
-function updateBalanceDisplays() {
-    if (userBalanceDisplay) userBalanceDisplay.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
-    if (heroBalanceText) heroBalanceText.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
+function saveBidsToStorage() {
+    localStorage.setItem('news_live_bids', JSON.stringify(tradingState.bids));
 }
 
 function addFunds() {
-    userBalance += 10000;
-    localStorage.setItem('news_user_balance', userBalance.toString());
-    updateBalanceDisplays();
-    showToast('יתרת הארנק שלך עודכנה ב-+₪10,000! 💰');
+    tradingState.userBalance += 10000;
+    localStorage.setItem('news_user_balance', tradingState.userBalance.toString());
+    renderTradingPage();
+    showToast('נטענו ₪10,000 בהצלחה לארנק!');
 }
 
-function loadOffers() {
-    const saved = localStorage.getItem('news_offers');
-    if (saved) {
-        try {
-            const parsed = JSON.parse(saved);
-            // Purge old non-rental bids like "פסטיבל הקולנוע" or raw ISO dates
-            const cleanOffers = parsed.filter(o => o.articleTitle && !o.articleTitle.includes('פסטיבל'));
-            if (cleanOffers.length > 0) {
-                // Clean dates
-                cleanOffers.forEach(o => {
-                    if (o.date && o.date.includes('T') && o.date.includes('Z')) {
-                        o.date = 'היום, ' + o.date.split('T')[1].substring(0, 5);
-                    }
-                });
-                offers = cleanOffers;
-            } else {
-                offers = getInitialRentalOffers();
-            }
-        } catch (e) {
-            offers = getInitialRentalOffers();
+function filterBids(type) {
+    tradingState.filterType = type;
+    
+    // Update active tab styling
+    const allBtn = document.getElementById('filterAllBids');
+    const outBtn = document.getElementById('filterOutgoingBids');
+    const incBtn = document.getElementById('filterIncomingBids');
+
+    [allBtn, outBtn, incBtn].forEach(b => {
+        if (b) {
+            b.classList.remove('pill-tab');
+            b.classList.add('nav-tab');
         }
+    });
+
+    if (type === 'all' && allBtn) allBtn.classList.add('pill-tab');
+    if (type === 'outgoing' && outBtn) outBtn.classList.add('pill-tab');
+    if (type === 'incoming' && incBtn) incBtn.classList.add('pill-tab');
+
+    renderTradingPage();
+}
+
+// Toggle "עוד..." Read More Description Toggle Helper
+function toggleReadMore(event, el) {
+    event.stopPropagation();
+    const parent = el.parentElement;
+    const textEl = parent.querySelector('.cube-subtitle-text');
+    if (!textEl) return;
+
+    if (textEl.style.webkitLineClamp === 'none' || textEl.style.display === 'block') {
+        textEl.style.display = '-webkit-box';
+        textEl.style.webkitLineClamp = '2';
+        el.textContent = 'עוד...';
     } else {
-        offers = getInitialRentalOffers();
+        textEl.style.display = 'block';
+        textEl.style.webkitLineClamp = 'none';
+        el.textContent = 'פחות';
     }
-    localStorage.setItem('news_offers', JSON.stringify(offers));
 }
 
-function getInitialRentalOffers() {
-    return [
-        {
-            id: 'off-101',
-            articleId: 'rent-1',
-            articleTitle: 'מחשב נייד MacBook Pro 16" M3 Max 64GB',
-            bidder: 'אורח (אתה)',
-            amount: 250,
-            date: 'היום, 18:45',
-            status: 'הצעה מובילה 🔥',
-            imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
-            isMyBid: true
-        },
-        {
-            id: 'off-102',
-            articleId: 'rent-2',
-            articleTitle: 'מצלמת Sony A7 IV + עדשת 24-70mm f/2.8 GM',
-            bidder: 'מיכאל א.',
-            amount: 300,
-            date: 'היום, 18:20',
-            status: 'הצעה מובילה 🔥',
-            imageUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80',
-            isMyBid: false
-        },
-        {
-            id: 'off-103',
-            articleId: 'rent-3',
-            articleTitle: 'אייפון iPhone 15 Pro Max 512GB Titanium',
-            bidder: 'יונתן ש.',
-            amount: 110,
-            date: 'היום, 17:10',
-            status: 'הצעה מובילה 🔥',
-            imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80',
-            isMyBid: false
-        },
-        {
-            id: 'off-104',
-            articleId: 'rent-4',
-            articleTitle: 'פטישון BOSCH GBH 2-28 עוצמתי + סט מקדחים',
-            bidder: 'אורח (אתה)',
-            amount: 120,
-            date: 'היום, 16:30',
-            status: 'הצעה מובילה 🔥',
-            imageUrl: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80',
-            isMyBid: true
-        },
-        {
-            id: 'off-105',
-            articleId: 'rent-5',
-            articleTitle: 'קונסולת Xbox Series X 1TB + 2 שלטים',
-            bidder: 'דניאל כ.',
-            amount: 140,
-            date: 'היום, 15:15',
-            status: 'הצעה מובילה 🔥',
-            imageUrl: 'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&w=800&q=80',
-            isMyBid: false
-        }
-    ];
+window.filterBids = filterBids;
+window.addFunds = addFunds;
+window.toggleReadMore = toggleReadMore;
+
+// Accept Incoming Offer
+function acceptBid(bidId) {
+    const bid = tradingState.bids.find(b => b.id === bidId);
+    if (!bid) return;
+
+    tradingState.userBalance += bid.currentBid;
+    localStorage.setItem('news_user_balance', tradingState.userBalance.toString());
+    
+    tradingState.bids = tradingState.bids.filter(b => b.id !== bidId);
+    saveBidsToStorage();
+
+    renderTradingPage();
+    showToast(`אישרת בהצלחה את ההצעה על ${bid.title}! היתרה עודכנה בכבילת ₪${bid.currentBid}. 🎉`);
 }
 
-// Render Modern High-End Grid Cards ("ריבועים מסודרים ויוקרתיים")
-function renderBidsFeed() {
-    if (!bidsFeedList) return;
+// Outbid / Increase Offer
+function placeHigherBid(bidId) {
+    const bid = tradingState.bids.find(b => b.id === bidId);
+    if (!bid) return;
 
-    let filtered = offers;
-    if (activeFilter === 'my') {
-        filtered = offers.filter(o => o.isMyBid);
+    const increase = 20;
+    if (tradingState.userBalance < increase) {
+        showToast('אין מספיק יתרה בארנק! לחץ טען לארנק.');
+        return;
     }
+
+    bid.currentBid += increase;
+    bid.bidder = "אני";
+    bid.type = "outgoing";
+    
+    tradingState.userBalance -= increase;
+    localStorage.setItem('news_user_balance', tradingState.userBalance.toString());
+    saveBidsToStorage();
+
+    renderTradingPage();
+    showToast(`הגדלת את ההצעה ל-₪${bid.currentBid}/יום בהצלחה! 🔨`);
+}
+
+window.acceptBid = acceptBid;
+window.placeHigherBid = placeHigherBid;
+
+function renderTradingPage() {
+    // Update Wallet Balances
+    const userBalDisplay = document.getElementById('userBalanceDisplay');
+    const heroBalText = document.getElementById('heroBalanceText');
+    if (userBalDisplay) userBalDisplay.textContent = '₪ ' + tradingState.userBalance.toLocaleString('he-IL');
+    if (heroBalText) heroBalText.textContent = '₪ ' + tradingState.userBalance.toLocaleString('he-IL');
+
+    // Filter Bids
+    let filtered = tradingState.bids;
+    if (tradingState.filterType === 'outgoing') {
+        filtered = tradingState.bids.filter(b => b.type === 'outgoing' || b.bidder === 'אני');
+    } else if (tradingState.filterType === 'incoming') {
+        filtered = tradingState.bids.filter(b => b.type === 'incoming' || b.owner === 'אני');
+    }
+
+    const container = document.getElementById('bidsFeedList');
+    if (!container) return;
 
     if (filtered.length === 0) {
-        bidsFeedList.className = "";
-        bidsFeedList.innerHTML = `
-            <div class="empty-state">
-                <i class="fa-solid fa-gavel fa-3x"></i>
-                <h3>אין הצעות להצגה בקטגוריה זו</h3>
-                <p>היכנס למוצרים להשכרה והגש את הצעת המחיר הראשונה שלך!</p>
+        container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
+                <i class="fa-solid fa-gavel fa-3x" style="margin-bottom: 12px;"></i>
+                <h3 style="font-size: 1.4rem; color: var(--text-primary); margin-bottom: 6px;">אין הצעות בקטגוריה זו</h3>
+                <p>השתמש בלשוניות למעלה כדי להציג את כל ההצעות באתר</p>
             </div>
         `;
         return;
     }
 
-    bidsFeedList.className = "bids-grid-2col";
-    bidsFeedList.innerHTML = filtered.map(bid => {
-        const image = bid.imageUrl || 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80';
-        const displayDate = (bid.date && bid.date.includes('T') && bid.date.includes('Z'))
-            ? 'היום, ' + bid.date.split('T')[1].substring(0, 5)
-            : (bid.date || 'היום');
+    // Render 100% Symmetrical 5-Column Cube Cards Grid for Bids ("חמש על חמש סימטרי")
+    container.className = "cube-cards-grid";
+    container.innerHTML = filtered.map(bid => {
+        const isMyOutgoing = bid.type === 'outgoing' || bid.bidder === 'אני';
+        const badgeLabel = isMyOutgoing ? '📤 הצעה שאני הצעתי' : '📥 הצעה שהציעו לי';
+        const summaryText = bid.summary || 'ציוד איכותי זמין להשכרה מיידית מפרטי.';
+        const hasLongSummary = summaryText.length > 55;
+        const pills = bid.tags || [bid.category, "זמין מיידית", "איסוף מהיר"];
 
         return `
-            <div class="grid-card-box">
+            <div class="cube-card-box">
                 
-                <!-- Top Image Header & Badges -->
-                <div class="grid-card-image-wrapper">
-                    <img src="${image}" alt="${bid.articleTitle}" loading="lazy">
-                    <span class="grid-badge-tag">${bid.status}</span>
-                    <div class="grid-heart-btn ${bid.isMyBid ? 'active' : ''}" onclick="event.stopPropagation(); showToast('המוצר נשמר במועדפים ❤️')" title="שמור במועדפים">
+                <!-- Image Header with Badges -->
+                <div class="cube-image-wrapper">
+                    <img src="${bid.imageUrl}" alt="${bid.title}">
+                    <span class="cube-badge-tag">${badgeLabel}</span>
+                    <div class="cube-heart-btn active" title="הצעה שמורה">
                         <i class="fa-solid fa-heart"></i>
                     </div>
                 </div>
 
-                <!-- Content Body -->
-                <div class="grid-card-body">
-                    <div class="grid-price-tag">
-                        ₪${bid.amount.toLocaleString('he-IL')} 
-                        <span style="font-size:0.95rem; color:var(--yad2-pink); font-weight:800;">/ ליום</span>
+                <!-- Card Body -->
+                <div class="cube-card-body">
+                    <div class="cube-price-tag">
+                        ₪ ${bid.currentBid} / ליום <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600; margin-right:4px;">(מבוקש: ₪${bid.price})</span>
                     </div>
 
-                    <h3 class="grid-title-text">${bid.articleTitle}</h3>
-                    <p class="grid-subtitle-text"><i class="fa-regular fa-user"></i> מציע: <strong>${bid.bidder}</strong> • ${displayDate}</p>
+                    <h3 class="cube-title-text">${bid.title}</h3>
 
-                    <div class="grid-spec-pills">
-                        <span class="grid-pill-item">הצעה בלייב</span>
-                        <span class="grid-pill-item">זמין להשכרה</span>
-                        <span class="grid-pill-item">ערבות מוגנת</span>
+                    <div class="cube-subtitle-wrapper">
+                        <p class="cube-subtitle-text">${summaryText}</p>
+                        ${hasLongSummary ? `<button class="cube-read-more-btn" onclick="toggleReadMore(event, this)">עוד...</button>` : ''}
                     </div>
 
-                    <button class="grid-action-btn" onclick="outbidItem('${bid.id}', '${bid.articleId}', '${escapeQuote(bid.articleTitle)}', ${bid.amount})">
-                        <i class="fa-solid fa-gavel"></i> הגש הצעה גבוהה יותר (+₪50)
-                    </button>
+                    <div class="cube-meta-row">
+                        <span><i class="fa-solid fa-user"></i> ${isMyOutgoing ? ('בעלים: ' + bid.owner) : ('מציע: ' + bid.bidder)}</span>
+                        <span>•</span>
+                        <span><i class="fa-regular fa-clock"></i> ${bid.timeLeft}</span>
+                    </div>
+
+                    <div class="cube-spec-pills">
+                        ${pills.map(p => `<span class="cube-pill-item">${p}</span>`).join('')}
+                    </div>
+
+                    ${isMyOutgoing ? `
+                        <button class="cube-action-btn" onclick="placeHigherBid('${bid.id}')">
+                            <i class="fa-solid fa-gavel"></i> הגדל הצעה (+₪20)
+                        </button>
+                    ` : `
+                        <button class="cube-action-btn" onclick="acceptBid('${bid.id}')" style="background-color: #16a34a;">
+                            <i class="fa-solid fa-check-circle"></i> אישור הצעה (₪${bid.currentBid})
+                        </button>
+                    `}
                 </div>
 
             </div>
@@ -191,93 +291,14 @@ function renderBidsFeed() {
     }).join('');
 }
 
-function outbidItem(bidId, articleId, articleTitle, currentAmount) {
-    const newAmount = currentAmount + 50;
-
-    if (userBalance < newAmount) {
-        showToast('אין לך מספיק יתרה בארנק להציע ₪' + newAmount.toLocaleString('he-IL'));
-        return;
-    }
-
-    userBalance -= 20;
-    localStorage.setItem('news_user_balance', userBalance.toString());
-    updateBalanceDisplays();
-
-    const now = new Date();
-    const timeStr = 'היום, ' + now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
-
-    const newOffer = {
-        id: 'off-' + Date.now(),
-        articleId: articleId,
-        articleTitle: articleTitle,
-        bidder: 'אורח (אתה)',
-        amount: newAmount,
-        date: timeStr,
-        status: 'הצעה מובילה 🔥',
-        imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
-        isMyBid: true
-    };
-
-    offers.forEach(o => {
-        if (o.articleId === articleId) {
-            o.status = 'הצעה נמוכה יותר';
-        }
-    });
-
-    offers.unshift(newOffer);
-    localStorage.setItem('news_offers', JSON.stringify(offers));
-
-    renderBidsFeed();
-    showToast(`הגשת הצעה חדשה בסך ₪${newAmount.toLocaleString('he-IL')} להשכרת המוצר! 🥳`);
-}
-
-function filterBids(type) {
-    activeFilter = type;
-    if (type === 'all') {
-        filterAllBids.classList.add('btn-primary');
-        filterAllBids.classList.remove('btn-outline');
-        filterMyBids.classList.remove('btn-primary');
-        filterMyBids.classList.add('btn-outline');
-    } else {
-        filterMyBids.classList.add('btn-primary');
-        filterMyBids.classList.remove('btn-outline');
-        filterAllBids.classList.remove('btn-primary');
-        filterAllBids.classList.add('btn-outline');
-    }
-    renderBidsFeed();
-}
-
-function escapeQuote(str) {
-    return str.replace(/'/g, "\\'");
-}
-
-function setupTheme() {
-    const darkMode = localStorage.getItem('news_theme') === 'dark';
-    if (darkMode) {
-        document.body.classList.add('dark-theme');
-        if (themeToggle) themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
-    } else {
-        document.body.classList.remove('dark-theme');
-        if (themeToggle) themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
-    }
-}
-
-function setupEventListeners() {
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('dark-theme');
-            localStorage.setItem('news_theme', isDark ? 'dark' : 'light');
-            themeToggle.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-        });
-    }
-}
-
 function showToast(message) {
-    if (!toastMessage || !toast) return;
-    toastMessage.textContent = message;
-    toast.classList.remove('hidden');
+    const toastElem = document.getElementById('toast');
+    const toastMsgElem = document.getElementById('toastMessage');
+    if (!toastMsgElem || !toastElem) return;
+    toastMsgElem.textContent = message;
+    toastElem.classList.remove('hidden');
     setTimeout(() => {
-        toast.classList.add('hidden');
+        toastElem.classList.add('hidden');
     }, 3000);
 }
 
