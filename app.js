@@ -62,7 +62,7 @@ let state = {
     subscription: null
 };
 
-// DOM Elements Container (Updated dynamically)
+// DOM Elements Container
 const elements = {
     top3Grid: null,
     articlesList: null,
@@ -233,7 +233,6 @@ function subscribePlan(planName, price, bonusWallet) {
 
 /* =========================================================
    BOTTOM DARK FAVORITES SHEET LOGIC ("חלון שחור מלמטה עם ריבועים")
-   Direct DOM references ensure 100% reliability on click!
    ========================================================= */
 function openFavoritesSheet() {
     renderFavoritesSheet();
@@ -270,7 +269,7 @@ function renderFavoritesSheet() {
         return;
     }
 
-    // Square Inventory Tiles (Matches Screenshot 2)
+    // Square Inventory Tiles
     gridContainer.innerHTML = bookmarkedArticles.map(article => `
         <div class="fav-tile-card" onclick="openArticleModal('${article.id}')">
             <img class="fav-tile-image" src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}">
@@ -393,7 +392,7 @@ function renderApp() {
         }
     }
 
-    // Render Rental Listing Cards
+    // Render Rental Listing Cards in Cube Grid Layout ("קוביות מסודרות לעין")
     if (elements.articlesList) {
         if (rowArticles.length === 0 && (!showTop3 || filtered.length === 0)) {
             elements.articlesList.innerHTML = '';
@@ -422,46 +421,53 @@ function renderTop3Grid(articles) {
     `).join('');
 }
 
-// Render Symmetrical Yad2 Rental Listing Row Items
+// Render Symmetrical Vertical Cube Grid Cards ("קוביות מסודרות לעין")
 function renderArticlesList(articles) {
     if (!elements.articlesList) return;
+    
+    elements.articlesList.className = "cube-cards-grid";
     elements.articlesList.innerHTML = articles.map((article) => {
         const rentalPeriod = article.rentalPeriod || (`₪ ${article.price || 150} / ליום`);
         const rentalDates = article.rentalDates || 'זמין להשכרה מיידית';
         const isBookmarked = state.bookmarks.includes(article.id);
         const pills = article.tags || ['השכרה יומית', 'שמור כחדש', 'איסוף מהיר'];
+        const image = article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים'];
 
         return `
-            <article class="news-row-item" onclick="openArticleModal('${article.id}')">
+            <div class="cube-card-box" onclick="openArticleModal('${article.id}')">
                 
-                <!-- Right Side Image (200px Fixed) -->
-                <div class="row-image">
-                    <img src="${article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים']}" alt="${article.title}" loading="lazy">
+                <!-- Image Header with Floating Badges -->
+                <div class="cube-image-wrapper">
+                    <img src="${image}" alt="${article.title}" loading="lazy">
+                    <span class="cube-badge-tag">${article.category}</span>
+                    <div class="cube-heart-btn ${isBookmarked ? 'active' : ''}" onclick="event.stopPropagation(); toggleBookmarkMain('${article.id}')" title="שמור במועדפים">
+                        <i class="${isBookmarked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                    </div>
                 </div>
 
-                <!-- Center Details Area -->
-                <div class="row-content">
-                    <h3 class="row-title">${article.title}</h3>
-                    <div class="row-subtitle">${article.summary}</div>
-                    <div class="row-meta-yad2">
+                <!-- Card Content Body -->
+                <div class="cube-card-body">
+                    <div class="cube-price-tag">${rentalPeriod}</div>
+
+                    <h3 class="cube-title-text">${article.title}</h3>
+                    <p class="cube-subtitle-text">${article.summary}</p>
+
+                    <div class="cube-meta-row">
                         <span><i class="fa-solid fa-location-dot" style="color:var(--yad2-pink);"></i> ${article.author}</span>
                         <span>•</span>
                         <span><i class="fa-regular fa-calendar-check"></i> ${rentalDates}</span>
                     </div>
-                    <div class="row-tags-pills">
-                        ${pills.map(p => `<span class="yad2-tag-pill">${p}</span>`).join('')}
+
+                    <div class="cube-spec-pills">
+                        ${pills.map(p => `<span class="cube-pill-item">${p}</span>`).join('')}
                     </div>
+
+                    <button class="cube-action-btn">
+                        <i class="fa-solid fa-eye"></i> צפה בפרטי הציוד להשכרה
+                    </button>
                 </div>
 
-                <!-- Left Price & Rental Period Tag -->
-                <div class="row-left-yad2">
-                    <div class="row-heart-btn ${isBookmarked ? 'active' : ''}" onclick="event.stopPropagation(); toggleBookmarkMain('${article.id}')" title="שמור במועדפים">
-                        <i class="${isBookmarked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
-                    </div>
-                    <div class="row-price-yad2" style="font-size:1.25rem; text-align:left; color:var(--yad2-pink);">${rentalPeriod}</div>
-                </div>
-
-            </article>
+            </div>
         `;
     }).join('');
 }
