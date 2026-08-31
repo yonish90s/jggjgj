@@ -173,7 +173,7 @@ function acceptBid(bidId) {
     saveBidsToStorage();
 
     renderTradingPage();
-    showToast(`אישרת בהצלחה את ההצעה על ${bid.title}! היתרה עודכנה בכבילת ₪${bid.currentBid}. 🎉`);
+    showToast(`אישרת בהצלחה את ההצעה על ${bid.title}! היתרה עודכנה ב-₪${bid.currentBid}. 🎉`);
 }
 
 // Outbid / Increase Offer
@@ -231,7 +231,7 @@ function renderTradingPage() {
         return;
     }
 
-    // Render 100% Symmetrical 5-Column Cube Cards Grid for Bids ("חמש על חמש סימטרי")
+    // Render 100% Symmetrical 5-Column Cube Cards Grid for Bids with Redesigned Premium Buttons
     container.className = "cube-cards-grid";
     container.innerHTML = filtered.map(bid => {
         const isMyOutgoing = bid.type === 'outgoing' || bid.bidder === 'אני';
@@ -276,12 +276,12 @@ function renderTradingPage() {
                     </div>
 
                     ${isMyOutgoing ? `
-                        <button class="cube-action-btn" onclick="placeHigherBid('${bid.id}')">
+                        <button class="btn-trade-action btn-bid-dark" onclick="placeHigherBid('${bid.id}')">
                             <i class="fa-solid fa-gavel"></i> הגדל הצעה (+₪20)
                         </button>
                     ` : `
-                        <button class="cube-action-btn" onclick="acceptBid('${bid.id}')" style="background-color: #16a34a;">
-                            <i class="fa-solid fa-check-circle"></i> אישור הצעה (₪${bid.currentBid})
+                        <button class="btn-trade-action btn-accept-green" onclick="acceptBid('${bid.id}')">
+                            <i class="fa-solid fa-circle-check"></i> אישור הצעה (₪${bid.currentBid})
                         </button>
                     `}
                 </div>

@@ -684,6 +684,52 @@ body {
     transform: translateY(-1px);
 }
 
+/* =========================================================
+   PREMIUM TRADING BIDS PAGE ACTION BUTTONS (REDESIGNED!)
+   ========================================================= */
+.btn-trade-action {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 900;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-top: auto;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.btn-trade-action.btn-accept-green {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    color: #ffffff;
+    border: 1px solid #15803d;
+}
+
+.btn-trade-action.btn-accept-green:hover {
+    background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(22, 163, 74, 0.35);
+}
+
+.btn-trade-action.btn-bid-dark {
+    background-color: #18181b;
+    color: #ffffff;
+    border: 1px solid #27272a;
+}
+
+.btn-trade-action.btn-bid-dark:hover {
+    background-color: #27272a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
 /* Bottom Dark Favorites Sheet */
 .fav-bottom-sheet-overlay {
     position: fixed;
