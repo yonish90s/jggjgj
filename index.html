@@ -10,66 +10,55 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=200">
+    <link rel="stylesheet" href="styles.css?v=300">
 </head>
 <body>
 
-    <!-- Ultra Simple Monochrome Header Bar (Black in Light Mode, Jet Black in Dark Mode) -->
+    <!-- Header Bar Exactly Matching User Screenshot -->
     <header class="top-navbar-white">
         <div class="container top-nav-container">
             
-            <!-- Right: Logo "yhsh" Monochrome -->
+            <!-- Right: Infinity Logo (♾️) -->
             <div class="nav-right">
                 <a href="index.html" class="brand-infinity">
                     <span class="brand-text-yad2">
-                        <span class="brand-yh">yh</span><span class="brand-sh-badge">sh</span>
+                        <span class="brand-sh-badge"><i class="fa-solid fa-infinity"></i></span>
                     </span>
                 </a>
             </div>
 
-            <!-- Center: Navigation Tabs -->
+            <!-- Center: Navigation Tabs Matching Screenshot -->
             <nav class="nav-center-tabs">
-                <button class="nav-tab category-btn active" data-category="all">
-                    <i class="fa-solid fa-house"></i>
-                    <span>כל הציוד</span>
-                </button>
-                <a href="trading.html" class="nav-tab">
-                    <i class="fa-solid fa-gavel"></i>
-                    <span>עמוד מסחר והצעות</span>
+                <div class="guest-pill" id="guestUserPill" onclick="openSubscriptionModal()">
+                    <span>אורח</span>
+                </div>
+                
+                <a href="index.html" class="nav-tab pill-tab">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
                 </a>
-                <button class="nav-tab vip-tab-btn" onclick="openSubscriptionModal()">
-                    <i class="fa-solid fa-gem"></i>
-                    <span>מנוי VIP</span>
-                </button>
+
+                <a href="trading.html" class="nav-tab">
+                    <span>סיעורים</span>
+                </a>
             </nav>
 
-            <!-- Left: Actions, Balance, Favorites & Guest -->
+            <!-- Left: Actions & Dark Options -->
             <div class="nav-left">
-                <!-- Favorites Quick Button -->
-                <button class="btn-favorites-pink" onclick="openFavoritesSheet()" title="פתח מוצרים שמורים">
-                    <i class="fa-solid fa-heart"></i>
-                    <span id="favBtnLabel">מועדפים (0)</span>
-                </button>
-
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
                     <i class="fa-solid fa-wallet"></i>
                     <span id="userBalanceDisplay">₪ 50,000</span>
                 </div>
 
-                <button class="btn-add-listing-pink" onclick="window.location.href='trading.html'">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>פרסום מוצר</span>
+                <button class="btn-favorites-pink" onclick="openFavoritesSheet()" title="מועדפים">
+                    <i class="fa-solid fa-heart"></i>
+                    <span id="favBtnLabel">מועדפים (0)</span>
                 </button>
 
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-
-                <div class="guest-pill" id="guestUserPill" onclick="openSubscriptionModal()" title="לחץ לשדרוג למנוי VIP">
-                    <i class="fa-regular fa-user"></i>
-                    <span id="guestUserText">אורח</span>
-                </div>
             </div>
 
         </div>
@@ -91,7 +80,7 @@
         </div>
     </section>
 
-    <!-- 5 Circular Category Icons Section (Crisp FontAwesome Vector Icons) -->
+    <!-- 5 Circular Category Icons Section -->
     <section class="yad2-category-circles-section container">
         <div class="category-circles-grid">
             <div class="category-circle-item" onclick="filterByCategory('מחשבים')">
@@ -159,7 +148,7 @@
                 </div>
             </div>
 
-            <!-- Side Column: Live Price Trends Widget (עדכונים מהירים - שינויי מחיר) -->
+            <!-- Side Column: Live Price Trends Widget -->
             <aside class="sidebar-widget">
                 <div class="widget-card widget-markets">
                     <div class="widget-title">
@@ -195,7 +184,7 @@
 
     </main>
 
-    <!-- Monthly Subscription Modal (מנוי חודשי VIP) -->
+    <!-- Monthly Subscription Modal -->
     <div id="subscriptionModal" class="modal-overlay hidden">
         <div class="subscription-modal-box">
             <button class="close-modal-btn" onclick="closeSubscriptionModal()">
@@ -253,7 +242,7 @@
         </div>
     </div>
 
-    <!-- Bottom Dark Favorites Inventory Sheet ("חלון שחור מלמטה עם ריבועים") -->
+    <!-- Bottom Dark Favorites Inventory Sheet -->
     <div id="favBottomSheetOverlay" class="fav-bottom-sheet-overlay" onclick="closeFavoritesSheet()"></div>
     <div id="favBottomSheet" class="fav-bottom-sheet">
         <div class="fav-sheet-header">

@@ -10,40 +10,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=200">
+    <link rel="stylesheet" href="styles.css?v=300">
 </head>
 <body>
 
-    <!-- Ultra Simple Monochrome Header Bar -->
+    <!-- Header Bar Exactly Matching User Screenshot -->
     <header class="top-navbar-white">
         <div class="container top-nav-container">
             
-            <!-- Right: Logo "yhsh" Monochrome -->
+            <!-- Right: Infinity Logo (♾️) -->
             <div class="nav-right">
                 <a href="index.html" class="brand-infinity">
                     <span class="brand-text-yad2">
-                        <span class="brand-yh">yh</span><span class="brand-sh-badge">sh</span>
+                        <span class="brand-sh-badge"><i class="fa-solid fa-infinity"></i></span>
                     </span>
                 </a>
             </div>
 
-            <!-- Center: Navigation Tabs -->
+            <!-- Center: Navigation Tabs Matching Screenshot -->
             <nav class="nav-center-tabs">
+                <div class="guest-pill" id="guestUserPill">
+                    <span>אורח</span>
+                </div>
+                
                 <a href="index.html" class="nav-tab">
-                    <i class="fa-solid fa-house"></i>
-                    <span>כל הציוד</span>
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
                 </a>
-                <a href="trading.html" class="nav-tab active">
-                    <i class="fa-solid fa-gavel"></i>
-                    <span>עמוד מסחר והצעות</span>
+
+                <a href="trading.html" class="nav-tab pill-tab">
+                    <span>סיעורים</span>
                 </a>
-                <button class="nav-tab vip-tab-btn" onclick="window.location.href='index.html'">
-                    <i class="fa-solid fa-gem"></i>
-                    <span>מנוי VIP</span>
-                </button>
             </nav>
 
-            <!-- Left: Actions, Balance & "+ פרסום מודעה" -->
+            <!-- Left: Actions & Dark Options -->
             <div class="nav-left">
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
@@ -51,7 +51,7 @@
                     <span id="userBalanceDisplay">₪ 50,000</span>
                 </div>
 
-                <button class="btn-add-listing-pink" onclick="window.location.href='index.html'">
+                <button class="btn-favorites-pink" onclick="window.location.href='index.html'" title="חזרה לציוד">
                     <i class="fa-solid fa-arrow-right"></i>
                     <span>חזרה לציוד</span>
                 </button>
@@ -59,11 +59,6 @@
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-
-                <div class="guest-pill" id="guestUserPill" title="חשבון משתמש">
-                    <i class="fa-regular fa-user"></i>
-                    <span id="guestUserText">אורח</span>
-                </div>
             </div>
 
         </div>
