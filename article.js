@@ -57,7 +57,16 @@ function loadBalance() {
     const saved = localStorage.getItem('news_user_balance');
     userBalance = saved ? parseInt(saved, 10) : 50000;
     const balDisplay = document.getElementById('userBalanceDisplay');
+    const heroBalText = document.getElementById('heroBalanceText');
     if (balDisplay) balDisplay.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
+    if (heroBalText) heroBalText.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
+}
+
+function addFundsGlobal() {
+    userBalance += 10000;
+    localStorage.setItem('news_user_balance', userBalance.toString());
+    loadBalance();
+    showToast('נטענו ₪10,000 בהצלחה לארנק! 💰');
 }
 
 function loadArticlesSync() {
@@ -222,6 +231,7 @@ function submitReportFormArticle(event) {
 window.openReportModal = openReportModal;
 window.closeReportModal = closeReportModal;
 window.submitReportFormArticle = submitReportFormArticle;
+window.addFundsGlobal = addFundsGlobal;
 
 // Instant Buy Action
 function buyCurrentArticle(buyPrice, title) {
@@ -270,7 +280,7 @@ function renderFullArticle(article) {
             </div>
         </div>
 
-        <!-- Seller Trust Profile Rating Box (פרופיל ומדד אמינות מוכר) -->
+        <!-- Seller Trust Profile Rating Box -->
         <div class="seller-profile-trust-box">
             <div style="display:flex; align-items:center; gap:14px;">
                 <div style="width:50px; height:50px; border-radius:50%; background:#18181b; color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:1.4rem;">

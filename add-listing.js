@@ -21,7 +21,16 @@ function loadBalance() {
     const saved = localStorage.getItem('news_user_balance');
     userBalance = saved ? parseInt(saved, 10) : 50000;
     const balDisplay = document.getElementById('userBalanceDisplay');
+    const heroBalText = document.getElementById('heroBalanceText');
     if (balDisplay) balDisplay.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
+    if (heroBalText) heroBalText.textContent = '₪ ' + userBalance.toLocaleString('he-IL');
+}
+
+function addFundsGlobal() {
+    userBalance += 10000;
+    localStorage.setItem('news_user_balance', userBalance.toString());
+    loadBalance();
+    showToast('נטענו ₪10,000 בהצלחה לארנק! 💰');
 }
 
 function setupTheme() {
@@ -95,6 +104,7 @@ window.selectFormCategory = selectFormCategory;
 window.selectCondition = selectCondition;
 window.updateImagePreview = updateImagePreview;
 window.triggerImageUrlInput = triggerImageUrlInput;
+window.addFundsGlobal = addFundsGlobal;
 
 // Submit New Listing Form
 function submitNewListing(event) {

@@ -10,11 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1200">
+    <link rel="stylesheet" href="styles.css?v=1300">
     <style>
         .pricing-hero {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             background: var(--card-bg);
             border-radius: var(--radius-md);
             border: 1px solid var(--border-color);
@@ -23,7 +23,7 @@
         }
 
         .pricing-hero h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 900;
             color: var(--text-primary);
             margin-bottom: 8px;
@@ -210,6 +210,31 @@
         </div>
     </header>
 
+    <!-- Global Hero Wallet Banner Card -->
+    <section class="trading-hero container" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="trading-hero-card" style="background: var(--card-bg); border-radius: var(--radius-md); padding: 22px 28px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 20px; box-shadow: var(--shadow-sm); flex-wrap: wrap;">
+            
+            <div class="hero-wallet" style="display: flex; align-items: center; gap: 16px;">
+                <div style="width: 54px; height: 54px; border-radius: 50%; background: #18181b; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <div>
+                    <h2 style="font-size: 1.4rem; font-weight: 900; color: var(--text-primary);">מנוי חודשי VIP ומועדון משכירים</h2>
+                    <p style="color: var(--text-muted); font-size: 0.92rem;">השכרת מוצרים ללא הגבלה, בונוסים חודשיים לארנק ותגית VIP בולטת</p>
+                </div>
+            </div>
+
+            <div class="wallet-balance-box" style="text-align: left; display: flex; flex-direction: column; align-items: flex-end;">
+                <span class="balance-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700;">יתרה פנויה בארנק:</span>
+                <span id="heroBalanceText" class="balance-amount" style="font-size: 1.6rem; font-weight: 900; color: var(--text-primary);">₪ 50,000</span>
+                <button onclick="addFundsGlobal()" style="margin-top: 6px; font-size: 0.82rem; padding: 5px 14px; background-color: var(--bg-color); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-plus-circle"></i> טען ₪10,000 לארנק
+                </button>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Main Content Container -->
     <main class="main-content container" style="max-width: 1100px;">
         
@@ -223,12 +248,6 @@
                 ביטול מנוי
             </button>
         </div>
-
-        <!-- Pricing Hero Section -->
-        <section class="pricing-hero">
-            <h1>💎 מנוי חודשי VIP ומועדון משכירים</h1>
-            <p style="color: var(--text-muted); font-size: 1rem;">השכרת מוצרים ללא הגבלה, בונוסים כספיים חודשיים לארנק, פטור מעמלות ותגית VIP בולטת בלוח!</p>
-        </section>
 
         <!-- 3 Pricing Cards Grid -->
         <div class="pricing-grid">

@@ -110,9 +110,7 @@ function loadArticlesSync() {
 
     const savedBal = localStorage.getItem('news_user_balance');
     state.userBalance = savedBal ? parseInt(savedBal, 10) : 50000;
-    if (elements.userBalanceDisplay) {
-        elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
-    }
+    updateBalanceDisplays();
 
     // Load Subscription State
     try {
@@ -128,6 +126,23 @@ function loadArticlesSync() {
     state.pollVoted = localStorage.getItem('news_poll_voted') === 'true';
     state.darkMode = localStorage.getItem('news_theme') === 'dark';
     applyTheme();
+}
+
+function updateBalanceDisplays() {
+    if (elements.userBalanceDisplay) {
+        elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
+    }
+    const heroBalText = document.getElementById('heroBalanceText');
+    if (heroBalText) {
+        heroBalText.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
+    }
+}
+
+function addFundsGlobal() {
+    state.userBalance += 10000;
+    localStorage.setItem('news_user_balance', state.userBalance.toString());
+    updateBalanceDisplays();
+    showToast('נטענו ₪10,000 בהצלחה לארנק! 💰');
 }
 
 // Load State from LocalStorage & articles.json file
@@ -256,9 +271,7 @@ function confirmRentalWithContract() {
 
     state.userBalance -= totalPrice;
     localStorage.setItem('news_user_balance', state.userBalance.toString());
-    if (elements.userBalanceDisplay) {
-        elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
-    }
+    updateBalanceDisplays();
 
     closeRentalContractModal();
     const deliveryText = deliveryFee > 0 ? ` (כולל משלוח עד הבית 🛵 ₪${deliveryFee})` : '';
@@ -277,9 +290,7 @@ function buyArticleNow(id, buyPrice, title) {
     if (confirm(`האם ברצונך לרכוש את ${title} בקנייה סופית בסך ₪${cost.toLocaleString('he-IL')}?`)) {
         state.userBalance -= cost;
         localStorage.setItem('news_user_balance', state.userBalance.toString());
-        if (elements.userBalanceDisplay) {
-            elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
-        }
+        updateBalanceDisplays();
         showToast(`מזל טוב! רכשת בהצלחה את ${title} ב-₪${cost.toLocaleString('he-IL')}! 🛒🎉`);
     }
 }
@@ -308,9 +319,7 @@ function subscribePlan(planName, price, bonusWallet) {
     localStorage.setItem('news_user_balance', state.userBalance.toString());
     localStorage.setItem('news_user_subscription', JSON.stringify(state.subscription));
 
-    if (elements.userBalanceDisplay) {
-        elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
-    }
+    updateBalanceDisplays();
 
     if (elements.guestUserText) {
         elements.guestUserText.textContent = `👑 ${planName}`;
@@ -405,6 +414,7 @@ window.confirmRentalWithContract = confirmRentalWithContract;
 window.openReportModal = openReportModal;
 window.closeReportModal = closeReportModal;
 window.submitReportForm = submitReportForm;
+window.addFundsGlobal = addFundsGlobal;
 
 function filterByCategory(cat) {
     state.activeCategory = cat;
