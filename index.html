@@ -10,15 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=100">
+    <link rel="stylesheet" href="styles.css?v=200">
 </head>
 <body>
 
-    <!-- Ultra Simple Plain Dark Charcoal Header Bar -->
+    <!-- Ultra Simple Monochrome Header Bar (Black in Light Mode, Jet Black in Dark Mode) -->
     <header class="top-navbar-white">
         <div class="container top-nav-container">
             
-            <!-- Right: Logo "yhsh" Plain White Style -->
+            <!-- Right: Logo "yhsh" Monochrome -->
             <div class="nav-right">
                 <a href="index.html" class="brand-infinity">
                     <span class="brand-text-yad2">
@@ -96,31 +96,31 @@
         <div class="category-circles-grid">
             <div class="category-circle-item" onclick="filterByCategory('מחשבים')">
                 <div class="circle-icon-box">
-                    <i class="fa-solid fa-laptop" style="color:var(--yad2-pink);"></i>
+                    <i class="fa-solid fa-laptop"></i>
                 </div>
                 <span>מחשבים</span>
             </div>
             <div class="category-circle-item" onclick="filterByCategory('פלאפונים')">
                 <div class="circle-icon-box">
-                    <i class="fa-solid fa-mobile-screen-button" style="color:var(--yad2-pink);"></i>
+                    <i class="fa-solid fa-mobile-screen-button"></i>
                 </div>
                 <span>פלאפונים</span>
             </div>
             <div class="category-circle-item" onclick="filterByCategory('כלי עבודה')">
                 <div class="circle-icon-box">
-                    <i class="fa-solid fa-toolbox" style="color:var(--yad2-pink);"></i>
+                    <i class="fa-solid fa-toolbox"></i>
                 </div>
                 <span>כלי עבודה</span>
             </div>
             <div class="category-circle-item" onclick="filterByCategory('אקסבוקס וגיימינג')">
                 <div class="circle-icon-box">
-                    <i class="fa-solid fa-gamepad" style="color:var(--yad2-pink);"></i>
+                    <i class="fa-solid fa-gamepad"></i>
                 </div>
                 <span>אקסבוקס</span>
             </div>
             <div class="category-circle-item" onclick="filterByCategory('מצלמות')">
                 <div class="circle-icon-box">
-                    <i class="fa-solid fa-camera" style="color:var(--yad2-pink);"></i>
+                    <i class="fa-solid fa-camera"></i>
                 </div>
                 <span>מצלמות</span>
             </div>
@@ -225,13 +225,13 @@
                 <!-- Plan 2: Pro VIP (Popular) -->
                 <div class="sub-plan-card popular">
                     <span class="popular-badge">הכי משתלם 🔥</span>
-                    <h3 class="sub-plan-name" style="color:var(--yad2-pink);">מנוי פרימיום VIP</h3>
+                    <h3 class="sub-plan-name">מנוי פרימיום VIP</h3>
                     <div class="sub-plan-price">₪99 <span>/ לחודש</span></div>
                     <ul class="sub-features-list">
                         <li><i class="fa-solid fa-check"></i> פרסום מוצרים ללא הגבלה</li>
                         <li><i class="fa-solid fa-check"></i> ₪30,000 בונוס לארנק בחודש</li>
                         <li><i class="fa-solid fa-check"></i> הקפצת מודעות אוטומטית לראש הלוח</li>
-                        <li><i class="fa-solid fa-check"></i> תגית VIP ורודה בולטת</li>
+                        <li><i class="fa-solid fa-check"></i> תגית VIP בולטת</li>
                     </ul>
                     <button class="btn btn-primary" onclick="subscribePlan('מנוי פרימיום VIP', 99, 30000)">הצטרף ל-VIP ב-₪99</button>
                 </div>
@@ -258,7 +258,7 @@
     <div id="favBottomSheet" class="fav-bottom-sheet">
         <div class="fav-sheet-header">
             <div class="fav-sheet-title">
-                <i class="fa-solid fa-heart" style="color:var(--yad2-pink);"></i>
+                <i class="fa-solid fa-heart"></i>
                 <span>המוצרים השמורים שלך</span>
                 <span id="favSheetCount" class="fav-sheet-count-badge">0 מוצרים</span>
             </div>
