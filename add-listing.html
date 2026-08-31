@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yhsh | פרסום מודעה חדשה - ציוד להשכרה ומכירה</title>
+    <!-- Google Fonts: Heebo & Assistant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=900">
+    <style>
+        .form-section-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-section-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: inherit;
+            font-size: 1rem;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .condition-pills-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .condition-pill {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-secondary);
+            font-weight: 800;
+            font-size: 0.92rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .condition-pill.active, .condition-pill:hover {
+            border-color: #18181b;
+            background-color: #18181b;
+            color: #ffffff;
+        }
+
+        /* Image Drag & Drop Upload Grid */
+        .image-upload-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .image-upload-box {
+            height: 140px;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            cursor: pointer;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-upload-box:hover {
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+        }
+
+        .image-upload-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Legal Rental Contract Box (חוזה השכרה ואחריות נזק/הרס) */
+        .contract-agreement-box {
+            background-color: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            margin-top: 15px;
+        }
+
+        .contract-text-scroll {
+            max-height: 150px;
+            overflow-y: auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .contract-checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .contract-checkbox-label input {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #18181b;
+        }
+
+        /* Category Selection Grid (Step 1) */
+        .category-select-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .category-select-card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-select-card:hover, .category-select-card.active {
+            border-color: #18181b;
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header class="top-navbar-white">
+        <div class="container top-nav-container">
+            
+            <!-- Right: Logo -->
+            <div class="nav-right">
+                <a href="index.html" class="brand-infinity">
+                    <span class="brand-text-yad2">
+                        <span class="brand-sh-badge"><i class="fa-solid fa-infinity"></i></span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Center: Tabs -->
+            <nav class="nav-center-tabs">
+                <a href="index.html" class="nav-tab">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
+                </a>
+
+                <a href="trading.html" class="nav-tab">
+                    <span>סיעורים</span>
+                </a>
+
+                <a href="add-listing.html" class="nav-tab pill-tab">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>פרסום מודעה</span>
+                </a>
+            </nav>
+
+            <!-- Left: Actions & Guest Pill -->
+            <div class="nav-left">
+                <div class="user-balance-pill" title="היתרה שלך">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span id="userBalanceDisplay">₪ 50,000</span>
+                </div>
+
+                <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <div class="guest-pill" id="guestUserPill">
+                    <span id="guestUserText">אורח</span>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-content container" style="max-width: 900px;">
+        
+        <!-- STEP 1: Select Category Screen -->
+        <section id="stepCategorySelect" class="form-section-card">
+            <h1 style="font-size: 1.8rem; font-weight: 900; text-align: center; margin-bottom: 8px;">איזה מודעה תרצו לפרסם היום ב-yhsh?</h1>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">בחר את קטגוריית הציוד והמוצר להשכרה או למכירה סופית</p>
+
+            <div class="category-select-grid">
+                <div class="category-select-card" onclick="selectFormCategory('מחשבים')">
+                    <div class="category-icon"><i class="fa-solid fa-laptop"></i></div>
+                    <h3 style="font-size: 1.2rem; font-weight: 900;">מחשבים וטכנולוגיה</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">MacBook, ניידים, מסכים וציוד היקפי</p>
+                </div>
+
+                <div class="category-select-card" onclick="selectFormCategory('פלאפונים')">
+                    <div class="category-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                    <h3 style="font-size: 1.2rem; font-weight: 900;">פלאפונים וסלולר</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">iPhone, Galaxy, סמארטפונים וטאבלטים</p>
+                </div>
+
+                <div class="category-select-card" onclick="selectFormCategory('כלי עבודה')">
+                    <div class="category-icon"><i class="fa-solid fa-toolbox"></i></div>
+                    <h3 style="font-size: 1.2rem; font-weight: 900;">כלי עבודה ושיפוץ</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">BOSCH, מברגות, פטישונים וכלי גינון</p>
+                </div>
+
+                <div class="category-select-card" onclick="selectFormCategory('אקסבוקס וגיימינג')">
+                    <div class="category-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <h3 style="font-size: 1.2rem; font-weight: 900;">אקסבוקס וגיימינג</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Xbox, PlayStation, קונסולות ושלטים</p>
+                </div>
+
+                <div class="category-select-card" onclick="selectFormCategory('מצלמות')">
+                    <div class="category-icon"><i class="fa-solid fa-camera"></i></div>
+                    <h3 style="font-size: 1.2rem; font-weight: 900;">מצלמות וציוד צילום</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Sony, Canon, עדשות, רחפנים ותאורה</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: Full Listing Submission Form -->
+        <form id="listingForm" onsubmit="submitNewListing(event)" class="hidden">
+            
+            <!-- 1. Upload Images -->
+            <div class="form-section-card">
+                <div class="form-section-title">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>תמונות המוצר (תמונות טובות יעזרו להשכיר ולמכור מהר יותר!)</span>
+                </div>
+
+                <div class="image-upload-grid">
+                    <div class="image-upload-box" onclick="triggerImageUrlInput()">
+                        <i class="fa-solid fa-cloud-arrow-up fa-2x" style="margin-bottom: 6px;"></i>
+                        <span style="font-weight: 800; font-size: 0.88rem;">הוספת תמונות</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">לחץ להזנת קישור תמונה</span>
+                    </div>
+                    <div id="imagePreview1" class="image-upload-box"><span>תמונה 2</span></div>
+                    <div id="imagePreview2" class="image-upload-box"><span>תמונה 3</span></div>
+                    <div id="imagePreview3" class="image-upload-box"><span>תמונה 4</span></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">קישור לתמונה (URL)</label>
+                    <input type="url" id="inputImageUrl" class="form-input" placeholder="https://images.unsplash.com/photo-..." oninput="updateImagePreview(this.value)">
+                </div>
+            </div>
+
+            <!-- 2. Product Details -->
+            <div class="form-section-card">
+                <div class="form-section-title">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span>פרטי המוצר</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">כותרת המודעה *</label>
+                    <input type="text" id="inputTitle" class="form-input" placeholder="לדוגמה: מחשב נייד MacBook Pro 16 M3 Max" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">קטגוריה *</label>
+                    <select id="inputCategory" class="form-select" required>
+                        <option value="מחשבים">מחשבים וטכנולוגיה</option>
+                        <option value="פלאפונים">פלאפונים וסלולר</option>
+                        <option value="כלי עבודה">כלי עבודה ושיפוץ</option>
+                        <option value="אקסבוקס וגיימינג">אקסבוקס וגיימינג</option>
+                        <option value="מצלמות">מצלמות וציוד צילום</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">תיאור מפורט של המוצר (עד 400 תווים) *</label>
+                    <textarea id="inputSummary" class="form-textarea" rows="4" maxlength="400" placeholder="תיאור מדויק של מצב המוצר, האביזרים הכלולים ותנאי האיסוף..." required></textarea>
+                </div>
+            </div>
+
+            <!-- 3. Condition -->
+            <div class="form-section-card">
+                <div class="form-section-title">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>מצב המוצר</span>
+                </div>
+
+                <div class="condition-pills-group">
+                    <div class="condition-pill active" onclick="selectCondition(this, 'חדש באריזה')">
+                        חדש באריזה
+                        <div style="font-size:0.75rem; font-weight:400; margin-top:2px;">ללא שימוש כלל</div>
+                    </div>
+                    <div class="condition-pill" onclick="selectCondition(this, 'כמו חדש')">
+                        כמו חדש
+                        <div style="font-size:0.75rem; font-weight:400; margin-top:2px;">כמעט ללא סימני שימוש</div>
+                    </div>
+                    <div class="condition-pill" onclick="selectCondition(this, 'משומש')">
+                        משומש
+                        <div style="font-size:0.75rem; font-weight:400; margin-top:2px;">בלאי רגיל ותקין לחלוטין</div>
+                    </div>
+                    <div class="condition-pill" onclick="selectCondition(this, 'נדרש תיקון')">
+                        נדרש תיקון
+                        <div style="font-size:0.75rem; font-weight:400; margin-top:2px;">יש פגמים או נדרש תיקון</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Pricing (Rent & Buy Options) -->
+            <div class="form-section-card">
+                <div class="form-section-title">
+                    <i class="fa-solid fa-tags"></i>
+                    <span>תמחר להשכרה ולמכירה סופית</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label class="form-label">🔑 מחיר השכרה ליום (₪) *</label>
+                        <input type="number" id="inputPrice" class="form-input" placeholder="200" min="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">🛒 מחיר קנייה סופית (₪) *</label>
+                        <input type="number" id="inputBuyPrice" class="form-input" placeholder="4500" min="50" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Legal Damage Liability Contract (חוזה השכרה וערבות נזק/הרס) -->
+            <div class="form-section-card">
+                <div class="form-section-title" style="color: #dc2626;">
+                    <i class="fa-solid fa-file-contract"></i>
+                    <span>חוזה השכרה וערבות אחריות בגין נזק או הרס המוצר</span>
+                </div>
+
+                <div class="contract-agreement-box">
+                    <div class="contract-text-scroll">
+                        <h4 style="font-size: 0.95rem; font-weight: 900; color: var(--text-primary); margin-bottom: 6px;">📋 תנאי חוזה ההשכרה וערבות נזק/הרס:</h4>
+                        <ol style="padding-right: 18px;">
+                            <li><strong>חובת שמירה על המוצר:</strong> השוכר מתחייב לשמור על הציוד והמוצר במצב תקין ולהחזירו לבעליו בתום תקופת ההשכרה בדיוק באותו המצב בו התקבל.</li>
+                            <li><strong>אחריות מלאה בגין נזק/הרס:</strong> במקרה של קלקול, שבירה, נזק מים, אובדן, גניבה או הרס מלא/חלקי של המוצר במהלך תקופת ההשכרה, השוכר יישא באחריות כספית מלאה וישלם את עלות התיקון במעבדה מורשת או את שווי המוצר המלא (מחיר הקנייה הסופית).</li>
+                            <li><strong>חילוט פיקדון/ארנק:</strong> האתר ובעלי המוצר מורשים לחלט מיתרת הארנק / פיקדון האשראי של השוכר את הסכום הנדרש לכיסוי הנזק שנגרם.</li>
+                            <li><strong>אישור סופי:</strong> בלחיצה על אישור החוזה, השוכר והמשכיר מסכימים לתנאים אלו כחוזה משפטי מחייב לכל דבר ועניין.</li>
+                        </ol>
+                    </div>
+
+                    <label class="contract-checkbox-label">
+                        <input type="checkbox" id="checkboxContract" required>
+                        <span>אני מאשר/ת את חוזה ההשכרה, ומסכים/ה לערבות הנזק/הרס במקרה של קלקול או נזק למוצר *</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 6. Submit Button -->
+            <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
+                <button type="submit" class="btn" style="background-color: #18181b; color: #ffffff; padding: 16px 45px; font-size: 1.15rem; font-weight: 900; border-radius: var(--radius-sm); border: none; cursor: pointer; box-shadow: var(--shadow-md);">
+                    <i class="fa-solid fa-paper-plane"></i> סיום והעלאת המודעה ללוח 🚀
+                </button>
+            </div>
+
+        </form>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <script src="add-listing.js"></script>
+</body>
+</html>

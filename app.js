@@ -18,7 +18,8 @@ let state = {
     darkMode: false,
     pollVoted: false,
     userBalance: 50000,
-    subscription: null
+    subscription: null,
+    pendingRentalArticle: null
 };
 
 // DOM Elements Container
@@ -39,7 +40,8 @@ const elements = {
     favInventoryGrid: null,
     favSheetCount: null,
     toast: null,
-    toastMessage: null
+    toastMessage: null,
+    rentalContractModal: null
 };
 
 function bindDOMElements() {
@@ -60,6 +62,7 @@ function bindDOMElements() {
     elements.favSheetCount = document.getElementById('favSheetCount');
     elements.toast = document.getElementById('toast');
     elements.toastMessage = document.getElementById('toastMessage');
+    elements.rentalContractModal = document.getElementById('rentalContractModal');
 }
 
 // Initialize Application
@@ -144,6 +147,54 @@ async function loadStateFromStorage() {
     } catch (e) {
         // Keep cached
     }
+}
+
+/* =========================================================
+   RENTAL DAMAGE CONTRACT MODAL WORKFLOW (חוזה נזק/הרס)
+   ========================================================= */
+function openRentalContractModal(id, title, price) {
+    state.pendingRentalArticle = { id, title, price: price || 200 };
+    
+    const titleElem = document.getElementById('contractModalItemTitle');
+    const chkElem = document.getElementById('modalContractCheckbox');
+    if (titleElem) titleElem.textContent = `מוצר להשכרה: ${title} (₪${price}/יום)`;
+    if (chkElem) chkElem.checked = false;
+
+    const modal = document.getElementById('rentalContractModal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeRentalContractModal() {
+    const modal = document.getElementById('rentalContractModal');
+    if (modal) modal.classList.add('hidden');
+    state.pendingRentalArticle = null;
+}
+
+function confirmRentalWithContract() {
+    const chkElem = document.getElementById('modalContractCheckbox');
+    if (!chkElem || !chkElem.checked) {
+        showToast('יש לסמן V ולשאת באחריות חוזה הנזק/הרס כדי להשלים את ההשכרה!');
+        return;
+    }
+
+    if (!state.pendingRentalArticle) return;
+
+    const { title, price } = state.pendingRentalArticle;
+
+    if (state.userBalance < price) {
+        showToast(`אין מספיק יתרה בארנק להשכרה! מחיר: ₪${price}, יתרה: ₪${state.userBalance.toLocaleString('he-IL')}`);
+        openSubscriptionModal();
+        return;
+    }
+
+    state.userBalance -= price;
+    localStorage.setItem('news_user_balance', state.userBalance.toString());
+    if (elements.userBalanceDisplay) {
+        elements.userBalanceDisplay.textContent = '₪ ' + state.userBalance.toLocaleString('he-IL');
+    }
+
+    closeRentalContractModal();
+    showToast(`נחתם חוזה השכרה וערבות נזק/הרס בהצלחה עבור ${title}! ✍️📜🎉`);
 }
 
 // Instant Buy Action
@@ -280,6 +331,9 @@ window.closeSubscriptionModal = closeSubscriptionModal;
 window.subscribePlan = subscribePlan;
 window.toggleReadMore = toggleReadMore;
 window.buyArticleNow = buyArticleNow;
+window.openRentalContractModal = openRentalContractModal;
+window.closeRentalContractModal = closeRentalContractModal;
+window.confirmRentalWithContract = confirmRentalWithContract;
 
 function filterByCategory(cat) {
     state.activeCategory = cat;
@@ -360,11 +414,12 @@ function renderArticlesList(articles) {
         const buyPeriod = article.buyPeriod || (`🛒 ₪ ${(article.buyPrice || 3500).toLocaleString('he-IL')} לקנייה`);
         const rentalDates = article.rentalDates || 'זמין להשכרה/קנייה מיידית';
         const isBookmarked = state.bookmarks.includes(article.id);
-        const pills = article.tags || ['השכרה/קנייה', 'שמור כחדש', 'איסוף מהיר'];
+        const pills = article.tags || ['השכרה/קנייה', 'חוזה נזק מאושר', 'איסוף מהיר'];
         const image = article.imageUrl || CATEGORY_IMAGES[article.category] || CATEGORY_IMAGES['מחשבים'];
         const summaryText = article.summary || 'ציוד איכותי שמור כחדש זמין להשכרה או קנייה מיידית מפרטי.';
         const hasLongSummary = summaryText.length > 55;
         const buyPriceNum = article.buyPrice || 4000;
+        const rentPriceNum = article.price || 150;
 
         return `
             <div class="cube-card-box" onclick="openArticleModal('${article.id}')">
@@ -402,9 +457,9 @@ function renderArticlesList(articles) {
                         ${pills.map(p => `<span class="cube-pill-item">${p}</span>`).join('')}
                     </div>
 
-                    <!-- Dual Option Action Buttons: "השאל / השכר" vs "קנה עכשיו" -->
+                    <!-- Dual Option Action Buttons: "השכר / השאל" (Opens Contract Modal) vs "קנה עכשיו" -->
                     <div class="cube-dual-actions">
-                        <button class="btn-rent-option" onclick="event.stopPropagation(); openArticleModal('${article.id}')">
+                        <button class="btn-rent-option" onclick="event.stopPropagation(); openRentalContractModal('${article.id}', '${article.title.replace(/'/g, "\\'")}', ${rentPriceNum})">
                             <i class="fa-solid fa-key"></i> השכר/השאל
                         </button>
                         <button class="btn-buy-option" onclick="event.stopPropagation(); buyArticleNow('${article.id}', ${buyPriceNum}, '${article.title.replace(/'/g, "\\'")}')">
