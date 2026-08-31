@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=600">
+    <link rel="stylesheet" href="styles.css?v=800">
 </head>
 <body>
 
@@ -39,7 +39,7 @@
                 </a>
             </nav>
 
-            <!-- Left: Actions & Guest Pill at VERY FAR LEFT (משמאל להחלפת הבהירות) -->
+            <!-- Left: Actions & Guest Pill at VERY FAR LEFT -->
             <div class="nav-left">
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
@@ -57,7 +57,7 @@
                     <i class="fa-solid fa-moon"></i>
                 </button>
 
-                <!-- VERY FAR LEFT: Guest Pill (משמאל להחלפת הבהירות) -->
+                <!-- VERY FAR LEFT: Guest Pill -->
                 <div class="guest-pill" id="guestUserPill" onclick="openSubscriptionModal()">
                     <span id="guestUserText">אורח</span>
                 </div>
@@ -118,7 +118,7 @@
         </div>
     </section>
 
-    <!-- Main Rental Feed + Live Price Trends Widget -->
+    <!-- Main Rental Feed (Clean Full Width without Price Trends Widget) -->
     <main class="main-content container">
 
         <div class="page-layout-with-widget">
@@ -144,38 +144,6 @@
                     <p>נסה לחפש מילה אחרת או לבחור קטגוריה שונה</p>
                 </div>
             </div>
-
-            <!-- Full Width Bottom Section: Live Price Trends Widget -->
-            <aside class="sidebar-widget">
-                <div class="widget-card widget-markets">
-                    <div class="widget-title">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <span>עדכונים מהירים 📉</span>
-                    </div>
-                    <div class="market-list" id="priceTrendsList">
-                        <div class="market-item">
-                            <span class="market-name">MacBook M3 (ביקוש חם)</span>
-                            <span class="trend up"><i class="fa-solid fa-caret-up"></i> +8.5%</span>
-                        </div>
-                        <div class="market-item">
-                            <span class="market-name">Sony A7 IV (הוזלה!)</span>
-                            <span class="trend down"><i class="fa-solid fa-caret-down"></i> -14% (₪250)</span>
-                        </div>
-                        <div class="market-item">
-                            <span class="market-name">iPhone 15 Pro Max</span>
-                            <span class="trend down"><i class="fa-solid fa-caret-down"></i> -10% (₪95)</span>
-                        </div>
-                        <div class="market-item">
-                            <span class="market-name">Xbox Series X</span>
-                            <span class="trend up"><i class="fa-solid fa-caret-up"></i> +5.2%</span>
-                        </div>
-                        <div class="market-item">
-                            <span class="market-name">פטישון BOSCH (מבצע)</span>
-                            <span class="trend down"><i class="fa-solid fa-caret-down"></i> -18% (₪85)</span>
-                        </div>
-                    </div>
-                </div>
-            </aside>
 
         </div>
 
