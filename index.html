@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=500">
+    <link rel="stylesheet" href="styles.css?v=600">
 </head>
 <body>
 
@@ -29,10 +29,6 @@
 
             <!-- Center: Navigation Tabs -->
             <nav class="nav-center-tabs">
-                <div class="guest-pill" id="guestUserPill" onclick="openSubscriptionModal()">
-                    <span>אורח</span>
-                </div>
-                
                 <a href="index.html" class="nav-tab pill-tab">
                     <i class="fa-regular fa-image"></i>
                     <span>תמונות</span>
@@ -43,7 +39,7 @@
                 </a>
             </nav>
 
-            <!-- Left: Actions & Dark Options -->
+            <!-- Left: Actions & Guest Pill at VERY FAR LEFT (משמאל להחלפת הבהירות) -->
             <div class="nav-left">
                 <!-- User Balance Pill -->
                 <div class="user-balance-pill" title="היתרה שלך">
@@ -56,9 +52,15 @@
                     <span id="favBtnLabel">מועדפים (0)</span>
                 </button>
 
+                <!-- Theme Toggle Button -->
                 <button id="themeToggle" class="btn-top-icon" title="החלף מצב תצוגה">
                     <i class="fa-solid fa-moon"></i>
                 </button>
+
+                <!-- VERY FAR LEFT: Guest Pill (משמאל להחלפת הבהירות) -->
+                <div class="guest-pill" id="guestUserPill" onclick="openSubscriptionModal()">
+                    <span id="guestUserText">אורח</span>
+                </div>
             </div>
 
         </div>
