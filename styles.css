@@ -10,7 +10,7 @@
     --primary-light: #fff0f5;
     --bg-color: #f8f9fc;
     --card-bg: #ffffff;
-    --header-bg: #0f0f14; /* JET BLACK HEADER BAR */
+    --header-bg: #2b2b2b; /* MINIMALIST DARK CHARCOAL HEADER */
     --text-primary: #111827;
     --text-secondary: #374151;
     --text-muted: #6b7280;
@@ -32,7 +32,7 @@ body.dark-theme {
     --primary-light: rgba(255, 42, 117, 0.18);
     --bg-color: #0f0911;
     --card-bg: #1a101d;
-    --header-bg: #0b060d;
+    --header-bg: #1e1e1e;
     --text-primary: #fbf7f9;
     --text-secondary: #e2d9e0;
     --text-muted: #a395a0;
@@ -68,22 +68,22 @@ body {
     padding: 0 20px;
 }
 
-/* JET BLACK LUXURY TOP HEADER BAR (סרגל שחור יוקרתי) */
+/* MINIMALIST DARK CHARCOAL TOP HEADER BAR (סרגל מינימליסטי נקי ומאופק) */
 .top-navbar-white {
-    background-color: #0f0f14 !important;
-    color: #ffffff;
+    background-color: #2b2b2b !important;
+    color: #d1d5db;
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid var(--yad2-pink);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid #3f3f46;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }
 
 .top-nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 58px;
     padding: 0 15px;
     gap: 15px;
 }
@@ -94,7 +94,7 @@ body {
     gap: 14px;
 }
 
-/* Pink Yad2 Logo yhsh on Black Header */
+/* Minimalist Logo on Dark Header */
 .brand-infinity {
     display: flex;
     align-items: center;
@@ -103,13 +103,14 @@ body {
 }
 
 .brand-text-yad2 {
-    font-size: 1.8rem;
-    font-weight: 900;
+    font-size: 1.6rem;
+    font-weight: 800;
     letter-spacing: -0.5px;
     display: inline-flex;
     align-items: center;
     user-select: none;
     font-family: 'Heebo', sans-serif;
+    color: #ffffff;
 }
 
 .brand-yh {
@@ -118,20 +119,20 @@ body {
 }
 
 .brand-sh-badge {
-    background: linear-gradient(135deg, #ff2a75, #ff5593);
+    background: #3f3f46;
     color: #ffffff;
-    padding: 2px 10px;
-    border-radius: 8px;
-    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 1.2rem;
     margin-right: 4px;
-    box-shadow: 0 3px 10px rgba(255, 42, 117, 0.5);
 }
 
-/* Center Nav Tabs on Black Header */
+/* Minimalist Nav Tabs */
 .nav-center-tabs {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     overflow-x: auto;
     scrollbar-width: none;
 }
@@ -142,17 +143,17 @@ body {
 
 .nav-tab {
     background: transparent;
-    color: #e2e8f0;
-    border: 1px solid transparent;
-    padding: 7px 18px;
-    border-radius: 20px;
+    color: #d1d5db;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 16px;
     font-family: inherit;
-    font-size: 0.96rem;
-    font-weight: 700;
+    font-size: 0.94rem;
+    font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     white-space: nowrap;
     text-decoration: none;
     transition: var(--transition);
@@ -160,57 +161,54 @@ body {
 
 .nav-tab:hover {
     color: #ffffff;
-    background-color: rgba(255, 42, 117, 0.15);
+    background-color: #3f3f46;
 }
 
 .nav-tab.active {
-    background-color: var(--yad2-pink);
+    background-color: #3f3f46;
     color: #ffffff;
-    font-weight: 900;
-    box-shadow: 0 3px 12px rgba(255, 42, 117, 0.45);
+    font-weight: 800;
 }
 
 .vip-tab-btn {
-    background: linear-gradient(135deg, #ff2a75, #ff669d);
+    background: #3f3f46;
     color: #ffffff !important;
-    font-weight: 900;
-    box-shadow: 0 3px 10px rgba(255, 42, 117, 0.4);
+    font-weight: 700;
 }
 
 .vip-tab-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 15px rgba(255, 42, 117, 0.6);
+    background-color: #52525b;
 }
 
-/* Left Actions Area on Black Header */
+/* Left Actions Area on Minimalist Header */
 .nav-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .user-balance-pill {
-    background-color: #1a1a24;
-    border: 1.5px solid var(--yad2-pink);
-    color: var(--yad2-pink);
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.92rem;
-    font-weight: 800;
+    background-color: #3a3a3a;
+    border: 1px solid #52525b;
+    color: #ffffff;
+    padding: 5px 14px;
+    border-radius: 18px;
+    font-size: 0.88rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     white-space: nowrap;
 }
 
 .btn-favorites-pink {
-    background-color: #1a1a24;
-    color: var(--yad2-pink);
-    border: 1.5px solid var(--yad2-pink);
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.92rem;
-    font-weight: 900;
+    background-color: #3a3a3a;
+    color: #ffffff;
+    border: 1px solid #52525b;
+    padding: 5px 14px;
+    border-radius: 18px;
+    font-size: 0.88rem;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -219,19 +217,19 @@ body {
 }
 
 .btn-favorites-pink:hover {
-    background-color: var(--yad2-pink);
+    background-color: #52525b;
     color: #ffffff;
 }
 
 .btn-add-listing-pink {
-    background-color: #0f0f14;
-    color: var(--yad2-pink);
-    border: 2px solid var(--yad2-pink);
-    padding: 6px 18px;
-    border-radius: 20px;
+    background-color: #3a3a3a;
+    color: #ffffff;
+    border: 1px solid #52525b;
+    padding: 5px 14px;
+    border-radius: 18px;
     font-family: inherit;
-    font-size: 0.92rem;
-    font-weight: 900;
+    font-size: 0.88rem;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -240,48 +238,46 @@ body {
 }
 
 .btn-add-listing-pink:hover {
-    background-color: var(--yad2-pink);
+    background-color: #52525b;
     color: #ffffff;
 }
 
 .btn-top-icon {
-    background: #1a1a24;
-    border: 1px solid #333344;
-    color: #ffffff;
-    width: 36px;
-    height: 36px;
+    background: transparent;
+    border: 1px solid #52525b;
+    color: #d1d5db;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: var(--transition);
 }
 
 .btn-top-icon:hover {
-    background-color: var(--yad2-pink);
+    background-color: #3f3f46;
     color: #ffffff;
-    border-color: var(--yad2-pink);
 }
 
 .guest-pill {
-    background-color: #1a1a24;
-    border: 1px solid #333344;
-    color: #ffffff;
-    padding: 5px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 700;
+    background-color: transparent;
+    border: 1px solid #52525b;
+    color: #d1d5db;
+    padding: 4px 14px;
+    border-radius: 18px;
+    font-size: 0.88rem;
+    font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
     transition: var(--transition);
 }
 
 .guest-pill:hover {
-    background-color: rgba(255, 42, 117, 0.2);
-    border-color: var(--yad2-pink);
-    color: var(--yad2-pink);
+    background-color: #3f3f46;
+    color: #ffffff;
 }
 
 /* Hero AI Search Section */
