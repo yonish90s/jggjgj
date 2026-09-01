@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2900">
+    <link rel="stylesheet" href="styles.css?v=3000">
 </head>
 <body>
 
@@ -112,6 +112,20 @@
                     
                     <!-- Filter Dropdown Pills Group -->
                     <div class="filter-pills-group">
+
+                        <!-- Pill 0: סוג עסקה (השאלה / קניה / החלפה) -->
+                        <div class="filter-pill-wrapper">
+                            <button class="filter-pill-btn" style="border-color: #18181b; background-color: var(--bg-color);" onclick="togglePillDropdown('dealTypeMenu', event)">
+                                <span id="labelDealTypeMenu" style="font-weight: 900;">סוג עסקה</span>
+                                <i class="fa-solid fa-chevron-down fa-xs"></i>
+                            </button>
+                            <div id="dealTypeMenu" class="filter-pill-dropdown-menu hidden">
+                                <div class="pill-dropdown-item active" onclick="selectPillFilter('dealType', 'all', 'סוג עסקה')">כל העסקאות</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('dealType', 'borrow', 'השאלה בלבד 🤝')">השאלה בלבד 🤝</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('dealType', 'buy', 'קניה בלבד 🛒')">קניה בלבד 🛒</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('dealType', 'trade', 'החלפה בלבד 🔄')">החלפה בלבד 🔄</div>
+                            </div>
+                        </div>
                         
                         <!-- Pill 1: קטגוריה -->
                         <div class="filter-pill-wrapper">
