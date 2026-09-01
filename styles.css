@@ -1,21 +1,15 @@
 /* =========================================================
-   yhsh - MAIN STYLESHEET (MONOCHROME & EMERALD GREEN THEME)
+   FRESH START STYLESHEET (MONOCHROME & CLEAN)
    ========================================================= */
 
 :root {
     --bg-color: #f4f4f5;
     --card-bg: #ffffff;
     --text-primary: #18181b;
-    --text-secondary: #3f3f46;
     --text-muted: #71717a;
     --border-color: #e4e4e7;
     --primary-color: #18181b;
-    --accent-green: #16a34a;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+    --radius: 12px;
     --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -23,7 +17,6 @@ body.dark-theme {
     --bg-color: #09090b;
     --card-bg: #18181b;
     --text-primary: #f4f4f5;
-    --text-secondary: #a1a1aa;
     --text-muted: #71717a;
     --border-color: #27272a;
     --primary-color: #ffffff;
@@ -41,622 +34,66 @@ body {
     color: var(--text-primary);
     direction: rtl;
     line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
 }
 
 .container {
-    max-width: 1280px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-.hidden {
-    display: none !important;
-}
-
-/* =========================================================
-   TOP NAVBAR
-   ========================================================= */
-.top-navbar-white {
+.top-navbar {
     background-color: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 12px 0;
+    padding: 16px 0;
 }
 
 .top-nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
 }
 
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.brand-infinity {
-    text-decoration: none;
+.brand {
+    font-size: 1.25rem;
+    font-weight: 900;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.brand-sh-badge {
-    background-color: var(--primary-color);
-    color: var(--card-bg);
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-}
-
-.nav-center-tabs {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    overflow-x: auto;
-}
-
-.nav-tab {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border-radius: 20px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: var(--transition);
-    white-space: nowrap;
-}
-
-.nav-tab:hover, .nav-tab.pill-tab {
-    background-color: var(--bg-color);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-}
-
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.user-balance-pill {
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 800;
-    font-size: 0.88rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.btn-top-icon, .btn-favorites-pink {
+.btn-icon {
     background: var(--bg-color);
     border: 1px solid var(--border-color);
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    width: 38px;
-    height: 38px;
+    cursor: pointer;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    color: var(--text-primary);
-    transition: var(--transition);
 }
 
-.btn-favorites-pink {
-    width: auto;
-    border-radius: 20px;
-    padding: 0 14px;
-    font-weight: 800;
-    font-size: 0.85rem;
-    gap: 6px;
+.main-content {
+    margin-top: 40px;
 }
 
-.guest-pill {
-    background-color: #18181b;
-    color: #ffffff;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 800;
-    font-size: 0.85rem;
-    cursor: pointer;
-}
-
-body.dark-theme .guest-pill {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-/* =========================================================
-   FIVERR-INSPIRED FILTER BAR & SWITCHES (תפריטי סינון ומותגים)
-   ========================================================= */
-.fiverr-filter-bar {
-    background-color: var(--card-bg);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    padding: 16px 20px;
-    margin-bottom: 25px;
-    box-shadow: var(--shadow-sm);
-}
-
-.fiverr-filter-top-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.filter-pills-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.filter-pill-dropdown {
+.hero-box {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
-    padding: 8px 16px;
-    border-radius: var(--radius-sm);
-    font-weight: 800;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: var(--transition);
-    position: relative;
+    border-radius: var(--radius);
+    padding: 40px;
+    text-align: center;
 }
 
-.filter-pill-dropdown:hover, .filter-pill-dropdown.active {
-    border-color: #18181b;
-    background-color: var(--bg-color);
-}
-
-.switches-group {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.toggle-switch-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.92rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    cursor: pointer;
-    user-select: none;
-}
-
-/* Custom Toggle Switch (פרו פיצ'ר כמו בצילום המסך) */
-.switch-track {
-    width: 44px;
-    height: 24px;
-    background-color: #e4e4e7;
-    border-radius: 20px;
-    position: relative;
-    transition: background-color 0.25s ease;
-    display: inline-block;
-}
-
-body.dark-theme .switch-track {
-    background-color: #3f3f46;
-}
-
-.switch-track::after {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background-color: #ffffff;
-    top: 3px;
-    right: 3px;
-    transition: transform 0.25s ease;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-.toggle-switch-input:checked + .switch-track {
-    background-color: #16a34a; /* Emerald Green */
-}
-
-.toggle-switch-input:checked + .switch-track::after {
-    transform: translateX(-20px);
-}
-
-.toggle-switch-input {
-    display: none;
-}
-
-.fiverr-sub-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 15px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border-color);
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    font-weight: 700;
-}
-
-.sort-dropdown-box {
-    position: relative;
-    display: inline-block;
-}
-
-.sort-dropdown-btn {
-    background: none;
-    border: none;
-    font-family: inherit;
-    font-size: 0.92rem;
+.hero-box h1 {
+    font-size: 2rem;
     font-weight: 900;
-    color: var(--text-primary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    margin-bottom: 12px;
 }
 
-.sort-popup-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-    padding: 8px 0;
-    min-width: 170px;
-    z-index: 50;
-    margin-top: 6px;
-}
-
-.sort-option-item {
-    padding: 10px 16px;
-    font-size: 0.9rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: var(--transition);
-}
-
-.sort-option-item:hover, .sort-option-item.selected {
-    background-color: var(--bg-color);
-}
-
-/* =========================================================
-   FIVERR-INSPIRED MARKETPLACE CARDS GRID (5-COLUMN GRID)
-   ========================================================= */
-.cube-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-    margin-top: 20px;
-}
-
-.cube-card-box {
-    background-color: var(--card-bg);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.cube-card-box:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-    border-color: #18181b;
-}
-
-.cube-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 170px;
-    background-color: #000000;
-    overflow: hidden;
-}
-
-.cube-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.cube-card-box:hover .cube-image-wrapper img {
-    transform: scale(1.04);
-}
-
-.cube-badge-tag {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: rgba(24, 24, 27, 0.85);
-    color: #ffffff;
-    font-size: 0.72rem;
-    font-weight: 800;
-    padding: 3px 10px;
-    border-radius: 12px;
-    backdrop-filter: blur(4px);
-}
-
-.cube-heart-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #18181b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.95rem;
-    transition: var(--transition);
-}
-
-.cube-heart-btn.active {
-    color: #dc2626;
-}
-
-.cube-card-body {
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-/* Seller Info Row (פרופיל המוכר מתחת לתמונה כסגנון Fiverr) */
-.fiverr-seller-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 8px;
-}
-
-.seller-avatar-mini {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background-color: #18181b;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    position: relative;
-    flex-shrink: 0;
-}
-
-.seller-online-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: #16a34a;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border: 1px solid #ffffff;
-}
-
-.seller-name-text {
-    font-size: 0.85rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.seller-level-badge {
-    font-size: 0.7rem;
+.hero-box p {
     color: var(--text-muted);
-    font-weight: 800;
-    background-color: var(--bg-color);
-    padding: 1px 6px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-}
-
-.cube-title-text {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1.35;
-    margin-bottom: 6px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    height: 2.7em;
-}
-
-.cube-subtitle-text {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 8px;
-}
-
-.cube-meta-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    margin-top: auto;
-    padding-top: 6px;
-}
-
-.cube-price-tag {
-    font-size: 1.05rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    margin-top: 4px;
-    margin-bottom: 8px;
-}
-
-.cube-dual-actions {
-    display: flex;
-    gap: 6px;
-    margin-top: auto;
-    padding-top: 8px;
-}
-
-.btn-rent-option, .btn-buy-option {
-    flex: 1;
-    padding: 8px 6px;
-    border-radius: var(--radius-sm);
-    font-family: inherit;
-    font-size: 0.78rem;
-    font-weight: 900;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    border: none;
-    transition: var(--transition);
-}
-
-.btn-rent-option {
-    background-color: #18181b;
-    color: #ffffff;
-}
-
-body.dark-theme .btn-rent-option {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-.btn-buy-option {
-    background-color: #16a34a;
-    color: #ffffff;
-}
-
-/* Modal Overlay Base */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.subscription-modal-box {
-    background-color: var(--card-bg);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    padding: 30px;
-    width: 100%;
-    box-shadow: var(--shadow-md);
-    position: relative;
-}
-
-.close-modal-btn {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--text-primary);
-}
-
-/* Toast */
-.toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #18181b;
-    color: #ffffff;
-    padding: 12px 24px;
-    border-radius: 20px;
-    font-weight: 800;
-    font-size: 0.9rem;
-    z-index: 2000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: var(--shadow-md);
-}
-
-body.dark-theme .toast {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-/* Responsive Grid */
-@media (max-width: 1200px) {
-    .cube-cards-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (max-width: 900px) {
-    .cube-cards-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 650px) {
-    .cube-cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 450px) {
-    .cube-cards-grid {
-        grid-template-columns: 1fr;
-    }
+    font-size: 1.1rem;
 }
