@@ -357,8 +357,13 @@ function renderArticlesGrid() {
         filtered = filtered.filter(a => a.author.includes(state.filters.author));
     }
 
+    // EXACT ARTICLES COUNT (לפי מספר הכתבות האמיתי)
     if (resultsCountElem) {
-        resultsCountElem.textContent = `${(filtered.length * 3250).toLocaleString('he-IL')}+ תוצאות`;
+        if (filtered.length === 1) {
+            resultsCountElem.textContent = `תוצאה 1`;
+        } else {
+            resultsCountElem.textContent = `${filtered.length} תוצאות`;
+        }
     }
 
     const totalPages = Math.ceil(filtered.length / state.itemsPerPage) || 1;
