@@ -11,6 +11,7 @@
     --border-color: #e4e4e7;
     --primary-color: #18181b;
     --accent-blue: #2563eb;
+    --accent-orange: #ff5000;
     --accent-green: #16a34a;
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -64,6 +65,28 @@ body {
 .nav-left {
     display: flex;
     align-items: center;
+    gap: 12px;
+}
+
+.btn-publish-nav-btn {
+    background: linear-gradient(135deg, #ff5000, #e63900);
+    color: #ffffff;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-weight: 900;
+    font-size: 0.88rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 8px rgba(255, 80, 0, 0.3);
+    transition: var(--transition);
+}
+
+.btn-publish-nav-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 80, 0, 0.45);
 }
 
 .guest-pill-btn {
@@ -123,6 +146,70 @@ body {
     color: #ffffff;
     font-size: 1.4rem;
     cursor: pointer;
+}
+
+/* =========================================================
+   PUBLISH AD SIDEBAR CARD (כרטיס פרסום מודעה בראש הסיידבר)
+   ========================================================= */
+.publish-sidebar-card {
+    background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+    color: #ffffff;
+    border: 1px solid #3f3f46;
+    border-radius: var(--radius-md);
+    padding: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.publish-sidebar-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    border-color: #ff5000;
+}
+
+.publish-card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.publish-card-icon {
+    font-size: 2.2rem;
+    color: #ff5000;
+}
+
+.publish-card-text h4 {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.publish-card-text p {
+    font-size: 0.82rem;
+    color: #d4d4d8;
+    line-height: 1.3;
+}
+
+.btn-publish-action {
+    width: 100%;
+    background-color: #ff5000;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    font-weight: 900;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: var(--transition);
+}
+
+.btn-publish-action:hover {
+    background-color: #e63900;
 }
 
 /* =========================================================
@@ -758,6 +845,124 @@ body {
 .action-divider {
     color: #a1a1aa;
     font-weight: 400;
+}
+
+/* =========================================================
+   PUBLISH LISTING MODAL FORM STYLES (טופס פרסום מודעה מעוצב)
+   ========================================================= */
+.publish-modal-box {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    max-width: 680px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: var(--shadow-md);
+}
+
+.publish-modal-header {
+    text-align: center;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 15px;
+}
+
+.publish-modal-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--text-primary);
+}
+
+.publish-modal-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.category-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.category-tile-btn {
+    background-color: var(--bg-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.category-tile-btn:hover, .category-tile-btn.selected {
+    border-color: #ff5000;
+    background-color: #fff5f0;
+    color: #ff5000;
+}
+
+.publish-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.publish-form-group label {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.publish-form-input, .publish-form-select, .publish-form-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    font-family: inherit;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: var(--transition);
+}
+
+.publish-form-input:focus, .publish-form-select:focus, .publish-form-textarea:focus {
+    border-color: #ff5000;
+    background-color: #ffffff;
+}
+
+.publish-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.btn-submit-publish {
+    width: 100%;
+    background: linear-gradient(135deg, #ff5000, #e63900);
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    font-weight: 900;
+    font-size: 1.05rem;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 4px 12px rgba(255, 80, 0, 0.35);
+    transition: var(--transition);
+}
+
+.btn-submit-publish:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 80, 0, 0.5);
 }
 
 /* =========================================================

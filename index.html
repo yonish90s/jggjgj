@@ -10,15 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3000">
+    <link rel="stylesheet" href="styles.css?v=3100">
 </head>
 <body>
 
-    <!-- Header Bar (כותרת עליונה שחורה כפי שמציג בצילום המסך) -->
+    <!-- Header Bar (כותרת עליונה שחורה) -->
     <header class="top-navbar-black">
         <div class="top-nav-inner">
             
             <div class="nav-left">
+                <button class="btn-publish-nav-btn" onclick="openPublishModal()">
+                    <i class="fa-solid fa-circle-plus"></i> פרסום מודעה
+                </button>
                 <div class="guest-pill-btn" onclick="showGuestToast()">
                     <span>אורח</span>
                 </div>
@@ -44,7 +47,7 @@
         </div>
     </header>
 
-    <!-- Page Body Wrapper (מבנה 3 עמודות בדיוק כפי שמופיע בצילום המסך) -->
+    <!-- Page Body Wrapper (מבנה 3 עמודות עם סיידברים מקובעים) -->
     <div class="page-layout-wrapper">
 
         <!-- Left Sidebar Column (סיידבר שמאלי) -->
@@ -278,6 +281,20 @@
         <!-- Right Sidebar Column (סיידבר ימני) -->
         <aside class="sidebar-column sidebar-right">
             
+            <!-- NEW TOP SIDEBAR WIDGET: פרסום מודעה בקלות (בראש הסיידבר למעלה כפי שמתבקש!) -->
+            <div class="publish-sidebar-card" onclick="openPublishModal()">
+                <div class="publish-card-inner">
+                    <div class="publish-card-icon">
+                        <i class="fa-solid fa-circle-plus"></i>
+                    </div>
+                    <div class="publish-card-text">
+                        <h4>רוצה לפרסם מודעה?</h4>
+                        <p>פרסם בקלות מודעה חדשה להשאלה, קנייה או החלפה!</p>
+                    </div>
+                    <button class="btn-publish-action">פרסם מודעה +</button>
+                </div>
+            </div>
+
             <!-- Card 1: אתרים מומלצים -->
             <div class="sidebar-card">
                 <div class="sidebar-card-title">אתרים מומלצים</div>
@@ -320,6 +337,105 @@
 
         </aside>
 
+    </div>
+
+    <!-- PUBLISH AD MODAL FORM (חלון פרסום מודעה חדשה בדיוק לפי צילומי המסך) -->
+    <div id="publishModal" class="modal-overlay hidden">
+        <div class="publish-modal-box">
+            <button class="close-modal-btn" onclick="closePublishModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <h2 class="publish-modal-title">איזה מודעה תרצו לפרסם היום?</h2>
+                <p class="publish-modal-subtitle">בחרו קטגוריה ומלאו את פרטי המודעה בקלות</p>
+            </div>
+
+            <!-- Category Selection Grid (כפי שמופיע בצילום המסך של יד2) -->
+            <div class="category-selection-grid">
+                <div class="category-tile-btn selected" onclick="selectPublishCategory(this, 'מוצרים')">
+                    <div style="font-size: 1.5rem; margin-bottom: 4px;">📦</div>
+                    <div>מוצרים</div>
+                </div>
+                <div class="category-tile-btn" onclick="selectPublishCategory(this, 'טכנולוגיה')">
+                    <div style="font-size: 1.5rem; margin-bottom: 4px;">💻</div>
+                    <div>טכנולוגיה</div>
+                </div>
+                <div class="category-tile-btn" onclick="selectPublishCategory(this, 'בינה מלאכותית')">
+                    <div style="font-size: 1.5rem; margin-bottom: 4px;">🤖</div>
+                    <div>בינה מלאכותית</div>
+                </div>
+                <div class="category-tile-btn" onclick="selectPublishCategory(this, 'גיימינג')">
+                    <div style="font-size: 1.5rem; margin-bottom: 4px;">🎮</div>
+                    <div>גיימינג</div>
+                </div>
+                <div class="category-tile-btn" onclick="selectPublishCategory(this, 'לייפסטייל')">
+                    <div style="font-size: 1.5rem; margin-bottom: 4px;">🌿</div>
+                    <div>לייפסטייל</div>
+                </div>
+                <div class="category-tile-btn" onclick="selectPublishCategory(this, 'עיצוב וסביבה')">
+                    <div style="font-size: 1.5rem; margin-bottom: 4px;">🏡</div>
+                    <div>עיצוב ובית</div>
+                </div>
+            </div>
+
+            <!-- Form Fields -->
+            <form id="publishForm" onsubmit="handlePublishSubmit(event)">
+                
+                <div class="publish-form-group">
+                    <label>כותרת המודעה *</label>
+                    <input type="text" id="pubTitle" class="publish-form-input" placeholder="לדוגמה: למכירה/להשאלה אייפד פרו 2026 חדש" required>
+                </div>
+
+                <div class="publish-form-row">
+                    <div class="publish-form-group">
+                        <label>סוג עסקה *</label>
+                        <select id="pubDealType" class="publish-form-select">
+                            <option value="borrow">השאלה 🤝</option>
+                            <option value="buy" selected>קניה / למכירה 🛒</option>
+                            <option value="trade">החלפה 🔄</option>
+                        </select>
+                    </div>
+
+                    <div class="publish-form-group">
+                        <label>סכום מבוקש (yhsh) *</label>
+                        <input type="text" id="pubPrice" class="publish-form-input" placeholder="לדוגמה: yhsh 3,200" required>
+                    </div>
+                </div>
+
+                <div class="publish-form-row">
+                    <div class="publish-form-group">
+                        <label>מצב המוצר</label>
+                        <select id="pubCondition" class="publish-form-select">
+                            <option value="חדש באריזה">חדש באריזה 📦</option>
+                            <option value="כמו חדש" selected>כמו חדש ✨</option>
+                            <option value="משומש במצב טוב">משומש במצב טוב 👍</option>
+                            <option value="נדרש תיקון">נדרש תיקון 🔧</option>
+                        </select>
+                    </div>
+
+                    <div class="publish-form-group">
+                        <label>מיקום ומיקוד *</label>
+                        <input type="text" id="pubLocation" class="publish-form-input" placeholder="לדוגמה: תל אביב - יפו" required>
+                    </div>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>קישור לתמונה (URL)</label>
+                    <input type="url" id="pubImageUrl" class="publish-form-input" placeholder="https://images.unsplash.com/...">
+                </div>
+
+                <div class="publish-form-group">
+                    <label>תיאור מפורט של המודעה</label>
+                    <textarea id="pubSummary" class="publish-form-textarea" rows="3" placeholder="תיאור מדויק יסייע לך למכור או להשאיל מהר יותר..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-publish">
+                    <i class="fa-solid fa-paper-plane"></i> סיום והעלאת המודעה ללוח
+                </button>
+            </form>
+
+        </div>
     </div>
 
     <!-- Article Reader Modal (חלון קריאת הכתבה המלאה) -->

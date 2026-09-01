@@ -120,6 +120,7 @@ let state = {
     proServicesOnly: false,
     onlineNowOnly: true,
     savedListings: new Set(),
+    selectedPublishCategory: 'מוצרים',
     filters: {
         dealType: 'all',
         category: 'all',
@@ -132,6 +133,7 @@ let state = {
 
 async function initApp() {
     closeArticleModal();
+    closePublishModal();
     await loadArticles();
     renderHeroBanner();
     renderTopReadLists();
@@ -180,6 +182,62 @@ function renderTopReadLists() {
 
     if (leftContainer) leftContainer.innerHTML = html;
     if (rightContainer) rightContainer.innerHTML = html;
+}
+
+function openPublishModal() {
+    const modal = document.getElementById('publishModal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closePublishModal() {
+    const modal = document.getElementById('publishModal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function selectPublishCategory(tileElem, categoryName) {
+    document.querySelectorAll('.category-tile-btn').forEach(btn => btn.classList.remove('selected'));
+    tileElem.classList.add('selected');
+    state.selectedPublishCategory = categoryName;
+}
+
+function handlePublishSubmit(event) {
+    event.preventDefault();
+
+    const title = document.getElementById('pubTitle').value.trim();
+    const dealType = document.getElementById('pubDealType').value;
+    const price = document.getElementById('pubPrice').value.trim() || 'yhsh 2,500';
+    const condition = document.getElementById('pubCondition').value;
+    const location = document.getElementById('pubLocation').value.trim() || 'תל אביב';
+    const imageUrl = document.getElementById('pubImageUrl').value.trim() || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80';
+    const summary = document.getElementById('pubSummary').value.trim() || 'מודעה חדשה שפורסמה כעת בלוח.';
+
+    const newId = 'art-' + Date.now();
+    const newArticle = {
+        id: newId,
+        title: title,
+        category: state.selectedPublishCategory || 'מוצרים',
+        author: 'מפרסם אורח',
+        date: '01.09.2026',
+        readTime: '3 דקות קריאה',
+        views: '1 צפייה',
+        likes: '100%',
+        price: price,
+        model: condition,
+        rating: 'דירוג 5.0 (מודעה חדשה)',
+        location: location,
+        dealTypes: [dealType],
+        imageUrl: imageUrl,
+        summary: summary,
+        content: `<h3>${title}</h3><p>${summary}</p><p><strong>מיקום:</strong> ${location}</p><p><strong>מצב:</strong> ${condition}</p>`
+    };
+
+    state.articles.unshift(newArticle);
+    state.currentPage = 1;
+    renderArticlesGrid();
+    closePublishModal();
+
+    document.getElementById('publishForm').reset();
+    showToast('המודעה פורסמה בהצלחה והתווספה ללוח! 🎉');
 }
 
 function togglePillDropdown(menuId, event) {
@@ -475,6 +533,10 @@ function showToast(msg) {
 
 window.openArticleModal = openArticleModal;
 window.closeArticleModal = closeArticleModal;
+window.openPublishModal = openPublishModal;
+window.closePublishModal = closePublishModal;
+window.selectPublishCategory = selectPublishCategory;
+window.handlePublishSubmit = handlePublishSubmit;
 window.handleSearch = handleSearch;
 window.setActiveTab = setActiveTab;
 window.showGuestToast = showGuestToast;
