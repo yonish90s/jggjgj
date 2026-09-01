@@ -647,15 +647,15 @@ body {
 }
 
 .article-card-body {
-    padding: 12px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
 .article-card-title {
-    font-size: 0.95rem;
-    font-weight: 800;
+    font-size: 0.98rem;
+    font-weight: 900;
     color: var(--text-primary);
     line-height: 1.35;
     margin-bottom: 6px;
@@ -686,8 +686,42 @@ body {
     justify-content: space-between;
     font-size: 0.78rem;
     color: var(--text-muted);
+}
+
+/* SYMMETRICAL ACTION TOOLBAR FOOTER (סרגל הפעולות הסימטרי בתחתית כל מודעה) */
+.article-card-action-bar {
+    margin-top: 10px;
+    padding-top: 10px;
     border-top: 1px solid var(--border-color);
-    padding-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.action-bar-right, .action-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.action-bar-link {
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.action-bar-link:hover {
+    color: var(--accent-blue);
+    text-decoration: underline;
+}
+
+.action-divider {
+    color: #a1a1aa;
+    font-weight: 400;
 }
 
 /* =========================================================

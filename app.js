@@ -167,6 +167,7 @@ let state = {
     currentSort: 'רלוונטיות',
     proServicesOnly: false,
     onlineNowOnly: true,
+    savedListings: new Set(),
     filters: {
         category: 'all',
         option: 'all',
@@ -231,7 +232,6 @@ function renderTopReadLists() {
 function togglePillDropdown(menuId, event) {
     if (event) event.stopPropagation();
     
-    // Close all other dropdown menus first
     document.querySelectorAll('.filter-pill-dropdown-menu, .sort-popup-menu').forEach(m => {
         if (m.id !== menuId) m.classList.add('hidden');
     });
@@ -246,7 +246,6 @@ function selectPillFilter(filterType, filterValue, labelText) {
     state.filters[filterType] = filterValue;
     state.currentPage = 1;
 
-    // Update Pill Button text
     const labelElemIdMap = {
         category: 'labelCategoryPill',
         option: 'labelOptionsMenu',
@@ -261,7 +260,6 @@ function selectPillFilter(filterType, filterValue, labelText) {
         if (elem) elem.textContent = labelText;
     }
 
-    // Close all dropdown menus
     document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => m.classList.add('hidden'));
 
     showToast(`סונן לפי: ${labelText}`);
@@ -296,6 +294,38 @@ function selectSortOption(sortOption) {
     renderArticlesGrid();
 }
 
+function handleCardAction(actionType, articleId, event) {
+    if (event) event.stopPropagation();
+
+    const article = state.articles.find(a => a.id === articleId);
+    const titleSnippet = article ? article.title.slice(0, 20) + '...' : '';
+
+    switch (actionType) {
+        case 'save':
+            if (state.savedListings.has(articleId)) {
+                state.savedListings.delete(articleId);
+                showToast(`המודעה הוסרה מהמועדפים`);
+            } else {
+                state.savedListings.add(articleId);
+                showToast(`המודעה נשמרה במועדפים! ❤️`);
+            }
+            renderArticlesGrid();
+            break;
+        case 'message':
+            showToast(`פתחת צ'אט הודעה עם מפרסם המודעה 💬`);
+            break;
+        case 'borrow':
+            showToast(`בחרת באפשרות: השאלה 🤝 (${titleSnippet})`);
+            break;
+        case 'buy':
+            showToast(`בחרת באפשרות: קנייה 🛒 (${titleSnippet})`);
+            break;
+        case 'trade':
+            showToast(`בחרת באפשרות: החלפה 🔄 (${titleSnippet})`);
+            break;
+    }
+}
+
 document.addEventListener('click', () => {
     document.querySelectorAll('.filter-pill-dropdown-menu, .sort-popup-menu').forEach(menu => {
         menu.classList.add('hidden');
@@ -310,7 +340,6 @@ function renderArticlesGrid() {
 
     let filtered = [...state.articles];
 
-    // Search query filter
     if (state.searchQuery) {
         const q = state.searchQuery.trim().toLowerCase();
         filtered = filtered.filter(a => 
@@ -320,12 +349,10 @@ function renderArticlesGrid() {
         );
     }
 
-    // Category filter pill
     if (state.filters.category !== 'all') {
         filtered = filtered.filter(a => a.category === state.filters.category);
     }
 
-    // Author filter pill
     if (state.filters.author !== 'all') {
         filtered = filtered.filter(a => a.author.includes(state.filters.author));
     }
@@ -344,24 +371,47 @@ function renderArticlesGrid() {
         gridTitle.textContent = `כל הכתבות והסיפורים (${paginatedArticles.length} כתבות בעמוד ${state.currentPage} מתוך ${totalPages})`;
     }
 
-    container.innerHTML = paginatedArticles.map(article => `
-        <div class="article-card-box" onclick="openArticleModal('${article.id}')">
-            <div class="article-card-image-box">
-                <img src="${article.imageUrl}" alt="${article.title}" loading="lazy">
-                <span class="article-card-category">${article.category}</span>
-            </div>
-            
-            <div class="article-card-body">
-                <h3 class="article-card-title">${article.title}</h3>
-                <p class="article-card-summary">${article.summary}</p>
+    container.innerHTML = paginatedArticles.map(article => {
+        const isSaved = state.savedListings.has(article.id);
+        return `
+            <div class="article-card-box" onclick="openArticleModal('${article.id}')">
+                <div class="article-card-image-box">
+                    <img src="${article.imageUrl}" alt="${article.title}" loading="lazy">
+                    <span class="article-card-category">${article.category}</span>
+                </div>
                 
-                <div class="article-card-meta">
-                    <span><i class="fa-regular fa-clock"></i> ${article.readTime}</span>
-                    <span><i class="fa-regular fa-eye"></i> ${article.views}</span>
+                <div class="article-card-body">
+                    <h3 class="article-card-title">${article.title}</h3>
+                    <p class="article-card-summary">${article.summary}</p>
+                    
+                    <div class="article-card-meta">
+                        <span><i class="fa-regular fa-clock"></i> ${article.readTime}</span>
+                        <span><i class="fa-regular fa-eye"></i> ${article.views}</span>
+                    </div>
+
+                    <!-- SYMMETRICAL ACTION TOOLBAR AS SHOWN IN SCREENSHOT -->
+                    <div class="article-card-action-bar" onclick="event.stopPropagation()">
+                        <div class="action-bar-right">
+                            <span class="action-bar-link" style="${isSaved ? 'color:#ec4899;' : ''}" onclick="handleCardAction('save', '${article.id}', event)">
+                                ${isSaved ? '❤️ שמור' : 'שמור מודעה'}
+                            </span>
+                            <span class="action-divider">|</span>
+                            <span class="action-bar-link" onclick="handleCardAction('message', '${article.id}', event)">שלח הודעה</span>
+                        </div>
+                        
+                        <div class="action-bar-left">
+                            <span class="action-bar-link" onclick="handleCardAction('borrow', '${article.id}', event)">השאל</span>
+                            <span class="action-divider">|</span>
+                            <span class="action-bar-link" onclick="handleCardAction('buy', '${article.id}', event)">קניה</span>
+                            <span class="action-divider">|</span>
+                            <span class="action-bar-link" onclick="handleCardAction('trade', '${article.id}', event)">החלפה</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 
     renderPaginationControls(filtered.length);
 }
@@ -471,6 +521,7 @@ window.selectPillFilter = selectPillFilter;
 window.applySwitchesFilter = applySwitchesFilter;
 window.toggleSortMenu = toggleSortMenu;
 window.selectSortOption = selectSortOption;
+window.handleCardAction = handleCardAction;
 window.openHeroArticle = () => {
     if (state.articles.length > 0) openArticleModal(state.articles[0].id);
 };
