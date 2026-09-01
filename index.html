@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3100">
+    <link rel="stylesheet" href="styles.css?v=3200">
 </head>
 <body>
 
@@ -182,17 +182,39 @@
                             </div>
                         </div>
 
-                        <!-- Pill 4: תקציב -->
+                        <!-- Pill 4: תקציב (עם PRICE SLIDER נגלל) -->
                         <div class="filter-pill-wrapper">
                             <button class="filter-pill-btn" onclick="togglePillDropdown('budgetMenu', event)">
                                 <span id="labelBudgetMenu">תקציב</span>
                                 <i class="fa-solid fa-chevron-down fa-xs"></i>
                             </button>
-                            <div id="budgetMenu" class="filter-pill-dropdown-menu hidden">
-                                <div class="pill-dropdown-item active" onclick="selectPillFilter('budget', 'all', 'תקציב')">הכל</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('budget', 'free', 'תוכן חינמי 🔓')">תוכן חינמי 🔓</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('budget', 'premium', 'תוכן פרימיום ⭐')">תוכן פרימיום ⭐</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('budget', 'pro', 'לחברי מנוי בלבד 👑')">לחברי מנוי בלבד 👑</div>
+
+                            <div id="budgetMenu" class="filter-pill-dropdown-menu hidden" style="min-width: 260px; padding: 16px;" onclick="event.stopPropagation()">
+                                <div style="font-weight: 900; font-size: 0.95rem; margin-bottom: 8px; color: var(--text-primary);">
+                                    תקציב ומחיר מבוקש (yhsh)
+                                </div>
+                                
+                                <div style="font-weight: 900; font-size: 1.15rem; color: #ff5000; margin-bottom: 10px; text-align: center;">
+                                    עד <span id="priceSliderValue">yhsh 20,000</span>
+                                </div>
+
+                                <input type="range" id="priceRangeInput" min="500" max="20000" step="500" value="20000" class="price-range-slider" oninput="updatePriceSliderValue(this.value)">
+
+                                <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; font-weight: 800;">
+                                    <span>yhsh 500</span>
+                                    <span>yhsh 20,000</span>
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 12px 0;">
+                                    <button type="button" class="preset-price-btn" onclick="setPricePreset(5000)">עד 5,000 yhsh</button>
+                                    <button type="button" class="preset-price-btn" onclick="setPricePreset(10000)">עד 10,000 yhsh</button>
+                                    <button type="button" class="preset-price-btn" onclick="setPricePreset(15000)">עד 15,000 yhsh</button>
+                                    <button type="button" class="preset-price-btn" onclick="setPricePreset(20000)">כל המחירים</button>
+                                </div>
+
+                                <button type="button" class="btn-apply-price-filter" onclick="applyPriceFilter()">
+                                    החל סינון מחיר
+                                </button>
                             </div>
                         </div>
 
@@ -281,7 +303,7 @@
         <!-- Right Sidebar Column (סיידבר ימני) -->
         <aside class="sidebar-column sidebar-right">
             
-            <!-- NEW TOP SIDEBAR WIDGET: פרסום מודעה בקלות (בראש הסיידבר למעלה כפי שמתבקש!) -->
+            <!-- TOP SIDEBAR WIDGET: פרסום מודעה בקלות -->
             <div class="publish-sidebar-card" onclick="openPublishModal()">
                 <div class="publish-card-inner">
                     <div class="publish-card-icon">
@@ -339,7 +361,7 @@
 
     </div>
 
-    <!-- PUBLISH AD MODAL FORM (חלון פרסום מודעה חדשה בדיוק לפי צילומי המסך) -->
+    <!-- PUBLISH AD MODAL FORM (חלון פרסום מודעה חדשה) -->
     <div id="publishModal" class="modal-overlay hidden">
         <div class="publish-modal-box">
             <button class="close-modal-btn" onclick="closePublishModal()">
@@ -351,7 +373,7 @@
                 <p class="publish-modal-subtitle">בחרו קטגוריה ומלאו את פרטי המודעה בקלות</p>
             </div>
 
-            <!-- Category Selection Grid (כפי שמופיע בצילום המסך של יד2) -->
+            <!-- Category Selection Grid -->
             <div class="category-selection-grid">
                 <div class="category-tile-btn selected" onclick="selectPublishCategory(this, 'מוצרים')">
                     <div style="font-size: 1.5rem; margin-bottom: 4px;">📦</div>

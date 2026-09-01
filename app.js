@@ -121,6 +121,7 @@ let state = {
     onlineNowOnly: true,
     savedListings: new Set(),
     selectedPublishCategory: 'מוצרים',
+    maxPrice: 20000,
     filters: {
         dealType: 'all',
         category: 'all',
@@ -182,6 +183,45 @@ function renderTopReadLists() {
 
     if (leftContainer) leftContainer.innerHTML = html;
     if (rightContainer) rightContainer.innerHTML = html;
+}
+
+function updatePriceSliderValue(val) {
+    const display = document.getElementById('priceSliderValue');
+    if (display) {
+        display.textContent = `yhsh ${parseInt(val, 10).toLocaleString('he-IL')}`;
+    }
+}
+
+function setPricePreset(val) {
+    const slider = document.getElementById('priceRangeInput');
+    if (slider) {
+        slider.value = val;
+    }
+    updatePriceSliderValue(val);
+    applyPriceFilter();
+}
+
+function applyPriceFilter() {
+    const slider = document.getElementById('priceRangeInput');
+    if (slider) {
+        state.maxPrice = parseInt(slider.value, 10);
+    }
+
+    const labelElem = document.getElementById('labelBudgetMenu');
+    if (labelElem) {
+        if (state.maxPrice >= 20000) {
+            labelElem.textContent = 'תקציב';
+        } else {
+            labelElem.textContent = `תקציב: עד ${state.maxPrice.toLocaleString('he-IL')} yhsh`;
+        }
+    }
+
+    const menu = document.getElementById('budgetMenu');
+    if (menu) menu.classList.add('hidden');
+
+    state.currentPage = 1;
+    showToast(`סונן תקציב: עד yhsh ${state.maxPrice.toLocaleString('he-IL')}`);
+    renderArticlesGrid();
 }
 
 function openPublishModal() {
@@ -262,7 +302,6 @@ function selectPillFilter(filterType, filterValue, labelText) {
         category: 'labelCategoryPill',
         option: 'labelOptionsMenu',
         author: 'labelAuthorMenu',
-        budget: 'labelBudgetMenu',
         readTime: 'labelReadTimeMenu'
     };
 
@@ -344,6 +383,11 @@ document.addEventListener('click', () => {
     });
 });
 
+function getNumericPrice(priceStr) {
+    if (!priceStr) return 0;
+    return parseInt(priceStr.replace(/[^\d]/g, ''), 10) || 0;
+}
+
 function renderArticlesGrid() {
     const container = document.getElementById('articlesGridContainer');
     const gridTitle = document.getElementById('gridTitleText');
@@ -359,6 +403,11 @@ function renderArticlesGrid() {
             a.summary.toLowerCase().includes(q) || 
             a.category.toLowerCase().includes(q)
         );
+    }
+
+    // PRICE SLIDER FILTER (עד המחיר המקסימלי שנבחר בסרגל)
+    if (state.maxPrice < 20000) {
+        filtered = filtered.filter(a => getNumericPrice(a.price) <= state.maxPrice);
     }
 
     // Deal Type Filter (השאלה / קניה / החלפה)
@@ -537,6 +586,10 @@ window.openPublishModal = openPublishModal;
 window.closePublishModal = closePublishModal;
 window.selectPublishCategory = selectPublishCategory;
 window.handlePublishSubmit = handlePublishSubmit;
+window.updatePriceSliderValue = updatePriceSliderValue;
+window.setPricePreset(val => setPricePreset(val));
+window.setPricePreset = setPricePreset;
+window.applyPriceFilter = applyPriceFilter;
 window.handleSearch = handleSearch;
 window.setActiveTab = setActiveTab;
 window.showGuestToast = showGuestToast;
