@@ -54,7 +54,7 @@ body {
 }
 
 .top-nav-inner {
-    max-width: 1400px;
+    max-width: 1500px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -129,21 +129,37 @@ body {
    PAGE 3-COLUMN LAYOUT WRAPPER
    ========================================================= */
 .page-layout-wrapper {
-    max-width: 1440px;
+    max-width: 1540px;
     margin: 24px auto;
     padding: 0 20px;
     display: flex;
-    gap: 20px;
+    gap: 24px;
     align-items: flex-start;
 }
 
-/* SIDEBAR COLUMNS (עמודות צד שמאל וימין) */
+/* STICKY & FIXED SIDEBAR COLUMNS (סיידברים מורחבים ומקובעים בגלילה) */
 .sidebar-column {
-    width: 240px;
+    width: 275px; /* Wider sidebars as requested */
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    position: sticky;
+    top: 70px; /* Pinned right below top navbar */
+    align-self: flex-start;
+    max-height: calc(100vh - 85px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding-bottom: 10px;
+}
+
+.sidebar-column::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-column::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border-radius: 4px;
 }
 
 .sidebar-card {
@@ -879,12 +895,20 @@ body {
 }
 
 /* RESPONSIVE LAYOUT */
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
+    .sidebar-column {
+        width: 240px;
+    }
+}
+
+@media (max-width: 1050px) {
     .page-layout-wrapper {
         flex-direction: column;
     }
     .sidebar-column {
         width: 100%;
+        position: static;
+        max-height: none;
     }
     .articles-cards-grid {
         grid-template-columns: repeat(2, 1fr);
