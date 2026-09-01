@@ -154,58 +154,6 @@ const FALLBACK_ARTICLES = [
         "imageUrl": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80",
         "summary": "מדריך מעשי לבניית תכנית אימונים מאוזנת המשלבת כוח, סיבולת וגמישות מבלי לסבול משחיקה.",
         "content": "<h3>התמדה היא הסוד לתוצאות</h3><p>הסוד לבניית כושר אינו אימונים מפרכים פעם בשבוע, אלא הקפדה על תנועה עקבית.</p>"
-    },
-    {
-        "id": "art-13",
-        "title": "רכבים חשמליים ואוטונומיים: לאן צועד עולם התחבורה העתידי",
-        "category": "טכנולוגיה",
-        "author": "רוני עמית",
-        "date": "20.08.2026",
-        "readTime": "6 דקות קריאה",
-        "views": "11.8K",
-        "likes": "97%",
-        "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80",
-        "summary": "סוללות מהירות נטענות, נהיגה אוטונומית ברמה 4 ותשתיות טעינה חכמות המשנות את כבישי העולם.",
-        "content": "<h3>תחבורה נקייה וחכמה</h3><p>המעבר לרכבים חשמליים תופס תאוצה עולמית.</p>"
-    },
-    {
-        "id": "art-14",
-        "title": "פסיכולוגיה חיובית בעבודה: כיצד ליצור סביבת עבודה מעצימה ומקדמת",
-        "category": "לייפסטייל",
-        "author": "ד\"ר תמר כהן",
-        "date": "19.08.2026",
-        "readTime": "5 דקות קריאה",
-        "views": "6.1K",
-        "likes": "91%",
-        "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
-        "summary": "מחקרים מעודכנים מראים כיצד שביעות רצון ותחושת משמעות בעבודה משפרים את הביצועים והרווחה האישית.",
-        "content": "<h3>יצירת סביבת עבודה בריאה</h3><p>מנהלים מובילים מבינים כיום כי תמיכה ברווחת העובדים היא המפתח להצלחה.</p>"
-    },
-    {
-        "id": "art-15",
-        "title": "ענני הנתונים והדאטה-סנטרים הירוקים: תשתיות העתיד של האינטרנט",
-        "category": "טכנולוגיה",
-        "author": "עידו שגיא",
-        "date": "18.08.2026",
-        "readTime": "6 דקות קריאה",
-        "views": "9.2K",
-        "likes": "95%",
-        "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
-        "summary": "איך חברות הענן הגדולות מקטינות את טביעת הרגל הפחמנית ומעבירות את מרכזי הנתונים לאנרגיה ירוקה.",
-        "content": "<h3>תשתיות ענן מקיימות</h3><p>צריכת החשמל של חוות השרתים הולכת וגדלה.</p>"
-    },
-    {
-        "id": "art-16",
-        "title": "היסטוריה של החדשנות: מהמצאת הקיטור ועד המהפכה הדיגיטלית",
-        "category": "תרבות ואמנות",
-        "author": "פרופ' דוד רוזן",
-        "date": "17.08.2026",
-        "readTime": "7 דקות קריאה",
-        "views": "8.5K",
-        "likes": "96%",
-        "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
-        "summary": "סריקה היסטורית מרתקת של קפיצות הדרך הטכנולוגיות שעיצבו את הציביליזציה האנושית לאורך הדורות.",
-        "content": "<h3>מסע בעקבות תגליות פורצות דרך</h3><p>מהמצאת הכתב והגלגל ועד למעבדי הסיליקון.</p>"
     }
 ];
 
@@ -215,7 +163,10 @@ let state = {
     searchQuery: '',
     activeTab: 'stories',
     currentPage: 1,
-    itemsPerPage: 12
+    itemsPerPage: 12,
+    currentSort: 'Relevance',
+    proServicesOnly: false,
+    onlineNowOnly: true
 };
 
 async function initApp() {
@@ -275,12 +226,51 @@ function renderTopReadLists() {
     if (rightContainer) rightContainer.innerHTML = html;
 }
 
+function toggleFilterMenu(menuName) {
+    showToast(`סינון לפי ${menuName} פעיל!`);
+}
+
+function applySwitchesFilter() {
+    const proChk = document.getElementById('switchProServices');
+    const onlineChk = document.getElementById('switchOnlineNow');
+
+    state.proServicesOnly = proChk ? proChk.checked : false;
+    state.onlineNowOnly = onlineChk ? onlineChk.checked : true;
+
+    renderArticlesGrid();
+}
+
+function toggleSortMenu(event) {
+    event.stopPropagation();
+    const menu = document.getElementById('sortPopupMenu');
+    if (menu) menu.classList.toggle('hidden');
+}
+
+function selectSortOption(sortOption) {
+    state.currentSort = sortOption;
+    const label = document.getElementById('currentSortText');
+    if (label) label.textContent = sortOption;
+
+    const menu = document.getElementById('sortPopupMenu');
+    if (menu) menu.classList.add('hidden');
+
+    renderArticlesGrid();
+}
+
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('sortPopupMenu');
+    if (menu && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+    }
+});
+
 function renderArticlesGrid() {
     const container = document.getElementById('articlesGridContainer');
     const gridTitle = document.getElementById('gridTitleText');
+    const resultsCountElem = document.getElementById('resultsCountText');
     if (!container) return;
 
-    let filtered = state.articles;
+    let filtered = [...state.articles];
 
     if (state.searchQuery) {
         const q = state.searchQuery.trim().toLowerCase();
@@ -289,6 +279,10 @@ function renderArticlesGrid() {
             a.summary.toLowerCase().includes(q) || 
             a.category.toLowerCase().includes(q)
         );
+    }
+
+    if (resultsCountElem) {
+        resultsCountElem.textContent = `${(filtered.length * 3250).toLocaleString('en-US')}+ results`;
     }
 
     const totalPages = Math.ceil(filtered.length / state.itemsPerPage) || 1;
@@ -366,9 +360,9 @@ function changePage(pageNumber) {
     state.currentPage = pageNumber;
     renderArticlesGrid();
 
-    const gridElem = document.getElementById('articlesGridContainer');
-    if (gridElem) {
-        gridElem.scrollIntoView({ behavior: 'smooth' });
+    const filterElem = document.querySelector('.articles-filter-bar');
+    if (filterElem) {
+        filterElem.scrollIntoView({ behavior: 'smooth' });
     }
 }
 
@@ -443,6 +437,10 @@ window.setActiveTab = setActiveTab;
 window.showGuestToast = showGuestToast;
 window.likeCurrentModalArticle = likeCurrentModalArticle;
 window.changePage = changePage;
+window.toggleFilterMenu = toggleFilterMenu;
+window.applySwitchesFilter = applySwitchesFilter;
+window.toggleSortMenu = toggleSortMenu;
+window.selectSortOption = selectSortOption;
 window.openHeroArticle = () => {
     if (state.articles.length > 0) openArticleModal(state.articles[0].id);
 };

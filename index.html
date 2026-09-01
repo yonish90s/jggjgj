@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2200">
+    <link rel="stylesheet" href="styles.css?v=2300">
 </head>
 <body>
 
@@ -110,6 +110,84 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Custom Filter Bar Component (סרגל הסינונים המעוצב בדיוק כפי שמתבקש בצילום המסך) -->
+            <section class="articles-filter-bar">
+                <div class="filter-top-row">
+                    
+                    <!-- Left Side Filter Dropdown Pills -->
+                    <div class="filter-pills-group">
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('category')">
+                            <span>Category</span>
+                            <i class="fa-solid fa-chevron-down fa-xs"></i>
+                        </button>
+                        
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('serviceOptions')">
+                            <span>Service options</span>
+                            <i class="fa-solid fa-chevron-down fa-xs"></i>
+                        </button>
+
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('sellerDetails')">
+                            <span>Seller details</span>
+                            <i class="fa-solid fa-chevron-down fa-xs"></i>
+                        </button>
+
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('budget')">
+                            <span>Budget</span>
+                            <i class="fa-solid fa-chevron-down fa-xs"></i>
+                        </button>
+
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('deliveryTime')">
+                            <span>Delivery time</span>
+                            <i class="fa-solid fa-chevron-down fa-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Right Side Switches -->
+                    <div class="filter-switches-group">
+                        <label class="toggle-switch-label">
+                            <input type="checkbox" id="switchProServices" class="toggle-switch-input" onchange="applySwitchesFilter()">
+                            <span class="switch-track"></span>
+                            <span>Pro services</span>
+                        </label>
+
+                        <label class="toggle-switch-label">
+                            <input type="checkbox" id="switchOnlineNow" class="toggle-switch-input" checked onchange="applySwitchesFilter()">
+                            <span class="switch-track"></span>
+                            <span>Online now</span>
+                        </label>
+                    </div>
+
+                </div>
+
+                <!-- Sub-bar (Results count + Sort by dropdown) -->
+                <div class="filter-sub-bar">
+                    <span id="resultsCountText" class="results-count-text">52,000+ תוצאות</span>
+
+                    <div class="sort-dropdown-wrapper">
+                        <span class="sort-label-text">Sort by:</span>
+                        <button class="sort-dropdown-btn" onclick="toggleSortMenu(event)">
+                            <strong id="currentSortText">Relevance</strong>
+                            <i class="fa-solid fa-chevron-down fa-xs"></i>
+                        </button>
+
+                        <div id="sortPopupMenu" class="sort-popup-menu hidden">
+                            <div class="sort-option-item selected" onclick="selectSortOption('Relevance')">
+                                <i class="fa-solid fa-check"></i>
+                                <span>Relevance</span>
+                            </div>
+                            <div class="sort-option-item" onclick="selectSortOption('Best selling')">
+                                <i class="fa-solid fa-check" style="opacity: 0;"></i>
+                                <span>Best selling</span>
+                            </div>
+                            <div class="sort-option-item" onclick="selectSortOption('Newest arrivals')">
+                                <i class="fa-solid fa-check" style="opacity: 0;"></i>
+                                <span>Newest arrivals</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- Articles Grid (גריד 12 הכתבות הראשי 3 על 4) -->
             <div class="section-sub-header">
