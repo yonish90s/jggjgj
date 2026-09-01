@@ -164,7 +164,7 @@ let state = {
     activeTab: 'stories',
     currentPage: 1,
     itemsPerPage: 12,
-    currentSort: 'Relevance',
+    currentSort: 'רלוונטיות',
     proServicesOnly: false,
     onlineNowOnly: true
 };
@@ -282,7 +282,7 @@ function renderArticlesGrid() {
     }
 
     if (resultsCountElem) {
-        resultsCountElem.textContent = `${(filtered.length * 3250).toLocaleString('en-US')}+ results`;
+        resultsCountElem.textContent = `${(filtered.length * 3250).toLocaleString('he-IL')}+ תוצאות`;
     }
 
     const totalPages = Math.ceil(filtered.length / state.itemsPerPage) || 1;

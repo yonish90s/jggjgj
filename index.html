@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2300">
+    <link rel="stylesheet" href="styles.css?v=2400">
 </head>
 <body>
 
@@ -111,34 +111,34 @@
                 </div>
             </div>
 
-            <!-- Custom Filter Bar Component (סרגל הסינונים המעוצב בדיוק כפי שמתבקש בצילום המסך) -->
+            <!-- Custom Filter Bar Component (סרגל הסינונים המעוצב בעברית כפי שמתבקש בצילום המסך) -->
             <section class="articles-filter-bar">
                 <div class="filter-top-row">
                     
                     <!-- Left Side Filter Dropdown Pills -->
                     <div class="filter-pills-group">
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('category')">
-                            <span>Category</span>
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('קטגוריה')">
+                            <span>קטגוריה</span>
                             <i class="fa-solid fa-chevron-down fa-xs"></i>
                         </button>
                         
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('serviceOptions')">
-                            <span>Service options</span>
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('אפשרויות כתבה')">
+                            <span>אפשרויות כתבה</span>
                             <i class="fa-solid fa-chevron-down fa-xs"></i>
                         </button>
 
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('sellerDetails')">
-                            <span>Seller details</span>
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('פרטי מחבר')">
+                            <span>פרטי מחבר</span>
                             <i class="fa-solid fa-chevron-down fa-xs"></i>
                         </button>
 
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('budget')">
-                            <span>Budget</span>
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('תקציב')">
+                            <span>תקציב</span>
                             <i class="fa-solid fa-chevron-down fa-xs"></i>
                         </button>
 
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('deliveryTime')">
-                            <span>Delivery time</span>
+                        <button class="filter-pill-btn" onclick="toggleFilterMenu('זמן קריאה')">
+                            <span>זמן קריאה</span>
                             <i class="fa-solid fa-chevron-down fa-xs"></i>
                         </button>
                     </div>
@@ -148,13 +148,13 @@
                         <label class="toggle-switch-label">
                             <input type="checkbox" id="switchProServices" class="toggle-switch-input" onchange="applySwitchesFilter()">
                             <span class="switch-track"></span>
-                            <span>Pro services</span>
+                            <span>כתבות מומלצות</span>
                         </label>
 
                         <label class="toggle-switch-label">
                             <input type="checkbox" id="switchOnlineNow" class="toggle-switch-input" checked onchange="applySwitchesFilter()">
                             <span class="switch-track"></span>
-                            <span>Online now</span>
+                            <span style="color: #16a34a;">זמין כעת 🟢</span>
                         </label>
                     </div>
 
@@ -165,24 +165,24 @@
                     <span id="resultsCountText" class="results-count-text">52,000+ תוצאות</span>
 
                     <div class="sort-dropdown-wrapper">
-                        <span class="sort-label-text">Sort by:</span>
+                        <span class="sort-label-text">מיון לפי:</span>
                         <button class="sort-dropdown-btn" onclick="toggleSortMenu(event)">
-                            <strong id="currentSortText">Relevance</strong>
+                            <strong id="currentSortText">רלוונטיות</strong>
                             <i class="fa-solid fa-chevron-down fa-xs"></i>
                         </button>
 
                         <div id="sortPopupMenu" class="sort-popup-menu hidden">
-                            <div class="sort-option-item selected" onclick="selectSortOption('Relevance')">
+                            <div class="sort-option-item selected" onclick="selectSortOption('רלוונטיות')">
                                 <i class="fa-solid fa-check"></i>
-                                <span>Relevance</span>
+                                <span>רלוונטיות</span>
                             </div>
-                            <div class="sort-option-item" onclick="selectSortOption('Best selling')">
+                            <div class="sort-option-item" onclick="selectSortOption('הנמכרים ביותר')">
                                 <i class="fa-solid fa-check" style="opacity: 0;"></i>
-                                <span>Best selling</span>
+                                <span>הנמכרים ביותר</span>
                             </div>
-                            <div class="sort-option-item" onclick="selectSortOption('Newest arrivals')">
+                            <div class="sort-option-item" onclick="selectSortOption('החדשים ביותר')">
                                 <i class="fa-solid fa-check" style="opacity: 0;"></i>
-                                <span>Newest arrivals</span>
+                                <span>החדשים ביותר</span>
                             </div>
                         </div>
                     </div>
