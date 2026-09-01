@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2400">
+    <link rel="stylesheet" href="styles.css?v=2600">
 </head>
 <body>
 
@@ -25,20 +25,20 @@
             </div>
 
             <nav class="nav-center-tabs">
-                <button class="nav-tab-btn" onclick="setActiveTab('images')">
+                <button class="nav-tab-btn" onclick="window.location.href='images.html'">
                     <i class="fa-regular fa-image"></i>
                     <span>תמונות</span>
                 </button>
                 
-                <button class="nav-tab-btn active" onclick="setActiveTab('stories')">
+                <button class="nav-tab-btn active" onclick="window.location.href='index.html'">
                     <span>סיפורים</span>
                 </button>
             </nav>
 
             <div class="nav-right">
-                <div class="brand-logo-badge">
+                <a href="index.html" class="brand-logo-badge" style="text-decoration: none;">
                     <i class="fa-solid fa-infinity"></i>
-                </div>
+                </a>
             </div>
 
         </div>
@@ -99,48 +99,100 @@
         <!-- Main Center Column (עמודה מרכזית - כתבות וסיפורים) -->
         <main class="main-center-column">
 
-            <!-- Hero Featured Banner Card (כרטיס באנר ראשי מעוצב בראש הלוח) -->
+            <!-- Hero Featured Banner Card (תמונה בלבד - ללא טקסט כפי שמתבקש בצילום המסך) -->
             <div id="heroFeaturedCard" class="hero-featured-banner" onclick="openHeroArticle()">
-                <div class="hero-banner-image-wrapper">
-                    <img id="heroImage" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="כתבה ראשית">
-                    <div class="hero-overlay-content">
-                        <span class="hero-badge-tag">כתבה ראשית 🔥</span>
-                        <h1 id="heroTitle" class="hero-banner-title">מהפכת ה-AI ב-2026: כיצד מודלים אוטונומיים משנים את שוק העבודה</h1>
-                        <p id="heroSummary" class="hero-banner-summary">סקירה מקיפה על פריצות הדרך האחרונות בתחום ה-Agents והבינה המלאכותית היוצרת...</p>
-                    </div>
+                <div class="hero-banner-image-wrapper" style="height: 300px;">
+                    <img id="heroImage" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="תמונה ראשית" style="opacity: 1;">
                 </div>
             </div>
 
-            <!-- Custom Filter Bar Component (סרגל הסינונים המעוצב בעברית כפי שמתבקש בצילום המסך) -->
+            <!-- Custom Filter Bar Component (עם תפריטי נפתחים אינטראקטיביים בלחיצה על כל כפתור) -->
             <section class="articles-filter-bar">
                 <div class="filter-top-row">
                     
-                    <!-- Left Side Filter Dropdown Pills -->
+                    <!-- Filter Dropdown Pills Group -->
                     <div class="filter-pills-group">
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('קטגוריה')">
-                            <span>קטגוריה</span>
-                            <i class="fa-solid fa-chevron-down fa-xs"></i>
-                        </button>
                         
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('אפשרויות כתבה')">
-                            <span>אפשרויות כתבה</span>
-                            <i class="fa-solid fa-chevron-down fa-xs"></i>
-                        </button>
+                        <!-- Pill 1: קטגוריה -->
+                        <div class="filter-pill-wrapper">
+                            <button class="filter-pill-btn" onclick="togglePillDropdown('categoryMenu', event)">
+                                <span id="labelCategoryPill">קטגוריה</span>
+                                <i class="fa-solid fa-chevron-down fa-xs"></i>
+                            </button>
+                            <div id="categoryMenu" class="filter-pill-dropdown-menu hidden">
+                                <div class="pill-dropdown-item active" onclick="selectPillFilter('category', 'all', 'קטגוריה')">הכל</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'בינה מלאכותית', 'בינה מלאכותית')">בינה מלאכותית</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'טכנולוגיה', 'טכנולוגיה')">טכנולוגיה</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'מדע וחלל', 'מדע וחלל')">מדע וחלל</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'עסקים', 'עסקים')">עסקים</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'עיצוב וסביבה', 'עיצוב וסביבה')">עיצוב וסביבה</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'לייפסטייל', 'לייפסטייל')">לייפסטייל</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'סייבר וביטחון', 'סייבר וביטחון')">סייבר וביטחון</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'גיימינג', 'גיימינג')">גיימינג</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'קולינריה', 'קולינריה')">קולינריה</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('category', 'בריאות וכושר', 'בריאות וכושר')">בריאות וכושר</div>
+                            </div>
+                        </div>
 
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('פרטי מחבר')">
-                            <span>פרטי מחבר</span>
-                            <i class="fa-solid fa-chevron-down fa-xs"></i>
-                        </button>
+                        <!-- Pill 2: אפשרויות כתבה -->
+                        <div class="filter-pill-wrapper">
+                            <button class="filter-pill-btn" onclick="togglePillDropdown('optionsMenu', event)">
+                                <span id="labelOptionsMenu">אפשרויות כתבה</span>
+                                <i class="fa-solid fa-chevron-down fa-xs"></i>
+                            </button>
+                            <div id="optionsMenu" class="filter-pill-dropdown-menu hidden">
+                                <div class="pill-dropdown-item active" onclick="selectPillFilter('option', 'all', 'אפשרויות כתבה')">כל הכתבות</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('option', 'hd_images', 'עם תמונות HD')">עם תמונות HD</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('option', 'long_read', 'כתבות עומק ארוכות')">כתבות עומק ארוכות</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('option', 'short_read', 'כתבות קצרות (עד 5 דק\')')">כתבות קצרות (עד 5 דק')</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('option', 'featured', 'כתבות מומלצות מערכת')">כתבות מומלצות מערכת</div>
+                            </div>
+                        </div>
 
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('תקציב')">
-                            <span>תקציב</span>
-                            <i class="fa-solid fa-chevron-down fa-xs"></i>
-                        </button>
+                        <!-- Pill 3: פרטי מחבר -->
+                        <div class="filter-pill-wrapper">
+                            <button class="filter-pill-btn" onclick="togglePillDropdown('authorMenu', event)">
+                                <span id="labelAuthorMenu">פרטי מחבר</span>
+                                <i class="fa-solid fa-chevron-down fa-xs"></i>
+                            </button>
+                            <div id="authorMenu" class="filter-pill-dropdown-menu hidden">
+                                <div class="pill-dropdown-item active" onclick="selectPillFilter('author', 'all', 'פרטי מחבר')">כל המחברים</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'דניאל קליין', 'דניאל קליין (AI)')">דניאל קליין (AI)</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'מיכל אהרוני', 'מיכל אהרוני (אדריכלית)')">מיכל אהרוני (אדריכלית)</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'פרופ\' אריאל דהן', 'פרופ\' אריאל דהן (חלל)')">פרופ' אריאל דהן (חלל)</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'נועה לוי', 'נועה לוי (לייפסטייל)')">נועה לוי (לייפסטייל)</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'אלון שחר', 'אלון שחר (עסקים)')">אלון שחר (עסקים)</div>
+                            </div>
+                        </div>
 
-                        <button class="filter-pill-btn" onclick="toggleFilterMenu('זמן קריאה')">
-                            <span>זמן קריאה</span>
-                            <i class="fa-solid fa-chevron-down fa-xs"></i>
-                        </button>
+                        <!-- Pill 4: תקציב -->
+                        <div class="filter-pill-wrapper">
+                            <button class="filter-pill-btn" onclick="togglePillDropdown('budgetMenu', event)">
+                                <span id="labelBudgetMenu">תקציב</span>
+                                <i class="fa-solid fa-chevron-down fa-xs"></i>
+                            </button>
+                            <div id="budgetMenu" class="filter-pill-dropdown-menu hidden">
+                                <div class="pill-dropdown-item active" onclick="selectPillFilter('budget', 'all', 'תקציב')">הכל</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('budget', 'free', 'תוכן חינמי 🔓')">תוכן חינמי 🔓</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('budget', 'premium', 'תוכן פרימיום ⭐')">תוכן פרימיום ⭐</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('budget', 'pro', 'לחברי מנוי בלבד 👑')">לחברי מנוי בלבד 👑</div>
+                            </div>
+                        </div>
+
+                        <!-- Pill 5: זמן קריאה -->
+                        <div class="filter-pill-wrapper">
+                            <button class="filter-pill-btn" onclick="togglePillDropdown('readTimeMenu', event)">
+                                <span id="labelReadTimeMenu">זמן קריאה</span>
+                                <i class="fa-solid fa-chevron-down fa-xs"></i>
+                            </button>
+                            <div id="readTimeMenu" class="filter-pill-dropdown-menu hidden">
+                                <div class="pill-dropdown-item active" onclick="selectPillFilter('readTime', 'all', 'זמן קריאה')">כל הזמנים</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('readTime', 'short', 'עד 4 דקות קריאה')">עד 4 דקות קריאה</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('readTime', 'medium', '5 עד 7 דקות')">5 עד 7 דקות</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('readTime', 'long', '8 דקות ומעלה')">8 דקות ומעלה</div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Right Side Switches -->

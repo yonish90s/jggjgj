@@ -166,7 +166,14 @@ let state = {
     itemsPerPage: 12,
     currentSort: 'רלוונטיות',
     proServicesOnly: false,
-    onlineNowOnly: true
+    onlineNowOnly: true,
+    filters: {
+        category: 'all',
+        option: 'all',
+        author: 'all',
+        budget: 'all',
+        readTime: 'all'
+    }
 };
 
 async function initApp() {
@@ -196,12 +203,7 @@ function renderHeroBanner() {
     const hero = state.articles[0];
 
     const img = document.getElementById('heroImage');
-    const title = document.getElementById('heroTitle');
-    const summary = document.getElementById('heroSummary');
-
     if (img) img.src = hero.imageUrl;
-    if (title) title.textContent = hero.title;
-    if (summary) summary.textContent = hero.summary;
 
     const heroCard = document.getElementById('heroFeaturedCard');
     if (heroCard) {
@@ -226,8 +228,44 @@ function renderTopReadLists() {
     if (rightContainer) rightContainer.innerHTML = html;
 }
 
-function toggleFilterMenu(menuName) {
-    showToast(`סינון לפי ${menuName} פעיל!`);
+function togglePillDropdown(menuId, event) {
+    if (event) event.stopPropagation();
+    
+    // Close all other dropdown menus first
+    document.querySelectorAll('.filter-pill-dropdown-menu, .sort-popup-menu').forEach(m => {
+        if (m.id !== menuId) m.classList.add('hidden');
+    });
+
+    const targetMenu = document.getElementById(menuId);
+    if (targetMenu) {
+        targetMenu.classList.toggle('hidden');
+    }
+}
+
+function selectPillFilter(filterType, filterValue, labelText) {
+    state.filters[filterType] = filterValue;
+    state.currentPage = 1;
+
+    // Update Pill Button text
+    const labelElemIdMap = {
+        category: 'labelCategoryPill',
+        option: 'labelOptionsMenu',
+        author: 'labelAuthorMenu',
+        budget: 'labelBudgetMenu',
+        readTime: 'labelReadTimeMenu'
+    };
+
+    const targetLabelId = labelElemIdMap[filterType];
+    if (targetLabelId) {
+        const elem = document.getElementById(targetLabelId);
+        if (elem) elem.textContent = labelText;
+    }
+
+    // Close all dropdown menus
+    document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => m.classList.add('hidden'));
+
+    showToast(`סונן לפי: ${labelText}`);
+    renderArticlesGrid();
 }
 
 function applySwitchesFilter() {
@@ -241,7 +279,8 @@ function applySwitchesFilter() {
 }
 
 function toggleSortMenu(event) {
-    event.stopPropagation();
+    if (event) event.stopPropagation();
+    document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => m.classList.add('hidden'));
     const menu = document.getElementById('sortPopupMenu');
     if (menu) menu.classList.toggle('hidden');
 }
@@ -257,11 +296,10 @@ function selectSortOption(sortOption) {
     renderArticlesGrid();
 }
 
-document.addEventListener('click', (e) => {
-    const menu = document.getElementById('sortPopupMenu');
-    if (menu && !menu.classList.contains('hidden')) {
+document.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill-dropdown-menu, .sort-popup-menu').forEach(menu => {
         menu.classList.add('hidden');
-    }
+    });
 });
 
 function renderArticlesGrid() {
@@ -272,6 +310,7 @@ function renderArticlesGrid() {
 
     let filtered = [...state.articles];
 
+    // Search query filter
     if (state.searchQuery) {
         const q = state.searchQuery.trim().toLowerCase();
         filtered = filtered.filter(a => 
@@ -279,6 +318,16 @@ function renderArticlesGrid() {
             a.summary.toLowerCase().includes(q) || 
             a.category.toLowerCase().includes(q)
         );
+    }
+
+    // Category filter pill
+    if (state.filters.category !== 'all') {
+        filtered = filtered.filter(a => a.category === state.filters.category);
+    }
+
+    // Author filter pill
+    if (state.filters.author !== 'all') {
+        filtered = filtered.filter(a => a.author.includes(state.filters.author));
     }
 
     if (resultsCountElem) {
@@ -367,7 +416,6 @@ function changePage(pageNumber) {
 }
 
 function openArticleModal(articleId) {
-    // Navigate directly to the dedicated article page
     window.location.href = `article.html?id=${articleId}`;
 }
 
@@ -418,7 +466,8 @@ window.setActiveTab = setActiveTab;
 window.showGuestToast = showGuestToast;
 window.likeCurrentModalArticle = likeCurrentModalArticle;
 window.changePage = changePage;
-window.toggleFilterMenu = toggleFilterMenu;
+window.togglePillDropdown = togglePillDropdown;
+window.selectPillFilter = selectPillFilter;
 window.applySwitchesFilter = applySwitchesFilter;
 window.toggleSortMenu = toggleSortMenu;
 window.selectSortOption = selectSortOption;

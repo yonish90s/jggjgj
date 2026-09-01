@@ -139,13 +139,13 @@ body {
 
 /* STICKY & FIXED SIDEBAR COLUMNS (סיידברים מורחבים ומקובעים בגלילה) */
 .sidebar-column {
-    width: 275px; /* Wider sidebars as requested */
+    width: 275px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
     position: sticky;
-    top: 70px; /* Pinned right below top navbar */
+    top: 70px;
     align-self: flex-start;
     max-height: calc(100vh - 85px);
     overflow-y: auto;
@@ -311,7 +311,7 @@ body {
     gap: 20px;
 }
 
-/* Hero Featured Banner Card (כרטיס באנר ראשי מעוצב) */
+/* Hero Featured Banner Card (כרטיס באנר ראשי מעוצב - תמונה בלבד ללא טקסט) */
 .hero-featured-banner {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -330,7 +330,7 @@ body {
 .hero-banner-image-wrapper {
     position: relative;
     width: 100%;
-    height: 320px;
+    height: 300px;
     background-color: #000000;
 }
 
@@ -338,50 +338,11 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.85;
-}
-
-.hero-overlay-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 24px;
-    background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.4), transparent);
-    color: #ffffff;
-}
-
-.hero-badge-tag {
-    background-color: #18181b;
-    color: #ffffff;
-    font-size: 0.78rem;
-    font-weight: 900;
-    padding: 3px 12px;
-    border-radius: 12px;
-    display: inline-block;
-    margin-bottom: 8px;
-    border: 1px solid rgba(255,255,255,0.3);
-}
-
-.hero-banner-title {
-    font-size: 1.6rem;
-    font-weight: 900;
-    line-height: 1.3;
-    margin-bottom: 6px;
-}
-
-.hero-banner-summary {
-    font-size: 0.95rem;
-    color: #e4e4e7;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    opacity: 1;
 }
 
 /* =========================================================
-   FIVERR-STYLE FILTER BAR COMPONENT (סרגל הסינון מתוך צילום המסך)
+   FIVERR-STYLE FILTER BAR COMPONENT WITH DROPDOWNS
    ========================================================= */
 .articles-filter-bar {
     background-color: var(--card-bg);
@@ -406,6 +367,11 @@ body {
     flex-wrap: wrap;
 }
 
+.filter-pill-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
 .filter-pill-btn {
     background-color: var(--card-bg);
     border: 1.5px solid var(--border-color);
@@ -422,9 +388,41 @@ body {
     transition: var(--transition);
 }
 
-.filter-pill-btn:hover {
+.filter-pill-btn:hover, .filter-pill-btn.active {
     border-color: #18181b;
     background-color: var(--bg-color);
+}
+
+/* Dropdown popup menus for each filter pill */
+.filter-pill-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 6px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    min-width: 190px;
+    max-height: 260px;
+    overflow-y: auto;
+    z-index: 250;
+    padding: 6px 0;
+}
+
+.pill-dropdown-item {
+    padding: 8px 14px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: right;
+}
+
+.pill-dropdown-item:hover, .pill-dropdown-item.active {
+    background-color: var(--bg-color);
+    color: var(--accent-blue);
 }
 
 .filter-switches-group {
@@ -533,7 +531,7 @@ body {
     box-shadow: var(--shadow-md);
     padding: 6px 0;
     min-width: 160px;
-    z-index: 50;
+    z-index: 250;
     margin-top: 6px;
 }
 
