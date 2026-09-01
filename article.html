@@ -10,14 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2700">
+    <link rel="stylesheet" href="styles.css?v=2800">
     <style>
-        .article-page-container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
         .back-to-home-btn {
             display: inline-flex;
             align-items: center;
@@ -30,7 +24,7 @@
             font-weight: 800;
             font-size: 0.9rem;
             text-decoration: none;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             transition: var(--transition);
         }
 
@@ -43,13 +37,13 @@
             background-color: var(--card-bg);
             border-radius: var(--radius-md);
             border: 1px solid var(--border-color);
-            padding: 35px;
+            padding: 30px;
             box-shadow: var(--shadow-sm);
         }
 
         .article-hero-img-box {
             width: 100%;
-            height: 420px;
+            height: 380px;
             border-radius: var(--radius-md);
             overflow: hidden;
             margin: 20px 0;
@@ -62,14 +56,14 @@
         }
 
         .article-body-text {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             line-height: 1.8;
             color: var(--text-secondary);
             margin-top: 25px;
         }
 
         .article-body-text h3 {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             color: var(--text-primary);
             margin: 22px 0 10px 0;
             font-weight: 900;
@@ -80,9 +74,9 @@
         }
 
         .related-articles-section {
-            margin-top: 45px;
+            margin-top: 35px;
             border-top: 2px solid var(--border-color);
-            padding-top: 25px;
+            padding-top: 20px;
         }
     </style>
 </head>
@@ -118,75 +112,174 @@
         </div>
     </header>
 
-    <!-- Main Dedicated Article Page Body -->
-    <main class="article-page-container">
-        
-        <a href="index.html" class="back-to-home-btn">
-            <i class="fa-solid fa-arrow-right"></i> חזרה לעמוד הראשי
-        </a>
+    <!-- Page Body Wrapper (מבנה 3 עמודות עם סיידברים מקובעים גם בעמוד המודעה!) -->
+    <div class="page-layout-wrapper">
 
-        <article class="article-main-card">
+        <!-- Left Sidebar Column (סיידבר שמאלי) -->
+        <aside class="sidebar-column sidebar-left">
             
-            <div class="modal-article-header">
-                <span id="articleCategoryTag" class="category-badge-pill">טכנולוגיה</span>
-                <h1 id="articleTitleHeading" class="modal-article-title" style="font-size: 2.1rem;">טוען כתבה...</h1>
+            <!-- Card 1: אתרים מומלצים -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">אתרים מומלצים</div>
+                <div class="recommended-sites-list">
+                    <a href="https://youtube.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
+                        <span>יוטיוב (YouTube)</span>
+                    </a>
+                    <a href="https://github.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-github"></i>
+                        <span>גיטהאב (GitHub)</span>
+                    </a>
+                    <a href="https://medium.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-medium"></i>
+                        <span>מדיום (Medium)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2: הסיפורים הנקראים ביותר -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">הסיפורים הנקראים ביותר</div>
+                <div id="topReadStoriesLeft" class="top-read-list">
+                    <!-- Dynamic list loaded via JS -->
+                </div>
+            </div>
+
+            <!-- Card 3: הקהילות שלנו ברשת -->
+            <div class="sidebar-card community-card">
+                <div class="community-title">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>הקהילות שלנו ברשת</span>
+                </div>
                 
-                <div class="modal-meta-row" style="font-size: 0.95rem; margin-top: 10px;">
-                    <span><i class="fa-solid fa-user"></i> מאת: <strong id="articleAuthorName">מערכת</strong></span>
-                    <span>•</span>
-                    <span><i class="fa-regular fa-calendar"></i> <span id="articlePublishDate">01.09.2026</span></span>
-                    <span>•</span>
-                    <span><i class="fa-regular fa-clock"></i> <span id="articleReadingTime">5 דקות קריאה</span></span>
-                    <span>•</span>
-                    <span><i class="fa-regular fa-eye"></i> <span id="articleViewCount">12.4K צפיות</span></span>
+                <div class="social-buttons-grid">
+                    <a href="#" class="social-btn btn-facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+                    <a href="#" class="social-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    <a href="#" class="social-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
+                    <a href="#" class="social-btn btn-telegram"><i class="fa-paper-plane"></i> Telegram</a>
+                    <a href="#" class="social-btn btn-twitter"><i class="fa-brands fa-x-twitter"></i> Twitter / X</a>
+                    <a href="#" class="social-btn btn-reddit"><i class="fa-brands fa-reddit-alien"></i> Reddit</a>
                 </div>
             </div>
 
-            <!-- MINIMALIST SPECS BAR (מידע מינימליסטי: מחיר, דגם, דירוג, מיקום - ללא אימוג'ים) -->
-            <div class="article-specs-bar">
-                <div class="specs-group-right">
-                    <span class="spec-item"><strong>מחיר מבוקש:</strong> <span id="articlePriceSpec">yhsh 4,500</span></span>
-                    <span class="spec-divider">|</span>
-                    <span class="spec-item"><strong>דגם:</strong> <span id="articleModelSpec">2026 Pro</span></span>
+        </aside>
+
+        <!-- Main Center Column (עמודת המודעה/כתבה המרכזית) -->
+        <main class="main-center-column">
+            
+            <a href="index.html" class="back-to-home-btn">
+                <i class="fa-solid fa-arrow-right"></i> חזרה לעמוד הראשי
+            </a>
+
+            <article class="article-main-card">
+                
+                <div class="modal-article-header">
+                    <span id="articleCategoryTag" class="category-badge-pill">טכנולוגיה</span>
+                    <h1 id="articleTitleHeading" class="modal-article-title" style="font-size: 1.9rem;">טוען כתבה...</h1>
+                    
+                    <div class="modal-meta-row" style="font-size: 0.9rem; margin-top: 10px;">
+                        <span><i class="fa-solid fa-user"></i> מאת: <strong id="articleAuthorName">מערכת</strong></span>
+                        <span>•</span>
+                        <span><i class="fa-regular fa-calendar"></i> <span id="articlePublishDate">01.09.2026</span></span>
+                        <span>•</span>
+                        <span><i class="fa-regular fa-clock"></i> <span id="articleReadingTime">5 דקות קריאה</span></span>
+                        <span>•</span>
+                        <span><i class="fa-regular fa-eye"></i> <span id="articleViewCount">12.4K צפיות</span></span>
+                    </div>
                 </div>
 
-                <div class="specs-group-left">
-                    <span class="spec-item"><strong>דירוג משתמש:</strong> <span id="articleRatingSpec">4.9 (58 עסקאות)</span></span>
-                    <span class="spec-divider">|</span>
-                    <span class="spec-item"><strong>מיקום:</strong> <span id="articleLocationSpec">תל אביב - יפו</span></span>
+                <!-- MINIMALIST SPECS BAR (מידע מינימליסטי: מחיר, דגם, דירוג, מיקום - ללא אימוג'ים) -->
+                <div class="article-specs-bar">
+                    <div class="specs-group-right">
+                        <span class="spec-item"><strong>מחיר מבוקש:</strong> <span id="articlePriceSpec">yhsh 4,500</span></span>
+                        <span class="spec-divider">|</span>
+                        <span class="spec-item"><strong>דגם:</strong> <span id="articleModelSpec">2026 Pro</span></span>
+                    </div>
+
+                    <div class="specs-group-left">
+                        <span class="spec-item"><strong>דירוג משתמש:</strong> <span id="articleRatingSpec">4.9 (58 עסקאות)</span></span>
+                        <span class="spec-divider">|</span>
+                        <span class="spec-item"><strong>מיקום:</strong> <span id="articleLocationSpec">תל אביב - יפו</span></span>
+                    </div>
+                </div>
+
+                <div class="article-hero-img-box">
+                    <img id="articleHeroImage" src="" alt="תמונת כתבה ראשית">
+                </div>
+
+                <div id="articleFullContent" class="article-body-text">
+                    <!-- Injected via article.js -->
+                </div>
+
+                <div class="modal-footer-actions" style="margin-top: 25px;">
+                    <button class="btn-like-article" onclick="likePageArticle()">
+                        <i class="fa-solid fa-thumbs-up"></i> פרגן בלייק לכתבה (<span id="articleLikesCount">98%</span>)
+                    </button>
+                    <button class="btn-close-reader" onclick="shareArticle()">
+                        <i class="fa-solid fa-share-nodes"></i> שיתוף כתבה
+                    </button>
+                </div>
+
+            </article>
+
+            <!-- Related Stories Section -->
+            <section class="related-articles-section">
+                <h2 style="font-size: 1.2rem; font-weight: 900; color: var(--text-primary); margin-bottom: 16px;">
+                    📚 כתבות נוספות שעלולות לעניין אותך
+                </h2>
+                <div id="relatedArticlesGrid" class="articles-cards-grid">
+                    <!-- Injected via article.js -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Right Sidebar Column (סיידבר ימני) -->
+        <aside class="sidebar-column sidebar-right">
+            
+            <!-- Card 1: אתרים מומלצים -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">אתרים מומלצים</div>
+                <div class="recommended-sites-list">
+                    <a href="https://techcrunch.com" target="_blank" class="site-link-btn">
+                        <i class="fa-solid fa-newspaper"></i>
+                        <span>TechCrunch</span>
+                    </a>
+                    <a href="https://producthunt.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-product-hunt" style="color: #da552f;"></i>
+                        <span>Product Hunt</span>
+                    </a>
                 </div>
             </div>
 
-            <div class="article-hero-img-box">
-                <img id="articleHeroImage" src="" alt="תמונת כתבה ראשית">
+            <!-- Card 2: הסיפורים הנקראים ביותר -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">הסיפורים הנקראים ביותר</div>
+                <div id="topReadStoriesRight" class="top-read-list">
+                    <!-- Dynamic list loaded via JS -->
+                </div>
             </div>
 
-            <div id="articleFullContent" class="article-body-text">
-                <!-- Injected via article.js -->
+            <!-- Card 3: הקהילות שלנו ברשת -->
+            <div class="sidebar-card community-card">
+                <div class="community-title">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>הקהילות שלנו ברשת</span>
+                </div>
+                
+                <div class="social-buttons-grid">
+                    <a href="#" class="social-btn btn-facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+                    <a href="#" class="social-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    <a href="#" class="social-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
+                    <a href="#" class="social-btn btn-telegram"><i class="fa-paper-plane"></i> Telegram</a>
+                    <a href="#" class="social-btn btn-twitter"><i class="fa-brands fa-x-twitter"></i> Twitter / X</a>
+                    <a href="#" class="social-btn btn-reddit"><i class="fa-brands fa-reddit-alien"></i> Reddit</a>
+                </div>
             </div>
 
-            <div class="modal-footer-actions" style="margin-top: 30px;">
-                <button class="btn-like-article" onclick="likePageArticle()">
-                    <i class="fa-solid fa-thumbs-up"></i> פרגן בלייק לכתבה (<span id="articleLikesCount">98%</span>)
-                </button>
-                <button class="btn-close-reader" onclick="shareArticle()">
-                    <i class="fa-solid fa-share-nodes"></i> שיתוף כתבה
-                </button>
-            </div>
+        </aside>
 
-        </article>
-
-        <!-- Related Stories Section -->
-        <section class="related-articles-section">
-            <h2 style="font-size: 1.3rem; font-weight: 900; color: var(--text-primary); margin-bottom: 20px;">
-                📚 כתבות נוספות שעלולות לעניין אותך
-            </h2>
-            <div id="relatedArticlesGrid" class="articles-cards-grid">
-                <!-- Injected via article.js -->
-            </div>
-        </section>
-
-    </main>
+    </div>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast hidden">

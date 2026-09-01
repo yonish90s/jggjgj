@@ -14,7 +14,7 @@ const FALLBACK_ARTICLES = [
         "location": "תל אביב - יפו",
         "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
         "summary": "סקירה מקיפה על פריצות הדרך האחרונות בתחום ה-Agents והבינה המלאכותית היוצרת, ואיך ארגונים מובילים רותמים אותם להגברת הפריון.",
-        "content": "<h3>עידן חדש של סוכני AI אוטונומיים</h3><p>בשנים האחרונות ראנו מעבר חד מודלי שפה פשוטים המשיבים על שאלות למערכות אוטונומיות המסוגלות לבצע משימות מורכבות מקצה לקצה. כיום, סוכני AI מנהלים פרויקטים, כותבים קוד, ומבצעים מחקרים מעמיקים ללא צורך בהתערבות אנושית מתמדת.</p><h3>השפעה על תעשיית ההייטק והחינוך</h3><p>צוותי פיתוח ברחבי העולם מדווחים על קפיצה של עשרות אחוזים בתפוקה בזכות שילוב עוזרי פיתוח חכמים. השינוי אינו רק בטרמינולוגיה, אלא בדרך שבה חברות מתכננות ומפתחות מוצרים דיגיטליים.</p>"
+        "content": "<h3>עידן חדש של סוכני AI אוטונומיים</h3><p>בשנים האחרונות ראינו מעבר חד מודלי שפה פשוטים המשיבים על שאלות למערכות אוטונומיות המסוגלות לבצע משימות מורכבות מקצה לקצה. כיום, סוכני AI מנהלים פרויקטים, כותבים קוד, ומבצעים מחקרים מעמיקים ללא צורך בהתערבות אנושית מתמדת.</p><h3>השפעה על תעשיית ההייטק והחינוך</h3><p>צוותי פיתוח ברחבי העולם מדווחים על קפיצה של עשרות אחוזים בתפוקה בזכות שילוב עוזרי פיתוח חכמים. השינוי אינו רק בטרמינולוגיה, אלא בדרך שבה חברות מתכננות ומפתחות מוצרים דיגיטליים.</p>"
     },
     {
         "id": "art-2",
@@ -62,6 +62,7 @@ async function initArticlePage() {
 
     const article = allArticles.find(a => a.id === articleId) || allArticles[0];
     renderArticle(article);
+    renderTopReadLists();
     renderRelatedArticles(article.id);
 }
 
@@ -112,6 +113,23 @@ function renderArticle(article) {
     if (modelElem) modelElem.textContent = article.model || '2026 Pro';
     if (ratingElem) ratingElem.textContent = article.rating || 'דירוג 4.9 (58 עסקאות)';
     if (locationElem) locationElem.textContent = article.location || 'תל אביב - יפו';
+}
+
+function renderTopReadLists() {
+    const leftContainer = document.getElementById('topReadStoriesLeft');
+    const rightContainer = document.getElementById('topReadStoriesRight');
+
+    const topItems = allArticles.slice(0, 4);
+
+    const html = topItems.map((item, idx) => `
+        <div class="top-read-item" onclick="window.location.href='article.html?id=${item.id}'">
+            <span class="top-read-num">0${idx + 1}</span>
+            <span class="top-read-title">${item.title}</span>
+        </div>
+    `).join('');
+
+    if (leftContainer) leftContainer.innerHTML = html;
+    if (rightContainer) rightContainer.innerHTML = html;
 }
 
 function renderRelatedArticles(currentId) {
