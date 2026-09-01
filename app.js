@@ -367,31 +367,8 @@ function changePage(pageNumber) {
 }
 
 function openArticleModal(articleId) {
-    const article = state.articles.find(a => a.id === articleId) || state.articles[0];
-    if (!article) return;
-
-    state.currentArticle = article;
-
-    const modal = document.getElementById('articleModal');
-    const title = document.getElementById('modalArticleTitle');
-    const category = document.getElementById('modalCategoryTag');
-    const author = document.getElementById('modalArticleAuthor');
-    const readTime = document.getElementById('modalArticleReadTime');
-    const views = document.getElementById('modalArticleViews');
-    const image = document.getElementById('modalArticleImage');
-    const content = document.getElementById('modalArticleContent');
-    const likes = document.getElementById('modalLikesCount');
-
-    if (title) title.textContent = article.title;
-    if (category) category.textContent = article.category;
-    if (author) author.textContent = article.author;
-    if (readTime) readTime.textContent = article.readTime;
-    if (views) views.textContent = `${article.views} צפיות`;
-    if (image) image.src = article.imageUrl;
-    if (content) content.innerHTML = article.content || `<p>${article.summary}</p>`;
-    if (likes) likes.textContent = article.likes || '98%';
-
-    if (modal) modal.classList.remove('hidden');
+    // Navigate directly to the dedicated article page
+    window.location.href = `article.html?id=${articleId}`;
 }
 
 function closeArticleModal() {
@@ -407,7 +384,11 @@ function handleSearch(query) {
 
 function setActiveTab(tabName) {
     state.activeTab = tabName;
-    showToast(`עברת ללשונית: ${tabName === 'images' ? 'תמונות' : 'סיפורים'}`);
+    if (tabName === 'images') {
+        window.location.href = 'images.html';
+    } else {
+        window.location.href = 'index.html';
+    }
 }
 
 function showGuestToast() {

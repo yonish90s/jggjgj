@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageArticleTitle">קריאת כתבה | גלריית הכתבות והסיפורים</title>
+    <!-- Google Fonts: Heebo & Assistant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=2500">
+    <style>
+        .article-page-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .back-to-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .back-to-home-btn:hover {
+            background-color: #18181b;
+            color: #ffffff;
+        }
+
+        .article-main-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .article-hero-img-box {
+            width: 100%;
+            height: 420px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin: 25px 0;
+        }
+
+        .article-hero-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-body-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-top: 25px;
+        }
+
+        .article-body-text h3 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin: 22px 0 10px 0;
+            font-weight: 900;
+        }
+
+        .article-body-text p {
+            margin-bottom: 16px;
+        }
+
+        .related-articles-section {
+            margin-top: 45px;
+            border-top: 2px solid var(--border-color);
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header class="top-navbar-black">
+        <div class="top-nav-inner">
+            
+            <div class="nav-left">
+                <div class="guest-pill-btn" onclick="showGuestToast()">
+                    <span>אורח</span>
+                </div>
+            </div>
+
+            <nav class="nav-center-tabs">
+                <button class="nav-tab-btn" onclick="window.location.href='images.html'">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
+                </button>
+                
+                <button class="nav-tab-btn active" onclick="window.location.href='index.html'">
+                    <span>סיפורים</span>
+                </button>
+            </nav>
+
+            <div class="nav-right">
+                <a href="index.html" class="brand-logo-badge" style="text-decoration: none;">
+                    <i class="fa-solid fa-infinity"></i>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Dedicated Article Page Body -->
+    <main class="article-page-container">
+        
+        <a href="index.html" class="back-to-home-btn">
+            <i class="fa-solid fa-arrow-right"></i> חזרה לעמוד הראשי
+        </a>
+
+        <article class="article-main-card">
+            
+            <div class="modal-article-header">
+                <span id="articleCategoryTag" class="category-badge-pill">טכנולוגיה</span>
+                <h1 id="articleTitleHeading" class="modal-article-title" style="font-size: 2.1rem;">טוען כתבה...</h1>
+                
+                <div class="modal-meta-row" style="font-size: 0.95rem; margin-top: 10px;">
+                    <span><i class="fa-solid fa-user"></i> מאת: <strong id="articleAuthorName">מערכת</strong></span>
+                    <span>•</span>
+                    <span><i class="fa-regular fa-calendar"></i> <span id="articlePublishDate">01.09.2026</span></span>
+                    <span>•</span>
+                    <span><i class="fa-regular fa-clock"></i> <span id="articleReadingTime">5 דקות קריאה</span></span>
+                    <span>•</span>
+                    <span><i class="fa-regular fa-eye"></i> <span id="articleViewCount">12.4K צפיות</span></span>
+                </div>
+            </div>
+
+            <div class="article-hero-img-box">
+                <img id="articleHeroImage" src="" alt="תמונת כתבה ראשית">
+            </div>
+
+            <div id="articleFullContent" class="article-body-text">
+                <!-- Injected via article.js -->
+            </div>
+
+            <div class="modal-footer-actions" style="margin-top: 30px;">
+                <button class="btn-like-article" onclick="likePageArticle()">
+                    <i class="fa-solid fa-thumbs-up"></i> פרגן בלייק לכתבה (<span id="articleLikesCount">98%</span>)
+                </button>
+                <button class="btn-close-reader" onclick="shareArticle()">
+                    <i class="fa-solid fa-share-nodes"></i> שיתוף כתבה
+                </button>
+            </div>
+
+        </article>
+
+        <!-- Related Stories Section -->
+        <section class="related-articles-section">
+            <h2 style="font-size: 1.3rem; font-weight: 900; color: var(--text-primary); margin-bottom: 20px;">
+                📚 כתבות נוספות שעלולות לעניין אותך
+            </h2>
+            <div id="relatedArticlesGrid" class="articles-cards-grid">
+                <!-- Injected via article.js -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <script src="article.js"></script>
+</body>
+</html>
