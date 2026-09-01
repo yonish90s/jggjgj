@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2100">
+    <link rel="stylesheet" href="styles.css?v=2200">
 </head>
 <body>
 
@@ -111,9 +111,9 @@
                 </div>
             </div>
 
-            <!-- Articles Grid (גריד הכתבות הראשי) -->
+            <!-- Articles Grid (גריד 12 הכתבות הראשי 3 על 4) -->
             <div class="section-sub-header">
-                <h2 class="section-title-text">כל הכתבות והסיפורים</h2>
+                <h2 id="gridTitleText" class="section-title-text">כל הכתבות והסיפורים (12 כתבות בעמוד)</h2>
                 <div class="search-filter-box">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
                     <input type="text" id="searchInput" placeholder="חיפוש כתבות ונושאים..." oninput="handleSearch(this.value)">
@@ -122,6 +122,11 @@
 
             <div id="articlesGridContainer" class="articles-cards-grid">
                 <!-- Articles rendered dynamically via app.js -->
+            </div>
+
+            <!-- Pagination Bar (סרגל דפדפות ועמודים) -->
+            <div id="paginationContainer" class="pagination-wrapper">
+                <!-- Injected via app.js -->
             </div>
 
         </main>
