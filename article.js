@@ -8,9 +8,13 @@ const FALLBACK_ARTICLES = [
         "readTime": "6 דקות קריאה",
         "views": "12.4K",
         "likes": "98%",
+        "price": "yhsh 4,500",
+        "model": "AI Agent v2.5",
+        "rating": "דירוג 4.9 (58 עסקאות)",
+        "location": "תל אביב - יפו",
         "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
         "summary": "סקירה מקיפה על פריצות הדרך האחרונות בתחום ה-Agents והבינה המלאכותית היוצרת, ואיך ארגונים מובילים רותמים אותם להגברת הפריון.",
-        "content": "<h3>עידן חדש של סוכני AI אוטונומיים</h3><p>בשנים האחרונות ראינו מעבר חד מודלי שפה פשוטים המשיבים על שאלות למערכות אוטונומיות המסוגלות לבצע משימות מורכבות מקצה לקצה. כיום, סוכני AI מנהלים פרויקטים, כותבים קוד, ומבצעים מחקרים מעמיקים ללא צורך בהתערבות אנושית מתמדת.</p><h3>השפעה על תעשיית ההייטק והחינוך</h3><p>צוותי פיתוח ברחבי העולם מדווחים על קפיצה של עשרות אחוזים בתפוקה בזכות שילוב עוזרי פיתוח חכמים. השינוי אינו רק בטרמינולוגיה, אלא בדרך שבה חברות מתכננות ומפתחות מוצרים דיגיטליים.</p>"
+        "content": "<h3>עידן חדש של סוכני AI אוטונומיים</h3><p>בשנים האחרונות ראנו מעבר חד מודלי שפה פשוטים המשיבים על שאלות למערכות אוטונומיות המסוגלות לבצע משימות מורכבות מקצה לקצה. כיום, סוכני AI מנהלים פרויקטים, כותבים קוד, ומבצעים מחקרים מעמיקים ללא צורך בהתערבות אנושית מתמדת.</p><h3>השפעה על תעשיית ההייטק והחינוך</h3><p>צוותי פיתוח ברחבי העולם מדווחים על קפיצה של עשרות אחוזים בתפוקה בזכות שילוב עוזרי פיתוח חכמים. השינוי אינו רק בטרמינולוגיה, אלא בדרך שבה חברות מתכננות ומפתחות מוצרים דיגיטליים.</p>"
     },
     {
         "id": "art-2",
@@ -21,6 +25,10 @@ const FALLBACK_ARTICLES = [
         "readTime": "4 דקות קריאה",
         "views": "8.9K",
         "likes": "95%",
+        "price": "yhsh 8,200",
+        "model": "Eco Build 2026",
+        "rating": "דירוג 4.8 (42 עסקאות)",
+        "location": "חיפה - מרכז",
         "imageUrl": "https://images.unsplash.com/photo-1518005068251-37900150df60?auto=format&fit=crop&w=1200&q=80",
         "summary": "כיצד אדריכלים ברחבי העולם משלבים צמחיה אנכית, אנרגיה סולארית וחומרי בנייה ממוחזרים כדי ליצור הערים של המחר.",
         "content": "<h3>בנייה ירוקה בלב מטרופולינים סואנים</h3><p>הערים הגדולות עוברות מהפכה שקטה: מבנים חדשים מתוכננים מראש כדי לייצר יותר אנרגיה ממה שהם צורכים. בעזרת פאנלים סולאריים משולבים בחלונות ומערכות אגירת מים מתקדמות, הגורדי שחקים הופכים למערכות אקולוגיות עצמאיות.</p>"
@@ -34,6 +42,10 @@ const FALLBACK_ARTICLES = [
         "readTime": "7 דקות קריאה",
         "views": "15.2K",
         "likes": "99%",
+        "price": "yhsh 12,000",
+        "model": "Webb Optics 4K",
+        "rating": "דירוג 5.0 (96 עסקאות)",
+        "location": "ירושלים",
         "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
         "summary": "תמונות חדשות שהתקבלו מטלסקופ החלל חושפות כוכבים וגלקסיות שנוצרו מאות מיליוני שנים בלבד לאחר המפץ הגדול.",
         "content": "<h3>הצצה לראשית היקום</h3><p>המדענים נרגשים: המודלים הקיימים של היווצרות גלקסיות עומדים למבחן מחדש בעקבות הגילויים האחרונים של טלסקופ ג'יימס ווב. הגלקסיות שנצפו מראות בהירות ומסה גבוהה בהרבה ממה ששורער בעבר.</p>"
@@ -80,6 +92,12 @@ function renderArticle(article) {
     const contentElem = document.getElementById('articleFullContent');
     const likesElem = document.getElementById('articleLikesCount');
 
+    // Minimalist Specs Elements (ללא אימוג'ים - טקסט מינימליסטי חצי ימין חצי שמאל)
+    const priceElem = document.getElementById('articlePriceSpec');
+    const modelElem = document.getElementById('articleModelSpec');
+    const ratingElem = document.getElementById('articleRatingSpec');
+    const locationElem = document.getElementById('articleLocationSpec');
+
     if (titleElem) titleElem.textContent = article.title;
     if (categoryElem) categoryElem.textContent = article.category;
     if (authorElem) authorElem.textContent = article.author;
@@ -89,6 +107,11 @@ function renderArticle(article) {
     if (imgElem) imgElem.src = article.imageUrl;
     if (contentElem) contentElem.innerHTML = article.content || `<p>${article.summary}</p>`;
     if (likesElem) likesElem.textContent = article.likes || '98%';
+
+    if (priceElem) priceElem.textContent = article.price || 'yhsh 4,500';
+    if (modelElem) modelElem.textContent = article.model || '2026 Pro';
+    if (ratingElem) ratingElem.textContent = article.rating || 'דירוג 4.9 (58 עסקאות)';
+    if (locationElem) locationElem.textContent = article.location || 'תל אביב - יפו';
 }
 
 function renderRelatedArticles(currentId) {

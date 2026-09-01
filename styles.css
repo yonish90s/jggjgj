@@ -342,6 +342,42 @@ body {
 }
 
 /* =========================================================
+   MINIMALIST SPECS BAR (סרגל מפרט מינימליסטי: מחיר, דגם, דירוג, מיקום - ללא אימוג'ים)
+   ========================================================= */
+.article-specs-bar {
+    background-color: #fafafa;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px 18px;
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.specs-group-right, .specs-group-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.spec-item {
+    font-weight: 800;
+}
+
+.spec-item strong {
+    font-weight: 900;
+    color: var(--text-muted);
+}
+
+.spec-divider {
+    color: #d4d4d8;
+    font-weight: 400;
+}
+
+/* =========================================================
    FIVERR-STYLE FILTER BAR COMPONENT WITH DROPDOWNS
    ========================================================= */
 .articles-filter-bar {
