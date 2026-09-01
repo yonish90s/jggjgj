@@ -3,42 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>פרויקט חדש</title>
+    <title>גלריית הכתבות והסיפורים | עמוד הבית</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2000">
+    <link rel="stylesheet" href="styles.css?v=2100">
 </head>
 <body>
 
-    <!-- Header Bar -->
-    <header class="top-navbar">
-        <div class="container top-nav-container">
-            <div class="brand">
-                <i class="fa-solid fa-sparkles"></i>
-                <span>פרויקט חדש</span>
+    <!-- Header Bar (כותרת עליונה שחורה כפי שמציג בצילום המסך) -->
+    <header class="top-navbar-black">
+        <div class="top-nav-inner">
+            
+            <div class="nav-left">
+                <div class="guest-pill-btn" onclick="showGuestToast()">
+                    <span>אורח</span>
+                </div>
             </div>
-            
-            <nav class="nav-links">
-                <a href="#" class="nav-link active">דף הבית</a>
+
+            <nav class="nav-center-tabs">
+                <button class="nav-tab-btn" onclick="setActiveTab('images')">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
+                </button>
+                
+                <button class="nav-tab-btn active" onclick="setActiveTab('stories')">
+                    <span>סיפורים</span>
+                </button>
             </nav>
-            
-            <button id="themeToggle" class="btn-icon" title="החלף מצב תצוגה">
-                <i class="fa-solid fa-moon"></i>
-            </button>
+
+            <div class="nav-right">
+                <div class="brand-logo-badge">
+                    <i class="fa-solid fa-infinity"></i>
+                </div>
+            </div>
+
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="container main-content">
-        <div class="hero-box">
-            <h1>👋 ברוכים הבאים לפרויקט החדש!</h1>
-            <p>הקוד הקיים אופס בהצלחה. ספר לי מה תרצה שנבנה כאן מאפס!</p>
+    <!-- Page Body Wrapper (מבנה 3 עמודות בדיוק כפי שמופיע בצילום המסך) -->
+    <div class="page-layout-wrapper">
+
+        <!-- Left Sidebar Column (סיידבר שמאלי) -->
+        <aside class="sidebar-column sidebar-left">
+            
+            <!-- Card 1: אתרים מומלצים -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">אתרים מומלצים</div>
+                <div class="recommended-sites-list">
+                    <a href="https://youtube.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
+                        <span>יוטיוב (YouTube)</span>
+                    </a>
+                    <a href="https://github.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-github"></i>
+                        <span>גיטהאב (GitHub)</span>
+                    </a>
+                    <a href="https://medium.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-medium"></i>
+                        <span>מדיום (Medium)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2: הסיפורים הנקראים ביותר -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">הסיפורים הנקראים ביותר</div>
+                <div id="topReadStoriesLeft" class="top-read-list">
+                    <!-- Dynamic list loaded via JS -->
+                </div>
+            </div>
+
+            <!-- Card 3: הקהילות שלנו ברשת (לחצני רשתות חברתיות מעוצבים) -->
+            <div class="sidebar-card community-card">
+                <div class="community-title">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>הקהילות שלנו ברשת</span>
+                </div>
+                
+                <div class="social-buttons-grid">
+                    <a href="#" class="social-btn btn-facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+                    <a href="#" class="social-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    <a href="#" class="social-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
+                    <a href="#" class="social-btn btn-telegram"><i class="fa-paper-plane"></i> Telegram</a>
+                    <a href="#" class="social-btn btn-twitter"><i class="fa-brands fa-x-twitter"></i> Twitter / X</a>
+                    <a href="#" class="social-btn btn-reddit"><i class="fa-brands fa-reddit-alien"></i> Reddit</a>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- Main Center Column (עמודה מרכזית - כתבות וסיפורים) -->
+        <main class="main-center-column">
+
+            <!-- Hero Featured Banner Card (כרטיס באנר ראשי מעוצב בראש הלוח) -->
+            <div id="heroFeaturedCard" class="hero-featured-banner" onclick="openHeroArticle()">
+                <div class="hero-banner-image-wrapper">
+                    <img id="heroImage" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="כתבה ראשית">
+                    <div class="hero-overlay-content">
+                        <span class="hero-badge-tag">כתבה ראשית 🔥</span>
+                        <h1 id="heroTitle" class="hero-banner-title">מהפכת ה-AI ב-2026: כיצד מודלים אוטונומיים משנים את שוק העבודה</h1>
+                        <p id="heroSummary" class="hero-banner-summary">סקירה מקיפה על פריצות הדרך האחרונות בתחום ה-Agents והבינה המלאכותית היוצרת...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articles Grid (גריד הכתבות הראשי) -->
+            <div class="section-sub-header">
+                <h2 class="section-title-text">כל הכתבות והסיפורים</h2>
+                <div class="search-filter-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="חיפוש כתבות ונושאים..." oninput="handleSearch(this.value)">
+                </div>
+            </div>
+
+            <div id="articlesGridContainer" class="articles-cards-grid">
+                <!-- Articles rendered dynamically via app.js -->
+            </div>
+
+        </main>
+
+        <!-- Right Sidebar Column (סיידבר ימני) -->
+        <aside class="sidebar-column sidebar-right">
+            
+            <!-- Card 1: אתרים מומלצים -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">אתרים מומלצים</div>
+                <div class="recommended-sites-list">
+                    <a href="https://techcrunch.com" target="_blank" class="site-link-btn">
+                        <i class="fa-solid fa-newspaper"></i>
+                        <span>TechCrunch</span>
+                    </a>
+                    <a href="https://producthunt.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-product-hunt" style="color: #da552f;"></i>
+                        <span>Product Hunt</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2: הסיפורים הנקראים ביותר -->
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">הסיפורים הנקראים ביותר</div>
+                <div id="topReadStoriesRight" class="top-read-list">
+                    <!-- Dynamic list loaded via JS -->
+                </div>
+            </div>
+
+            <!-- Card 3: הקהילות שלנו ברשת -->
+            <div class="sidebar-card community-card">
+                <div class="community-title">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>הקהילות שלנו ברשת</span>
+                </div>
+                
+                <div class="social-buttons-grid">
+                    <a href="#" class="social-btn btn-facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+                    <a href="#" class="social-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    <a href="#" class="social-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
+                    <a href="#" class="social-btn btn-telegram"><i class="fa-paper-plane"></i> Telegram</a>
+                    <a href="#" class="social-btn btn-twitter"><i class="fa-brands fa-x-twitter"></i> Twitter / X</a>
+                    <a href="#" class="social-btn btn-reddit"><i class="fa-brands fa-reddit-alien"></i> Reddit</a>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <!-- Article Reader Modal (חלון קריאת הכתבה המלאה) -->
+    <div id="articleModal" class="modal-overlay hidden">
+        <div class="article-modal-box">
+            <button class="close-modal-btn" onclick="closeArticleModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-article-header">
+                <span id="modalCategoryTag" class="category-badge-pill">טכנולוגיה</span>
+                <h1 id="modalArticleTitle" class="modal-article-title">כותרת הכתבה</h1>
+                
+                <div class="modal-meta-row">
+                    <span><i class="fa-solid fa-user"></i> מאת: <strong id="modalArticleAuthor">מערכת</strong></span>
+                    <span>•</span>
+                    <span><i class="fa-regular fa-clock"></i> <span id="modalArticleReadTime">5 דקות קריאה</span></span>
+                    <span>•</span>
+                    <span><i class="fa-regular fa-eye"></i> <span id="modalArticleViews">1.2K צפיות</span></span>
+                </div>
+            </div>
+
+            <div class="modal-article-image-box">
+                <img id="modalArticleImage" src="" alt="תמונת כתבה">
+            </div>
+
+            <div id="modalArticleContent" class="modal-article-content">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="modal-footer-actions">
+                <button class="btn-like-article" onclick="likeCurrentModalArticle()">
+                    <i class="fa-solid fa-thumbs-up"></i> פרגן בלייק (<span id="modalLikesCount">98%</span>)
+                </button>
+                <button class="btn-close-reader" onclick="closeArticleModal()">
+                    סגור חלון קריאה
+                </button>
+            </div>
         </div>
-    </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
 
     <script src="app.js"></script>
 </body>
