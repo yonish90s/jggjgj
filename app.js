@@ -9,6 +9,8 @@ const FALLBACK_ARTICLES = [
         "views": "12.4K",
         "likes": "98%",
         "price": "yhsh 4,500",
+        "sellPrice": "yhsh 4,500",
+        "borrowPrice": "yhsh 350",
         "model": "AI Agent v2.5",
         "rating": "דירוג 4.9 (58 עסקאות)",
         "location": "תל אביב - יפו",
@@ -27,6 +29,8 @@ const FALLBACK_ARTICLES = [
         "views": "8.9K",
         "likes": "95%",
         "price": "yhsh 8,200",
+        "sellPrice": "yhsh 8,200",
+        "borrowPrice": "yhsh 600",
         "model": "Eco Build 2026",
         "rating": "דירוג 4.8 (42 עסקאות)",
         "location": "חיפה - מרכז",
@@ -45,6 +49,8 @@ const FALLBACK_ARTICLES = [
         "views": "15.2K",
         "likes": "99%",
         "price": "yhsh 12,000",
+        "sellPrice": "yhsh 12,000",
+        "borrowPrice": "yhsh 900",
         "model": "Webb Optics 4K",
         "rating": "דירוג 5.0 (96 עסקאות)",
         "location": "ירושלים",
@@ -63,6 +69,8 @@ const FALLBACK_ARTICLES = [
         "views": "6.7K",
         "likes": "92%",
         "price": "yhsh 1,800",
+        "sellPrice": "yhsh 1,800",
+        "borrowPrice": "yhsh 150",
         "model": "Fit Life Pro",
         "rating": "דירוג 4.7 (31 עסקאות)",
         "location": "רמת גן",
@@ -81,6 +89,8 @@ const FALLBACK_ARTICLES = [
         "views": "11.1K",
         "likes": "96%",
         "price": "yhsh 15,500",
+        "sellPrice": "yhsh 15,500",
+        "borrowPrice": "yhsh 1,200",
         "model": "Venture X",
         "rating": "דירוג 4.9 (74 עסקאות)",
         "location": "הרצליה פיתוח",
@@ -99,6 +109,8 @@ const FALLBACK_ARTICLES = [
         "views": "5.4K",
         "likes": "91%",
         "price": "yhsh 3,200",
+        "sellPrice": "yhsh 3,200",
+        "borrowPrice": "yhsh 250",
         "model": "Art Gallery 3D",
         "rating": "דירוג 4.8 (28 עסקאות)",
         "location": "תל אביב - נווה צדק",
@@ -262,6 +274,8 @@ function handlePublishSubmit(event) {
         views: '1 צפייה',
         likes: '100%',
         price: price,
+        sellPrice: price,
+        borrowPrice: 'yhsh 250',
         model: condition,
         rating: 'דירוג 5.0 (מודעה חדשה)',
         location: location,
@@ -345,38 +359,6 @@ function selectSortOption(sortOption) {
     renderArticlesGrid();
 }
 
-function handleCardAction(actionType, articleId, event) {
-    if (event) event.stopPropagation();
-
-    const article = state.articles.find(a => a.id === articleId);
-    const titleSnippet = article ? article.title.slice(0, 20) + '...' : '';
-
-    switch (actionType) {
-        case 'save':
-            if (state.savedListings.has(articleId)) {
-                state.savedListings.delete(articleId);
-                showToast(`המודעה הוסרה מהמועדפים`);
-            } else {
-                state.savedListings.add(articleId);
-                showToast(`המודעה נשמרה במועדפים! ❤️`);
-            }
-            renderArticlesGrid();
-            break;
-        case 'message':
-            showToast(`פתחת צ'אט הודעה עם מפרסם המודעה 💬`);
-            break;
-        case 'borrow':
-            showToast(`בחרת באפשרות: השאלה 🤝 (${titleSnippet})`);
-            break;
-        case 'buy':
-            showToast(`בחרת באפשרות: קניה 🛒 (${titleSnippet})`);
-            break;
-        case 'trade':
-            showToast(`בחרת באפשרות: החלפה 🔄 (${titleSnippet})`);
-            break;
-    }
-}
-
 document.addEventListener('click', () => {
     document.querySelectorAll('.filter-pill-dropdown-menu, .sort-popup-menu').forEach(menu => {
         menu.classList.add('hidden');
@@ -405,7 +387,7 @@ function renderArticlesGrid() {
         );
     }
 
-    // PRICE SLIDER FILTER (עד המחיר המקסימלי שנבחר בסרגל)
+    // PRICE SLIDER FILTER
     if (state.maxPrice < 20000) {
         filtered = filtered.filter(a => getNumericPrice(a.price) <= state.maxPrice);
     }
@@ -443,7 +425,9 @@ function renderArticlesGrid() {
     }
 
     container.innerHTML = paginatedArticles.map(article => {
-        const isSaved = state.savedListings.has(article.id);
+        const borrowP = article.borrowPrice || 'yhsh 350';
+        const sellP = article.sellPrice || article.price || 'yhsh 4,500';
+
         return `
             <div class="article-card-box" onclick="openArticleModal('${article.id}')">
                 <div class="article-card-image-box">
@@ -460,22 +444,18 @@ function renderArticlesGrid() {
                         <span><i class="fa-regular fa-eye"></i> ${article.views}</span>
                     </div>
 
-                    <!-- SYMMETRICAL ACTION TOOLBAR AS SHOWN IN SCREENSHOT -->
-                    <div class="article-card-action-bar" onclick="event.stopPropagation()">
+                    <!-- EXACT 2 PRICES AT THE BOTTOM: מחיר השאלה | מחיר מכירה -->
+                    <div class="article-card-action-bar">
                         <div class="action-bar-right">
-                            <span class="action-bar-link" style="${isSaved ? 'color:#ec4899;' : ''}" onclick="handleCardAction('save', '${article.id}', event)">
-                                ${isSaved ? '❤️ שמור' : 'שמור מודעה'}
-                            </span>
-                            <span class="action-divider">|</span>
-                            <span class="action-bar-link" onclick="handleCardAction('message', '${article.id}', event)">שלח הודעה</span>
+                            <span style="color: var(--text-muted); font-size: 0.8rem;">מחיר השאלה:</span>
+                            <strong style="color: #2563eb;">${borrowP}</strong>
                         </div>
                         
+                        <span class="action-divider">|</span>
+                        
                         <div class="action-bar-left">
-                            <span class="action-bar-link" onclick="handleCardAction('borrow', '${article.id}', event)">השאל</span>
-                            <span class="action-divider">|</span>
-                            <span class="action-bar-link" onclick="handleCardAction('buy', '${article.id}', event)">קניה</span>
-                            <span class="action-divider">|</span>
-                            <span class="action-bar-link" onclick="handleCardAction('trade', '${article.id}', event)">החלפה</span>
+                            <span style="color: var(--text-muted); font-size: 0.8rem;">מחיר מכירה:</span>
+                            <strong style="color: #ff5000;">${sellP}</strong>
                         </div>
                     </div>
 
@@ -587,7 +567,6 @@ window.closePublishModal = closePublishModal;
 window.selectPublishCategory = selectPublishCategory;
 window.handlePublishSubmit = handlePublishSubmit;
 window.updatePriceSliderValue = updatePriceSliderValue;
-window.setPricePreset(val => setPricePreset(val));
 window.setPricePreset = setPricePreset;
 window.applyPriceFilter = applyPriceFilter;
 window.handleSearch = handleSearch;
@@ -600,7 +579,6 @@ window.selectPillFilter = selectPillFilter;
 window.applySwitchesFilter = applySwitchesFilter;
 window.toggleSortMenu = toggleSortMenu;
 window.selectSortOption = selectSortOption;
-window.handleCardAction = handleCardAction;
 window.openHeroArticle = () => {
     if (state.articles.length > 0) openArticleModal(state.articles[0].id);
 };
