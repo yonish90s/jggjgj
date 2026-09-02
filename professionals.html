@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אינדקס אנשי מקצוע | חיפוש נותני שירות בישראל</title>
+    <!-- Google Fonts: Heebo & Assistant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=3700">
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header class="top-navbar-black">
+        <div class="top-nav-inner">
+            
+            <div class="nav-left">
+                <button class="btn-publish-nav-btn" onclick="openAddProModal()">
+                    <i class="fa-solid fa-user-plus"></i> הצטרף כאיש מקצוע
+                </button>
+            </div>
+
+            <nav class="nav-center-tabs">
+                <button class="nav-tab-btn" onclick="window.location.href='index.html'">
+                    <span>סיפורים</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='images.html'">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
+                </button>
+                <button class="nav-tab-btn active" onclick="window.location.href='professionals.html'">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>אנשי מקצוע</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='popular.html'">
+                    <i class="fa-solid fa-star"></i>
+                    <span>אתרים פופולריים</span>
+                </button>
+            </nav>
+
+            <div class="nav-right">
+                <a href="index.html" class="brand-logo-badge" style="text-decoration: none;">
+                    <i class="fa-solid fa-infinity"></i>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Page Body Wrapper -->
+    <div class="page-layout-wrapper" style="flex-direction: column; gap: 20px;">
+
+        <!-- Header Search Hero -->
+        <div class="section-sub-header" style="flex-direction: column; align-items: flex-start; gap: 12px; padding: 22px;">
+            <h1 class="section-title-text" style="font-size: 1.6rem;">🛠️ מצא איש מקצוע מומלץ באזורך</h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">חפש חשמלאים, טכנאים, מפתחי AI, אדריכלים, אינסטלטורים ומומחים בעלי דירוג גבוה</p>
+
+            <!-- Search & Filters Container -->
+            <div style="display: flex; gap: 12px; width: 100%; flex-wrap: wrap; margin-top: 6px;">
+                <div class="search-filter-box" style="flex: 1; min-width: 280px;">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchProInput" placeholder="חפש לפי שם, תחום או עיר..." oninput="handleProSearch(this.value)">
+                </div>
+
+                <!-- Category Pill Dropdown -->
+                <div class="filter-pill-wrapper">
+                    <button class="filter-pill-btn" onclick="togglePillDropdown('proCategoryMenu', event)">
+                        <span id="labelProCategory">כל התחומים</span>
+                        <i class="fa-solid fa-chevron-down fa-xs"></i>
+                    </button>
+                    <div id="proCategoryMenu" class="filter-pill-dropdown-menu hidden">
+                        <div class="pill-dropdown-item active" onclick="filterProCategory('all', 'כל התחומים')">כל התחומים</div>
+                        <div class="pill-dropdown-item" onclick="filterProCategory('חשמל ומיזוג', 'חשמל ומיזוג ⚡')">חשמל ומיזוג ⚡</div>
+                        <div class="pill-dropdown-item" onclick="filterProCategory('טכנולוגיה ו-AI', 'טכנולוגיה ו-AI 💻')">טכנולוגיה ו-AI 💻</div>
+                        <div class="pill-dropdown-item" onclick="filterProCategory('שרברבות ואינסטלציה', 'אינסטלציה 🔧')">אינסטלציה 🔧</div>
+                        <div class="pill-dropdown-item" onclick="filterProCategory('עיצוב ובנייה', 'עיצוב ובנייה 🏡')">עיצוב ובנייה 🏡</div>
+                        <div class="pill-dropdown-item" onclick="filterProCategory('ייעוץ ועסקים', 'ייעוץ ועסקים 💼')">ייעוץ ועסקים 💼</div>
+                    </div>
+                </div>
+
+                <!-- City Filter Dropdown -->
+                <div class="filter-pill-wrapper">
+                    <button class="filter-pill-btn" onclick="togglePillDropdown('proCityMenu', event)">
+                        <span id="labelProCity">כל הערים</span>
+                        <i class="fa-solid fa-chevron-down fa-xs"></i>
+                    </button>
+                    <div id="proCityMenu" class="filter-pill-dropdown-menu hidden">
+                        <div class="pill-dropdown-item active" onclick="filterProCity('all', 'כל הערים')">כל הערים</div>
+                        <div class="pill-dropdown-item" onclick="filterProCity('תל אביב', 'תל אביב - יפו')">תל אביב - יפו</div>
+                        <div class="pill-dropdown-item" onclick="filterProCity('חיפה', 'חיפה - מרכז')">חיפה - מרכז</div>
+                        <div class="pill-dropdown-item" onclick="filterProCity('ירושלים', 'ירושלים')">ירושלים</div>
+                        <div class="pill-dropdown-item" onclick="filterProCity('ראשון לציון', 'ראשון לציון')">ראשון לציון</div>
+                        <div class="pill-dropdown-item" onclick="filterProCity('באר שבע', 'באר שבע')">באר שבע</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Results Counter Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: var(--text-muted); font-size: 0.9rem;">
+            <span id="proResultsCount">6 אנשי מקצוע נמצאו</span>
+            <span>מיון לפי: <strong>דירוג גבוה</strong></span>
+        </div>
+
+        <!-- Professionals Cards Grid -->
+        <div id="professionalsGrid" class="articles-cards-grid">
+            <!-- Rendered dynamically via professionals.js -->
+        </div>
+
+    </div>
+
+    <!-- BOOK SERVICE / CONTACT MODAL -->
+    <div id="proContactModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 480px;">
+            <button class="close-modal-btn" onclick="closeProContactModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <h2 id="proContactTitle" class="publish-modal-title">יצירת קשר עם איש מקצוע</h2>
+                <p id="proContactSub" class="publish-modal-subtitle">קבלת הצעת מחיר או תיאום קריאה</p>
+            </div>
+
+            <form onsubmit="handleProContactSubmit(event)">
+                <div class="publish-form-group">
+                    <label>שם מלא *</label>
+                    <input type="text" id="contactClientName" class="publish-form-input" placeholder="שמך המלא" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>מספר טלפון *</label>
+                    <input type="text" id="contactClientPhone" class="publish-form-input" placeholder="050-0000000" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>תיאור הקריאה / העבודה המבוקשת</label>
+                    <textarea id="contactClientDetails" class="publish-form-textarea" rows="3" placeholder="פרט בקצרה מה נדרש לבצע..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
+                    <i class="fa-solid fa-paper-plane"></i> שלח פנייה כעת
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <script src="professionals.js"></script>
+</body>
+</html>

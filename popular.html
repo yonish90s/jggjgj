@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>האתרים הפופולריים בישראל | מדריך אתרים לפי קבוצות</title>
+    <!-- Google Fonts: Heebo & Assistant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=3700">
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header class="top-navbar-black">
+        <div class="top-nav-inner">
+            
+            <div class="nav-left">
+                <button class="btn-publish-nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fa-solid fa-house"></i> עמוד הבית
+                </button>
+            </div>
+
+            <nav class="nav-center-tabs">
+                <button class="nav-tab-btn" onclick="window.location.href='index.html'">
+                    <span>סיפורים</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='images.html'">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='professionals.html'">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>אנשי מקצוע</span>
+                </button>
+                <button class="nav-tab-btn active" onclick="window.location.href='popular.html'">
+                    <i class="fa-solid fa-star"></i>
+                    <span>אתרים פופולריים</span>
+                </button>
+            </nav>
+
+            <div class="nav-right">
+                <a href="index.html" class="brand-logo-badge" style="text-decoration: none;">
+                    <i class="fa-solid fa-infinity"></i>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Page Body Wrapper -->
+    <div class="page-layout-wrapper" style="flex-direction: column; gap: 24px;">
+
+        <!-- Header Hero Box -->
+        <div class="section-sub-header" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <h1 class="section-title-text" style="font-size: 1.6rem;">🇮🇱 האתרים הפופולריים בישראל לפי קבוצות</h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">ריכוז הקישורים השימושיים והאתרים המובילים בישראל מחולקים לפי תחומים ונושאים</p>
+            
+            <div class="search-filter-box" style="width: 100%; max-width: 450px; margin-top: 10px;">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchSitesInput" placeholder="חפש אתר, שירות או תחום..." oninput="filterPopularSites(this.value)">
+            </div>
+        </div>
+
+        <!-- Groups Container -->
+        <div id="sitesGroupsContainer" style="display: flex; flex-direction: column; gap: 30px;">
+            
+            <!-- Group 1: חדשות ותקשורת -->
+            <div class="site-group-card">
+                <h2 class="site-group-title"><i class="fa-solid fa-newspaper" style="color: #ef4444;"></i> חדשות ותקשורת בישראל</h2>
+                <div class="sites-grid">
+                    <a href="https://www.ynet.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #ef4444; color: white;">Y</div>
+                        <div class="site-details">
+                            <h4>Ynet (ידיעות אחרונות)</h4>
+                            <p>אתר החדשות המוביל בישראל</p>
+                        </div>
+                    </a>
+                    <a href="https://www.mako.co.il/news" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #3b82f6; color: white;">N12</div>
+                        <div class="site-details">
+                            <h4>N12 (חדשות 12)</h4>
+                            <p>עדכונים שוטפים, מבזקים וכתבות</p>
+                        </div>
+                    </a>
+                    <a href="https://www.walla.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #8b5cf6; color: white;">W</div>
+                        <div class="site-details">
+                            <h4>Walla! (וואלה!)</h4>
+                            <p>חדשות, ספורט, תרבות ודואר</p>
+                        </div>
+                    </a>
+                    <a href="https://www.globes.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #10b981; color: white;">G</div>
+                        <div class="site-details">
+                            <h4>גלובס (Globes)</h4>
+                            <p>עיתון עסקים, שוק ההון וכלכלה</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group 2: שירותים וממשל -->
+            <div class="site-group-card">
+                <h2 class="site-group-title"><i class="fa-solid fa-building-columns" style="color: #3b82f6;"></i> שירותים ממשלתיים וציבוריים</h2>
+                <div class="sites-grid">
+                    <a href="https://www.gov.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #1d4ed8; color: white;">GOV</div>
+                        <div class="site-details">
+                            <h4>Gov.il (פורטל הממשלה)</h4>
+                            <p>שירותים דיגיטליים, דרכונים ומיסים</p>
+                        </div>
+                    </a>
+                    <a href="https://www.btl.gov.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #2563eb; color: white;">בטוח</div>
+                        <div class="site-details">
+                            <h4>ביטוח לאומי</h4>
+                            <p>תשלומים, זכויות וקצבאות</p>
+                        </div>
+                    </a>
+                    <a href="https://israelpost.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #dc2626; color: white;">📮</div>
+                        <div class="site-details">
+                            <h4>דואר ישראל</h4>
+                            <p>מעקב חבילות ותיאום תורים</p>
+                        </div>
+                    </a>
+                    <a href="https://www.clalit.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #059669; color: white;">כללית</div>
+                        <div class="site-details">
+                            <h4>כללית שירותי בריאות</h4>
+                            <p>זימון תורים ותוצאות בדיקות</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group 3: סחר, שופינג ולוחות -->
+            <div class="site-group-card">
+                <h2 class="site-group-title"><i class="fa-solid fa-cart-shopping" style="color: #f59e0b;"></i> קניות, שופינג ולוחות</h2>
+                <div class="sites-grid">
+                    <a href="https://www.yad2.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #ff5000; color: white;">יד2</div>
+                        <div class="site-details">
+                            <h4>יד2 (Yad2)</h4>
+                            <p>לוח רכב, דירות ומוצרים יד שנייה</p>
+                        </div>
+                    </a>
+                    <a href="https://www.zap.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #eab308; color: white;">ZAP</div>
+                        <div class="site-details">
+                            <h4>זאפ השוואת מחירים</h4>
+                            <p>השוואת מחירים וסקירות מוצרים</p>
+                        </div>
+                    </a>
+                    <a href="https://www.ksp.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #0284c7; color: white;">KSP</div>
+                        <div class="site-details">
+                            <h4>KSP מחשבים וסלולר</h4>
+                            <p>מוצרי חשמל, טכנולוגיה ובית</p>
+                        </div>
+                    </a>
+                    <a href="https://www.ivory.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #4338ca; color: white;">IVORY</div>
+                        <div class="site-details">
+                            <h4>אייבורי מחשבים</h4>
+                            <p>ציוד היקפי, גיימינג ומחשבים</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group 4: פיננסים ובנקים -->
+            <div class="site-group-card">
+                <h2 class="site-group-title"><i class="fa-solid fa-wallet" style="color: #10b981;"></i> פיננסים, בנקים וכרטיסי אשראי</h2>
+                <div class="sites-grid">
+                    <a href="https://www.bankhapoalim.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #dc2626; color: white;">פועלים</div>
+                        <div class="site-details">
+                            <h4>בנק הפועלים</h4>
+                            <p>ניהול חשבון, משכנתאות והשקעות</p>
+                        </div>
+                    </a>
+                    <a href="https://www.leumi.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #2563eb; color: white;">לאומי</div>
+                        <div class="site-details">
+                            <h4>בנק לאומי</h4>
+                            <p>בנקאות דיגיטלית וכרטיסי אשראי</p>
+                        </div>
+                    </a>
+                    <a href="https://www.discountbank.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #059669; color: white;">דיסקונט</div>
+                        <div class="site-details">
+                            <h4>בנק דיסקונט</h4>
+                            <p>בנקאות אישית ועסקית</p>
+                        </div>
+                    </a>
+                    <a href="https://www.cal-online.co.il" target="_blank" class="popular-site-item">
+                        <div class="site-icon-box" style="background-color: #d97706; color: white;">CAL</div>
+                        <div class="site-details">
+                            <h4>כאל (Cal)</h4>
+                            <p>כרטיסי אשראי והטבות</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <script>
+        function filterPopularSites(query) {
+            const q = query.trim().toLowerCase();
+            document.querySelectorAll('.popular-site-item').forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(q)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

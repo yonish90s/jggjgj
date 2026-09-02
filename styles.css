@@ -149,6 +149,90 @@ body {
 }
 
 /* =========================================================
+   POPULAR ISRAELI WEBSITES STYLES (קבוצות האתרים הפופולריים)
+   ========================================================= */
+.site-group-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+}
+
+.site-group-title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sites-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.popular-site-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.popular-site-item:hover {
+    transform: translateY(-3px);
+    border-color: #18181b;
+    box-shadow: var(--shadow-md);
+}
+
+.site-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.site-details h4 {
+    font-size: 0.95rem;
+    font-weight: 900;
+    margin-bottom: 2px;
+}
+
+.site-details p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.2;
+}
+
+@media (max-width: 1050px) {
+    .sites-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .sites-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
    PUBLISH AD SIDEBAR CARD (כרטיס פרסום מודעה בראש הסיידבר)
    ========================================================= */
 .publish-sidebar-card {

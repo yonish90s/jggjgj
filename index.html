@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3600">
+    <link rel="stylesheet" href="styles.css?v=3700">
 </head>
 <body>
 
@@ -28,13 +28,20 @@
             </div>
 
             <nav class="nav-center-tabs">
+                <button class="nav-tab-btn active" onclick="window.location.href='index.html'">
+                    <span>סיפורים</span>
+                </button>
                 <button class="nav-tab-btn" onclick="window.location.href='images.html'">
                     <i class="fa-regular fa-image"></i>
                     <span>תמונות</span>
                 </button>
-                
-                <button class="nav-tab-btn active" onclick="window.location.href='index.html'">
-                    <span>סיפורים</span>
+                <button class="nav-tab-btn" onclick="window.location.href='professionals.html'">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>אנשי מקצוע</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='popular.html'">
+                    <i class="fa-solid fa-star"></i>
+                    <span>אתרים פופולריים</span>
                 </button>
             </nav>
 
@@ -57,6 +64,10 @@
             <div class="sidebar-card">
                 <div class="sidebar-card-title">אתרים מומלצים</div>
                 <div class="recommended-sites-list">
+                    <a href="popular.html" class="site-link-btn">
+                        <i class="fa-solid fa-star" style="color: #f59e0b;"></i>
+                        <span>כל האתרים הפופולריים 🇮🇱</span>
+                    </a>
                     <a href="https://youtube.com" target="_blank" class="site-link-btn">
                         <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
                         <span>יוטיוב (YouTube)</span>
@@ -64,10 +75,6 @@
                     <a href="https://github.com" target="_blank" class="site-link-btn">
                         <i class="fa-brands fa-github"></i>
                         <span>גיטהאב (GitHub)</span>
-                    </a>
-                    <a href="https://medium.com" target="_blank" class="site-link-btn">
-                        <i class="fa-brands fa-medium"></i>
-                        <span>מדיום (Medium)</span>
                     </a>
                 </div>
             </div>
@@ -335,13 +342,13 @@
             <div class="sidebar-card">
                 <div class="sidebar-card-title">אתרים מומלצים</div>
                 <div class="recommended-sites-list">
-                    <a href="https://techcrunch.com" target="_blank" class="site-link-btn">
-                        <i class="fa-solid fa-newspaper"></i>
-                        <span>TechCrunch</span>
+                    <a href="popular.html" class="site-link-btn">
+                        <i class="fa-solid fa-star" style="color: #f59e0b;"></i>
+                        <span>אינדקס אתרים פופולריים 🇮🇱</span>
                     </a>
-                    <a href="https://producthunt.com" target="_blank" class="site-link-btn">
-                        <i class="fa-brands fa-product-hunt" style="color: #da552f;"></i>
-                        <span>Product Hunt</span>
+                    <a href="professionals.html" class="site-link-btn">
+                        <i class="fa-solid fa-user-tie" style="color: #2563eb;"></i>
+                        <span>חיפוש אנשי מקצוע 🛠️</span>
                     </a>
                 </div>
             </div>
