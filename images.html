@@ -3,178 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>גלריית התמונות | תמונות מרהיבות ברזולוציה גבוהה</title>
+    <title>גלריית התמונות | עמוד התמונות</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2500">
-    <style>
-        .gallery-category-pills {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 25px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-        }
-
-        .gallery-pill-btn {
-            background-color: var(--card-bg);
-            border: 1.5px solid var(--border-color);
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-family: inherit;
-            font-weight: 800;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            cursor: pointer;
-            white-space: nowrap;
-            transition: var(--transition);
-        }
-
-        .gallery-pill-btn.active, .gallery-pill-btn:hover {
-            background-color: #18181b;
-            color: #ffffff;
-            border-color: #18181b;
-        }
-
-        .images-masonry-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-        }
-
-        .gallery-image-card {
-            background-color: var(--card-bg);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .gallery-image-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-            border-color: #18181b;
-        }
-
-        .gallery-image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 230px;
-            background-color: #000000;
-            overflow: hidden;
-        }
-
-        .gallery-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-image-card:hover .gallery-image-wrapper img {
-            transform: scale(1.05);
-        }
-
-        .gallery-image-tag {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(24, 24, 27, 0.85);
-            color: #ffffff;
-            font-size: 0.72rem;
-            font-weight: 800;
-            padding: 3px 10px;
-            border-radius: 12px;
-            backdrop-filter: blur(4px);
-        }
-
-        .gallery-card-body {
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .gallery-card-title {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .gallery-card-photographer {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .gallery-card-actions {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 8px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 8px;
-            font-size: 0.82rem;
-        }
-
-        .btn-download-img {
-            background-color: #18181b;
-            color: #ffffff;
-            border: none;
-            padding: 6px 14px;
-            border-radius: var(--radius-sm);
-            font-weight: 800;
-            font-size: 0.78rem;
-            cursor: pointer;
-        }
-
-        /* Lightbox Modal */
-        .lightbox-image-view {
-            max-width: 90%;
-            max-height: 80vh;
-            border-radius: var(--radius-md);
-            object-fit: contain;
-        }
-
-        @media (max-width: 1100px) {
-            .images-masonry-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 750px) {
-            .images-masonry-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 480px) {
-            .images-masonry-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css?v=3700">
 </head>
 <body>
 
-    <!-- Header Bar -->
+    <!-- Header Bar (כותרת עליונה שחורה) -->
     <header class="top-navbar-black">
         <div class="top-nav-inner">
             
             <div class="nav-left">
+                <button class="btn-publish-nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fa-solid fa-house"></i> עמוד הבית
+                </button>
                 <div class="guest-pill-btn" onclick="showGuestToast()">
                     <span>אורח</span>
                 </div>
             </div>
 
             <nav class="nav-center-tabs">
+                <button class="nav-tab-btn" onclick="window.location.href='index.html'">
+                    <span>סיפורים</span>
+                </button>
                 <button class="nav-tab-btn active" onclick="window.location.href='images.html'">
                     <i class="fa-regular fa-image"></i>
                     <span>תמונות</span>
                 </button>
-                
-                <button class="nav-tab-btn" onclick="window.location.href='index.html'">
-                    <span>סיפורים</span>
+                <button class="nav-tab-btn" onclick="window.location.href='professionals.html'">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>אנשי מקצוע</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='popular.html'">
+                    <i class="fa-solid fa-star"></i>
+                    <span>אתרים פופולריים</span>
                 </button>
             </nav>
 
@@ -187,62 +54,79 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="page-layout-wrapper" style="max-width: 1440px;">
-        
-        <div style="width: 100%;">
+    <!-- Page Body Wrapper (מבנה 3 עמודות עם סיידברים מקובעים) -->
+    <div class="page-layout-wrapper">
+
+        <!-- Left Sidebar Column (סיידבר שמאלי) -->
+        <aside class="sidebar-column sidebar-left">
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">אתרים מומלצים</div>
+                <div class="recommended-sites-list">
+                    <a href="popular.html" class="site-link-btn">
+                        <i class="fa-solid fa-star" style="color: #f59e0b;"></i>
+                        <span>כל האתרים הפופולריים 🇮🇱</span>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
+                        <span>יוטיוב (YouTube)</span>
+                    </a>
+                    <a href="https://github.com" target="_blank" class="site-link-btn">
+                        <i class="fa-brands fa-github"></i>
+                        <span>גיטהאב (GitHub)</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">הסיפורים הנקראים ביותר</div>
+                <div id="topReadStoriesLeft" class="top-read-list">
+                    <!-- Dynamic list loaded via JS -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Center Column -->
+        <main class="main-center-column">
             
-            <!-- Page Title & Header -->
-            <div style="background: var(--card-bg); padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 25px; box-shadow: var(--shadow-sm);">
-                <h1 style="font-size: 1.6rem; font-weight: 900; color: var(--text-primary); margin-bottom: 6px;">
-                    🖼️ גלריית התמונות והאוספים
-                </h1>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">
-                    אוסף תמונות מרהיבות ברזולוציה גבוהה לצפייה, הורדה והשראה.
-                </p>
+            <div class="section-sub-header">
+                <h2 class="section-title-text">🖼️ גלריית תמונות בלבד (HD Images)</h2>
+                <div class="search-filter-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="imagesSearchInput" placeholder="חפש תמונות ונושאים..." oninput="handleImagesSearch(this.value)">
+                </div>
             </div>
 
-            <!-- Category Filter Pills -->
-            <div class="gallery-category-pills">
-                <button class="gallery-pill-btn active" onclick="filterGallery('all', this)">הכל (12 תמונות)</button>
-                <button class="gallery-pill-btn" onclick="filterGallery('טכנולוגיה', this)">טכנולוגיה ו-AI</button>
-                <button class="gallery-pill-btn" onclick="filterGallery('ארכיטקטורה', this)">ארכיטקטורה ועיצוב</button>
-                <button class="gallery-pill-btn" onclick="filterGallery('חלל', this)">חלל ומדע</button>
-                <button class="gallery-pill-btn" onclick="filterGallery('לייפסטייל', this)">לייפסטייל ובריאות</button>
+            <!-- Images Only Grid -->
+            <div id="imagesGridContainer" class="articles-cards-grid">
+                <!-- Rendered via images.js -->
             </div>
 
-            <!-- Images Masonry Grid -->
-            <div id="imagesGalleryGrid" class="images-masonry-grid">
-                <!-- Injected via images.js -->
+        </main>
+
+        <!-- Right Sidebar Column -->
+        <aside class="sidebar-column sidebar-right">
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">אתרים מומלצים</div>
+                <div class="recommended-sites-list">
+                    <a href="popular.html" class="site-link-btn">
+                        <i class="fa-solid fa-star" style="color: #f59e0b;"></i>
+                        <span>אינדקס אתרים פופולריים 🇮🇱</span>
+                    </a>
+                    <a href="professionals.html" class="site-link-btn">
+                        <i class="fa-solid fa-user-tie" style="color: #2563eb;"></i>
+                        <span>חיפוש אנשי מקצוע 🛠️</span>
+                    </a>
+                </div>
             </div>
 
-        </div>
-
-    </main>
-
-    <!-- Image Lightbox Modal -->
-    <div id="imageLightboxModal" class="modal-overlay hidden">
-        <div class="article-modal-box" style="max-width: 900px; text-align: center;">
-            <button class="close-modal-btn" onclick="closeLightboxModal()">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <img id="lightboxImage" class="lightbox-image-view" src="" alt="תמונה מוגדלת">
-            
-            <div style="margin-top: 15px; text-align: right;">
-                <h2 id="lightboxTitle" style="font-size: 1.3rem; font-weight: 900; color: var(--text-primary);"></h2>
-                <p id="lightboxPhotographer" style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;"></p>
+            <div class="sidebar-card">
+                <div class="sidebar-card-title">הסיפורים הנקראים ביותר</div>
+                <div id="topReadStoriesRight" class="top-read-list">
+                    <!-- Dynamic list loaded via JS -->
+                </div>
             </div>
+        </aside>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
-                <button class="btn-like-article" onclick="showToast('התמונה נשמרה במועדפים! ❤️')">
-                    <i class="fa-solid fa-heart" style="color: #ec4899;"></i> שמור במועדפים
-                </button>
-                <a id="lightboxDownloadBtn" href="" target="_blank" download class="btn-close-reader" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-download"></i> הורד תמונה מקורית (HD)
-                </a>
-            </div>
-        </div>
     </div>
 
     <!-- Toast Notification -->
