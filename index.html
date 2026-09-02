@@ -7,14 +7,14 @@
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3700">
+    <link rel="stylesheet" href="styles.css?v=4000">
 </head>
 <body>
 
-    <!-- Header Bar (כותרת עליונה שחורה) -->
+    <!-- Header Bar -->
     <header class="top-navbar-black">
         <div class="top-nav-inner">
             
@@ -43,6 +43,10 @@
                     <i class="fa-solid fa-star"></i>
                     <span>אתרים פופולריים</span>
                 </button>
+                <button class="nav-tab-btn" onclick="window.location.href='carpool.html'">
+                    <i class="fa-solid fa-car"></i>
+                    <span>נסיעה שיתופית</span>
+                </button>
             </nav>
 
             <div class="nav-right">
@@ -68,13 +72,13 @@
                         <i class="fa-solid fa-star" style="color: #f59e0b;"></i>
                         <span>כל האתרים הפופולריים 🇮🇱</span>
                     </a>
+                    <a href="carpool.html" class="site-link-btn">
+                        <i class="fa-solid fa-car" style="color: #16a34a;"></i>
+                        <span>לוח נסיעות שיתופיות 🚘</span>
+                    </a>
                     <a href="https://youtube.com" target="_blank" class="site-link-btn">
                         <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
                         <span>יוטיוב (YouTube)</span>
-                    </a>
-                    <a href="https://github.com" target="_blank" class="site-link-btn">
-                        <i class="fa-brands fa-github"></i>
-                        <span>גיטהאב (GitHub)</span>
                     </a>
                 </div>
             </div>
@@ -111,7 +115,7 @@
 
             <!-- Hero Featured Banner Card (תמונה בלבד - ללא טקסט כפי שמתבקש בצילום המסך) -->
             <div id="heroFeaturedCard" class="hero-featured-banner" onclick="openHeroArticle()">
-                <div class="hero-banner-image-wrapper" style="height: 300px;">
+                <div class="hero-banner-image-wrapper" style="height: 320px;">
                     <img id="heroImage" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="תמונה ראשית" style="opacity: 1;">
                 </div>
             </div>
@@ -350,6 +354,10 @@
                         <i class="fa-solid fa-user-tie" style="color: #2563eb;"></i>
                         <span>חיפוש אנשי מקצוע 🛠️</span>
                     </a>
+                    <a href="carpool.html" class="site-link-btn">
+                        <i class="fa-solid fa-car" style="color: #16a34a;"></i>
+                        <span>נסיעה שיתופית 🚘</span>
+                    </a>
                 </div>
             </div>
 
@@ -358,23 +366,6 @@
                 <div class="sidebar-card-title">הסיפורים הנקראים ביותר</div>
                 <div id="topReadStoriesRight" class="top-read-list">
                     <!-- Dynamic list loaded via JS -->
-                </div>
-            </div>
-
-            <!-- Card 3: הקהילות שלנו ברשת -->
-            <div class="sidebar-card community-card">
-                <div class="community-title">
-                    <i class="fa-solid fa-people-group"></i>
-                    <span>הקהילות שלנו ברשת</span>
-                </div>
-                
-                <div class="social-buttons-grid">
-                    <a href="#" class="social-btn btn-facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
-                    <a href="#" class="social-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
-                    <a href="#" class="social-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
-                    <a href="#" class="social-btn btn-telegram"><i class="fa-paper-plane"></i> Telegram</a>
-                    <a href="#" class="social-btn btn-twitter"><i class="fa-brands fa-x-twitter"></i> Twitter / X</a>
-                    <a href="#" class="social-btn btn-reddit"><i class="fa-brands fa-reddit-alien"></i> Reddit</a>
                 </div>
             </div>
 

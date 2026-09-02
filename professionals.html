@@ -7,10 +7,10 @@
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3700">
+    <link rel="stylesheet" href="styles.css?v=4000">
 </head>
 <body>
 
@@ -39,6 +39,10 @@
                 <button class="nav-tab-btn" onclick="window.location.href='popular.html'">
                     <i class="fa-solid fa-star"></i>
                     <span>אתרים פופולריים</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='carpool.html'">
+                    <i class="fa-solid fa-car"></i>
+                    <span>נסיעה שיתופית</span>
                 </button>
             </nav>
 
@@ -103,7 +107,7 @@
 
         <!-- Results Counter Bar -->
         <div style="display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: var(--text-muted); font-size: 0.9rem;">
-            <span id="proResultsCount">6 אנשי מקצוע נמצאו</span>
+            <span id="proResultsCount" class="results-count-text">6 אנשי מקצוע נמצאו</span>
             <span>מיון לפי: <strong>דירוג גבוה</strong></span>
         </div>
 

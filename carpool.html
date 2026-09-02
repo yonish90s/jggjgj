@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>נסיעה שיתופית | לוח נסיעות וטרמפים קבועים בישראל</title>
+    <!-- Google Fonts: Heebo & Assistant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=4000">
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header class="top-navbar-black">
+        <div class="top-nav-inner">
+            
+            <div class="nav-left">
+                <button class="btn-publish-nav-btn" onclick="openAddRideModal()">
+                    <i class="fa-solid fa-car-side"></i> הצע נסיעה שיתופית +
+                </button>
+            </div>
+
+            <nav class="nav-center-tabs">
+                <button class="nav-tab-btn" onclick="window.location.href='index.html'">
+                    <span>סיפורים</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='images.html'">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='professionals.html'">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>אנשי מקצוע</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='popular.html'">
+                    <i class="fa-solid fa-star"></i>
+                    <span>אתרים פופולריים</span>
+                </button>
+                <button class="nav-tab-btn active" onclick="window.location.href='carpool.html'">
+                    <i class="fa-solid fa-car"></i>
+                    <span>נסיעה שיתופית</span>
+                </button>
+            </nav>
+
+            <div class="nav-right">
+                <a href="index.html" class="brand-logo-badge" style="text-decoration: none;">
+                    <i class="fa-solid fa-infinity"></i>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Page Body Wrapper -->
+    <div class="page-layout-wrapper" style="flex-direction: column; gap: 20px;">
+
+        <!-- Header Search Hero -->
+        <div class="section-sub-header" style="flex-direction: column; align-items: flex-start; gap: 12px; padding: 24px;">
+            <h1 class="section-title-text" style="font-size: 1.65rem;">🚘 נסיעות שיתופיות ואיסוף בדרך במסלולים קבועים</h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">מצא נהגים שנוסעים מדי יום במסלול שלך ויכולים לאסוף אותך בדרך בהשתתפות סמלית בהוצאות הדלק</p>
+
+            <!-- Search & Filters Container -->
+            <div style="display: flex; gap: 12px; width: 100%; flex-wrap: wrap; margin-top: 8px;">
+                
+                <div class="search-filter-box" style="flex: 1; min-width: 220px;">
+                    <i class="fa-solid fa-location-dot search-icon" style="color: #ff5000;"></i>
+                    <input type="text" id="originSearchInput" placeholder="מאיפה? (עיר מוצא / תחנה...)" oninput="handleRideSearch()">
+                </div>
+
+                <div class="search-filter-box" style="flex: 1; min-width: 220px;">
+                    <i class="fa-solid fa-flag-checkered search-icon" style="color: #16a34a;"></i>
+                    <input type="text" id="destSearchInput" placeholder="לאן? (עיר יעד / יעד סופי...)" oninput="handleRideSearch()">
+                </div>
+
+                <!-- Schedule Filter Dropdown -->
+                <div class="filter-pill-wrapper">
+                    <button class="filter-pill-btn" onclick="togglePillDropdown('scheduleMenu', event)">
+                        <span id="labelScheduleMenu">כל הימים</span>
+                        <i class="fa-solid fa-chevron-down fa-xs"></i>
+                    </button>
+                    <div id="scheduleMenu" class="filter-pill-dropdown-menu hidden">
+                        <div class="pill-dropdown-item active" onclick="filterRideSchedule('all', 'כל הימים')">כל הימים</div>
+                        <div class="pill-dropdown-item" onclick="filterRideSchedule('ימים א-ה', 'ימים א\'-ה\' (יומי)')">ימים א'-ה' (יומי)</div>
+                        <div class="pill-dropdown-item" onclick="filterRideSchedule('חד פעמי', 'נסיעה חד פעמית 🕒')">נסיעה חד פעמית 🕒</div>
+                        <div class="pill-dropdown-item" onclick="filterRideSchedule('סוף שבוע', 'סופי שבוע 🚗')">סופי שבוע 🚗</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Results Counter Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: var(--text-muted); font-size: 0.9rem;">
+            <span id="ridesResultsCount" class="results-count-text">6 נסיעות שיתופיות נמצאו</span>
+            <span>מיון לפי: <strong>שעת יציאה מוקדמת</strong></span>
+        </div>
+
+        <!-- Rides Cards Grid -->
+        <div id="ridesGridContainer" class="articles-cards-grid">
+            <!-- Rendered dynamically via carpool.js -->
+        </div>
+
+    </div>
+
+    <!-- JOIN RIDE MODAL FORM -->
+    <div id="joinRideModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 500px;">
+            <button class="close-modal-btn" onclick="closeJoinRideModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <h2 id="joinRideTitle" class="publish-modal-title">🤝 בקשת הצטרפות לנסיעה</h2>
+                <p id="joinRideSub" class="publish-modal-subtitle">שלח בקשת הצטרפות לנהג</p>
+            </div>
+
+            <form onsubmit="handleJoinRideSubmit(event)">
+                <div class="publish-form-group">
+                    <label>שם הנוסע *</label>
+                    <input type="text" id="passengerName" class="publish-form-input" placeholder="שמך המלא" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>מספר טלפון לתיאום *</label>
+                    <input type="text" id="passengerPhone" class="publish-form-input" placeholder="050-0000000" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>נקודת איסוף מבוקשת בדרך *</label>
+                    <input type="text" id="passengerPickup" class="publish-form-input" placeholder="לדוגמה: מחלף נתניה / תחנת אוטובוס מרכזית" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>הערות לנהג (מספר נוסעים, ציוד...)</label>
+                    <textarea id="passengerNotes" class="publish-form-textarea" rows="2" placeholder="לדוגמה: נוסע יחיד עם תיק גב, מעוניין לרדת במחלף הסירה..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #16a34a, #15803d);">
+                    <i class="fa-solid fa-car-on"></i> שלח לבקשת הצטרפות כעת
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- POST NEW RIDE MODAL FORM -->
+    <div id="addRideModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 620px;">
+            <button class="close-modal-btn" onclick="closeAddRideModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <h2 class="publish-modal-title">🚗 הוספת נסיעה שיתופית חדשה</h2>
+                <p class="publish-modal-subtitle">פרסם את מסלול הנסיעה הקבוע שלך ואסוף נוסעים בדרך</p>
+            </div>
+
+            <form onsubmit="handleAddRideSubmit(event)">
+                
+                <div class="publish-form-row">
+                    <div class="publish-form-group">
+                        <label>עיר מוצא (מאיפה) *</label>
+                        <input type="text" id="newRideOrigin" class="publish-form-input" placeholder="לדוגמה: חיפה" required>
+                    </div>
+
+                    <div class="publish-form-group">
+                        <label>עיר יעד (לאן) *</label>
+                        <input type="text" id="newRideDest" class="publish-form-input" placeholder="לדוגמה: תל אביב - יפו" required>
+                    </div>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>נקודות איסוף מרכזיות בדרך (מופרדות בפסיקים) *</label>
+                    <input type="text" id="newRideWaypoints" class="publish-form-input" placeholder="לדוגמה: מחלף עתלית, מחלף נתניה, סינמה סיטי גלילות" required>
+                </div>
+
+                <div class="publish-form-row">
+                    <div class="publish-form-group">
+                        <label>שעת יציאה *</label>
+                        <input type="text" id="newRideTime" class="publish-form-input" placeholder="לדוגמה: 07:30 בבוקר" required>
+                    </div>
+
+                    <div class="publish-form-group">
+                        <label>תדירות הנסיעה</label>
+                        <select id="newRideSchedule" class="publish-form-select">
+                            <option value="ימים א-ה">ימים א'-ה' (יומי קבוע)</option>
+                            <option value="חד פעמי">נסיעה חד פעמית</option>
+                            <option value="סוף שבוע">סופי שבוע (שישי/שבת)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="publish-form-row">
+                    <div class="publish-form-group">
+                        <label>מקומות פנויים ברכב *</label>
+                        <input type="number" id="newRideSeats" class="publish-form-input" min="1" max="6" value="3" required>
+                    </div>
+
+                    <div class="publish-form-group">
+                        <label>השתתפות בדלק (yhsh לנוסע) *</label>
+                        <input type="text" id="newRidePrice" class="publish-form-input" placeholder="לדוגמה: yhsh 35" required>
+                    </div>
+                </div>
+
+                <div class="publish-form-row">
+                    <div class="publish-form-group">
+                        <label>שם הנהג *</label>
+                        <input type="text" id="newDriverName" class="publish-form-input" placeholder="שמך המלא" required>
+                    </div>
+
+                    <div class="publish-form-group">
+                        <label>טלפון ליצירת קשר *</label>
+                        <input type="text" id="newDriverPhone" class="publish-form-input" placeholder="050-0000000" required>
+                    </div>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>סוג הרכב / הערות נוספות</label>
+                    <input type="text" id="newVehicleNotes" class="publish-form-input" placeholder="לדוגמה: טסלה מודל 3, רכב ממוזג ושקט, ללא עישון">
+                </div>
+
+                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #ff5000, #e63900);">
+                    <i class="fa-solid fa-paper-plane"></i> פרסם את הנסיעה השיתופית
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <script src="carpool.js"></script>
+</body>
+</html>
