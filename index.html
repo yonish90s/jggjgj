@@ -7,14 +7,25 @@
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3700">
+    <link rel="stylesheet" href="styles.css?v=3800">
 </head>
 <body>
 
-    <!-- Header Bar (כותרת עליונה שחורה) -->
+    <!-- TOP ANNOUNCEMENT BAR (סרגל ירוק פיסטוק עליון בסגנון BUT BETTER) -->
+    <div class="top-announcement-bar">
+        <div class="announcement-socials">
+            <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+        <div>🎉 משלוחים חינם והטבות ייחודיות לחברי המועדון | 100% איכותי ובריא 🎉</div>
+        <div><i class="fa-solid fa-bag-shopping"></i></div>
+    </div>
+
+    <!-- Header Bar (כותרת שמנת קרם מעוגלת) -->
     <header class="top-navbar-black">
         <div class="top-nav-inner">
             
@@ -53,6 +64,11 @@
 
         </div>
     </header>
+
+    <!-- FLOATING PROMO BADGE (באדג' צף בפינה התחתונה) -->
+    <div class="floating-promo-badge" onclick="showToast('🎉 קיבלת 10% הנחה על ההזמנה הראשונה!')">
+        <span>👾 10% הנחה!</span>
+    </div>
 
     <!-- Page Body Wrapper (מבנה 3 עמודות עם סיידברים מקובעים) -->
     <div class="page-layout-wrapper">
@@ -111,7 +127,7 @@
 
             <!-- Hero Featured Banner Card (תמונה בלבד - ללא טקסט כפי שמתבקש בצילום המסך) -->
             <div id="heroFeaturedCard" class="hero-featured-banner" onclick="openHeroArticle()">
-                <div class="hero-banner-image-wrapper" style="height: 300px;">
+                <div class="hero-banner-image-wrapper" style="height: 310px;">
                     <img id="heroImage" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="תמונה ראשית" style="opacity: 1;">
                 </div>
             </div>
@@ -125,7 +141,7 @@
 
                         <!-- Pill 0: סוג עסקה (השאלה / קניה / החלפה) -->
                         <div class="filter-pill-wrapper">
-                            <button class="filter-pill-btn" style="border-color: #18181b; background-color: var(--bg-color);" onclick="togglePillDropdown('dealTypeMenu', event)">
+                            <button class="filter-pill-btn" style="border-color: #2d221e; background-color: var(--pastel-peach);" onclick="togglePillDropdown('dealTypeMenu', event)">
                                 <span id="labelDealTypeMenu" style="font-weight: 900;">סוג עסקה</span>
                                 <i class="fa-solid fa-chevron-down fa-xs"></i>
                             </button>
@@ -165,7 +181,7 @@
                                 <i class="fa-solid fa-chevron-down fa-xs"></i>
                             </button>
                             <div id="locationMenu" class="filter-pill-dropdown-menu hidden" style="min-width: 220px; padding: 14px;" onclick="event.stopPropagation()">
-                                <div style="font-weight: 900; font-size: 0.92rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; color: var(--text-primary);">
+                                <div style="font-weight: 900; font-size: 0.92rem; margin-bottom: 10px; border-bottom: 1.5px dashed var(--border-color); padding-bottom: 6px; color: var(--text-primary);">
                                     סינון לפי ערים (ניתן לבחור כמה)
                                 </div>
                                 <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -426,7 +442,7 @@
                     <textarea id="offerNotes" class="publish-form-textarea" rows="2" placeholder="לדוגמה: מעוניין לאסוף מחר בבוקר מזומן..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #16a34a, #15803d);">
+                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #a3e635, #84cc16); color: #1e3a1e;">
                     <i class="fa-solid fa-paper-plane"></i> שלח הצעה למפרסם המודעה
                 </button>
             </form>

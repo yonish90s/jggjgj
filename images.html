@@ -7,14 +7,25 @@
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3700">
+    <link rel="stylesheet" href="styles.css?v=3800">
 </head>
 <body>
 
-    <!-- Header Bar (כותרת עליונה שחורה) -->
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="top-announcement-bar">
+        <div class="announcement-socials">
+            <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+        <div>🎉 משלוחים חינם והטבות ייחודיות לחברי המועדון | 100% איכותי ובריא 🎉</div>
+        <div><i class="fa-solid fa-bag-shopping"></i></div>
+    </div>
+
+    <!-- Header Bar -->
     <header class="top-navbar-black">
         <div class="top-nav-inner">
             
@@ -54,10 +65,15 @@
         </div>
     </header>
 
-    <!-- Page Body Wrapper (מבנה 3 עמודות עם סיידברים מקובעים) -->
+    <!-- FLOATING PROMO BADGE -->
+    <div class="floating-promo-badge" onclick="showToast('🎉 קיבלת 10% הנחה על ההזמנה הראשונה!')">
+        <span>👾 10% הנחה!</span>
+    </div>
+
+    <!-- Page Body Wrapper -->
     <div class="page-layout-wrapper">
 
-        <!-- Left Sidebar Column (סיידבר שמאלי) -->
+        <!-- Left Sidebar Column -->
         <aside class="sidebar-column sidebar-left">
             <div class="sidebar-card">
                 <div class="sidebar-card-title">אתרים מומלצים</div>
