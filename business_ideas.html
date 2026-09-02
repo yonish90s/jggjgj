@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>רעיונות לעסקים ומודלים עסקיים | מדריך היזמות השלם</title>
+    <!-- Google Fonts: Heebo & Assistant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=4200">
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header class="top-navbar-black">
+        <div class="top-nav-inner">
+            
+            <div class="nav-left">
+                <button class="btn-publish-nav-btn" onclick="openAddBusinessIdeaModal()">
+                    <i class="fa-solid fa-briefcase"></i> הוסף רעיון עסקי +
+                </button>
+            </div>
+
+            <nav class="nav-center-tabs">
+                <button class="nav-tab-btn" onclick="window.location.href='index.html'">
+                    <span>סיפורים</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='images.html'">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='professionals.html'">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>אנשי מקצוע</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='popular.html'">
+                    <i class="fa-solid fa-star"></i>
+                    <span>אתרים פופולריים</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='carpool.html'">
+                    <i class="fa-solid fa-car"></i>
+                    <span>נסיעה שיתופית</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='ideas.html'">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>לוח רעיונות</span>
+                </button>
+                <button class="nav-tab-btn active" onclick="window.location.href='business_ideas.html'">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>רעיונות לעסקים</span>
+                </button>
+            </nav>
+
+            <div class="nav-right">
+                <a href="index.html" class="brand-logo-badge" style="text-decoration: none;">
+                    <i class="fa-solid fa-infinity"></i>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Page Body Wrapper -->
+    <div class="page-layout-wrapper" style="flex-direction: column; gap: 20px;">
+
+        <!-- Header Search Hero -->
+        <div class="section-sub-header" style="flex-direction: column; align-items: flex-start; gap: 12px; padding: 24px;">
+            <h1 class="section-title-text" style="font-size: 1.65rem;">💼 רעיונות לעסקים, מודלים עסקיים וניתוחי רווחיות</h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">אוסף רעיונות למיזמים ועסקים רווחיים כולל פירוט מודל הכנסות, תקציב השקעה נדרש ופוטנציאל רווח חודשי</p>
+
+            <!-- Search & Filters Container -->
+            <div style="display: flex; gap: 12px; width: 100%; flex-wrap: wrap; margin-top: 8px;">
+                
+                <div class="search-filter-box" style="flex: 1; min-width: 260px;">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchBizInput" placeholder="חפש לפי תחום, מודל עסקי או רעיון..." oninput="handleBizSearch(this.value)">
+                </div>
+
+                <!-- Business Model Pill Dropdown -->
+                <div class="filter-pill-wrapper">
+                    <button class="filter-pill-btn" onclick="togglePillDropdown('bizModelMenu', event)">
+                        <span id="labelBizModel">כל המודלים העסקיים</span>
+                        <i class="fa-solid fa-chevron-down fa-xs"></i>
+                    </button>
+                    <div id="bizModelMenu" class="filter-pill-dropdown-menu hidden">
+                        <div class="pill-dropdown-item active" onclick="filterBizModel('all', 'כל המודלים העסקיים')">כל המודלים העסקיים</div>
+                        <div class="pill-dropdown-item" onclick="filterBizModel('SaaS', 'B2B SaaS - מנוי חודשי 💻')">B2B SaaS - מנוי חודשי 💻</div>
+                        <div class="pill-dropdown-item" onclick="filterBizModel('Marketplace', 'עמלת תיווך (Marketplace) 🛒')">עמלת תיווך (Marketplace) 🛒</div>
+                        <div class="pill-dropdown-item" onclick="filterBizModel('Freemium', 'Freemium + פרימיום ✨')">Freemium + פרימיום ✨</div>
+                        <div class="pill-dropdown-item" onclick="filterBizModel('Pay-per-use', 'תשלום לפי שימוש (Pay-per-use) 💳')">תשלום לפי שימוש 💳</div>
+                    </div>
+                </div>
+
+                <!-- Investment Level Pill Dropdown -->
+                <div class="filter-pill-wrapper">
+                    <button class="filter-pill-btn" onclick="togglePillDropdown('bizInvestmentMenu', event)">
+                        <span id="labelBizInvestment">תקציב השקעה ראשוני</span>
+                        <i class="fa-solid fa-chevron-down fa-xs"></i>
+                    </button>
+                    <div id="bizInvestmentMenu" class="filter-pill-dropdown-menu hidden">
+                        <div class="pill-dropdown-item active" onclick="filterBizInvestment('all', 'כל התקציבים')">כל התקציבים</div>
+                        <div class="pill-dropdown-item" onclick="filterBizInvestment('נמוך', 'השקעה נמוכה (עד yhsh 10,000) 🟢')">השקעה נמוכה (עד 10K) 🟢</div>
+                        <div class="pill-dropdown-item" onclick="filterBizInvestment('בינוני', 'השקעה בינונית (10K - 50K) 🟡')">השקעה בינונית (10K - 50K) 🟡</div>
+                        <div class="pill-dropdown-item" onclick="filterBizInvestment('גבוה', 'השקעה גבוהה (מעל 50K) 🔴')">השקעה גבוהה (מעל 50K) 🔴</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Results Counter Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: var(--text-muted); font-size: 0.9rem;">
+            <span id="bizResultsCount" class="results-count-text">6 רעיונות עסקיים נמצאו</span>
+            <span>מיון לפי: <strong>פוטנציאל רווח חודשי 💰</strong></span>
+        </div>
+
+        <!-- Business Ideas Cards Grid -->
+        <div id="bizGridContainer" class="articles-cards-grid">
+            <!-- Rendered dynamically via business_ideas.js -->
+        </div>
+
+    </div>
+
+    <!-- FULL BUSINESS PLAN MODAL -->
+    <div id="businessPlanModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 680px;">
+            <button class="close-modal-btn" onclick="closeBusinessPlanModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <span id="planCategoryBadge" class="category-badge-pill">בינה מלאכותית</span>
+                <h2 id="planTitle" class="publish-modal-title" style="margin-top: 8px;">כותרת הרעיון העסקי</h2>
+                <p id="planSub" class="publish-modal-subtitle">תוכנית עסקית ומודל הכנסות מפורט</p>
+            </div>
+
+            <div id="planBodyContent" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 20px;">
+                <!-- Full details injected via JS -->
+            </div>
+
+            <div class="modal-footer-actions">
+                <button class="btn-submit-publish" style="margin: 0; background: linear-gradient(135deg, #16a34a, #15803d);" onclick="openPartnerOfferFromPlan()">
+                    🤝 הצע שותפות / הגש הצעה למיזם זה
+                </button>
+                <button class="btn-close-reader" onclick="closeBusinessPlanModal()">
+                    סגור חלון
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARTNERSHIP / BUSINESS OFFER MODAL -->
+    <div id="businessOfferModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 520px;">
+            <button class="close-modal-btn" onclick="closeBusinessOfferModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <h2 class="publish-modal-title">🤝 הגשת הצעה / הצעת שותפות</h2>
+                <p id="bizOfferSub" class="publish-modal-subtitle">הגש הצעה ליזם או הצע השקעה/שותפות</p>
+            </div>
+
+            <form onsubmit="handleBizOfferSubmit(event)">
+                <div class="publish-form-group">
+                    <label>סוג הפנייה *</label>
+                    <select id="bizOfferType" class="publish-form-select">
+                        <option value="partner">הצעת שותפות עסקית 🤝</option>
+                        <option value="investor">השקעה כספית במיזם 💰</option>
+                        <option value="buy">רכישת הקונספט / התוכנית העסקית 🛒</option>
+                    </select>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>סכום השקעה / הצעה מתוכנן (yhsh) *</label>
+                    <input type="text" id="bizOfferAmount" class="publish-form-input" placeholder="לדוגמה: yhsh 20,000" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>שם הפונה / החברה *</label>
+                    <input type="text" id="bizOfferName" class="publish-form-input" placeholder="שמך המלא" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>טלפון / אימייל לתיאום פגישה *</label>
+                    <input type="text" id="bizOfferContact" class="publish-form-input" placeholder="050-0000000" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>הערות ופירוט נוסף</label>
+                    <textarea id="bizOfferNotes" class="publish-form-textarea" rows="2" placeholder="פרט בקצרה מה הערך המוסף שאתה מביא לשולחן..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #16a34a, #15803d);">
+                    <i class="fa-solid fa-paper-plane"></i> שלח הצעה ליזם
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- POST NEW BUSINESS IDEA MODAL -->
+    <div id="addBusinessIdeaModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 620px;">
+            <button class="close-modal-btn" onclick="closeAddBusinessIdeaModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <h2 class="publish-modal-title">💼 הוספת רעיון עסקי ומודל הכנסות</h2>
+                <p class="publish-modal-subtitle">פרסם קונספט עסקי רווחי כולל ניתוח מודל עסקי ותקציב</p>
+            </div>
+
+            <form onsubmit="handleAddBusinessIdeaSubmit(event)">
+                
+                <div class="publish-form-group">
+                    <label>שם העסק / הרעיון *</label>
+                    <input type="text" id="newBizTitle" class="publish-form-input" placeholder="לדוגמה: סוכנות AI לאוטומציית שירות לקוחות לעסקים" required>
+                </div>
+
+                <div class="publish-form-row">
+                    <div class="publish-form-group">
+                        <label>תחום / קטגוריה *</label>
+                        <select id="newBizCategory" class="publish-form-select">
+                            <option value="בינה מלאכותית">בינה מלאכותית 🤖</option>
+                            <option value="טכנולוגיה וסייבר" selected>טכנולוגיה 💻</option>
+                            <option value="סחר אלקטרוני">סחר אלקטרוני 🛒</option>
+                            <option value="שירותים וייעוץ">שירותים וייעוץ 💼</option>
+                            <option value="קיימות וסביבה">קיימות וסביבה 🌿</option>
+                        </select>
+                    </div>
+
+                    <div class="publish-form-group">
+                        <label>סוג המודל העסקי *</label>
+                        <select id="newBizModel" class="publish-form-select">
+                            <option value="SaaS">B2B SaaS - מנוי חודשי 💻</option>
+                            <option value="Marketplace">עמלת תיווך (Marketplace) 🛒</option>
+                            <option value="Freemium">Freemium + פרימיום ✨</option>
+                            <option value="Pay-per-use">תשלום לפי שימוש (Pay-per-use) 💳</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="publish-form-row">
+                    <div class="publish-form-group">
+                        <label>השקעה ראשונית משוערת *</label>
+                        <input type="text" id="newBizInvestment" class="publish-form-input" placeholder="לדוגמה: yhsh 10,000 (נמוך)" required>
+                    </div>
+
+                    <div class="publish-form-group">
+                        <label>פוטנציאל רווח חודשי *</label>
+                        <input type="text" id="newBizRevenue" class="publish-form-input" placeholder="לדוגמה: yhsh 35,000 / חודש" required>
+                    </div>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>תיאור מפורט והצעת הערך *</label>
+                    <textarea id="newBizSummary" class="publish-form-textarea" rows="3" placeholder="פרט מה הבעיה בשוק, מה הפתרון ואיך מייצרים הכנסות..." required></textarea>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>שם היזם / המציע *</label>
+                    <input type="text" id="newBizAuthor" class="publish-form-input" placeholder="שמך המלא" required>
+                </div>
+
+                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #ff5000, #e63900);">
+                    <i class="fa-solid fa-paper-plane"></i> פרסם את הרעיון העסקי
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <script src="business_ideas.js"></script>
+</body>
+</html>
