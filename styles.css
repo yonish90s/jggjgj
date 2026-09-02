@@ -213,6 +213,33 @@ body {
 }
 
 /* =========================================================
+   LOCATION MULTI-SELECT CHECKBOX ITEM STYLES
+   ========================================================= */
+.checkbox-location-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.checkbox-location-item:hover {
+    background-color: var(--bg-color);
+}
+
+.checkbox-location-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #ff5000;
+    cursor: pointer;
+}
+
+/* =========================================================
    PRICE SLIDER COMPONENT STYLES (סרגל המחיר הנגלל)
    ========================================================= */
 .price-range-slider {
@@ -1067,7 +1094,7 @@ body {
    ARTICLE READER MODAL OVERLAY
    ========================================================= */
 .modal-overlay {
-    position: fixed;
+    position. fixed;
     top: 0;
     left: 0;
     right: 0;

@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3300">
+    <link rel="stylesheet" href="styles.css?v=3400">
 </head>
 <body>
 
@@ -151,34 +151,56 @@
                             </div>
                         </div>
 
-                        <!-- Pill 2: אפשרויות כתבה -->
+                        <!-- Pill 2: מיקום (עם סימון כמה ערים במקביל CHECKBOXES) -->
                         <div class="filter-pill-wrapper">
-                            <button class="filter-pill-btn" onclick="togglePillDropdown('optionsMenu', event)">
-                                <span id="labelOptionsMenu">אפשרויות כתבה</span>
+                            <button class="filter-pill-btn" onclick="togglePillDropdown('locationMenu', event)">
+                                <span id="labelLocationMenu">מיקום</span>
                                 <i class="fa-solid fa-chevron-down fa-xs"></i>
                             </button>
-                            <div id="optionsMenu" class="filter-pill-dropdown-menu hidden">
-                                <div class="pill-dropdown-item active" onclick="selectPillFilter('option', 'all', 'אפשרויות כתבה')">כל הכתבות</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('option', 'hd_images', 'עם תמונות HD')">עם תמונות HD</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('option', 'long_read', 'כתבות עומק ארוכות')">כתבות עומק ארוכות</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('option', 'short_read', 'כתבות קצרות (עד 5 דק\')')">כתבות קצרות (עד 5 דק')</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('option', 'featured', 'כתבות מומלצות מערכת')">כתבות מומלצות מערכת</div>
+                            <div id="locationMenu" class="filter-pill-dropdown-menu hidden" style="min-width: 220px; padding: 14px;" onclick="event.stopPropagation()">
+                                <div style="font-weight: 900; font-size: 0.92rem; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; color: var(--text-primary);">
+                                    סינון לפי ערים (ניתן לבחור כמה)
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <label class="checkbox-location-item">
+                                        <input type="checkbox" class="location-chk" value="תל אביב" onchange="toggleLocationSelection('תל אביב')">
+                                        <span>תל אביב - יפו</span>
+                                    </label>
+                                    <label class="checkbox-location-item">
+                                        <input type="checkbox" class="location-chk" value="חיפה" onchange="toggleLocationSelection('חיפה')">
+                                        <span>חיפה - מרכז</span>
+                                    </label>
+                                    <label class="checkbox-location-item">
+                                        <input type="checkbox" class="location-chk" value="ירושלים" onchange="toggleLocationSelection('ירושלים')">
+                                        <span>ירושלים</span>
+                                    </label>
+                                    <label class="checkbox-location-item">
+                                        <input type="checkbox" class="location-chk" value="רמת גן" onchange="toggleLocationSelection('רמת גן')">
+                                        <span>רמת גן</span>
+                                    </label>
+                                    <label class="checkbox-location-item">
+                                        <input type="checkbox" class="location-chk" value="הרצליה" onchange="toggleLocationSelection('הרצליה')">
+                                        <span>הרצליה פיתוח</span>
+                                    </label>
+                                </div>
+                                <button type="button" class="btn-apply-price-filter" style="margin-top: 12px;" onclick="applyLocationFilter()">
+                                    החל סינון ערים
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Pill 3: פרטי מחבר -->
+                        <!-- Pill 3: מצב המוצר (חדש, כמו חדש, משומש) -->
                         <div class="filter-pill-wrapper">
-                            <button class="filter-pill-btn" onclick="togglePillDropdown('authorMenu', event)">
-                                <span id="labelAuthorMenu">פרטי מחבר</span>
+                            <button class="filter-pill-btn" onclick="togglePillDropdown('conditionMenu', event)">
+                                <span id="labelConditionMenu">מצב המוצר</span>
                                 <i class="fa-solid fa-chevron-down fa-xs"></i>
                             </button>
-                            <div id="authorMenu" class="filter-pill-dropdown-menu hidden">
-                                <div class="pill-dropdown-item active" onclick="selectPillFilter('author', 'all', 'פרטי מחבר')">כל המחברים</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'דניאל קליין', 'דניאל קליין (AI)')">דניאל קליין (AI)</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'מיכל אהרוני', 'מיכל אהרוני (אדריכלית)')">מיכל אהרוני (אדריכלית)</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'פרופ\' אריאל דהן', 'פרופ\' אריאל דהן (חלל)')">פרופ' אריאל דהן (חלל)</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'נועה לוי', 'נועה לוי (לייפסטייל)')">נועה לוי (לייפסטייל)</div>
-                                <div class="pill-dropdown-item" onclick="selectPillFilter('author', 'אלון שחר', 'אלון שחר (עסקים)')">אלון שחר (עסקים)</div>
+                            <div id="conditionMenu" class="filter-pill-dropdown-menu hidden">
+                                <div class="pill-dropdown-item active" onclick="selectPillFilter('condition', 'all', 'מצב המוצר')">כל המצבים</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('condition', 'חדש באריזה', 'חדש באריזה 📦')">חדש באריזה 📦</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('condition', 'כמו חדש', 'כמו חדש ✨')">כמו חדש ✨</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('condition', 'משומש במצב טוב', 'משומש במצב טוב 👍')">משומש במצב טוב 👍</div>
+                                <div class="pill-dropdown-item" onclick="selectPillFilter('condition', 'נדרש תיקון', 'נדרש תיקון 🔧')">נדרש תיקון 🔧</div>
                             </div>
                         </div>
 

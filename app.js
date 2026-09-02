@@ -11,7 +11,7 @@ const FALLBACK_ARTICLES = [
         "price": "yhsh 4,500",
         "sellPrice": "yhsh 4,500",
         "borrowPrice": "yhsh 350",
-        "model": "AI Agent v2.5",
+        "model": "כמו חדש",
         "rating": "דירוג 4.9 (58 עסקאות)",
         "location": "תל אביב - יפו",
         "dealTypes": ["borrow", "buy"],
@@ -31,7 +31,7 @@ const FALLBACK_ARTICLES = [
         "price": "yhsh 8,200",
         "sellPrice": "yhsh 8,200",
         "borrowPrice": "yhsh 600",
-        "model": "Eco Build 2026",
+        "model": "חדש באריזה",
         "rating": "דירוג 4.8 (42 עסקאות)",
         "location": "חיפה - מרכז",
         "dealTypes": ["buy", "trade"],
@@ -51,7 +51,7 @@ const FALLBACK_ARTICLES = [
         "price": "yhsh 12,000",
         "sellPrice": "yhsh 12,000",
         "borrowPrice": "yhsh 900",
-        "model": "Webb Optics 4K",
+        "model": "כמו חדש",
         "rating": "דירוג 5.0 (96 עסקאות)",
         "location": "ירושלים",
         "dealTypes": ["borrow"],
@@ -71,7 +71,7 @@ const FALLBACK_ARTICLES = [
         "price": "yhsh 1,800",
         "sellPrice": "yhsh 1,800",
         "borrowPrice": "yhsh 150",
-        "model": "Fit Life Pro",
+        "model": "משומש במצב טוב",
         "rating": "דירוג 4.7 (31 עסקאות)",
         "location": "רמת גן",
         "dealTypes": ["borrow", "buy"],
@@ -91,7 +91,7 @@ const FALLBACK_ARTICLES = [
         "price": "yhsh 15,500",
         "sellPrice": "yhsh 15,500",
         "borrowPrice": "yhsh 1,200",
-        "model": "Venture X",
+        "model": "חדש באריזה",
         "rating": "דירוג 4.9 (74 עסקאות)",
         "location": "הרצליה פיתוח",
         "dealTypes": ["buy"],
@@ -111,7 +111,7 @@ const FALLBACK_ARTICLES = [
         "price": "yhsh 3,200",
         "sellPrice": "yhsh 3,200",
         "borrowPrice": "yhsh 250",
-        "model": "Art Gallery 3D",
+        "model": "כמו חדש",
         "rating": "דירוג 4.8 (28 עסקאות)",
         "location": "תל אביב - נווה צדק",
         "dealTypes": ["trade", "borrow"],
@@ -134,13 +134,12 @@ let state = {
     savedListings: new Set(),
     selectedPublishCategory: 'מוצרים',
     maxPrice: 20000,
+    selectedLocations: new Set(),
     filters: {
         dealType: 'all',
         category: 'all',
-        option: 'all',
-        author: 'all',
-        budget: 'all',
-        readTime: 'all'
+        condition: 'all',
+        budget: 'all'
     }
 };
 
@@ -195,6 +194,34 @@ function renderTopReadLists() {
 
     if (leftContainer) leftContainer.innerHTML = html;
     if (rightContainer) rightContainer.innerHTML = html;
+}
+
+function toggleLocationSelection(city) {
+    if (state.selectedLocations.has(city)) {
+        state.selectedLocations.delete(city);
+    } else {
+        state.selectedLocations.add(city);
+    }
+}
+
+function applyLocationFilter() {
+    const labelElem = document.getElementById('labelLocationMenu');
+    if (labelElem) {
+        if (state.selectedLocations.size === 0) {
+            labelElem.textContent = 'מיקום';
+        } else if (state.selectedLocations.size === 1) {
+            labelElem.textContent = `מיקום: ${Array.from(state.selectedLocations)[0]}`;
+        } else {
+            labelElem.textContent = `מיקום (${state.selectedLocations.size} ערים)`;
+        }
+    }
+
+    const menu = document.getElementById('locationMenu');
+    if (menu) menu.classList.add('hidden');
+
+    state.currentPage = 1;
+    showToast(`סוננו ${state.selectedLocations.size || 'כל'} מיקומים`);
+    renderArticlesGrid();
 }
 
 function updatePriceSliderValue(val) {
@@ -314,9 +341,7 @@ function selectPillFilter(filterType, filterValue, labelText) {
     const labelElemIdMap = {
         dealType: 'labelDealTypeMenu',
         category: 'labelCategoryPill',
-        option: 'labelOptionsMenu',
-        author: 'labelAuthorMenu',
-        readTime: 'labelReadTimeMenu'
+        condition: 'labelConditionMenu'
     };
 
     const targetLabelId = labelElemIdMap[filterType];
@@ -387,6 +412,19 @@ function renderArticlesGrid() {
         );
     }
 
+    // MULTI-SELECT LOCATIONS FILTER (סיווג לפי ערים מרובות)
+    if (state.selectedLocations.size > 0) {
+        filtered = filtered.filter(a => {
+            if (!a.location) return false;
+            return Array.from(state.selectedLocations).some(city => a.location.includes(city));
+        });
+    }
+
+    // PRODUCT CONDITION FILTER (מצב המוצר)
+    if (state.filters.condition && state.filters.condition !== 'all') {
+        filtered = filtered.filter(a => a.model && a.model.includes(state.filters.condition));
+    }
+
     // PRICE SLIDER FILTER
     if (state.maxPrice < 20000) {
         filtered = filtered.filter(a => getNumericPrice(a.price) <= state.maxPrice);
@@ -399,10 +437,6 @@ function renderArticlesGrid() {
 
     if (state.filters.category !== 'all') {
         filtered = filtered.filter(a => a.category === state.filters.category);
-    }
-
-    if (state.filters.author !== 'all') {
-        filtered = filtered.filter(a => a.author.includes(state.filters.author));
     }
 
     // EXACT ARTICLES COUNT
@@ -566,6 +600,8 @@ window.openPublishModal = openPublishModal;
 window.closePublishModal = closePublishModal;
 window.selectPublishCategory = selectPublishCategory;
 window.handlePublishSubmit = handlePublishSubmit;
+window.toggleLocationSelection = toggleLocationSelection;
+window.applyLocationFilter = applyLocationFilter;
 window.updatePriceSliderValue = updatePriceSliderValue;
 window.setPricePreset = setPricePreset;
 window.applyPriceFilter = applyPriceFilter;
