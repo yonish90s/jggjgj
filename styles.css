@@ -240,15 +240,63 @@ body {
 }
 
 /* =========================================================
-   PRICE SLIDER COMPONENT STYLES (סרגל המחיר הנגלל)
+   DUAL PRICE SLIDER COMPONENT STYLES (סרגל מחיר כפול 2 פינות)
    ========================================================= */
-.price-range-slider {
+.dual-range-container {
+    position: relative;
     width: 100%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.dual-range-track-bg {
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    background-color: #e4e4e7;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.price-range-slider {
+    position: absolute;
+    width: 100%;
+    height: 6px;
     accent-color: #ff5000;
     cursor: pointer;
-    height: 6px;
-    background: #e4e4e7;
-    border-radius: 4px;
+    background: transparent;
+    pointer-events: none;
+    -webkit-appearance: none;
+    z-index: 2;
+}
+
+.price-range-slider::-webkit-slider-thumb {
+    pointer-events: auto;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ff5000;
+    cursor: pointer;
+    -webkit-appearance: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: transform 0.15s ease;
+}
+
+.price-range-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.price-range-slider::-moz-range-thumb {
+    pointer-events: auto;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ff5000;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: transform 0.15s ease;
 }
 
 .preset-price-btn {
@@ -1094,7 +1142,7 @@ body {
    ARTICLE READER MODAL OVERLAY
    ========================================================= */
 .modal-overlay {
-    position. fixed;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;

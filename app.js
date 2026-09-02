@@ -133,6 +133,7 @@ let state = {
     onlineNowOnly: true,
     savedListings: new Set(),
     selectedPublishCategory: 'מוצרים',
+    minPrice: 500,
     maxPrice: 20000,
     selectedLocations: new Set(),
     filters: {
@@ -224,34 +225,63 @@ function applyLocationFilter() {
     renderArticlesGrid();
 }
 
-function updatePriceSliderValue(val) {
-    const display = document.getElementById('priceSliderValue');
-    if (display) {
-        display.textContent = `yhsh ${parseInt(val, 10).toLocaleString('he-IL')}`;
+function updateDualPriceSlider() {
+    const minInput = document.getElementById('minPriceRange');
+    const maxInput = document.getElementById('maxPriceRange');
+
+    if (!minInput || !maxInput) return;
+
+    let minVal = parseInt(minInput.value, 10);
+    let maxVal = parseInt(maxInput.value, 10);
+
+    if (minVal > maxVal) {
+        let temp = minVal;
+        minVal = maxVal;
+        maxVal = temp;
     }
+
+    const minDisplay = document.getElementById('minPriceValue');
+    const maxDisplay = document.getElementById('maxPriceValue');
+
+    if (minDisplay) minDisplay.textContent = `yhsh ${minVal.toLocaleString('he-IL')}`;
+    if (maxDisplay) maxDisplay.textContent = `yhsh ${maxVal.toLocaleString('he-IL')}`;
 }
 
-function setPricePreset(val) {
-    const slider = document.getElementById('priceRangeInput');
-    if (slider) {
-        slider.value = val;
-    }
-    updatePriceSliderValue(val);
-    applyPriceFilter();
+function setDualPricePreset(minVal, maxVal) {
+    const minInput = document.getElementById('minPriceRange');
+    const maxInput = document.getElementById('maxPriceRange');
+
+    if (minInput) minInput.value = minVal;
+    if (maxInput) maxInput.value = maxVal;
+
+    updateDualPriceSlider();
+    applyDualPriceFilter();
 }
 
-function applyPriceFilter() {
-    const slider = document.getElementById('priceRangeInput');
-    if (slider) {
-        state.maxPrice = parseInt(slider.value, 10);
+function applyDualPriceFilter() {
+    const minInput = document.getElementById('minPriceRange');
+    const maxInput = document.getElementById('maxPriceRange');
+
+    if (minInput && maxInput) {
+        let minVal = parseInt(minInput.value, 10);
+        let maxVal = parseInt(maxInput.value, 10);
+
+        if (minVal > maxVal) {
+            let temp = minVal;
+            minVal = maxVal;
+            maxVal = temp;
+        }
+
+        state.minPrice = minVal;
+        state.maxPrice = maxVal;
     }
 
     const labelElem = document.getElementById('labelBudgetMenu');
     if (labelElem) {
-        if (state.maxPrice >= 20000) {
+        if (state.minPrice <= 500 && state.maxPrice >= 20000) {
             labelElem.textContent = 'תקציב';
         } else {
-            labelElem.textContent = `תקציב: עד ${state.maxPrice.toLocaleString('he-IL')} yhsh`;
+            labelElem.textContent = `תקציב: ${state.minPrice.toLocaleString('he-IL')} - ${state.maxPrice.toLocaleString('he-IL')} yhsh`;
         }
     }
 
@@ -259,7 +289,7 @@ function applyPriceFilter() {
     if (menu) menu.classList.add('hidden');
 
     state.currentPage = 1;
-    showToast(`סונן תקציב: עד yhsh ${state.maxPrice.toLocaleString('he-IL')}`);
+    showToast(`סונן תקציב: ${state.minPrice.toLocaleString('he-IL')} עד ${state.maxPrice.toLocaleString('he-IL')} yhsh`);
     renderArticlesGrid();
 }
 
@@ -412,7 +442,7 @@ function renderArticlesGrid() {
         );
     }
 
-    // MULTI-SELECT LOCATIONS FILTER (סיווג לפי ערים מרובות)
+    // MULTI-SELECT LOCATIONS FILTER
     if (state.selectedLocations.size > 0) {
         filtered = filtered.filter(a => {
             if (!a.location) return false;
@@ -420,15 +450,16 @@ function renderArticlesGrid() {
         });
     }
 
-    // PRODUCT CONDITION FILTER (מצב המוצר)
+    // PRODUCT CONDITION FILTER
     if (state.filters.condition && state.filters.condition !== 'all') {
         filtered = filtered.filter(a => a.model && a.model.includes(state.filters.condition));
     }
 
-    // PRICE SLIDER FILTER
-    if (state.maxPrice < 20000) {
-        filtered = filtered.filter(a => getNumericPrice(a.price) <= state.maxPrice);
-    }
+    // DUAL PRICE RANGE SLIDER FILTER (מ-MIN ועד MAX!)
+    filtered = filtered.filter(a => {
+        const p = getNumericPrice(a.price);
+        return p >= state.minPrice && p <= state.maxPrice;
+    });
 
     // Deal Type Filter (השאלה / קניה / החלפה)
     if (state.filters.dealType !== 'all') {
@@ -602,9 +633,9 @@ window.selectPublishCategory = selectPublishCategory;
 window.handlePublishSubmit = handlePublishSubmit;
 window.toggleLocationSelection = toggleLocationSelection;
 window.applyLocationFilter = applyLocationFilter;
-window.updatePriceSliderValue = updatePriceSliderValue;
-window.setPricePreset = setPricePreset;
-window.applyPriceFilter = applyPriceFilter;
+window.updateDualPriceSlider = updateDualPriceSlider;
+window.setDualPricePreset = setDualPricePreset;
+window.applyDualPriceFilter = applyDualPriceFilter;
 window.handleSearch = handleSearch;
 window.setActiveTab = setActiveTab;
 window.showGuestToast = showGuestToast;
