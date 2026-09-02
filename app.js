@@ -147,6 +147,7 @@ let state = {
 async function initApp() {
     closeArticleModal();
     closePublishModal();
+    closeOfferModal();
     await loadArticles();
     renderHeroBanner();
     renderTopReadLists();
@@ -195,6 +196,41 @@ function renderTopReadLists() {
 
     if (leftContainer) leftContainer.innerHTML = html;
     if (rightContainer) rightContainer.innerHTML = html;
+}
+
+function openOfferModal(articleId, event) {
+    if (event) event.stopPropagation();
+
+    const article = state.articles.find(a => a.id === articleId);
+    if (!article) return;
+
+    const hiddenInput = document.getElementById('offerArticleId');
+    if (hiddenInput) hiddenInput.value = articleId;
+
+    const subTitle = document.getElementById('offerModalSubTitle');
+    if (subTitle) {
+        subTitle.textContent = `עבור: "${article.title}" (מכירה: ${article.sellPrice || article.price} | השאלה: ${article.borrowPrice || 'yhsh 350'})`;
+    }
+
+    const modal = document.getElementById('offerModal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeOfferModal() {
+    const modal = document.getElementById('offerModal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function handleOfferSubmit(event) {
+    event.preventDefault();
+
+    const amount = document.getElementById('offerAmount').value.trim();
+    const name = document.getElementById('offerName').value.trim();
+
+    closeOfferModal();
+    document.getElementById('offerForm').reset();
+
+    showToast(`תודה ${name}! ההצעה בסך ${amount} נשלחה בהצלחה למפרסם המודעה! 🤝🎉`);
 }
 
 function toggleLocationSelection(city) {
@@ -455,13 +491,13 @@ function renderArticlesGrid() {
         filtered = filtered.filter(a => a.model && a.model.includes(state.filters.condition));
     }
 
-    // DUAL PRICE RANGE SLIDER FILTER (מ-MIN ועד MAX!)
+    // DUAL PRICE RANGE SLIDER FILTER
     filtered = filtered.filter(a => {
         const p = getNumericPrice(a.price);
         return p >= state.minPrice && p <= state.maxPrice;
     });
 
-    // Deal Type Filter (השאלה / קניה / החלפה)
+    // Deal Type Filter
     if (state.filters.dealType !== 'all') {
         filtered = filtered.filter(a => a.dealTypes && a.dealTypes.includes(state.filters.dealType));
     }
@@ -509,18 +545,18 @@ function renderArticlesGrid() {
                         <span><i class="fa-regular fa-eye"></i> ${article.views}</span>
                     </div>
 
-                    <!-- EXACT 2 PRICES AT THE BOTTOM: מחיר השאלה | מחיר מכירה -->
+                    <!-- EXACT 2 PRICES + INTERACTIVE 'הגש הצעה' BUTTON -->
                     <div class="article-card-action-bar">
-                        <div class="action-bar-right">
-                            <span style="color: var(--text-muted); font-size: 0.8rem;">מחיר השאלה:</span>
-                            <strong style="color: #2563eb;">${borrowP}</strong>
+                        <div class="action-bar-right" style="font-size: 0.78rem;">
+                            <span>השאלה: <strong style="color: #2563eb;">${borrowP}</strong></span>
+                            <span class="action-divider">|</span>
+                            <span>מכירה: <strong style="color: #ff5000;">${sellP}</strong></span>
                         </div>
                         
-                        <span class="action-divider">|</span>
-                        
                         <div class="action-bar-left">
-                            <span style="color: var(--text-muted); font-size: 0.8rem;">מחיר מכירה:</span>
-                            <strong style="color: #ff5000;">${sellP}</strong>
+                            <button class="btn-offer-pill" onclick="openOfferModal('${article.id}', event)">
+                                🤝 הגש הצעה
+                            </button>
                         </div>
                     </div>
 
@@ -629,6 +665,9 @@ window.openArticleModal = openArticleModal;
 window.closeArticleModal = closeArticleModal;
 window.openPublishModal = openPublishModal;
 window.closePublishModal = closePublishModal;
+window.openOfferModal = openOfferModal;
+window.closeOfferModal = closeOfferModal;
+window.handleOfferSubmit = handleOfferSubmit;
 window.selectPublishCategory = selectPublishCategory;
 window.handlePublishSubmit = handlePublishSubmit;
 window.toggleLocationSelection = toggleLocationSelection;

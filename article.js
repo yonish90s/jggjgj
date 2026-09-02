@@ -9,117 +9,58 @@ const FALLBACK_ARTICLES = [
         "views": "12.4K",
         "likes": "98%",
         "price": "yhsh 4,500",
-        "model": "AI Agent v2.5",
+        "sellPrice": "yhsh 4,500",
+        "borrowPrice": "yhsh 350",
+        "model": "כמו חדש",
         "rating": "דירוג 4.9 (58 עסקאות)",
         "location": "תל אביב - יפו",
-        "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
-        "summary": "סקירה מקיפה על פריצות הדרך האחרונות בתחום ה-Agents והבינה המלאכותית היוצרת, ואיך ארגונים מובילים רותמים אותם להגברת הפריון.",
-        "content": "<h3>עידן חדש של סוכני AI אוטונומיים</h3><p>בשנים האחרונות ראינו מעבר חד מודלי שפה פשוטים המשיבים על שאלות למערכות אוטונומיות המסוגלות לבצע משימות מורכבות מקצה לקצה. כיום, סוכני AI מנהלים פרויקטים, כותבים קוד, ומבצעים מחקרים מעמיקים ללא צורך בהתערבות אנושית מתמדת.</p><h3>השפעה על תעשיית ההייטק והחינוך</h3><p>צוותי פיתוח ברחבי העולם מדווחים על קפיצה של עשרות אחוזים בתפוקה בזכות שילוב עוזרי פיתוח חכמים. השינוי אינו רק בטרמינולוגיה, אלא בדרך שבה חברות מתכננות ומפתחות מוצרים דיגיטליים.</p>"
-    },
-    {
-        "id": "art-2",
-        "title": "עתיד הארכיטקטורה הירוקה: בנייה חכמה ואקולוגית בערים המודרניות",
-        "category": "עיצוב וסביבה",
-        "author": "מיכל אהרוני",
-        "date": "31.08.2026",
-        "readTime": "4 דקות קריאה",
-        "views": "8.9K",
-        "likes": "95%",
-        "price": "yhsh 8,200",
-        "model": "Eco Build 2026",
-        "rating": "דירוג 4.8 (42 עסקאות)",
-        "location": "חיפה - מרכז",
-        "imageUrl": "https://images.unsplash.com/photo-1518005068251-37900150df60?auto=format&fit=crop&w=1200&q=80",
-        "summary": "כיצד אדריכלים ברחבי העולם משלבים צמחיה אנכית, אנרגיה סולארית וחומרי בנייה ממוחזרים כדי ליצור הערים של המחר.",
-        "content": "<h3>בנייה ירוקה בלב מטרופולינים סואנים</h3><p>הערים הגדולות עוברות מהפכה שקטה: מבנים חדשים מתוכננים מראש כדי לייצר יותר אנרגיה ממה שהם צורכים. בעזרת פאנלים סולאריים משולבים בחלונות ומערכות אגירת מים מתקדמות, הגורדי שחקים הופכים למערכות אקולוגיות עצמאיות.</p>"
-    },
-    {
-        "id": "art-3",
-        "title": "גילויים חדשים בחלל העמוק: טלסקופ ג'יימס ווב מציג גלקסיות קדומות",
-        "category": "מדע וחלל",
-        "author": "פרופ' אריאל דהן",
-        "date": "30.08.2026",
-        "readTime": "7 דקות קריאה",
-        "views": "15.2K",
-        "likes": "99%",
-        "price": "yhsh 12,000",
-        "model": "Webb Optics 4K",
-        "rating": "דירוג 5.0 (96 עסקאות)",
-        "location": "ירושלים",
-        "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-        "summary": "תמונות חדשות שהתקבלו מטלסקופ החלל חושפות כוכבים וגלקסיות שנוצרו מאות מיליוני שנים בלבד לאחר המפץ הגדול.",
-        "content": "<h3>הצצה לראשית היקום</h3><p>המדענים נרגשים: המודלים הקיימים של היווצרות גלקסיות עומדים למבחן מחדש בעקבות הגילויים האחרונים של טלסקופ ג'יימס ווב. הגלקסיות שנצפו מראות בהירות ומסה גבוהה בהרבה ממה ששורער בעבר.</p>"
+        "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+        "summary": "סקירה מקיפה על פריצות הדרך האחרונות בתחום ה-Agents והבינה המלאכותית היוצרת.",
+        "content": "<h3>עידן חדש של סוכני AI אוטונומיים</h3><p>בשנים האחרונות ראינו מעבר חד מודלי שפה פשוטים המשיבים על שאלות למערכות אוטונומיות המסוגלות לבצע משימות מורכבות מקצה לקצה.</p>"
     }
 ];
 
-let allArticles = FALLBACK_ARTICLES;
+let currentArticleData = null;
 
-async function initArticlePage() {
-    await loadArticlesData();
-
+document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
     const articleId = params.get('id') || 'art-1';
 
-    const article = allArticles.find(a => a.id === articleId) || allArticles[0];
-    renderArticle(article);
-    renderTopReadLists();
-    renderRelatedArticles(article.id);
-}
+    let articles = FALLBACK_ARTICLES;
 
-async function loadArticlesData() {
     try {
         const res = await fetch('articles.json?t=' + Date.now());
         if (res.ok) {
-            const data = await res.json();
-            if (Array.isArray(data) && data.length > 0) {
-                allArticles = data;
-            }
+            articles = await res.json();
         }
-    } catch (e) {
-        allArticles = FALLBACK_ARTICLES;
-    }
-}
+    } catch (e) {}
 
-function renderArticle(article) {
-    document.title = `${article.title} | גלריית הכתבות`;
+    const article = articles.find(a => a.id === articleId) || articles[0];
+    currentArticleData = article;
 
-    const titleElem = document.getElementById('articleTitleHeading');
-    const categoryElem = document.getElementById('articleCategoryTag');
-    const authorElem = document.getElementById('articleAuthorName');
-    const dateElem = document.getElementById('articlePublishDate');
-    const readTimeElem = document.getElementById('articleReadingTime');
-    const viewsElem = document.getElementById('articleViewCount');
-    const imgElem = document.getElementById('articleHeroImage');
-    const contentElem = document.getElementById('articleFullContent');
-    const likesElem = document.getElementById('articleLikesCount');
+    document.getElementById('articleCategoryTag').textContent = article.category;
+    document.getElementById('articleTitle').textContent = article.title;
+    document.getElementById('articleAuthor').textContent = article.author;
+    document.getElementById('articleReadTime').textContent = article.readTime;
+    document.getElementById('articleViews').textContent = article.views;
+    document.getElementById('articleImage').src = article.imageUrl;
+    document.getElementById('articleContent').innerHTML = article.content;
+    document.getElementById('articleLikes').textContent = article.likes;
 
-    // Minimalist Specs Elements (ללא אימוג'ים - טקסט מינימליסטי חצי ימין חצי שמאל)
-    const priceElem = document.getElementById('articlePriceSpec');
-    const modelElem = document.getElementById('articleModelSpec');
-    const ratingElem = document.getElementById('articleRatingSpec');
-    const locationElem = document.getElementById('articleLocationSpec');
+    // SPECS BAR
+    document.getElementById('specBorrowPrice').textContent = article.borrowPrice || 'yhsh 350';
+    document.getElementById('specSellPrice').textContent = article.sellPrice || article.price || 'yhsh 4,500';
+    document.getElementById('specModel').textContent = article.model || 'כמו חדש';
 
-    if (titleElem) titleElem.textContent = article.title;
-    if (categoryElem) categoryElem.textContent = article.category;
-    if (authorElem) authorElem.textContent = article.author;
-    if (dateElem) dateElem.textContent = article.date || '01.09.2026';
-    if (readTimeElem) readTimeElem.textContent = article.readTime;
-    if (viewsElem) viewsElem.textContent = `${article.views} צפיות`;
-    if (imgElem) imgElem.src = article.imageUrl;
-    if (contentElem) contentElem.innerHTML = article.content || `<p>${article.summary}</p>`;
-    if (likesElem) likesElem.textContent = article.likes || '98%';
+    // RENDER TOP READ SIDEBARS
+    renderTopReadLists(articles);
+});
 
-    if (priceElem) priceElem.textContent = article.price || 'yhsh 4,500';
-    if (modelElem) modelElem.textContent = article.model || '2026 Pro';
-    if (ratingElem) ratingElem.textContent = article.rating || 'דירוג 4.9 (58 עסקאות)';
-    if (locationElem) locationElem.textContent = article.location || 'תל אביב - יפו';
-}
-
-function renderTopReadLists() {
+function renderTopReadLists(articles) {
     const leftContainer = document.getElementById('topReadStoriesLeft');
     const rightContainer = document.getElementById('topReadStoriesRight');
 
-    const topItems = allArticles.slice(0, 4);
+    const topItems = articles.slice(0, 4);
 
     const html = topItems.map((item, idx) => `
         <div class="top-read-item" onclick="window.location.href='article.html?id=${item.id}'">
@@ -132,47 +73,34 @@ function renderTopReadLists() {
     if (rightContainer) rightContainer.innerHTML = html;
 }
 
-function renderRelatedArticles(currentId) {
-    const container = document.getElementById('relatedArticlesGrid');
-    if (!container) return;
-
-    const related = allArticles.filter(a => a.id !== currentId).slice(0, 3);
-
-    container.innerHTML = related.map(art => `
-        <div class="article-card-box" onclick="window.location.href='article.html?id=${art.id}'">
-            <div class="article-card-image-box">
-                <img src="${art.imageUrl}" alt="${art.title}" loading="lazy">
-                <span class="article-card-category">${art.category}</span>
-            </div>
-            
-            <div class="article-card-body">
-                <h3 class="article-card-title">${art.title}</h3>
-                <p class="article-card-summary">${art.summary}</p>
-                
-                <div class="article-card-meta">
-                    <span><i class="fa-regular fa-clock"></i> ${art.readTime}</span>
-                    <span><i class="fa-regular fa-eye"></i> ${art.views}</span>
-                </div>
-            </div>
-        </div>
-    `).join('');
-}
-
-function likePageArticle() {
-    showToast('תודה שפרגנת בלייק לכתבה! 👍');
-}
-
-function shareArticle() {
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(window.location.href);
-        showToast('קישור הכתבה הועתק ללוח! 🔗');
-    } else {
-        showToast('שיתוף כתבה פתוח!');
+function openArticleOfferModal() {
+    if (!currentArticleData) return;
+    const subTitle = document.getElementById('articleOfferSubTitle');
+    if (subTitle) {
+        subTitle.textContent = `עבור: "${currentArticleData.title}" (מכירה: ${currentArticleData.sellPrice || currentArticleData.price} | השאלה: ${currentArticleData.borrowPrice || 'yhsh 350'})`;
     }
+    const modal = document.getElementById('articleOfferModal');
+    if (modal) modal.classList.remove('hidden');
 }
 
-function showGuestToast() {
-    showToast('שלום אורח! תהנה מקריאת הכתבה 📖');
+function closeArticleOfferModal() {
+    const modal = document.getElementById('articleOfferModal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function handleArticleOfferSubmit(event) {
+    event.preventDefault();
+    const amount = document.getElementById('artOfferAmount').value.trim();
+    const name = document.getElementById('artOfferName').value.trim();
+
+    closeArticleOfferModal();
+    document.getElementById('articleOfferForm').reset();
+
+    showToast(`תודה ${name}! ההצעה בסך ${amount} נשלחה בהצלחה למפרסם המודעה! 🤝🎉`);
+}
+
+function likeArticle() {
+    showToast('תודה שפרגנת בלייק לכתבה! 👍');
 }
 
 function showToast(msg) {
@@ -187,8 +115,7 @@ function showToast(msg) {
     }, 2500);
 }
 
-window.likePageArticle = likePageArticle;
-window.shareArticle = shareArticle;
-window.showGuestToast = showGuestToast;
-
-document.addEventListener('DOMContentLoaded', initArticlePage);
+window.likeArticle = likeArticle;
+window.openArticleOfferModal = openArticleOfferModal;
+window.closeArticleOfferModal = closeArticleOfferModal;
+window.handleArticleOfferSubmit = handleArticleOfferSubmit;

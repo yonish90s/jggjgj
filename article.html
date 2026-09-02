@@ -3,93 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageArticleTitle">קריאת כתבה | גלריית הכתבות והסיפורים</title>
+    <title>קריאת כתבה | גלריית הסיפורים</title>
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2800">
-    <style>
-        .back-to-home-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 8px 18px;
-            border-radius: 20px;
-            color: var(--text-primary);
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-decoration: none;
-            margin-bottom: 15px;
-            transition: var(--transition);
-        }
-
-        .back-to-home-btn:hover {
-            background-color: #18181b;
-            color: #ffffff;
-        }
-
-        .article-main-card {
-            background-color: var(--card-bg);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .article-hero-img-box {
-            width: 100%;
-            height: 380px;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            margin: 20px 0;
-        }
-
-        .article-hero-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .article-body-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-            margin-top: 25px;
-        }
-
-        .article-body-text h3 {
-            font-size: 1.35rem;
-            color: var(--text-primary);
-            margin: 22px 0 10px 0;
-            font-weight: 900;
-        }
-
-        .article-body-text p {
-            margin-bottom: 16px;
-        }
-
-        .related-articles-section {
-            margin-top: 35px;
-            border-top: 2px solid var(--border-color);
-            padding-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css?v=3600">
 </head>
 <body>
 
-    <!-- Header Bar -->
+    <!-- Top Navigation Bar -->
     <header class="top-navbar-black">
         <div class="top-nav-inner">
             
             <div class="nav-left">
-                <div class="guest-pill-btn" onclick="showGuestToast()">
-                    <span>אורח</span>
-                </div>
+                <button class="btn-publish-nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fa-solid fa-arrow-right"></i> חזרה לכל המודעות
+                </button>
             </div>
 
             <nav class="nav-center-tabs">
@@ -97,7 +29,6 @@
                     <i class="fa-regular fa-image"></i>
                     <span>תמונות</span>
                 </button>
-                
                 <button class="nav-tab-btn active" onclick="window.location.href='index.html'">
                     <span>סיפורים</span>
                 </button>
@@ -112,13 +43,11 @@
         </div>
     </header>
 
-    <!-- Page Body Wrapper (מבנה 3 עמודות עם סיידברים מקובעים גם בעמוד המודעה!) -->
+    <!-- Page Body Wrapper (3-Column Layout matching home page) -->
     <div class="page-layout-wrapper">
 
-        <!-- Left Sidebar Column (סיידבר שמאלי) -->
+        <!-- Left Sidebar Column -->
         <aside class="sidebar-column sidebar-left">
-            
-            <!-- Card 1: אתרים מומלצים -->
             <div class="sidebar-card">
                 <div class="sidebar-card-title">אתרים מומלצים</div>
                 <div class="recommended-sites-list">
@@ -137,107 +66,72 @@
                 </div>
             </div>
 
-            <!-- Card 2: הסיפורים הנקראים ביותר -->
             <div class="sidebar-card">
                 <div class="sidebar-card-title">הסיפורים הנקראים ביותר</div>
                 <div id="topReadStoriesLeft" class="top-read-list">
-                    <!-- Dynamic list loaded via JS -->
+                    <!-- Loaded via article.js -->
                 </div>
             </div>
-
-            <!-- Card 3: הקהילות שלנו ברשת -->
-            <div class="sidebar-card community-card">
-                <div class="community-title">
-                    <i class="fa-solid fa-people-group"></i>
-                    <span>הקהילות שלנו ברשת</span>
-                </div>
-                
-                <div class="social-buttons-grid">
-                    <a href="#" class="social-btn btn-facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
-                    <a href="#" class="social-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
-                    <a href="#" class="social-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
-                    <a href="#" class="social-btn btn-telegram"><i class="fa-paper-plane"></i> Telegram</a>
-                    <a href="#" class="social-btn btn-twitter"><i class="fa-brands fa-x-twitter"></i> Twitter / X</a>
-                    <a href="#" class="social-btn btn-reddit"><i class="fa-brands fa-reddit-alien"></i> Reddit</a>
-                </div>
-            </div>
-
         </aside>
 
-        <!-- Main Center Column (עמודת המודעה/כתבה המרכזית) -->
+        <!-- Center Article View Column -->
         <main class="main-center-column">
             
-            <a href="index.html" class="back-to-home-btn">
-                <i class="fa-solid fa-arrow-right"></i> חזרה לעמוד הראשי
-            </a>
-
-            <article class="article-main-card">
+            <div class="article-modal-box" style="max-width: 100%; box-shadow: var(--shadow-sm);">
                 
                 <div class="modal-article-header">
                     <span id="articleCategoryTag" class="category-badge-pill">טכנולוגיה</span>
-                    <h1 id="articleTitleHeading" class="modal-article-title" style="font-size: 1.9rem;">טוען כתבה...</h1>
+                    <h1 id="articleTitle" class="modal-article-title">טוען כותרת...</h1>
                     
-                    <div class="modal-meta-row" style="font-size: 0.9rem; margin-top: 10px;">
-                        <span><i class="fa-solid fa-user"></i> מאת: <strong id="articleAuthorName">מערכת</strong></span>
+                    <div class="modal-meta-row">
+                        <span><i class="fa-solid fa-user"></i> מאת: <strong id="articleAuthor">מערכת</strong></span>
                         <span>•</span>
-                        <span><i class="fa-regular fa-calendar"></i> <span id="articlePublishDate">01.09.2026</span></span>
+                        <span><i class="fa-regular fa-clock"></i> <span id="articleReadTime">5 דקות קריאה</span></span>
                         <span>•</span>
-                        <span><i class="fa-regular fa-clock"></i> <span id="articleReadingTime">5 דקות קריאה</span></span>
-                        <span>•</span>
-                        <span><i class="fa-regular fa-eye"></i> <span id="articleViewCount">12.4K צפיות</span></span>
+                        <span><i class="fa-regular fa-eye"></i> <span id="articleViews">1.2K צפיות</span></span>
                     </div>
                 </div>
 
-                <!-- MINIMALIST SPECS BAR (מידע מינימליסטי: מחיר, דגם, דירוג, מיקום - ללא אימוג'ים) -->
+                <!-- MINIMALIST SPECS BAR WITH 'הגש הצעה' BUTTON -->
                 <div class="article-specs-bar">
                     <div class="specs-group-right">
-                        <span class="spec-item"><strong>מחיר מבוקש:</strong> <span id="articlePriceSpec">yhsh 4,500</span></span>
+                        <span class="spec-item"><strong>מחיר השאלה:</strong> <span id="specBorrowPrice" style="color:#2563eb;">yhsh 350</span></span>
                         <span class="spec-divider">|</span>
-                        <span class="spec-item"><strong>דגם:</strong> <span id="articleModelSpec">2026 Pro</span></span>
+                        <span class="spec-item"><strong>מחיר מכירה:</strong> <span id="specSellPrice" style="color:#ff5000;">yhsh 4,500</span></span>
+                        <span class="spec-divider">|</span>
+                        <span class="spec-item"><strong>מצב המוצר:</strong> <span id="specModel">כמו חדש</span></span>
                     </div>
 
                     <div class="specs-group-left">
-                        <span class="spec-item"><strong>דירוג משתמש:</strong> <span id="articleRatingSpec">4.9 (58 עסקאות)</span></span>
-                        <span class="spec-divider">|</span>
-                        <span class="spec-item"><strong>מיקום:</strong> <span id="articleLocationSpec">תל אביב - יפו</span></span>
+                        <button class="btn-offer-pill" style="font-size: 0.88rem; padding: 6px 16px;" onclick="openArticleOfferModal()">
+                            🤝 הגש הצעה למפרסם
+                        </button>
                     </div>
                 </div>
 
-                <div class="article-hero-img-box">
-                    <img id="articleHeroImage" src="" alt="תמונת כתבה ראשית">
+                <div class="modal-article-image-box">
+                    <img id="articleImage" src="" alt="תמונת כתבה">
                 </div>
 
-                <div id="articleFullContent" class="article-body-text">
-                    <!-- Injected via article.js -->
+                <div id="articleContent" class="modal-article-content">
+                    <!-- Article text -->
                 </div>
 
-                <div class="modal-footer-actions" style="margin-top: 25px;">
-                    <button class="btn-like-article" onclick="likePageArticle()">
-                        <i class="fa-solid fa-thumbs-up"></i> פרגן בלייק לכתבה (<span id="articleLikesCount">98%</span>)
+                <div class="modal-footer-actions">
+                    <button class="btn-like-article" onclick="likeArticle()">
+                        <i class="fa-solid fa-thumbs-up"></i> פרגן בלייק (<span id="articleLikes">98%</span>)
                     </button>
-                    <button class="btn-close-reader" onclick="shareArticle()">
-                        <i class="fa-solid fa-share-nodes"></i> שיתוף כתבה
+                    <button class="btn-close-reader" onclick="window.location.href='index.html'">
+                        חזרה לכל המודעות
                     </button>
                 </div>
 
-            </article>
-
-            <!-- Related Stories Section -->
-            <section class="related-articles-section">
-                <h2 style="font-size: 1.2rem; font-weight: 900; color: var(--text-primary); margin-bottom: 16px;">
-                    📚 כתבות נוספות שעלולות לעניין אותך
-                </h2>
-                <div id="relatedArticlesGrid" class="articles-cards-grid">
-                    <!-- Injected via article.js -->
-                </div>
-            </section>
+            </div>
 
         </main>
 
-        <!-- Right Sidebar Column (סיידבר ימני) -->
+        <!-- Right Sidebar Column -->
         <aside class="sidebar-column sidebar-right">
-            
-            <!-- Card 1: אתרים מומלצים -->
             <div class="sidebar-card">
                 <div class="sidebar-card-title">אתרים מומלצים</div>
                 <div class="recommended-sites-list">
@@ -252,33 +146,63 @@
                 </div>
             </div>
 
-            <!-- Card 2: הסיפורים הנקראים ביותר -->
             <div class="sidebar-card">
                 <div class="sidebar-card-title">הסיפורים הנקראים ביותר</div>
                 <div id="topReadStoriesRight" class="top-read-list">
-                    <!-- Dynamic list loaded via JS -->
+                    <!-- Loaded via article.js -->
                 </div>
             </div>
-
-            <!-- Card 3: הקהילות שלנו ברשת -->
-            <div class="sidebar-card community-card">
-                <div class="community-title">
-                    <i class="fa-solid fa-people-group"></i>
-                    <span>הקהילות שלנו ברשת</span>
-                </div>
-                
-                <div class="social-buttons-grid">
-                    <a href="#" class="social-btn btn-facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
-                    <a href="#" class="social-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
-                    <a href="#" class="social-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
-                    <a href="#" class="social-btn btn-telegram"><i class="fa-paper-plane"></i> Telegram</a>
-                    <a href="#" class="social-btn btn-twitter"><i class="fa-brands fa-x-twitter"></i> Twitter / X</a>
-                    <a href="#" class="social-btn btn-reddit"><i class="fa-brands fa-reddit-alien"></i> Reddit</a>
-                </div>
-            </div>
-
         </aside>
 
+    </div>
+
+    <!-- MAKE AN OFFER MODAL FOR ARTICLE PAGE -->
+    <div id="articleOfferModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 520px;">
+            <button class="close-modal-btn" onclick="closeArticleOfferModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <h2 class="publish-modal-title">🤝 הגשת הצעה למפרסם</h2>
+                <p id="articleOfferSubTitle" class="publish-modal-subtitle">הגש הצעה לרכישה או להשאלה</p>
+            </div>
+
+            <form id="articleOfferForm" onsubmit="handleArticleOfferSubmit(event)">
+                <div class="publish-form-group">
+                    <label>סוג ההצעה *</label>
+                    <select id="artOfferType" class="publish-form-select">
+                        <option value="buy">הצעת מחיר לרכישה 🛒</option>
+                        <option value="borrow">הצעת מחיר להשאלה 🤝</option>
+                        <option value="trade">הצעת החלפה 🔄</option>
+                    </select>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>סכום ההצעה שלך (yhsh) *</label>
+                    <input type="text" id="artOfferAmount" class="publish-form-input" placeholder="לדוגמה: yhsh 4,000" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>שם מגיש ההצעה *</label>
+                    <input type="text" id="artOfferName" class="publish-form-input" placeholder="שמך המלא" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>טלפון / אימייל לחזרה *</label>
+                    <input type="text" id="artOfferContact" class="publish-form-input" placeholder="050-1234567" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>הערה / הודעה אישית למפרסם</label>
+                    <textarea id="artOfferNotes" class="publish-form-textarea" rows="2" placeholder="לדוגמה: מעוניין לאסוף מחר בבוקר מזומן..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #16a34a, #15803d);">
+                    <i class="fa-solid fa-paper-plane"></i> שלח הצעה למפרסם המודעה
+                </button>
+            </form>
+        </div>
     </div>
 
     <!-- Toast Notification -->

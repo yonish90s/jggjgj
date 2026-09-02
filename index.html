@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3500">
+    <link rel="stylesheet" href="styles.css?v=3600">
 </head>
 <body>
 
@@ -373,6 +373,57 @@
 
         </aside>
 
+    </div>
+
+    <!-- MAKE AN OFFER MODAL FORM (חלון הגשת הצעה למודעה) -->
+    <div id="offerModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 520px;">
+            <button class="close-modal-btn" onclick="closeOfferModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <h2 class="publish-modal-title">🤝 הגשת הצעה למפרסם</h2>
+                <p id="offerModalSubTitle" class="publish-modal-subtitle">הגש הצעה לרכישה או להשאלה</p>
+            </div>
+
+            <form id="offerForm" onsubmit="handleOfferSubmit(event)">
+                <input type="hidden" id="offerArticleId">
+
+                <div class="publish-form-group">
+                    <label>סוג ההצעה *</label>
+                    <select id="offerType" class="publish-form-select">
+                        <option value="buy">הצעת מחיר לרכישה 🛒</option>
+                        <option value="borrow">הצעת מחיר להשאלה 🤝</option>
+                        <option value="trade">הצעת החלפה 🔄</option>
+                    </select>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>סכום ההצעה שלך (yhsh) *</label>
+                    <input type="text" id="offerAmount" class="publish-form-input" placeholder="לדוגמה: yhsh 4,000" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>שם מגיש ההצעה *</label>
+                    <input type="text" id="offerName" class="publish-form-input" placeholder="שמך המלא" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>טלפון / אימייל לחזרה *</label>
+                    <input type="text" id="offerContact" class="publish-form-input" placeholder="050-1234567" required>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>הערה / הודעה אישית למפרסם</label>
+                    <textarea id="offerNotes" class="publish-form-textarea" rows="2" placeholder="לדוגמה: מעוניין לאסוף מחר בבוקר מזומן..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #16a34a, #15803d);">
+                    <i class="fa-solid fa-paper-plane"></i> שלח הצעה למפרסם המודעה
+                </button>
+            </form>
+        </div>
     </div>
 
     <!-- PUBLISH AD MODAL FORM (חלון פרסום מודעה חדשה) -->

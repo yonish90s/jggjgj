@@ -213,6 +213,32 @@ body {
 }
 
 /* =========================================================
+   BTN OFFER PILL & OFFER MODAL STYLES (כפתור וחלון הגשת הצעה)
+   ========================================================= */
+.btn-offer-pill {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    color: #ffffff;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: 0.78rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
+    transition: var(--transition);
+}
+
+.btn-offer-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.45);
+    background: linear-gradient(135deg, #15803d, #166534);
+}
+
+/* =========================================================
    LOCATION MULTI-SELECT CHECKBOX ITEM STYLES
    ========================================================= */
 .checkbox-location-item {
@@ -944,6 +970,7 @@ body {
     font-size: 0.82rem;
     font-weight: 800;
     color: var(--text-primary);
+    gap: 6px;
 }
 
 .action-bar-right, .action-bar-left {
@@ -970,7 +997,7 @@ body {
 }
 
 /* =========================================================
-   PUBLISH LISTING MODAL FORM STYLES (טופס פרסום מודעה מעוצב)
+   PUBLISH LISTING & OFFER MODAL FORM STYLES
    ========================================================= */
 .publish-modal-box {
     background-color: var(--card-bg);
