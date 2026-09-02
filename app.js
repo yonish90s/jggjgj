@@ -1,5 +1,4 @@
-// DEFAULT ARTICLES DATASET
-const INITIAL_ARTICLES = [
+const FALLBACK_ARTICLES = [
     {
         "id": "art-1",
         "title": "מהפכת ה-AI ב-2026: כיצד מודלים אוטונומיים משנים את שוק העבודה",
@@ -13,426 +12,175 @@ const INITIAL_ARTICLES = [
         "sellPrice": "yhsh 4,500",
         "borrowPrice": "yhsh 350",
         "model": "כמו חדש",
-        "rating": "★ 4.9 (58 המלצות)",
+        "rating": "דירוג 4.9 (58 עסקאות)",
         "location": "תל אביב - יפו",
+        "dealTypes": ["borrow", "buy"],
         "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-        "summary": "סקירה מקיפה על פריצות הדרך האחרונות בתחום ה-Agents והבינה המלאכותית היוצרת.",
-        "content": "<h3>עידן חדש של סוכני AI אוטונומיים</h3><p>בשנים האחרונות ראינו מעבר חד מודלי שפה פשוטים המשיבים על שאלות למערכות אוטונומיות המסוגלות לבצע משימות מורכבות מקצה לקצה. מודלים כמו Antigravity 2.0 משנים לחלוטין את הדרך שבה צוותי פיתוח ומוצר עובדים.</p>"
+        "summary": "סקירה מקיפה על פריצות הדרך האחרונות בתחום ה-Agents והבינה המלאכותית היוצרת, ואיך ארגונים מובילים רותמים אותם להגברת הפריון.",
+        "content": "<h3>עידן חדש של סוכני AI אוטונומיים</h3><p>בשנים האחרונות ראינו מעבר חד מודלי שפה פשוטים המשיבים על שאלות למערכות אוטונומיות המסוגלות לבצע משימות מורכבות מקצה לקצה.</p>"
     },
     {
         "id": "art-2",
-        "title": "מדריך מעשי: איך לבנות סביבת עבודה היברידית חכמה בבית",
-        "category": "טכנולוגיה",
-        "author": "מיכל שפירא",
+        "title": "עתיד הארכיטקטורה הירוקה: בנייה חכמה ואקולוגית בערים המודרניות",
+        "category": "עיצוב וסביבה",
+        "author": "מיכל אהרוני",
         "date": "31.08.2026",
         "readTime": "4 דקות קריאה",
         "views": "8.9K",
         "likes": "95%",
-        "price": "yhsh 2,800",
-        "sellPrice": "yhsh 2,800",
-        "borrowPrice": "yhsh 200",
+        "price": "yhsh 8,200",
+        "sellPrice": "yhsh 8,200",
+        "borrowPrice": "yhsh 600",
         "model": "חדש באריזה",
-        "rating": "★ 4.8 (34 המלצות)",
+        "rating": "דירוג 4.8 (42 עסקאות)",
         "location": "חיפה - מרכז",
-        "imageUrl": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=800&q=80",
-        "summary": "כל הטיפים, הציוד והתוכנות המומלצות לניהול יום עבודה אפקטיבי ונוח מהבית.",
-        "content": "<h3>עיצוב וארגונומיה במשרד הביתי</h3><p>בחירת המסך הנכון, כיסא ארגונומי ותאורה מתאימה יכולים לשפר את התפוקה ולהפחית עייפות לאורך זמן.</p>"
+        "dealTypes": ["buy", "trade"],
+        "imageUrl": "https://images.unsplash.com/photo-1518005068251-37900150df60?auto=format&fit=crop&w=800&q=80",
+        "summary": "כיצד אדריכלים ברחבי העולם משלבים צמחיה אנכית, אנרגיה סולארית וחומרי בנייה ממוחזרים כדי ליצור הערים של המחר.",
+        "content": "<h3>בנייה ירוקה בלב מטרופולינים סואנים</h3><p>הערים הגדולות עוברות מהפכה שקטה: מבנים חדשים מתוכננים מראש כדי לייצר יותר אנרגיה ממה שהם צורכים.</p>"
     },
     {
         "id": "art-3",
-        "title": "החלוציות בחלל: משימת מאדים 2026 וחיפוש אחר סימני חיים",
+        "title": "גילויים חדשים בחלל העמוק: טלסקופ ג'יימס ווב מציג גלקסיות קדומות",
         "category": "מדע וחלל",
-        "author": "פרופ' אהרון לוי",
+        "author": "פרופ' אריאל דהן",
         "date": "30.08.2026",
-        "readTime": "8 דקות קריאה",
-        "views": "15.1K",
-        "likes": "99%",
-        "price": "yhsh 8,500",
-        "sellPrice": "yhsh 8,500",
-        "borrowPrice": "yhsh 600",
-        "model": "משומש במצב טוב",
-        "rating": "★ 5.0 (92 המלצות)",
-        "location": "ירושלים",
-        "imageUrl": "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=800&q=80",
-        "summary": "ניתוח הנתונים הראשוניים שנשלחו מרכב המחקר החדש על פני הרי המאדים.",
-        "content": "<h3>תגליות חדשות על מאדים</h3><p>הממצאים האחרונים מעידים על נוכחות מינרלים ייחודיים המצביעים על זרימת מים חופשית בעבר הרחוק.</p>"
-    },
-    {
-        "id": "art-4",
-        "title": "עסקים בעידן הדיגיטלי: אסטרטגיות צמיחה לחברות הזנק",
-        "category": "עסקים",
-        "author": "רוני ברק",
-        "date": "29.08.2026",
-        "readTime": "5 דקות קריאה",
-        "views": "7.3K",
-        "likes": "92%",
-        "price": "yhsh 3,900",
-        "sellPrice": "yhsh 3,900",
-        "borrowPrice": "yhsh 300",
-        "model": "כמו חדש",
-        "rating": "★ 4.7 (29 המלצות)",
-        "location": "רמת גן",
-        "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-        "summary": "כיצד יזמים צעירים גורמים למוצרים שלהם להגיע למיליוני משתמשים בתקציב זעום.",
-        "content": "<h3>גיוס לקוחות אורגני</h3><p>בניית קהילה סביב המוצר היא המפתח הגדול ביותר להצלחה ארוכת טווח בעולם הסטארטאפים.</p>"
-    },
-    {
-        "id": "art-5",
-        "title": "עיצוב אורבני ירוק: הערים של המחר כבר כאן",
-        "category": "עיצוב וסביבה",
-        "author": "טלי דגן",
-        "date": "28.08.2026",
         "readTime": "7 דקות קריאה",
-        "views": "10.6K",
-        "likes": "96%",
-        "price": "yhsh 6,200",
-        "sellPrice": "yhsh 6,200",
-        "borrowPrice": "yhsh 450",
-        "model": "חדש באריזה",
-        "rating": "★ 4.9 (41 המלצות)",
-        "location": "הרצליה פיתוח",
-        "imageUrl": "https://images.unsplash.com/photo-1518005068251-37900150df60?auto=format&fit=crop&w=800&q=80",
-        "summary": "השילוב בין צמחייה עשירה למבנים חכמים המפחיתים את זיהום האוויר במרכזי הערים.",
-        "content": "<h3>גגות ירוקים ואנרגיה סולארית</h3><p>ערים מודרניות רבות מאמצות תקנים ירוקים המחייבים שילוב אנרגיות מתחדשות בבנייה חדשה.</p>"
-    },
-    {
-        "id": "art-6",
-        "title": "תזונה, אורח חיים ובריאות מנטלית: המדריך השלם",
-        "category": "לייפסטייל",
-        "author": "ד\"ר עמית גולן",
-        "date": "27.08.2026",
-        "readTime": "6 דקות קריאה",
-        "views": "11.2K",
-        "likes": "97%",
-        "price": "yhsh 1,900",
-        "sellPrice": "yhsh 1,900",
-        "borrowPrice": "yhsh 150",
-        "model": "משומש במצב טוב",
-        "rating": "★ 4.85 (67 המלצות)",
-        "location": "תל אביב - יפו",
-        "imageUrl": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80",
-        "summary": "הקשר ההדוק בין מה שאנחנו אוכלים לרמת האנרגיה והמצב הרוח היומיומי שלנו.",
-        "content": "<h3>איזון גוף ונפש</h3><p>תזונה מאוזנת יחד עם שינה איכותית ופעילות גופנית סדירה תורמים משמעותית לאריכות ימים וחיוניות.</p>"
-    },
-    {
-        "id": "art-7",
-        "title": "אבטחת מידע וסייבר 2026: הגנה על נכסים דיגיטליים",
-        "category": "סייבר וביטחון",
-        "author": "גיא רוזן",
-        "date": "26.08.2026",
-        "readTime": "5 דקות קריאה",
-        "views": "9.4K",
-        "likes": "94%",
-        "price": "yhsh 9,800",
-        "sellPrice": "yhsh 9,800",
-        "borrowPrice": "yhsh 700",
-        "model": "חדש באריזה",
-        "rating": "★ 4.95 (88 המלצות)",
-        "location": "תל אביב - יפו",
-        "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
-        "summary": "כיצד ארגונים מגינים על המידע הרגיש שלהם מפני מתקפות כופרה מורכבות.",
-        "content": "<h3>הגנת סייבר מתקדמת</h3><p>שילוב בינה מלאכותית בזיהוי איומים בזמן אמת הופך לסטנדרט חובה בכל ארגון.</p>"
-    },
-    {
-        "id": "art-8",
-        "title": "דור העתיד של הגיימינג: מנועי גרפיקה בתלת-ממד ריאליסטי",
-        "category": "גיימינג",
-        "author": "ניר כהן",
-        "date": "25.08.2026",
-        "readTime": "7 דקות קריאה",
-        "views": "14.2K",
+        "views": "15.2K",
         "likes": "99%",
-        "price": "yhsh 5,400",
-        "sellPrice": "yhsh 5,400",
-        "borrowPrice": "yhsh 400",
-        "model": "כמו חדש",
-        "rating": "★ 4.9 (76 המלצות)",
-        "location": "חיפה - מרכז",
-        "imageUrl": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
-        "summary": "הצצה ראשונה למנועי המשחק החדשים המטשטשים את הגבול בין מציאות למשחק.",
-        "content": "<h3>טכנולוגיית Ray Tracing בזמן אמת</h3><p>חוויית המשחק הופכת לעשירה ומרשימה מאי פעם הודות לעיבוד גרפי פורץ דרך.</p>"
-    },
-    {
-        "id": "art-9",
-        "title": "סודות הקולינריה המודרנית: המטבח הבלקני והמזרח תיכוני",
-        "category": "קולינריה",
-        "author": "שף אורן כץ",
-        "date": "24.08.2026",
-        "readTime": "6 דקות קריאה",
-        "views": "8.1K",
-        "likes": "93%",
-        "price": "yhsh 1,500",
-        "sellPrice": "yhsh 1,500",
-        "borrowPrice": "yhsh 120",
-        "model": "כמו חדש",
-        "rating": "★ 4.8 (25 המלצות)",
-        "location": "ירושלים",
-        "imageUrl": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
-        "summary": "מסע קולינרי בין חומרי גלם טריים, תבלינים ייחודיים וטכניקות בישול מסורתיות.",
-        "content": "<h3>טעמים אותנטיים במטבח הבית</h3><p>חומרי גלם טריים ואיכותיים הם הסוד לכל מנה מנצחת.</p>"
-    },
-    {
-        "id": "art-10",
-        "title": "כושר וסיבולת: אימוני הפוגות בעוצמה גבוהה (HIIT)",
-        "category": "בריאות וכושר",
-        "author": "מאיה שרון",
-        "date": "23.08.2026",
-        "readTime": "4 דקות קריאה",
-        "views": "6.8K",
-        "likes": "91%",
-        "price": "yhsh 2,200",
-        "sellPrice": "yhsh 2,200",
-        "borrowPrice": "yhsh 180",
-        "model": "משומש במצב טוב",
-        "rating": "★ 4.75 (19 המלצות)",
-        "location": "רמת גן",
-        "imageUrl": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80",
-        "summary": "איך לשרוף קלוריות ביעילות ולשפר את הסיבולת האירובית בזמן קצר.",
-        "content": "<h3>אימוני HIIT קצרים ואפקטיביים</h3><p>אימונים אלו מאפשרים להגיע לתוצאות מרביות בזמן קצר הודות לעוצמת הגירוי.</p>"
-    },
-    {
-        "id": "art-11",
-        "title": "אינטרנט של הדברים (IoT): הבית החכם והמחובר",
-        "category": "טכנולוגיה",
-        "author": "אלון נוי",
-        "date": "22.08.2026",
-        "readTime": "5 דקות קריאה",
-        "views": "13.5K",
-        "likes": "97%",
-        "price": "yhsh 3,500",
-        "sellPrice": "yhsh 3,500",
-        "borrowPrice": "yhsh 260",
-        "model": "חדש באריזה",
-        "rating": "★ 4.9 (53 המלצות)",
-        "location": "תל אביב - יפו",
-        "imageUrl": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80",
-        "summary": "שליטה מלאה בתאורה, במיזוג ובביטחון הבית ישירות מהטלפון הנייד.",
-        "content": "<h3>אוטומציה ביתית חכמה</h3><p>המערכות החדשות יודעות לזהות את הרגלי הדיירים ולפעול באופן אוטונומי לחסכון באנרגיה.</p>"
-    },
-    {
-        "id": "art-12",
-        "title": "השקעות קריפטו ובלוקצ'יין ב-2026: מגמות והזדמנויות",
-        "category": "עסקים",
-        "author": "תומר שגיא",
-        "date": "21.08.2026",
-        "readTime": "8 דקות קריאה",
-        "views": "16.8K",
-        "likes": "96%",
         "price": "yhsh 12,000",
         "sellPrice": "yhsh 12,000",
         "borrowPrice": "yhsh 900",
         "model": "כמו חדש",
-        "rating": "★ 4.92 (110 המלצות)",
+        "rating": "דירוג 5.0 (96 עסקאות)",
+        "location": "ירושלים",
+        "dealTypes": ["borrow"],
+        "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+        "summary": "תמונות חדשות שהתקבלו מטלסקופ החלל חושפות כוכבים וגלקסיות שנוצרו מאות מיליוני שנים בלבד לאחר המפץ הגדול.",
+        "content": "<h3>הצצה לראשית היקום</h3><p>המדענים נרגשים: המודלים הקיימים של היווצרות גלקסיות עומדים למבחן מחדש בעקבות הגילויים האחרונים.</p>"
+    },
+    {
+        "id": "art-4",
+        "title": "המדריך המלא לסגנון חיים בריא: תזונה, שינה וכושר בעידן הדיגיטלי",
+        "category": "לייפסטייל",
+        "author": "נועה לוי",
+        "date": "29.08.2026",
+        "readTime": "5 דקות קריאה",
+        "views": "6.7K",
+        "likes": "92%",
+        "price": "yhsh 1,800",
+        "sellPrice": "yhsh 1,800",
+        "borrowPrice": "yhsh 150",
+        "model": "משומש במצב טוב",
+        "rating": "דירוג 4.7 (31 עסקאות)",
+        "location": "רמת גן",
+        "dealTypes": ["borrow", "buy"],
+        "imageUrl": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80",
+        "summary": "טיפים מעשיים לשמירה על איזון נפשי וגופני בעולם המהיר, כולל טכניקות להפחתת זמן מסך ושיפור איכות השינה.",
+        "content": "<h3>איזון בעולם של התראות ללא הפסקה</h3><p>איך שומרים על אורח חיים בריא כשהמכשירים הדיגיטליים מלווים אותנו 24/7?</p>"
+    },
+    {
+        "id": "art-5",
+        "title": "טרנדים בעולם הסטארטאפים: לאן זורמים השקעות ההון סיכון בשנת 2026",
+        "category": "עסקים",
+        "author": "אלון שחר",
+        "date": "28.08.2026",
+        "readTime": "5 דקות קריאה",
+        "views": "11.1K",
+        "likes": "96%",
+        "price": "yhsh 15,500",
+        "sellPrice": "yhsh 15,500",
+        "borrowPrice": "yhsh 1,200",
+        "model": "חדש באריזה",
+        "rating": "דירוג 4.9 (74 עסקאות)",
         "location": "הרצליה פיתוח",
-        "imageUrl": "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80",
-        "summary": "ניתוח שוק המטבעות הדיגיטליים והיישומים של חוזים חכמים בתעשייה.",
-        "content": "<h3>עתיד הבלוקצ'יין בעולם הפיננסי</h3><p>טכנולוגיית הבלוקצ'יין ממשיכה להתפתח ולהציע פתרונות מאובטחים להעברת כספים גלובלית.</p>"
+        "dealTypes": ["buy"],
+        "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+        "summary": "ניתוח מגמות ההשקעה במיזמים טכנולוגיים: קלינטק, סייבר, בינה מלאכותית רפואית ומחשוב קוונטי.",
+        "content": "<h3>התחומים החמים של השנה</h3><p>משקיעי הון סיכון מחפשים כעת מיזמים עם גב טכנולוגי עמוק ויכולת יישום מהירה.</p>"
+    },
+    {
+        "id": "art-6",
+        "title": "אמנות דיגיטלית ו-NFT: כיצד יוצרים מגדירים מחדש את מושג הבעלות",
+        "category": "תרבות ואמנות",
+        "author": "עדי שפירא",
+        "date": "27.08.2026",
+        "readTime": "4 דקות קריאה",
+        "views": "5.4K",
+        "likes": "91%",
+        "price": "yhsh 3,200",
+        "sellPrice": "yhsh 3,200",
+        "borrowPrice": "yhsh 250",
+        "model": "כמו חדש",
+        "rating": "דירוג 4.8 (28 עסקאות)",
+        "location": "תל אביב - נווה צדק",
+        "dealTypes": ["trade", "borrow"],
+        "imageUrl": "https://images.unsplash.com/photo-1561998338-13ad7883b20f?auto=format&fit=crop&w=800&q=80",
+        "summary": "מגלריות פיזיות לתערוכות וירטואליות במטאוורס: הסיפורים מאחורי האמנים הדיגיטליים המצליחים בעולם.",
+        "content": "<h3>עידן חדש ליוצרים ויצירות</h3><p>העולם האמנותי עובר שינוי עמוק. יוצרים צעירים משלבים טכנולוגיות תלת-ממד ובלוקצ'יין.</p>"
     }
 ];
 
-// STATE MANAGEMENT
 let state = {
-    articles: [],
-    filteredArticles: [],
+    articles: FALLBACK_ARTICLES,
+    currentArticle: null,
+    searchQuery: '',
+    activeTab: 'stories',
     currentPage: 1,
     itemsPerPage: 12,
-    searchQuery: '',
+    currentSort: 'רלוונטיות',
+    proServicesOnly: false,
+    onlineNowOnly: true,
+    savedListings: new Set(),
+    selectedPublishCategory: 'מוצרים',
     minPrice: 500,
     maxPrice: 20000,
     selectedLocations: new Set(),
     filters: {
-        category: 'all',
         dealType: 'all',
-        condition: 'all'
-    },
-    activeModalArticle: null
+        category: 'all',
+        condition: 'all',
+        budget: 'all'
+    }
 };
 
-// INITIALIZATION
-document.addEventListener('DOMContentLoaded', async () => {
+async function initApp() {
+    closeArticleModal();
+    closePublishModal();
+    closeOfferModal();
     await loadArticles();
-    setupEventListeners();
+    renderHeroBanner();
     renderTopReadLists();
-});
+    renderArticlesGrid();
+}
 
 async function loadArticles() {
     try {
         const res = await fetch('articles.json?t=' + Date.now());
         if (res.ok) {
-            state.articles = await res.json();
-        } else {
-            state.articles = INITIAL_ARTICLES;
+            const fetched = await res.json();
+            if (Array.isArray(fetched) && fetched.length > 0) {
+                state.articles = fetched;
+            }
         }
     } catch (e) {
-        state.articles = INITIAL_ARTICLES;
-    }
-    applyAllFilters();
-}
-
-function applyAllFilters() {
-    let result = [...state.articles];
-
-    // Search query
-    if (state.searchQuery) {
-        const q = state.searchQuery.trim().toLowerCase();
-        result = result.filter(a => 
-            a.title.toLowerCase().includes(q) || 
-            a.summary.toLowerCase().includes(q) ||
-            a.category.toLowerCase().includes(q) ||
-            a.author.toLowerCase().includes(q)
-        );
-    }
-
-    // Category filter
-    if (state.filters.category !== 'all') {
-        result = result.filter(a => a.category === state.filters.category);
-    }
-
-    // Deal Type filter
-    if (state.filters.dealType !== 'all') {
-        result = result.filter(a => {
-            if (state.filters.dealType === 'borrow') return !!a.borrowPrice;
-            if (state.filters.dealType === 'buy') return !!a.sellPrice || !!a.price;
-            return true;
-        });
-    }
-
-    // Condition filter
-    if (state.filters.condition !== 'all') {
-        result = result.filter(a => a.model && a.model.includes(state.filters.condition));
-    }
-
-    // Location multi-select filter
-    if (state.selectedLocations.size > 0) {
-        result = result.filter(a => {
-            if (!a.location) return false;
-            for (let loc of state.selectedLocations) {
-                if (a.location.includes(loc)) return true;
-            }
-            return false;
-        });
-    }
-
-    // Dual Price Range Slider filter
-    result = result.filter(a => {
-        const p = getNumericPrice(a.sellPrice || a.price);
-        return p >= state.minPrice && p <= state.maxPrice;
-    });
-
-    state.filteredArticles = result;
-    state.currentPage = 1;
-
-    updateResultsCounter();
-    renderArticles();
-    renderPagination();
-}
-
-function getNumericPrice(priceStr) {
-    if (!priceStr) return 0;
-    const clean = priceStr.replace(/[^0-9]/g, '');
-    return parseInt(clean, 10) || 0;
-}
-
-function updateResultsCounter() {
-    const counterEl = document.getElementById('resultsCountText');
-    if (counterEl) {
-        counterEl.textContent = `${state.filteredArticles.length} תוצאות`;
+        state.articles = FALLBACK_ARTICLES;
     }
 }
 
-// RENDER ARTICLES (ULTRA-CLEAN CARDS MATCHING USER SCREENSHOT)
-function renderArticles() {
-    const container = document.getElementById('articlesGridContainer');
-    if (!container) return;
+function renderHeroBanner() {
+    if (!state.articles || state.articles.length === 0) return;
+    const hero = state.articles[0];
 
-    const start = (state.currentPage - 1) * state.itemsPerPage;
-    const pageItems = state.filteredArticles.slice(start, start + state.itemsPerPage);
+    const img = document.getElementById('heroImage');
+    if (img) img.src = hero.imageUrl;
 
-    if (pageItems.length === 0) {
-        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted); font-weight: 800;">לא נמצאו מודעות העונות לסינון שנבחר.</div>`;
-        return;
+    const heroCard = document.getElementById('heroFeaturedCard');
+    if (heroCard) {
+        heroCard.onclick = () => openArticleModal(hero.id);
     }
-
-    container.innerHTML = pageItems.map(item => {
-        const sellPriceStr = item.sellPrice || item.price || 'yhsh 4,500';
-        const borrowPriceStr = item.borrowPrice || 'yhsh 350';
-        const conditionStr = item.model || 'כמו חדש';
-        const ratingStr = item.rating || '★ 4.9 (58 המלצות)';
-        const locationStr = item.location || 'תל אביב - יפו';
-
-        return `
-            <div class="article-card-box" onclick="openArticleModal('${item.id}')">
-                <div class="article-card-image-box">
-                    <img src="${item.imageUrl}" alt="${item.title}">
-                    <span class="stock-pill-badge">${item.category}</span>
-                </div>
-
-                <div class="article-card-body">
-                    <h3 class="article-card-title">${item.title}</h3>
-                    
-                    <div class="article-card-price-row">
-                        <span class="main-price-text">${sellPriceStr}</span>
-                        <span class="borrow-price-subtext">השאלה: ${borrowPriceStr}</span>
-                    </div>
-
-                    <div class="card-checklist-specs">
-                        <div class="checklist-item"><i class="fa-solid fa-check"></i> מיקום: ${locationStr}</div>
-                        <div class="checklist-item"><i class="fa-solid fa-check"></i> דירוג: ${ratingStr}</div>
-                        <div class="checklist-item"><i class="fa-solid fa-check"></i> מצב המוצר: ${conditionStr}</div>
-                    </div>
-
-                    <button class="btn-card-action-pill" onclick="openOfferModalFromCard(event, '${item.id}')">
-                        🤝 הגש הצעה למפרסם
-                    </button>
-                </div>
-            </div>
-        `;
-    }).join('');
 }
 
-// RENDER PAGINATION
-function renderPagination() {
-    const container = document.getElementById('paginationContainer');
-    if (!container) return;
-
-    const totalPages = Math.ceil(state.filteredArticles.length / state.itemsPerPage);
-
-    if (totalPages <= 1) {
-        container.innerHTML = '';
-        return;
-    }
-
-    let buttonsHtml = `
-        <button class="page-btn" ${state.currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${state.currentPage - 1})">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-    `;
-
-    for (let i = 1; i <= totalPages; i++) {
-        buttonsHtml += `
-            <button class="page-btn ${state.currentPage === i ? 'active' : ''}" onclick="goToPage(${i})">
-                ${i}
-            </button>
-        `;
-    }
-
-    buttonsHtml += `
-        <button class="page-btn" ${state.currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${state.currentPage + 1})">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-    `;
-
-    container.innerHTML = buttonsHtml;
-}
-
-function goToPage(page) {
-    state.currentPage = page;
-    renderArticles();
-    renderPagination();
-    window.scrollTo({ top: 300, behavior: 'smooth' });
-}
-
-// RENDER SIDEBAR TOP READ LISTS
 function renderTopReadLists() {
     const leftContainer = document.getElementById('topReadStoriesLeft');
     const rightContainer = document.getElementById('topReadStoriesRight');
@@ -450,137 +198,15 @@ function renderTopReadLists() {
     if (rightContainer) rightContainer.innerHTML = html;
 }
 
-// DUAL PRICE RANGE SLIDER LOGIC
-function updateDualPriceSlider() {
-    const minInput = document.getElementById('minPriceRange');
-    const maxInput = document.getElementById('maxPriceRange');
-    const minValLabel = document.getElementById('minPriceValue');
-    const maxValLabel = document.getElementById('maxPriceValue');
-
-    if (!minInput || !maxInput) return;
-
-    let minVal = parseInt(minInput.value, 10);
-    let maxVal = parseInt(maxInput.value, 10);
-
-    if (minVal > maxVal) {
-        let temp = minVal;
-        minVal = maxVal;
-        maxVal = temp;
-    }
-
-    state.minPrice = minVal;
-    state.maxPrice = maxVal;
-
-    if (minValLabel) minValLabel.textContent = `yhsh ${minVal.toLocaleString()}`;
-    if (maxValLabel) maxValLabel.textContent = `yhsh ${maxVal.toLocaleString()}`;
-}
-
-function applyDualPriceFilter() {
-    updateDualPriceSlider();
-    document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => m.classList.add('hidden'));
-    applyAllFilters();
-}
-
-function setDualPricePreset(min, max) {
-    const minInput = document.getElementById('minPriceRange');
-    const maxInput = document.getElementById('maxPriceRange');
-    if (minInput) minInput.value = min;
-    if (maxInput) maxInput.value = max;
-    updateDualPriceSlider();
-    applyDualPriceFilter();
-}
-
-// LOCATION CHECKBOX MULTI-SELECT LOGIC
-function toggleLocationSelection(cityName) {
-    if (state.selectedLocations.has(cityName)) {
-        state.selectedLocations.delete(cityName);
-    } else {
-        state.selectedLocations.add(cityName);
-    }
-}
-
-function applyLocationFilter() {
-    const btnLabel = document.getElementById('labelLocationMenu');
-    if (btnLabel) {
-        if (state.selectedLocations.size === 0) {
-            btnLabel.textContent = 'מיקום';
-        } else {
-            btnLabel.textContent = `מיקום (${state.selectedLocations.size} ערים)`;
-        }
-    }
-    document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => m.classList.add('hidden'));
-    applyAllFilters();
-}
-
-// PILL FILTER DROPDOWNS LOGIC
-function togglePillDropdown(menuId, event) {
+function openOfferModal(articleId, event) {
     if (event) event.stopPropagation();
-    document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => {
-        if (m.id !== menuId) m.classList.add('hidden');
-    });
-    const menu = document.getElementById(menuId);
-    if (menu) menu.classList.toggle('hidden');
-}
 
-function selectPillFilter(filterType, value, labelText) {
-    state.filters[filterType] = value;
-
-    if (filterType === 'dealType') {
-        const label = document.getElementById('labelDealTypeMenu');
-        if (label) label.textContent = labelText;
-    } else if (filterType === 'category') {
-        const label = document.getElementById('labelCategoryPill');
-        if (label) label.textContent = labelText;
-    } else if (filterType === 'condition') {
-        const label = document.getElementById('labelConditionMenu');
-        if (label) label.textContent = labelText;
-    }
-
-    document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => m.classList.add('hidden'));
-    applyAllFilters();
-}
-
-function handleSearch(val) {
-    state.searchQuery = val;
-    applyAllFilters();
-}
-
-// ARTICLE READER MODAL
-function openArticleModal(articleId) {
-    const article = state.articles.find(a => a.id === articleId) || state.articles[0];
-    state.activeModalArticle = article;
-
-    document.getElementById('modalCategoryTag').textContent = article.category;
-    document.getElementById('modalArticleTitle').textContent = article.title;
-    document.getElementById('modalArticleAuthor').textContent = article.author;
-    document.getElementById('modalArticleReadTime').textContent = article.readTime;
-    document.getElementById('modalArticleViews').textContent = article.views;
-    document.getElementById('modalArticleImage').src = article.imageUrl;
-    document.getElementById('modalArticleContent').innerHTML = article.content;
-    document.getElementById('modalLikesCount').textContent = article.likes;
-
-    const modal = document.getElementById('articleModal');
-    if (modal) modal.classList.remove('hidden');
-}
-
-function closeArticleModal() {
-    const modal = document.getElementById('articleModal');
-    if (modal) modal.classList.add('hidden');
-}
-
-function openHeroArticle() {
-    if (state.articles.length > 0) {
-        openArticleModal(state.articles[0].id);
-    }
-}
-
-// MAKE AN OFFER MODAL HANDLER
-function openOfferModalFromCard(event, articleId) {
-    if (event) event.stopPropagation();
     const article = state.articles.find(a => a.id === articleId);
     if (!article) return;
 
-    document.getElementById('offerArticleId').value = article.id;
+    const hiddenInput = document.getElementById('offerArticleId');
+    if (hiddenInput) hiddenInput.value = articleId;
+
     const subTitle = document.getElementById('offerModalSubTitle');
     if (subTitle) {
         subTitle.textContent = `עבור: "${article.title}" (מכירה: ${article.sellPrice || article.price} | השאלה: ${article.borrowPrice || 'yhsh 350'})`;
@@ -597,6 +223,7 @@ function closeOfferModal() {
 
 function handleOfferSubmit(event) {
     event.preventDefault();
+
     const amount = document.getElementById('offerAmount').value.trim();
     const name = document.getElementById('offerName').value.trim();
 
@@ -606,7 +233,102 @@ function handleOfferSubmit(event) {
     showToast(`תודה ${name}! ההצעה בסך ${amount} נשלחה בהצלחה למפרסם המודעה! 🤝🎉`);
 }
 
-// PUBLISH LISTING MODAL FORM HANDLER
+function toggleLocationSelection(city) {
+    if (state.selectedLocations.has(city)) {
+        state.selectedLocations.delete(city);
+    } else {
+        state.selectedLocations.add(city);
+    }
+}
+
+function applyLocationFilter() {
+    const labelElem = document.getElementById('labelLocationMenu');
+    if (labelElem) {
+        if (state.selectedLocations.size === 0) {
+            labelElem.textContent = 'מיקום';
+        } else if (state.selectedLocations.size === 1) {
+            labelElem.textContent = `מיקום: ${Array.from(state.selectedLocations)[0]}`;
+        } else {
+            labelElem.textContent = `מיקום (${state.selectedLocations.size} ערים)`;
+        }
+    }
+
+    const menu = document.getElementById('locationMenu');
+    if (menu) menu.classList.add('hidden');
+
+    state.currentPage = 1;
+    showToast(`סוננו ${state.selectedLocations.size || 'כל'} מיקומים`);
+    renderArticlesGrid();
+}
+
+function updateDualPriceSlider() {
+    const minInput = document.getElementById('minPriceRange');
+    const maxInput = document.getElementById('maxPriceRange');
+
+    if (!minInput || !maxInput) return;
+
+    let minVal = parseInt(minInput.value, 10);
+    let maxVal = parseInt(maxInput.value, 10);
+
+    if (minVal > maxVal) {
+        let temp = minVal;
+        minVal = maxVal;
+        maxVal = temp;
+    }
+
+    const minDisplay = document.getElementById('minPriceValue');
+    const maxDisplay = document.getElementById('maxPriceValue');
+
+    if (minDisplay) minDisplay.textContent = `yhsh ${minVal.toLocaleString('he-IL')}`;
+    if (maxDisplay) maxDisplay.textContent = `yhsh ${maxVal.toLocaleString('he-IL')}`;
+}
+
+function setDualPricePreset(minVal, maxVal) {
+    const minInput = document.getElementById('minPriceRange');
+    const maxInput = document.getElementById('maxPriceRange');
+
+    if (minInput) minInput.value = minVal;
+    if (maxInput) maxInput.value = maxVal;
+
+    updateDualPriceSlider();
+    applyDualPriceFilter();
+}
+
+function applyDualPriceFilter() {
+    const minInput = document.getElementById('minPriceRange');
+    const maxInput = document.getElementById('maxPriceRange');
+
+    if (minInput && maxInput) {
+        let minVal = parseInt(minInput.value, 10);
+        let maxVal = parseInt(maxInput.value, 10);
+
+        if (minVal > maxVal) {
+            let temp = minVal;
+            minVal = maxVal;
+            maxVal = temp;
+        }
+
+        state.minPrice = minVal;
+        state.maxPrice = maxVal;
+    }
+
+    const labelElem = document.getElementById('labelBudgetMenu');
+    if (labelElem) {
+        if (state.minPrice <= 500 && state.maxPrice >= 20000) {
+            labelElem.textContent = 'תקציב';
+        } else {
+            labelElem.textContent = `תקציב: ${state.minPrice.toLocaleString('he-IL')} - ${state.maxPrice.toLocaleString('he-IL')} yhsh`;
+        }
+    }
+
+    const menu = document.getElementById('budgetMenu');
+    if (menu) menu.classList.add('hidden');
+
+    state.currentPage = 1;
+    showToast(`סונן תקציב: ${state.minPrice.toLocaleString('he-IL')} עד ${state.maxPrice.toLocaleString('he-IL')} yhsh`);
+    renderArticlesGrid();
+}
+
 function openPublishModal() {
     const modal = document.getElementById('publishModal');
     if (modal) modal.classList.remove('hidden');
@@ -617,19 +339,314 @@ function closePublishModal() {
     if (modal) modal.classList.add('hidden');
 }
 
+function selectPublishCategory(tileElem, categoryName) {
+    document.querySelectorAll('.category-tile-btn').forEach(btn => btn.classList.remove('selected'));
+    tileElem.classList.add('selected');
+    state.selectedPublishCategory = categoryName;
+}
+
 function handlePublishSubmit(event) {
     event.preventDefault();
+
     const title = document.getElementById('pubTitle').value.trim();
-    const price = document.getElementById('pubPrice').value.trim();
+    const dealType = document.getElementById('pubDealType').value;
+    const price = document.getElementById('pubPrice').value.trim() || 'yhsh 2,500';
+    const condition = document.getElementById('pubCondition').value;
+    const location = document.getElementById('pubLocation').value.trim() || 'תל אביב';
+    const imageUrl = document.getElementById('pubImageUrl').value.trim() || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80';
+    const summary = document.getElementById('pubSummary').value.trim() || 'מודעה חדשה שפורסמה כעת בלוח.';
 
+    const newId = 'art-' + Date.now();
+    const newArticle = {
+        id: newId,
+        title: title,
+        category: state.selectedPublishCategory || 'מוצרים',
+        author: 'מפרסם אורח',
+        date: '01.09.2026',
+        readTime: '3 דקות קריאה',
+        views: '1 צפייה',
+        likes: '100%',
+        price: price,
+        sellPrice: price,
+        borrowPrice: 'yhsh 250',
+        model: condition,
+        rating: 'דירוג 5.0 (מודעה חדשה)',
+        location: location,
+        dealTypes: [dealType],
+        imageUrl: imageUrl,
+        summary: summary,
+        content: `<h3>${title}</h3><p>${summary}</p><p><strong>מיקום:</strong> ${location}</p><p><strong>מצב:</strong> ${condition}</p>`
+    };
+
+    state.articles.unshift(newArticle);
+    state.currentPage = 1;
+    renderArticlesGrid();
     closePublishModal();
-    document.getElementById('publishForm').reset();
 
-    showToast(`ברכות! המודעה "${title}" פורסמה בהצלחה בלוח! 🎉`);
+    document.getElementById('publishForm').reset();
+    showToast('המודעה פורסמה בהצלחה והתווספה ללוח! 🎉');
+}
+
+function togglePillDropdown(menuId, event) {
+    if (event) event.stopPropagation();
+    
+    document.querySelectorAll('.filter-pill-dropdown-menu, .sort-popup-menu').forEach(m => {
+        if (m.id !== menuId) m.classList.add('hidden');
+    });
+
+    const targetMenu = document.getElementById(menuId);
+    if (targetMenu) {
+        targetMenu.classList.toggle('hidden');
+    }
+}
+
+function selectPillFilter(filterType, filterValue, labelText) {
+    state.filters[filterType] = filterValue;
+    state.currentPage = 1;
+
+    const labelElemIdMap = {
+        dealType: 'labelDealTypeMenu',
+        category: 'labelCategoryPill',
+        condition: 'labelConditionMenu'
+    };
+
+    const targetLabelId = labelElemIdMap[filterType];
+    if (targetLabelId) {
+        const elem = document.getElementById(targetLabelId);
+        if (elem) elem.textContent = labelText;
+    }
+
+    document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => m.classList.add('hidden'));
+
+    showToast(`סונן לפי: ${labelText}`);
+    renderArticlesGrid();
+}
+
+function applySwitchesFilter() {
+    const proChk = document.getElementById('switchProServices');
+    const onlineChk = document.getElementById('switchOnlineNow');
+
+    state.proServicesOnly = proChk ? proChk.checked : false;
+    state.onlineNowOnly = onlineChk ? onlineChk.checked : true;
+
+    renderArticlesGrid();
+}
+
+function toggleSortMenu(event) {
+    if (event) event.stopPropagation();
+    document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => m.classList.add('hidden'));
+    const menu = document.getElementById('sortPopupMenu');
+    if (menu) menu.classList.toggle('hidden');
+}
+
+function selectSortOption(sortOption) {
+    state.currentSort = sortOption;
+    const label = document.getElementById('currentSortText');
+    if (label) label.textContent = sortOption;
+
+    const menu = document.getElementById('sortPopupMenu');
+    if (menu) menu.classList.add('hidden');
+
+    renderArticlesGrid();
+}
+
+document.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill-dropdown-menu, .sort-popup-menu').forEach(menu => {
+        menu.classList.add('hidden');
+    });
+});
+
+function getNumericPrice(priceStr) {
+    if (!priceStr) return 0;
+    return parseInt(priceStr.replace(/[^\d]/g, ''), 10) || 0;
+}
+
+function renderArticlesGrid() {
+    const container = document.getElementById('articlesGridContainer');
+    const gridTitle = document.getElementById('gridTitleText');
+    const resultsCountElem = document.getElementById('resultsCountText');
+    if (!container) return;
+
+    let filtered = [...state.articles];
+
+    if (state.searchQuery) {
+        const q = state.searchQuery.trim().toLowerCase();
+        filtered = filtered.filter(a => 
+            a.title.toLowerCase().includes(q) || 
+            a.summary.toLowerCase().includes(q) || 
+            a.category.toLowerCase().includes(q)
+        );
+    }
+
+    // MULTI-SELECT LOCATIONS FILTER
+    if (state.selectedLocations.size > 0) {
+        filtered = filtered.filter(a => {
+            if (!a.location) return false;
+            return Array.from(state.selectedLocations).some(city => a.location.includes(city));
+        });
+    }
+
+    // PRODUCT CONDITION FILTER
+    if (state.filters.condition && state.filters.condition !== 'all') {
+        filtered = filtered.filter(a => a.model && a.model.includes(state.filters.condition));
+    }
+
+    // DUAL PRICE RANGE SLIDER FILTER
+    filtered = filtered.filter(a => {
+        const p = getNumericPrice(a.price);
+        return p >= state.minPrice && p <= state.maxPrice;
+    });
+
+    // Deal Type Filter
+    if (state.filters.dealType !== 'all') {
+        filtered = filtered.filter(a => a.dealTypes && a.dealTypes.includes(state.filters.dealType));
+    }
+
+    if (state.filters.category !== 'all') {
+        filtered = filtered.filter(a => a.category === state.filters.category);
+    }
+
+    // EXACT ARTICLES COUNT
+    if (resultsCountElem) {
+        if (filtered.length === 1) {
+            resultsCountElem.textContent = `תוצאה 1`;
+        } else {
+            resultsCountElem.textContent = `${filtered.length} תוצאות`;
+        }
+    }
+
+    const totalPages = Math.ceil(filtered.length / state.itemsPerPage) || 1;
+    if (state.currentPage > totalPages) state.currentPage = 1;
+
+    const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+    const paginatedArticles = filtered.slice(startIndex, startIndex + state.itemsPerPage);
+
+    if (gridTitle) {
+        gridTitle.textContent = `כל הכתבות והסיפורים (${paginatedArticles.length} כתבות בעמוד ${state.currentPage} מתוך ${totalPages})`;
+    }
+
+    container.innerHTML = paginatedArticles.map(article => {
+        const borrowP = article.borrowPrice || 'yhsh 350';
+        const sellP = article.sellPrice || article.price || 'yhsh 4,500';
+
+        return `
+            <div class="article-card-box" onclick="openArticleModal('${article.id}')">
+                <div class="article-card-image-box">
+                    <img src="${article.imageUrl}" alt="${article.title}" loading="lazy">
+                    <span class="article-card-category">${article.category}</span>
+                </div>
+                
+                <div class="article-card-body">
+                    <h3 class="article-card-title">${article.title}</h3>
+                    <p class="article-card-summary">${article.summary}</p>
+                    
+                    <div class="article-card-meta">
+                        <span><i class="fa-regular fa-clock"></i> ${article.readTime}</span>
+                        <span><i class="fa-regular fa-eye"></i> ${article.views}</span>
+                    </div>
+
+                    <!-- EXACT 2 PRICES + INTERACTIVE 'הגש הצעה' BUTTON -->
+                    <div class="article-card-action-bar">
+                        <div class="action-bar-right" style="font-size: 0.78rem;">
+                            <span>השאלה: <strong style="color: #2563eb;">${borrowP}</strong></span>
+                            <span class="action-divider">|</span>
+                            <span>מכירה: <strong style="color: #ff5000;">${sellP}</strong></span>
+                        </div>
+                        
+                        <div class="action-bar-left">
+                            <button class="btn-offer-pill" onclick="openOfferModal('${article.id}', event)">
+                                🤝 הגש הצעה
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    renderPaginationControls(filtered.length);
+}
+
+function renderPaginationControls(totalItems) {
+    const paginationContainer = document.getElementById('paginationContainer');
+    if (!paginationContainer) return;
+
+    const totalPages = Math.ceil(totalItems / state.itemsPerPage);
+
+    if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+        return;
+    }
+
+    paginationContainer.style.display = 'flex';
+
+    let html = `
+        <button class="page-btn" ${state.currentPage === 1 ? 'disabled' : ''} onclick="changePage(${state.currentPage - 1})">
+            « הקודם
+        </button>
+    `;
+
+    for (let i = 1; i <= totalPages; i++) {
+        html += `
+            <button class="page-btn ${i === state.currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                ${i}
+            </button>
+        `;
+    }
+
+    html += `
+        <button class="page-btn" ${state.currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${state.currentPage + 1})">
+            הבא »
+        </button>
+    `;
+
+    paginationContainer.innerHTML = html;
+}
+
+function changePage(pageNumber) {
+    const totalPages = Math.ceil(state.articles.length / state.itemsPerPage);
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+
+    state.currentPage = pageNumber;
+    renderArticlesGrid();
+
+    const filterElem = document.querySelector('.articles-filter-bar');
+    if (filterElem) {
+        filterElem.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function openArticleModal(articleId) {
+    window.location.href = `article.html?id=${articleId}`;
+}
+
+function closeArticleModal() {
+    const modal = document.getElementById('articleModal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function handleSearch(query) {
+    state.searchQuery = query;
+    state.currentPage = 1;
+    renderArticlesGrid();
+}
+
+function setActiveTab(tabName) {
+    state.activeTab = tabName;
+    if (tabName === 'images') {
+        window.location.href = 'images.html';
+    } else {
+        window.location.href = 'index.html';
+    }
 }
 
 function showGuestToast() {
-    showToast('שלום אורח! אתה מחובר במצב תצוגה 👍');
+    showToast('שלום אורח! תהנה מקריאת הכתבות באתר 📖');
+}
+
+function likeCurrentModalArticle() {
+    showToast('תודה שפרגנת בלייק לכתבה! 👍');
 }
 
 function showToast(msg) {
@@ -644,29 +661,32 @@ function showToast(msg) {
     }, 2500);
 }
 
-function setupEventListeners() {
-    document.addEventListener('click', () => {
-        document.querySelectorAll('.filter-pill-dropdown-menu').forEach(m => m.classList.add('hidden'));
-    });
-}
-
-// EXPOSE TO WINDOW
 window.openArticleModal = openArticleModal;
 window.closeArticleModal = closeArticleModal;
-window.openHeroArticle = openHeroArticle;
 window.openPublishModal = openPublishModal;
 window.closePublishModal = closePublishModal;
-window.handlePublishSubmit = handlePublishSubmit;
-window.openOfferModalFromCard = openOfferModalFromCard;
+window.openOfferModal = openOfferModal;
 window.closeOfferModal = closeOfferModal;
 window.handleOfferSubmit = handleOfferSubmit;
-window.updateDualPriceSlider = updateDualPriceSlider;
-window.applyDualPriceFilter = applyDualPriceFilter;
-window.setDualPricePreset = setDualPricePreset;
+window.selectPublishCategory = selectPublishCategory;
+window.handlePublishSubmit = handlePublishSubmit;
 window.toggleLocationSelection = toggleLocationSelection;
 window.applyLocationFilter = applyLocationFilter;
+window.updateDualPriceSlider = updateDualPriceSlider;
+window.setDualPricePreset = setDualPricePreset;
+window.applyDualPriceFilter = applyDualPriceFilter;
+window.handleSearch = handleSearch;
+window.setActiveTab = setActiveTab;
+window.showGuestToast = showGuestToast;
+window.likeCurrentModalArticle = likeCurrentModalArticle;
+window.changePage = changePage;
 window.togglePillDropdown = togglePillDropdown;
 window.selectPillFilter = selectPillFilter;
-window.handleSearch = handleSearch;
-window.goToPage = goToPage;
-window.showGuestToast = showGuestToast;
+window.applySwitchesFilter = applySwitchesFilter;
+window.toggleSortMenu = toggleSortMenu;
+window.selectSortOption = selectSortOption;
+window.openHeroArticle = () => {
+    if (state.articles.length > 0) openArticleModal(state.articles[0].id);
+};
+
+document.addEventListener('DOMContentLoaded', initApp);
