@@ -7,22 +7,12 @@
     <!-- Google Fonts: Heebo & Assistant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=3900">
+    <link rel="stylesheet" href="styles.css?v=3700">
 </head>
 <body>
-
-    <!-- TOP ANNOUNCEMENT BAR -->
-    <div class="top-announcement-bar">
-        <div class="announcement-socials">
-            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-        </div>
-        <div>Circular certified refurbished models available from yhsh 2,399</div>
-        <div style="cursor: pointer;" onclick="showToast('הודעת מערכת')"><i class="fa-solid fa-xmark"></i></div>
-    </div>
 
     <!-- Header Bar -->
     <header class="top-navbar-black">
@@ -54,17 +44,12 @@
 
             <div class="nav-right">
                 <a href="index.html" class="brand-logo-badge" style="text-decoration: none;">
-                    COWBOY.
+                    <i class="fa-solid fa-infinity"></i>
                 </a>
             </div>
 
         </div>
     </header>
-
-    <!-- FLOATING COWBOY CHAT / PROMO BUTTON -->
-    <div class="floating-promo-badge" onclick="showToast('💬 צ\'אט תמיכה ושירות לקוחות זמין כעת בלייב')">
-        <i class="fa-solid fa-comment"></i>
-    </div>
 
     <!-- Page Body Wrapper -->
     <div class="page-layout-wrapper" style="flex-direction: column; gap: 24px;">
@@ -243,14 +228,6 @@
                     item.style.display = 'none';
                 }
             });
-        }
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            const msgElem = document.getElementById('toastMessage');
-            if (!toast || !msgElem) return;
-            msgElem.textContent = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => { toast.classList.add('hidden'); }, 2500);
         }
     </script>
 </body>
