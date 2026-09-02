@@ -1,28 +1,29 @@
 /* =========================================================
-   SIMPLE DARK CHARCOAL GREY DESIGN THEME (MATCHING USER SCREENSHOT)
-   Dark Charcoal Slate (#222224), Header (#36363a), White Text, Dark Grey Cards
+   CLEAN LIGHT THEME WITH DARK CHARCOAL GREY TOP HEADER (#36363a)
+   Top Navbar: Dark Charcoal Grey (#36363a) matching user screenshot.
+   Rest of Site: Clean light theme with original cards and layout.
    ========================================================= */
 
 :root {
-    --bg-color: #222224;             /* Dark Charcoal Slate Page Background */
-    --card-bg: #2d2d30;             /* Elevated Dark Charcoal Card Background */
+    --bg-color: #f6f6f4;             /* Soft Alabaster Off-White Canvas */
+    --card-bg: #ffffff;             /* Pure Clean White Surface */
     --top-nav-bg: #36363a;          /* Charcoal Header Navigation Bar */
-    --announcement-bg: #141416;     /* Pure Black Top Announcement Bar */
+    --announcement-bg: #000000;     /* Pure Black Top Announcement Bar */
     --announcement-text: #ffffff;   /* White Text */
-    --text-primary: #f3f4f6;        /* Crisp White Text */
-    --text-secondary: #9ca3af;      /* Muted Light Grey */
-    --text-muted: #6b7280;          /* Subdued Grey */
-    --border-color: #404045;        /* Dark Grey Border Line */
-    --primary-color: #ffffff;       /* White Accents */
+    --text-primary: #111111;        /* Matte Jet Black */
+    --text-secondary: #555555;      /* Slate Grey */
+    --text-muted: #888888;          /* Light Muted Grey */
+    --border-color: #e5e5e0;        /* Subtle Fine Line Divider */
+    --primary-color: #111111;       /* Matte Black Accent */
     --accent-orange: #ff5000;       /* Accent Orange for highlights */
     
     --radius-sm: 8px;
     --radius-md: 16px;
     --radius-lg: 24px;
-    --radius-pill: 9999px;
+    --radius-pill: 9999px;          /* Full Pill Radius */
     
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 10px 35px rgba(0, 0, 0, 0.07);
     --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -47,7 +48,7 @@ body {
 }
 
 /* =========================================================
-   TOP ANNOUNCEMENT BAR (סרגל שחור נקי)
+   TOP ANNOUNCEMENT BAR (פס שחור נקי)
    ========================================================= */
 .top-announcement-bar {
     background-color: var(--announcement-bg);
@@ -80,16 +81,17 @@ body {
 }
 
 /* =========================================================
-   TOP NAVBAR (אפור כהה נקי כפי שמופיע בצילום המסך)
+   TOP NAVBAR (אפור כהה #36363a בדיוק לפי צילום המסך)
    ========================================================= */
 .top-navbar-black {
     background-color: var(--top-nav-bg);
-    color: var(--text-primary);
+    color: #ffffff;
     padding: 12px 32px;
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #4a4a52;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
 .top-nav-inner {
@@ -127,10 +129,10 @@ body {
 }
 
 .guest-pill-btn {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
     color: #ffffff;
-    border: 1px solid var(--border-color);
-    padding: 7px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 6px 20px;
     border-radius: var(--radius-pill);
     font-weight: 700;
     font-size: 0.85rem;
@@ -139,7 +141,7 @@ body {
 }
 
 .guest-pill-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.18);
 }
 
 .nav-center-tabs {
@@ -149,7 +151,7 @@ body {
     background-color: #242426;
     padding: 4px;
     border-radius: var(--radius-pill);
-    border: 1px solid var(--border-color);
+    border: 1px solid #4a4a52;
 }
 
 .nav-tab-btn {
@@ -188,11 +190,11 @@ body {
 }
 
 .brand-logo-badge:hover {
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 /* =========================================================
-   PAGE LAYOUT WRAPPER
+   PAGE LAYOUT WRAPPER (שאר האתר נשמר בצבעים הבהירים המקוריים)
    ========================================================= */
 .page-layout-wrapper {
     max-width: 1540px;
@@ -224,7 +226,7 @@ body {
 }
 
 .sidebar-column::-webkit-scrollbar-thumb {
-    background: #404045;
+    background: #e5e5e0;
     border-radius: 4px;
 }
 
@@ -255,7 +257,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    background-color: #242426;
+    background-color: #f7f7f5;
     border: 1px solid var(--border-color);
     padding: 10px 14px;
     border-radius: 12px;
@@ -267,8 +269,8 @@ body {
 }
 
 .site-link-btn:hover {
-    background-color: #36363a;
-    border-color: #6b7280;
+    background-color: #ffffff;
+    border-color: #111111;
     transform: translateX(-3px);
 }
 
@@ -307,7 +309,7 @@ body {
 .top-read-num {
     font-size: 1.1rem;
     font-weight: 800;
-    color: #6b7280;
+    color: #bbbbbb;
 }
 
 /* =========================================================
@@ -336,7 +338,7 @@ body {
     position: relative;
     width: 100%;
     height: 320px;
-    background-color: #141416;
+    background-color: #f7f7f5;
 }
 
 .hero-banner-image-wrapper img {
@@ -377,7 +379,7 @@ body {
 }
 
 .filter-pill-btn {
-    background-color: #242426;
+    background-color: #f7f7f5;
     border: 1px solid var(--border-color);
     padding: 8px 18px;
     border-radius: var(--radius-pill);
@@ -393,8 +395,8 @@ body {
 }
 
 .filter-pill-btn:hover {
-    background-color: #36363a;
-    border-color: #6b7280;
+    background-color: #ffffff;
+    border-color: #111111;
 }
 
 .filter-pill-dropdown-menu {
@@ -424,8 +426,8 @@ body {
 }
 
 .pill-dropdown-item:hover, .pill-dropdown-item.active {
-    background-color: #404045;
-    color: #ffffff;
+    background-color: #f7f7f5;
+    color: #111111;
     font-weight: 800;
 }
 
@@ -443,8 +445,8 @@ body {
 
 .results-count-text {
     font-weight: 800;
-    color: #ffffff;
-    background-color: #242426;
+    color: #111111;
+    background-color: #f7f7f5;
     padding: 4px 14px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--border-color);
@@ -488,7 +490,7 @@ body {
     padding: 9px 38px 9px 14px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--border-color);
-    background-color: #242426;
+    background-color: #f7f7f5;
     font-family: inherit;
     font-size: 0.88rem;
     font-weight: 700;
@@ -497,24 +499,19 @@ body {
     transition: var(--transition);
 }
 
-.search-filter-box input:focus {
-    border-color: #ff5000;
-    background-color: #2d2d30;
-}
-
 /* =========================================================
-   DARK CHARCOAL CARDS
+   ORIGINAL CARDS (2 PRICES + GREEN 'הגש הצעה' BUTTON)
    ========================================================= */
 .articles-cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 20px;
 }
 
 .article-card-box {
     background-color: var(--card-bg);
-    border-radius: 16px;
     border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -524,116 +521,113 @@ body {
 }
 
 .article-card-box:hover {
+    border-color: #111111;
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
-    border-color: #6b7280;
 }
 
 .article-card-image-box {
     position: relative;
     width: 100%;
-    height: 220px;
-    background-color: #141416;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    height: 170px;
+    background-color: #f7f7f5;
 }
 
 .article-card-image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
 }
 
-.stock-pill-badge {
+.article-card-category {
     position: absolute;
-    top: 14px;
-    right: 14px;
-    background-color: rgba(20, 20, 22, 0.85);
+    top: 12px;
+    right: 12px;
+    background-color: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(4px);
     border: 1px solid var(--border-color);
-    color: #ffffff;
+    color: #111111;
     font-size: 0.76rem;
-    font-weight: 700;
+    font-weight: 800;
     padding: 3px 12px;
     border-radius: var(--radius-pill);
 }
 
 .article-card-body {
-    padding: 22px;
+    padding: 18px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    gap: 12px;
 }
 
 .article-card-title {
-    font-size: 1.12rem;
+    font-size: 1.02rem;
     font-weight: 800;
     color: var(--text-primary);
-    line-height: 1.3;
+    line-height: 1.35;
+    margin-bottom: 6px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    margin: 0;
+    height: 2.7em;
 }
 
-.article-card-price-row {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 2px;
-}
-
-.main-price-text {
-    font-size: 1.3rem;
-    font-weight: 900;
-    color: #ff5000;
-}
-
-.borrow-price-subtext {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: #9ca3af;
-}
-
-.card-checklist-specs {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+.article-card-summary {
     font-size: 0.84rem;
-    color: #9ca3af;
-    margin-bottom: 8px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 12px;
 }
 
-.checklist-item {
+.article-card-meta {
+    margin-top: auto;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-weight: 600;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 700;
 }
 
-.btn-card-action-pill {
-    width: 100%;
-    background-color: #ff5000;
+.article-card-action-bar {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    gap: 6px;
+}
+
+.btn-offer-pill {
+    background: linear-gradient(135deg, #16a34a, #15803d);
     color: #ffffff;
     border: none;
-    padding: 12px;
+    padding: 6px 14px;
     border-radius: var(--radius-pill);
+    font-family: inherit;
     font-weight: 800;
-    font-size: 0.92rem;
+    font-size: 0.8rem;
     cursor: pointer;
-    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     transition: var(--transition);
-    text-align: center;
 }
 
-.btn-card-action-pill:hover {
-    background-color: #e63900;
+.btn-offer-pill:hover {
+    background: linear-gradient(135deg, #15803d, #166534);
+    transform: translateY(-1px);
 }
 
 /* MODALS */
@@ -643,7 +637,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(4px);
     z-index: 1000;
     display: flex;
@@ -663,14 +657,13 @@ body {
     overflow-y: auto;
     position: relative;
     box-shadow: var(--shadow-md);
-    color: #ffffff;
 }
 
 .close-modal-btn {
     position: absolute;
     top: 18px;
     left: 18px;
-    background: #242426;
+    background: #f7f7f5;
     border: 1px solid var(--border-color);
     width: 36px;
     height: 36px;
@@ -679,26 +672,8 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #ffffff;
+    color: var(--text-primary);
     font-weight: 700;
-}
-
-.publish-form-input, .publish-form-select, .publish-form-textarea {
-    width: 100%;
-    padding: 11px 16px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--border-color);
-    background-color: #242426;
-    font-family: inherit;
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: #ffffff;
-    outline: none;
-    transition: var(--transition);
-}
-
-.publish-form-textarea {
-    border-radius: 16px;
 }
 
 .toast {
@@ -706,14 +681,14 @@ body {
     bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #ff5000;
+    background-color: #111111;
     color: #ffffff;
     padding: 11px 26px;
     border-radius: var(--radius-pill);
     font-weight: 800;
     font-size: 0.92rem;
     z-index: 2000;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 
 /* RESPONSIVE */
