@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>לוח רעיונות ומיזמים | שתף והצבע לרעיונות חדשים</title>
+    <!-- Google Fonts: Heebo & Assistant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=4100">
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header class="top-navbar-black">
+        <div class="top-nav-inner">
+            
+            <div class="nav-left">
+                <button class="btn-publish-nav-btn" onclick="openAddIdeaModal()">
+                    <i class="fa-solid fa-lightbulb"></i> שתף רעיון חדש +
+                </button>
+            </div>
+
+            <nav class="nav-center-tabs">
+                <button class="nav-tab-btn" onclick="window.location.href='index.html'">
+                    <span>סיפורים</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='images.html'">
+                    <i class="fa-regular fa-image"></i>
+                    <span>תמונות</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='professionals.html'">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>אנשי מקצוע</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='popular.html'">
+                    <i class="fa-solid fa-star"></i>
+                    <span>אתרים פופולריים</span>
+                </button>
+                <button class="nav-tab-btn" onclick="window.location.href='carpool.html'">
+                    <i class="fa-solid fa-car"></i>
+                    <span>נסיעה שיתופית</span>
+                </button>
+                <button class="nav-tab-btn active" onclick="window.location.href='ideas.html'">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>לוח רעיונות</span>
+                </button>
+            </nav>
+
+            <div class="nav-right">
+                <a href="index.html" class="brand-logo-badge" style="text-decoration: none;">
+                    <i class="fa-solid fa-infinity"></i>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Page Body Wrapper -->
+    <div class="page-layout-wrapper" style="flex-direction: column; gap: 20px;">
+
+        <!-- Header Search Hero -->
+        <div class="section-sub-header" style="flex-direction: column; align-items: flex-start; gap: 12px; padding: 24px;">
+            <h1 class="section-title-text" style="font-size: 1.65rem;">💡 לוח רעיונות, מיזמים וחדשנות</h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">מקום פתוח לשתף רעיונות חדשים, להצביע לרעיונות של אחרים ולהפוך מחשבות למיזמים אמיתיים</p>
+
+            <!-- Search & Filters Container -->
+            <div style="display: flex; gap: 12px; width: 100%; flex-wrap: wrap; margin-top: 8px;">
+                <div class="search-filter-box" style="flex: 1; min-width: 280px;">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchIdeaInput" placeholder="חפש לפי נושא, רעיון או שם יזם..." oninput="handleIdeaSearch(this.value)">
+                </div>
+
+                <!-- Category Pill Dropdown -->
+                <div class="filter-pill-wrapper">
+                    <button class="filter-pill-btn" onclick="togglePillDropdown('ideaCategoryMenu', event)">
+                        <span id="labelIdeaCategory">כל הקטגוריות</span>
+                        <i class="fa-solid fa-chevron-down fa-xs"></i>
+                    </button>
+                    <div id="ideaCategoryMenu" class="filter-pill-dropdown-menu hidden">
+                        <div class="pill-dropdown-item active" onclick="filterIdeaCategory('all', 'כל הקטגוריות')">כל הקטגוריות</div>
+                        <div class="pill-dropdown-item" onclick="filterIdeaCategory('טכנולוגיה ו-AI', 'טכנולוגיה ו-AI 🤖')">טכנולוגיה ו-AI 🤖</div>
+                        <div class="pill-dropdown-item" onclick="filterIdeaCategory('יזמות ועסקים', 'יזמות ועסקים 🚀')">יזמות ועסקים 🚀</div>
+                        <div class="pill-dropdown-item" onclick="filterIdeaCategory('קהילה וסביבה', 'קהילה וסביבה 🌿')">קהילה וסביבה 🌿</div>
+                        <div class="pill-dropdown-item" onclick="filterIdeaCategory('גיימינג ובידור', 'גיימינג ובידור 🎮')">גיימינג ובידור 🎮</div>
+                        <div class="pill-dropdown-item" onclick="filterIdeaCategory('עיצוב ומוצר', 'עיצוב ומוצר 🎨')">עיצוב ומוצר 🎨</div>
+                    </div>
+                </div>
+
+                <!-- Status Pill Dropdown -->
+                <div class="filter-pill-wrapper">
+                    <button class="filter-pill-btn" onclick="togglePillDropdown('ideaStatusMenu', event)">
+                        <span id="labelIdeaStatus">כל הסטטוסים</span>
+                        <i class="fa-solid fa-chevron-down fa-xs"></i>
+                    </button>
+                    <div id="ideaStatusMenu" class="filter-pill-dropdown-menu hidden">
+                        <div class="pill-dropdown-item active" onclick="filterIdeaStatus('all', 'כל הסטטוסים')">כל הסטטוסים</div>
+                        <div class="pill-dropdown-item" onclick="filterIdeaStatus('חדש', 'רעיון חדש 💡')">רעיון חדש 💡</div>
+                        <div class="pill-dropdown-item" onclick="filterIdeaStatus('בפיתוח', 'בפיתוח 🛠️')">בפיתוח 🛠️</div>
+                        <div class="pill-dropdown-item" onclick="filterIdeaStatus('בוצע', 'בוצע בהצלחה ✅')">בוצע בהצלחה ✅</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Results Counter Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: var(--text-muted); font-size: 0.9rem;">
+            <span id="ideasResultsCount" class="results-count-text">6 רעיונות נמצאו</span>
+            <span>מיון לפי: <strong>הכי הרבה הצבעות 👍</strong></span>
+        </div>
+
+        <!-- Ideas Cards Grid -->
+        <div id="ideasGridContainer" class="articles-cards-grid">
+            <!-- Rendered dynamically via ideas.js -->
+        </div>
+
+    </div>
+
+    <!-- POST NEW IDEA MODAL FORM -->
+    <div id="addIdeaModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 580px;">
+            <button class="close-modal-btn" onclick="closeAddIdeaModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <h2 class="publish-modal-title">💡 שיתוף רעיון או מיזם חדש</h2>
+                <p class="publish-modal-subtitle">ספר לקהילה על הרעיון שלך וקבל פידבק והצבעות</p>
+            </div>
+
+            <form onsubmit="handleAddIdeaSubmit(event)">
+                <div class="publish-form-group">
+                    <label>כותרת הרעיון *</label>
+                    <input type="text" id="newIdeaTitle" class="publish-form-input" placeholder="לדוגמה: אפליקציית השאלת ציוד קהילתית מבוססת מיקום" required>
+                </div>
+
+                <div class="publish-form-row">
+                    <div class="publish-form-group">
+                        <label>קטגוריה *</label>
+                        <select id="newIdeaCategory" class="publish-form-select">
+                            <option value="טכנולוגיה ו-AI">טכנולוגיה ו-AI 🤖</option>
+                            <option value="יזמות ועסקים" selected>יזמות ועסקים 🚀</option>
+                            <option value="קהילה וסביבה">קהילה וסביבה 🌿</option>
+                            <option value="גיימינג ובידור">גיימינג ובידור 🎮</option>
+                            <option value="עיצוב ומוצר">עיצוב ומוצר 🎨</option>
+                        </select>
+                    </div>
+
+                    <div class="publish-form-group">
+                        <label>שם היזם / המציע *</label>
+                        <input type="text" id="newIdeaAuthor" class="publish-form-input" placeholder="שמך המלא" required>
+                    </div>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>תיאור מפורט של הרעיון והחזון *</label>
+                    <textarea id="newIdeaSummary" class="publish-form-textarea" rows="4" placeholder="תאר מה הבעיה שאתה פותר, מה הפתרון ואיך הקהילה יכולה לסייע..." required></textarea>
+                </div>
+
+                <div class="publish-form-group">
+                    <label>אימייל או טלפון ליצירת קשר / שותפויות</label>
+                    <input type="text" id="newIdeaContact" class="publish-form-input" placeholder="050-0000000 / email@example.com">
+                </div>
+
+                <button type="submit" class="btn-submit-publish" style="background: linear-gradient(135deg, #ff5000, #e63900);">
+                    <i class="fa-solid fa-paper-plane"></i> לפרסום הרעיון בלוח
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- IDEA DETAILS & FEEDBACK MODAL -->
+    <div id="ideaDetailModal" class="modal-overlay hidden">
+        <div class="publish-modal-box" style="max-width: 620px;">
+            <button class="close-modal-btn" onclick="closeIdeaDetailModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="publish-modal-header">
+                <span id="detailIdeaCategory" class="category-badge-pill">טכנולוגיה</span>
+                <h2 id="detailIdeaTitle" class="publish-modal-title" style="margin-top: 8px;">כותרת הרעיון</h2>
+                <p id="detailIdeaAuthor" class="publish-modal-subtitle">מאת: יזם</p>
+            </div>
+
+            <div id="detailIdeaContent" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 20px;">
+                <!-- Full idea content injected via JS -->
+            </div>
+
+            <!-- Comments List -->
+            <div style="border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: 16px;">
+                <h4 style="font-size: 1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 12px;">💬 תגובות ופידבקים מהקהילה:</h4>
+                <div id="ideaCommentsList" style="display: flex; flex-direction: column; gap: 10px; max-height: 180px; overflow-y: auto; margin-bottom: 16px;">
+                    <!-- Comments injected via JS -->
+                </div>
+
+                <!-- Add Comment Form -->
+                <form onsubmit="handleAddCommentSubmit(event)" style="display: flex; gap: 8px;">
+                    <input type="text" id="newCommentInput" class="publish-form-input" placeholder="כתוב תגובה או פידבק לרעיון..." required style="flex: 1;">
+                    <button type="submit" class="btn-submit-publish" style="width: auto; padding: 8px 18px; margin: 0; font-size: 0.88rem;">
+                        שלח תגובה
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <script src="ideas.js"></script>
+</body>
+</html>
