@@ -1426,3 +1426,140 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================
+   IOS BATTERY/TASK PROGRESS RING WIDGET (1:1 MATCHING SCREENSHOT)
+   ========================================================= */
+.widget-tasks-card {
+    background-color: #1c1c1e !important;
+    color: #ffffff !important;
+    border: 1px solid #2c2c2e !important;
+    border-radius: 20px !important;
+    padding: 16px 18px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25) !important;
+}
+
+.widget-tasks-card .sidebar-card-title {
+    color: #ffffff !important;
+    border-bottom: 1px solid #2c2c2e !important;
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.rings-widget-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 8px;
+    padding-top: 4px;
+}
+
+.ring-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    user-select: none;
+}
+
+.ring-item:hover {
+    transform: scale(1.06);
+}
+
+.svg-ring-wrapper {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.svg-ring-wrapper svg {
+    transform: rotate(-90deg);
+    width: 60px;
+    height: 60px;
+}
+
+.ring-bg {
+    fill: none;
+    stroke: #2c2c2e;
+    stroke-width: 5;
+}
+
+.ring-progress {
+    fill: none;
+    stroke-width: 5;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ring-green {
+    stroke: #34c759;
+}
+
+.ring-orange {
+    stroke: #ff9500;
+}
+
+.ring-blue {
+    stroke: #007aff;
+}
+
+.ring-red {
+    stroke: #ff3b30;
+}
+
+.ring-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-percent-text {
+    font-size: 0.92rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-top: 6px;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.ring-label-text {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #98989d;
+    margin-top: 2px;
+}
+
+/* Tasks Checklist Modal Item */
+.task-chk-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #2c2c2e;
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.task-chk-item:hover {
+    background-color: #3a3a3c;
+}
+
+.task-chk-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #34c759;
+    cursor: pointer;
+}
+
