@@ -1563,3 +1563,56 @@ body {
     cursor: pointer;
 }
 
+/* =========================================================
+   LIGHT HORIZONTAL TASK PROGRESS RINGS WIDGET (1:1 MATCHING SCREENSHOT media_1788623318506.png)
+   ========================================================= */
+.widget-tasks-card-horizontal {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px !important;
+    padding: 10px 18px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: auto;
+}
+
+.widget-tasks-card-horizontal .sidebar-card-title {
+    color: #111111 !important;
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    font-size: 0.88rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.widget-tasks-card-horizontal .rings-widget-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 0 !important;
+}
+
+.widget-tasks-card-horizontal .ring-bg {
+    stroke: #e5e5e0 !important;
+}
+
+.widget-tasks-card-horizontal .ring-icon {
+    color: #111111 !important;
+}
+
+.widget-tasks-card-horizontal .ring-percent-text {
+    color: #111111 !important;
+}
+
+.widget-tasks-card-horizontal .ring-label-text {
+    color: #71717a !important;
+}
+
+
