@@ -668,4 +668,234 @@ window.openHeroArticle = () => {
     if (state.articles.length > 0) openArticleModal(state.articles[0].id);
 };
 
+/* =========================================================
+   AI FAST AD PUBLISHING CHATBOT LOGIC
+   ========================================================= */
+const aiChatState = {
+    step: 0,
+    title: '',
+    price: '',
+    imageUrl: '',
+    dealType: 'buy',
+    location: 'תל אביב',
+    summary: ''
+};
+
+function openAIChatPublishModal() {
+    const modal = document.getElementById('aiChatModal');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    
+    if (aiChatState.step === 0 || aiChatState.step === 5) {
+        resetAIChatState();
+    }
+}
+
+function closeAIChatPublishModal() {
+    const modal = document.getElementById('aiChatModal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function resetAIChatState() {
+    aiChatState.step = 0;
+    aiChatState.title = '';
+    aiChatState.price = '';
+    aiChatState.imageUrl = '';
+    aiChatState.dealType = 'buy';
+    aiChatState.location = 'תל אביב';
+    
+    const container = document.getElementById('aiChatMessages');
+    if (container) {
+        container.innerHTML = '';
+        addBotChatMessage("שלום! 🤖 אני עוזר ה-AI לפרסום מודעות מהיר בלוח.<br>בוא נפרסם מודעה חדשה יחד ב-30 שניות! 🚀<br><br><strong>מה שם המוצר או כותרת המודעה שברצונך לפרסם?</strong>");
+    }
+    updateAIChatPills();
+}
+
+function addBotChatMessage(htmlContent) {
+    const container = document.getElementById('aiChatMessages');
+    if (!container) return;
+    
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-bubble chat-bubble-bot';
+    bubble.innerHTML = htmlContent;
+    container.appendChild(bubble);
+    container.scrollTop = container.scrollHeight;
+}
+
+function addUserChatMessage(text, imageSrc = null) {
+    const container = document.getElementById('aiChatMessages');
+    if (!container) return;
+    
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-bubble chat-bubble-user';
+    let html = `<div>${text}</div>`;
+    if (imageSrc) {
+        html += `<img src="${imageSrc}" class="chat-bubble-image-preview">`;
+    }
+    bubble.innerHTML = html;
+    container.appendChild(bubble);
+    container.scrollTop = container.scrollHeight;
+}
+
+function updateAIChatPills() {
+    const pillsContainer = document.getElementById('aiChatQuickPills');
+    if (!pillsContainer) return;
+    pillsContainer.innerHTML = '';
+
+    if (aiChatState.step === 2) {
+        pillsContainer.innerHTML = `
+            <button class="chat-pill-btn" onclick="document.getElementById('aiChatFileInput').click()">📷 העלה תמונה מהמחשב/נייד</button>
+            <button class="chat-pill-btn" onclick="selectDefaultAIChatImage()">🖼️ תמונת ברירת מחדל איכותית</button>
+        `;
+    } else if (aiChatState.step === 3) {
+        pillsContainer.innerHTML = `
+            <button class="chat-pill-btn" onclick="selectAIChatDealType('buy', '🛒 למכירה')">🛒 למכירה</button>
+            <button class="chat-pill-btn" onclick="selectAIChatDealType('borrow', '🤝 להשאלה')">🤝 להשאלה</button>
+            <button class="chat-pill-btn" onclick="selectAIChatDealType('trade', '🔄 להחלפה')">🔄 להחלפה</button>
+        `;
+    }
+}
+
+function sendAIChatUserMessage() {
+    const input = document.getElementById('aiChatInput');
+    if (!input) return;
+    const val = input.value.trim();
+    if (!val && aiChatState.step !== 2) return;
+    
+    input.value = '';
+    processAIChatStep(val);
+}
+
+function processAIChatStep(userText) {
+    if (aiChatState.step === 0) {
+        if (!userText) return;
+        aiChatState.title = userText;
+        addUserChatMessage(userText);
+        aiChatState.step = 1;
+        
+        setTimeout(() => {
+            addBotChatMessage(`מעולה! 📱 כותרת המודעה: <strong>"${userText}"</strong>.<br><br><strong>מה המחיר המבוקש בשקלים?</strong> (למשל: 450 או 3,800 ₪)`);
+            updateAIChatPills();
+        }, 400);
+
+    } else if (aiChatState.step === 1) {
+        if (!userText) return;
+        aiChatState.price = userText.replace(/[^\d.,]/g, '') || userText;
+        addUserChatMessage(`₪ ${aiChatState.price}`);
+        aiChatState.step = 2;
+
+        setTimeout(() => {
+            addBotChatMessage(`מצוין! 💰 המחיר שנקבע: <strong>₪ ${aiChatState.price}</strong>.<br><br><strong>כעת, העלה תמונת מוצר:</strong><br>• לחץ על כפתור המצלמה 📸 למטה כדי לבחור תמונה מהמכשיר.<br>• או הדבק קישור URL לתמונה והקש אנטר.`);
+            updateAIChatPills();
+        }, 400);
+
+    } else if (aiChatState.step === 2) {
+        let url = userText || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80';
+        aiChatState.imageUrl = url;
+        addUserChatMessage('תמונת מוצר הועלתה בהצלחה 📸', url);
+        aiChatState.step = 3;
+
+        setTimeout(() => {
+            addBotChatMessage(`תמונה יפהפייה! 🖼️<br><br><strong>מה סוג העסקה? (למכירה / להשאלה / להחלפה) ומה עיר מגוריך?</strong>`);
+            updateAIChatPills();
+        }, 400);
+
+    } else if (aiChatState.step === 3) {
+        if (userText) {
+            aiChatState.location = userText;
+            addUserChatMessage(userText);
+        }
+        aiChatState.step = 4;
+
+        setTimeout(() => {
+            addBotChatMessage(`
+                סיימנו את כל הפרטים! 🎉 הנה תצוגה מקדימה של המודעה שלך:<br><br>
+                <div style="background:#fff; border:1px solid #e2e8f0; border-radius:14px; overflow:hidden; margin-top:8px; padding:10px;">
+                    <img src="${aiChatState.imageUrl}" style="width:100%; height:160px; object-fit:cover; border-radius:10px;">
+                    <div style="font-weight:800; font-size:15px; color:#111; margin-top:8px;">${aiChatState.title}</div>
+                    <div style="font-weight:900; font-size:18px; color:#000; margin-top:4px;">₪ ${aiChatState.price}</div>
+                    <div style="font-size:12px; color:#64748b; margin-top:2px;">📍 ${aiChatState.location}</div>
+                </div><br>
+                <strong>האם לאשר ולפרסם את המודעה ללוח כעת?</strong><br><br>
+                <button class="btn-publish-nav-btn" style="background:#22c55e !important; width:100%; padding:10px; font-size:14px;" onclick="confirmAIChatAdPublish()">🚀 פרסם מודעה ללוח האתר כעת!</button>
+            `);
+            updateAIChatPills();
+        }, 400);
+    }
+}
+
+function handleAIChatFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        aiChatState.imageUrl = dataUrl;
+        
+        if (aiChatState.step < 2) {
+            aiChatState.step = 2;
+        }
+        processAIChatStep('');
+    };
+    reader.readAsDataURL(file);
+}
+
+function selectDefaultAIChatImage() {
+    aiChatState.imageUrl = 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80';
+    processAIChatStep('השתמש בתמונת ברירת מחדל');
+}
+
+function selectAIChatDealType(type, label) {
+    aiChatState.dealType = type;
+    addUserChatMessage(label);
+    processAIChatStep(label);
+}
+
+function confirmAIChatAdPublish() {
+    aiChatState.step = 5;
+    
+    const newId = 'art-' + Date.now();
+    const newArticle = {
+        id: newId,
+        title: aiChatState.title || 'מוצר חדש למכירה',
+        category: 'מוצרים',
+        author: 'מפרסם אורח',
+        date: 'היום, ' + new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }),
+        readTime: '3 דקות קריאה',
+        views: '1 צפייה',
+        likes: '100%',
+        price: '₪ ' + aiChatState.price,
+        sellPrice: '₪ ' + aiChatState.price,
+        borrowPrice: '₪ 250',
+        model: 'כמו חדש',
+        rating: 'דירוג 5.0',
+        location: aiChatState.location || 'תל אביב',
+        dealTypes: [aiChatState.dealType],
+        imageUrl: aiChatState.imageUrl || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80',
+        summary: 'מודעה חדשה שפורסמה דרך עוזר ה-AI בלוח.',
+        content: `<h3>${aiChatState.title}</h3><p>מודעה שפורסמה בלוח.</p>`
+    };
+
+    state.articles.unshift(newArticle);
+    state.currentPage = 1;
+    renderArticlesGrid();
+
+    addBotChatMessage(`איזה יופי! 🎉 המודעה שלך פורסמה בהצלחה ומופיעה כעת בראש לוח המודעות!<br><br><button class="chat-pill-btn" onclick="closeAIChatPublishModal()">סגור צ'אט וצפה במודעה 👁️</button>`);
+    
+    showToast('המודעה פורסמה בהצלחה בראש הלוח! 🎉');
+}
+
+// Redirect standard publish modal trigger to AI chat for seamless experience
+window.openPublishModal = openAIChatPublishModal;
+window.closePublishModal = closeAIChatPublishModal;
+window.openAIChatPublishModal = openAIChatPublishModal;
+window.closeAIChatPublishModal = closeAIChatPublishModal;
+window.sendAIChatUserMessage = sendAIChatUserMessage;
+window.handleAIChatFileUpload = handleAIChatFileUpload;
+window.selectDefaultAIChatImage = selectDefaultAIChatImage;
+window.selectAIChatDealType = selectAIChatDealType;
+window.confirmAIChatAdPublish = confirmAIChatAdPublish;
+
 document.addEventListener('DOMContentLoaded', initApp);

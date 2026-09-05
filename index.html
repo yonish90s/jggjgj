@@ -598,6 +598,57 @@
         </div>
     </div>
 
+    <!-- Floating AI Fast Chat Trigger Button -->
+    <div id="floatingAIChatBtn" class="floating-ai-chat-btn" onclick="openAIChatPublishModal()" title="צ'אט מהיר לפרסום מודעה 🤖">
+        <i class="fa-solid fa-robot"></i>
+        <span>צ'אט מהיר לפרסום מודעה</span>
+    </div>
+
+    <!-- AI Fast Ad Publishing Chatbot Modal -->
+    <div id="aiChatModal" class="modal-overlay hidden">
+        <div class="ai-chat-modal-box">
+            
+            <!-- Chat Header -->
+            <div class="ai-chat-header">
+                <div class="ai-chat-header-info">
+                    <div class="ai-chat-avatar">🤖</div>
+                    <div>
+                        <h3 class="ai-chat-title">עוזר AI לפרסום מודעה מהיר</h3>
+                        <span class="ai-chat-status">מנוהל ע"י AI • זמין כעת 🟢</span>
+                    </div>
+                </div>
+                <button class="close-modal-btn" onclick="closeAIChatPublishModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Chat Messages Area -->
+            <div id="aiChatMessages" class="ai-chat-messages-container">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Chat Input Footer -->
+            <div id="aiChatFooter" class="ai-chat-footer">
+                <input type="file" id="aiChatFileInput" accept="image/*" class="hidden" onchange="handleAIChatFileUpload(event)">
+                
+                <div class="ai-chat-quick-pills" id="aiChatQuickPills">
+                    <!-- Quick choice pills injected by JS -->
+                </div>
+
+                <div class="ai-chat-input-row">
+                    <button class="ai-chat-media-btn" onclick="document.getElementById('aiChatFileInput').click()" title="העלה תמונת מוצר 📸">
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+                    <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="הקלד תשובה לבוט..." onkeydown="if(event.key==='Enter') sendAIChatUserMessage()">
+                    <button class="ai-chat-send-btn" onclick="sendAIChatUserMessage()">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast" class="toast hidden">
         <span id="toastMessage">הפעולה בוצעה בהצלחה</span>
