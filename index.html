@@ -107,64 +107,64 @@
             <!-- Custom Filter Bar Component with LIGHT HORIZONTAL TASK WIDGET (1:1 MATCHING SCREENSHOT media_1788623318506.png) -->
             <section class="articles-filter-bar">
                 
-                <!-- LIGHT HORIZONTAL TASK PROGRESS RINGS WIDGET -->
+                <!-- COMPACT HORIZONTAL TASK PROGRESS RINGS WIDGET (44px MATCHING TOP NAV) -->
                 <div class="widget-tasks-card-horizontal" style="margin-bottom: 16px;">
-                    <div class="widget-title-group" style="display: flex; align-items: center; gap: 10px;">
-                        <span style="font-size: 0.9rem; font-weight: 900; color: #111111;">🎯 משימות והתקדמות באתר</span>
-                        <span id="overallProgressText" style="font-size: 0.78rem; background-color: #34c759; color: #ffffff; padding: 3px 10px; border-radius: 12px; font-weight: 800;">66% הושלם</span>
+                    <div class="widget-title-group">
+                        <span>משימות והתקדמות באתר</span>
+                        <span id="overallProgressText" style="font-size: 11px; background-color: #34c759; color: #ffffff; padding: 2px 8px; border-radius: 10px; font-weight: 600;">66% הושלם</span>
                     </div>
                     
                     <div class="rings-widget-container">
                         
-                        <!-- Ring 1: Ads (Green #34c759) -->
+                        <!-- Ring 1: Ads -->
                         <div class="ring-item" onclick="openTaskChecklistModal('ads')" title="לחץ לצפייה במשימות מודעות">
-                            <div class="svg-ring-wrapper" style="width: 48px; height: 48px;">
-                                <svg width="48" height="48" viewBox="0 0 60 60">
+                            <div class="svg-ring-wrapper">
+                                <svg viewBox="0 0 60 60">
                                     <circle class="ring-bg" cx="30" cy="30" r="24"></circle>
                                     <circle id="ringCircleAds" class="ring-progress ring-green" cx="30" cy="30" r="24"></circle>
                                 </svg>
-                                <div class="ring-icon" style="font-size: 0.88rem;"><i class="fa-solid fa-box"></i></div>
+                                <div class="ring-icon"><i class="fa-solid fa-box"></i></div>
                             </div>
-                            <div id="ringPercentAds" class="ring-percent-text">75%</div>
+                            <div id="ringPercentAds" class="ring-percent-text">0%</div>
                             <div class="ring-label-text">מודעות</div>
                         </div>
 
-                        <!-- Ring 2: Offers (Orange #ff9500) -->
+                        <!-- Ring 2: Offers -->
                         <div class="ring-item" onclick="openTaskChecklistModal('offers')" title="לחץ לצפייה במשימות הצעות">
-                            <div class="svg-ring-wrapper" style="width: 48px; height: 48px;">
-                                <svg width="48" height="48" viewBox="0 0 60 60">
+                            <div class="svg-ring-wrapper">
+                                <svg viewBox="0 0 60 60">
                                     <circle class="ring-bg" cx="30" cy="30" r="24"></circle>
-                                    <circle id="ringCircleOffers" class="ring-progress ring-orange" cx="30" cy="30" r="24"></circle>
+                                    <circle id="ringCircleOffers" class="ring-progress ring-green" cx="30" cy="30" r="24"></circle>
                                 </svg>
-                                <div class="ring-icon" style="font-size: 0.88rem;"><i class="fa-solid fa-handshake"></i></div>
+                                <div class="ring-icon"><i class="fa-solid fa-handshake"></i></div>
                             </div>
-                            <div id="ringPercentOffers" class="ring-percent-text">50%</div>
+                            <div id="ringPercentOffers" class="ring-percent-text">0%</div>
                             <div class="ring-label-text">הצעות</div>
                         </div>
 
-                        <!-- Ring 3: Carpool (Blue #007aff) -->
+                        <!-- Ring 3: Carpool -->
                         <div class="ring-item" onclick="openTaskChecklistModal('carpool')" title="לחץ לצפייה במשימות נסיעות">
-                            <div class="svg-ring-wrapper" style="width: 48px; height: 48px;">
-                                <svg width="48" height="48" viewBox="0 0 60 60">
+                            <div class="svg-ring-wrapper">
+                                <svg viewBox="0 0 60 60">
                                     <circle class="ring-bg" cx="30" cy="30" r="24"></circle>
-                                    <circle id="ringCircleCarpool" class="ring-progress ring-blue" cx="30" cy="30" r="24"></circle>
+                                    <circle id="ringCircleCarpool" class="ring-progress ring-green" cx="30" cy="30" r="24"></circle>
                                 </svg>
-                                <div class="ring-icon" style="font-size: 0.88rem;"><i class="fa-solid fa-car"></i></div>
+                                <div class="ring-icon"><i class="fa-solid fa-car"></i></div>
                             </div>
-                            <div id="ringPercentCarpool" class="ring-percent-text">100%</div>
+                            <div id="ringPercentCarpool" class="ring-percent-text">0%</div>
                             <div class="ring-label-text">נסיעות</div>
                         </div>
 
-                        <!-- Ring 4: Ideas (Red #ff3b30) -->
+                        <!-- Ring 4: Ideas -->
                         <div class="ring-item" onclick="openTaskChecklistModal('ideas')" title="לחץ לצפייה במשימות רעיונות">
-                            <div class="svg-ring-wrapper" style="width: 48px; height: 48px;">
-                                <svg width="48" height="48" viewBox="0 0 60 60">
+                            <div class="svg-ring-wrapper">
+                                <svg viewBox="0 0 60 60">
                                     <circle class="ring-bg" cx="30" cy="30" r="24"></circle>
-                                    <circle id="ringCircleIdeas" class="ring-progress ring-red" cx="30" cy="30" r="24"></circle>
+                                    <circle id="ringCircleIdeas" class="ring-progress ring-green" cx="30" cy="30" r="24"></circle>
                                 </svg>
-                                <div class="ring-icon" style="font-size: 0.88rem;"><i class="fa-solid fa-lightbulb"></i></div>
+                                <div class="ring-icon"><i class="fa-solid fa-lightbulb"></i></div>
                             </div>
-                            <div id="ringPercentIdeas" class="ring-percent-text">20%</div>
+                            <div id="ringPercentIdeas" class="ring-percent-text">0%</div>
                             <div class="ring-label-text">רעיונות</div>
                         </div>
 
