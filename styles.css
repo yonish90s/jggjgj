@@ -1083,7 +1083,7 @@ body {
 .article-card-title {
     font-size: 1.1rem;
     font-weight: 800;
-    color: #111111;
+    color: #000000 !important;
     line-height: 1.4;
     margin-bottom: 8px;
     display: -webkit-box;
@@ -1094,27 +1094,33 @@ body {
     height: auto;
 }
 
+.article-card-body a {
+    color: #000000 !important;
+    text-decoration: none;
+}
+
 .article-card-meta {
     margin-top: auto;
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.88rem;
-    color: #6b7280;
+    color: #000000 !important;
 }
 
 .article-meta-author {
     font-weight: 700;
-    color: #111111;
+    color: #000000 !important;
 }
 
 .article-meta-divider {
-    color: #d1d5db;
+    color: #000000 !important;
+    opacity: 0.5;
 }
 
 .article-meta-date {
-    color: #6b7280;
-    font-weight: 400;
+    color: #000000 !important;
+    font-weight: 500;
 }
 
 /* SYMMETRICAL ACTION TOOLBAR FOOTER (סרגל הפעולות הסימטרי בתחתית כל מודעה) */
