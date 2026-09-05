@@ -526,8 +526,9 @@ function renderArticlesGrid() {
     }
 
     container.innerHTML = paginatedArticles.map(article => {
-        const author = article.author || 'מיכל ישראלי';
-        const date = article.date || 'אתמול, 10:15';
+        let rawPrice = article.price || article.sellPrice || '410.28';
+        let cleanPrice = String(rawPrice).replace(/[^\d.,]/g, '').trim();
+        if (!cleanPrice) cleanPrice = '410.28';
 
         return `
             <div class="article-card-box" onclick="openArticleModal('${article.id}')">
@@ -537,12 +538,7 @@ function renderArticlesGrid() {
                 
                 <div class="article-card-body">
                     <h3 class="article-card-title">${article.title}</h3>
-                    
-                    <div class="article-card-meta">
-                        <span class="article-meta-author">${author}</span>
-                        <span class="article-meta-divider">|</span>
-                        <span class="article-meta-date">${date}</span>
-                    </div>
+                    <div class="article-card-price">₪ ${cleanPrice}</div>
                 </div>
             </div>
         `;
