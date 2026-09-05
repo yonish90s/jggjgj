@@ -1635,13 +1635,13 @@ body {
 .widget-tasks-card-horizontal {
     background-color: #ffffff !important;
     color: #111111 !important;
-    border: 1.5px solid #34c759 !important;
-    border-radius: 14px !important;
-    padding: 4px 16px !important;
-    height: 44px !important;
-    min-height: 44px !important;
+    border: 2px solid #22c55e !important;
+    border-radius: 20px !important;
+    padding: 8px 24px !important;
+    height: 52px !important;
+    min-height: 52px !important;
     box-sizing: border-box !important;
-    box-shadow: 0 2px 8px rgba(52, 199, 89, 0.08) !important;
+    box-shadow: none !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1654,18 +1654,27 @@ body {
     color: #111111 !important;
     border-bottom: none !important;
     margin-bottom: 0 !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     white-space: nowrap;
+}
+
+.widget-tasks-card-horizontal #overallProgressText {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+    padding: 4px 12px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
 }
 
 .widget-tasks-card-horizontal .rings-widget-container {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
     padding-top: 0 !important;
 }
 
@@ -1674,16 +1683,17 @@ body {
     flex-direction: row;
     align-items: center;
     gap: 6px;
+    cursor: pointer;
 }
 
 .widget-tasks-card-horizontal .svg-ring-wrapper {
-    width: 26px !important;
-    height: 26px !important;
+    width: 28px !important;
+    height: 28px !important;
 }
 
 .widget-tasks-card-horizontal .svg-ring-wrapper svg {
-    width: 26px !important;
-    height: 26px !important;
+    width: 28px !important;
+    height: 28px !important;
 }
 
 .widget-tasks-card-horizontal .ring-bg {
@@ -1692,25 +1702,25 @@ body {
 }
 
 .widget-tasks-card-horizontal .ring-progress {
-    stroke: #34c759 !important;
+    stroke: #22c55e !important;
     stroke-width: 6 !important;
 }
 
 .widget-tasks-card-horizontal .ring-icon {
     color: #111111 !important;
-    font-size: 0.62rem !important;
+    font-size: 0.68rem !important;
 }
 
 .widget-tasks-card-horizontal .ring-percent-text {
     color: #111111 !important;
-    font-size: 11px !important;
-    font-weight: 700 !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
     margin-top: 0 !important;
 }
 
 .widget-tasks-card-horizontal .ring-label-text {
-    color: #6b7280 !important;
-    font-size: 11px !important;
+    color: #71717a !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
     margin-top: 0 !important;
 }
