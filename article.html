@@ -15,39 +15,26 @@
 <body>
 
     <!-- Top Navigation Bar -->
-    <header class="top-navbar-black">
-        <div class="top-nav-inner">
-            
+    <header class="apple-nav">
+        <div class="apple-nav-content">
             <div class="nav-left">
-                <button class="btn-publish-nav-btn" onclick="window.location.href='index.html'">
-                    <i class="fa-solid fa-arrow-right"></i> חזרה לכל המודעות
-                </button>
+                <button class="btn-publish-nav-btn" onclick="window.location.href='index.html'">חזרה לכל המודעות</button>
+                <button id="manager-btn" class="guest-pill-btn" onclick="showGuestToast()">אורח</button>
             </div>
 
-            <nav class="nav-center-tabs">
-                <button class="nav-tab-btn active" onclick="window.location.href='index.html'">
-                    <span>סיפורים</span>
-                </button>
-                <button class="nav-tab-btn" onclick="window.location.href='images.html'">
-                    <i class="fa-regular fa-image"></i>
-                    <span>תמונות</span>
-                </button>
-                <button class="nav-tab-btn" onclick="window.location.href='professionals.html'">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <span>אנשי מקצוע</span>
-                </button>
-                <button class="nav-tab-btn" onclick="window.location.href='popular.html'">
-                    <i class="fa-solid fa-star"></i>
-                    <span>אתרים פופולריים</span>
-                </button>
+            <nav class="nav-links">
+                <a href="index.html" class="active-top-nav">סיפורים</a>
+                <a href="images.html">תמונות</a>
+                <a href="professionals.html">אנשי מקצוע</a>
+                <a href="popular.html">אתרים פופולריים</a>
+                <a href="carpool.html">נסיעה שיתופית</a>
+                <a href="ideas.html">לוח רעיונות</a>
+                <a href="business_ideas.html">רעיונות לעסקים</a>
             </nav>
 
-            <div class="nav-right">
-                <a href="index.html" class="brand-logo-badge" style="text-decoration: none;">
-                    <i class="fa-solid fa-infinity"></i>
-                </a>
+            <div class="logo-area" onclick="window.location.href='index.html'" style="cursor: pointer;" title="לוגו האתר">
+                <span class="brand-logo-badge">PROPILE</span>
             </div>
-
         </div>
     </header>
 

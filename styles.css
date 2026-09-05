@@ -42,120 +42,185 @@ body {
 }
 
 /* =========================================================
-   TOP NAVBAR (אפור כהה #36363a פשוט 1:1 לפי צילום המסך)
+   APPLE GLOBAL NAVIGATION (1:1 with black1white00.com)
    ========================================================= */
+.apple-nav,
 .top-navbar-black {
-    background-color: #36363a;
-    color: #ffffff;
-    padding: 10px 24px;
     position: sticky;
     top: 0;
-    z-index: 100;
-    border-top: 3px solid #000000;
-    border-bottom: 1px solid #2e2e32;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 100%;
+    height: 44px;
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: none !important;
+    border-top: none !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none !important;
+    padding: 0 !important;
 }
 
+.apple-nav-content,
 .top-nav-inner {
-    max-width: 1500px;
-    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.logo-area,
+.nav-right {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    cursor: pointer;
 }
 
-.nav-left {
+.logo-area img,
+.logo-area svg,
+.brand-logo-badge {
+    color: #f5f5f7;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+}
+
+.logo-area:hover img,
+.logo-area:hover svg,
+.logo-area:hover .brand-logo-badge {
+    opacity: 1;
+}
+
+.nav-links,
+.nav-center-tabs {
+    display: flex;
+    gap: 32px !important;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a,
+.nav-center-tabs a,
+.nav-center-tabs .nav-tab-btn {
+    color: #f5f5f7 !important;
+    opacity: 0.8;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+    text-decoration: none;
+    transition: opacity 0.3s ease, background-color 0.2s ease !important;
+    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    padding: 4px 12px !important;
+    border-radius: 12px !important;
+    border: none !important;
+    background: transparent !important;
+    cursor: pointer;
+    box-shadow: none !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.4;
+}
+
+.nav-links a:hover,
+.nav-center-tabs a:hover,
+.nav-center-tabs .nav-tab-btn:hover {
+    opacity: 1 !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.nav-links a.active-top-nav,
+.nav-links a.active,
+.nav-center-tabs a.active,
+.nav-center-tabs .nav-tab-btn.active {
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    background-color: #222222 !important;
+    opacity: 1 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.nav-left,
+.right-icons {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.btn-publish-nav-btn {
-    background: linear-gradient(135deg, #ff5000, #e63900);
-    color: #ffffff;
-    border: none;
-    padding: 6px 18px;
-    border-radius: 20px;
-    font-weight: 900;
-    font-size: 0.88rem;
+.manager-btn,
+.guest-pill-btn {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 14px !important;
+    color: #f5f5f7 !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif !important;
+    padding: 4px 14px !important;
     cursor: pointer;
-    display: flex;
+    transition: background 0.2s, border-color 0.2s !important;
+    letter-spacing: 0.01em !important;
+    box-shadow: none !important;
+}
+
+.manager-btn:hover,
+.guest-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.btn-publish-nav-btn {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 14px !important;
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif !important;
+    padding: 4px 14px !important;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s !important;
+    box-shadow: none !important;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    box-shadow: 0 2px 8px rgba(255, 80, 0, 0.3);
-    transition: var(--transition);
+    gap: 4px;
 }
 
 .btn-publish-nav-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(255, 80, 0, 0.45);
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    transform: none !important;
 }
 
-.guest-pill-btn {
-    background-color: #36363a;
-    color: #ffffff;
-    border: 1px solid #5a5a62;
-    padding: 4px 18px;
-    border-radius: 20px;
-    font-weight: 800;
-    font-size: 0.84rem;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.guest-pill-btn:hover {
-    background-color: #44444c;
-    border-color: #777782;
-}
-
-.nav-center-tabs {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.nav-tab-btn {
-    background: transparent;
-    border: 1px solid transparent;
-    color: #e4e4e7;
-    font-family: inherit;
-    font-weight: 800;
-    font-size: 0.9rem;
-    padding: 6px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: var(--transition);
-}
-
-.nav-tab-btn:hover {
-    color: #ffffff;
-}
-
-.nav-tab-btn.active {
-    background-color: #242426;
-    color: #ffffff;
-    border: 1px solid #4a4a52;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-}
-
-.brand-logo-badge {
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: 900;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.brand-logo-badge:hover {
-    opacity: 0.85;
+@media (max-width: 768px) {
+    .apple-nav-content,
+    .top-nav-inner {
+        padding: 0 12px;
+    }
+    .nav-links,
+    .nav-center-tabs {
+        gap: 12px !important;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    .nav-links a,
+    .nav-center-tabs a,
+    .nav-center-tabs .nav-tab-btn {
+        font-size: 11px !important;
+        padding: 3px 8px !important;
+    }
 }
 
 /* =========================================================
