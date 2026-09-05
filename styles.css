@@ -1029,93 +1029,92 @@ body {
 /* ARTICLES CARDS GRID (גריד 3 טור של כתבות - 12 כתבות בעמוד) */
 .articles-cards-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .articles-cards-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .article-card-box {
-    background-color: var(--card-bg);
+    background-color: #ffffff;
     border: 1.5px solid #16a34a;
-    border-radius: var(--radius-md);
+    border-radius: 18px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .article-card-box:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(22, 163, 74, 0.22);
+    box-shadow: 0 8px 24px rgba(22, 163, 74, 0.18);
     border-color: #15803d;
 }
 
 .article-card-image-box {
     position: relative;
     width: 100%;
-    height: 150px;
-    background-color: #000000;
+    height: 220px;
+    background-color: #262626;
+    overflow: hidden;
 }
 
 .article-card-image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-.article-card-category {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background-color: rgba(24, 24, 27, 0.85);
-    color: #ffffff;
-    font-size: 0.72rem;
-    font-weight: 800;
-    padding: 2px 8px;
-    border-radius: 10px;
+    display: block;
 }
 
 .article-card-body {
-    padding: 14px;
+    padding: 16px 20px 20px 20px;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
 .article-card-title {
-    font-size: 0.98rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    line-height: 1.35;
-    margin-bottom: 6px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    height: 2.7em;
-}
-
-.article-card-summary {
-    font-size: 0.82rem;
-    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111111;
     line-height: 1.4;
+    margin-bottom: 8px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    margin-bottom: 10px;
+    height: auto;
 }
 
 .article-card-meta {
     margin-top: auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    font-size: 0.78rem;
-    color: var(--text-muted);
+    gap: 8px;
+    font-size: 0.88rem;
+    color: #6b7280;
+}
+
+.article-meta-author {
+    font-weight: 700;
+    color: #111111;
+}
+
+.article-meta-divider {
+    color: #d1d5db;
+}
+
+.article-meta-date {
+    color: #6b7280;
+    font-weight: 400;
 }
 
 /* SYMMETRICAL ACTION TOOLBAR FOOTER (סרגל הפעולות הסימטרי בתחתית כל מודעה) */

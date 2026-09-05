@@ -526,40 +526,23 @@ function renderArticlesGrid() {
     }
 
     container.innerHTML = paginatedArticles.map(article => {
-        const borrowP = article.borrowPrice || 'yhsh 350';
-        const sellP = article.sellPrice || article.price || 'yhsh 4,500';
+        const author = article.author || 'מיכל ישראלי';
+        const date = article.date || 'אתמול, 10:15';
 
         return `
             <div class="article-card-box" onclick="openArticleModal('${article.id}')">
                 <div class="article-card-image-box">
                     <img src="${article.imageUrl}" alt="${article.title}" loading="lazy">
-                    <span class="article-card-category">${article.category}</span>
                 </div>
                 
                 <div class="article-card-body">
                     <h3 class="article-card-title">${article.title}</h3>
-                    <p class="article-card-summary">${article.summary}</p>
                     
                     <div class="article-card-meta">
-                        <span><i class="fa-regular fa-clock"></i> ${article.readTime}</span>
-                        <span><i class="fa-regular fa-eye"></i> ${article.views}</span>
+                        <span class="article-meta-author">${author}</span>
+                        <span class="article-meta-divider">|</span>
+                        <span class="article-meta-date">${date}</span>
                     </div>
-
-                    <!-- EXACT 2 PRICES + INTERACTIVE 'הגש הצעה' BUTTON (NO EMOJIS, COMPACT) -->
-                    <div class="article-card-action-bar">
-                        <div class="action-bar-right" style="font-size: 0.76rem; font-weight: 800;">
-                            <span>השאלה: <strong style="color: #2563eb;">${borrowP}</strong></span>
-                            <span class="action-divider">|</span>
-                            <span>מכירה: <strong style="color: #ff5000;">${sellP}</strong></span>
-                        </div>
-                        
-                        <div class="action-bar-left">
-                            <button class="btn-offer-pill" onclick="openOfferModal('${article.id}', event)">
-                                הגש הצעה
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         `;
