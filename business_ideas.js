@@ -219,8 +219,8 @@ function renderBusinessIdeas() {
                         ${item.rating}
                     </span>
 
-                    <button class="btn-offer-pill" style="padding: 6px 16px;" onclick="openPartnerOfferModal(event, '${item.id}')">
-                        🤝 הצע שותפות / הצעה
+                    <button class="btn-offer-pill" style="padding: 5px 12px; font-size: 0.78rem;" onclick="openPartnerOfferModal(event, '${item.id}')">
+                        הצע שותפות / הצעה
                     </button>
                 </div>
 

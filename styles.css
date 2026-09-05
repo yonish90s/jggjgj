@@ -960,7 +960,7 @@ body {
 
 .article-card-box {
     background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
+    border: 1.5px solid #16a34a;
     border-radius: var(--radius-md);
     overflow: hidden;
     display: flex;
@@ -971,9 +971,9 @@ body {
 }
 
 .article-card-box:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-    border-color: #18181b;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(22, 163, 74, 0.22);
+    border-color: #15803d;
 }
 
 .article-card-image-box {

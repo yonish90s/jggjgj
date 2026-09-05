@@ -545,9 +545,9 @@ function renderArticlesGrid() {
                         <span><i class="fa-regular fa-eye"></i> ${article.views}</span>
                     </div>
 
-                    <!-- EXACT 2 PRICES + INTERACTIVE 'הגש הצעה' BUTTON -->
+                    <!-- EXACT 2 PRICES + INTERACTIVE 'הגש הצעה' BUTTON (NO EMOJIS, COMPACT) -->
                     <div class="article-card-action-bar">
-                        <div class="action-bar-right" style="font-size: 0.78rem;">
+                        <div class="action-bar-right" style="font-size: 0.76rem; font-weight: 800;">
                             <span>השאלה: <strong style="color: #2563eb;">${borrowP}</strong></span>
                             <span class="action-divider">|</span>
                             <span>מכירה: <strong style="color: #ff5000;">${sellP}</strong></span>
@@ -555,7 +555,7 @@ function renderArticlesGrid() {
                         
                         <div class="action-bar-left">
                             <button class="btn-offer-pill" onclick="openOfferModal('${article.id}', event)">
-                                🤝 הגש הצעה
+                                הגש הצעה
                             </button>
                         </div>
                     </div>

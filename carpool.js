@@ -212,8 +212,8 @@ function renderRides() {
                         ${ride.pricePerSeat} <span style="font-size: 0.78rem; font-weight: 700; color: #888888;">/ נוסע</span>
                     </div>
 
-                    <button class="btn-card-action-pill" style="width: auto; padding: 8px 18px;" onclick="openJoinRideModal('${ride.id}')">
-                        🤝 הצטרף לנסיעה
+                    <button class="btn-card-action-pill" style="width: auto; padding: 6px 14px; font-size: 0.78rem;" onclick="openJoinRideModal('${ride.id}')">
+                        הצטרף לנסיעה
                     </button>
                 </div>
 
