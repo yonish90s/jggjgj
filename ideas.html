@@ -10,13 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=4200">
+    <link rel="stylesheet" href="styles.css?v=4500">
 </head>
 <body>
 
     <!-- Header Bar -->
     <header class="apple-nav">
         <div class="apple-nav-content">
+            <button class="yt-hamburger-btn" onclick="openYtDrawer()" aria-label="פתח תפריט" title="תפריט">
+                <i class="fa-solid fa-bars"></i>
+            </button>
             <div class="nav-left">
                 <button class="btn-publish-nav-btn" onclick="openAddIdeaModal()">+ שתף רעיון חדש</button>
                 <button id="manager-btn" class="guest-pill-btn" onclick="showGuestToast()">אורח</button>
@@ -31,6 +34,77 @@
             </div>
         </div>
     </header>
+
+    <!-- YouTube-style Slide Drawer (תפריט צד נשלף בסגנון יוטיוב) -->
+    <div id="ytDrawerOverlay" class="yt-drawer-overlay" onclick="closeYtDrawer()"></div>
+    <aside id="ytDrawer" class="yt-drawer" aria-label="תפריט ניווט">
+        <div class="yt-drawer-header">
+            <button class="yt-drawer-hamburger" onclick="closeYtDrawer()" aria-label="סגור תפריט">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <span class="yt-drawer-brand">PROPILE</span>
+        </div>
+
+        <nav class="yt-drawer-body">
+            <!-- ניווט ראשי -->
+            <div class="yt-drawer-section">
+                <a href="index.html" class="yt-drawer-item">
+                    <i class="fa-solid fa-house"></i><span>סיפורים</span>
+                </a>
+                <a href="popular.html" class="yt-drawer-item">
+                    <i class="fa-solid fa-star" style="color:#f59e0b;"></i><span>הכי פופולריים</span>
+                </a>
+                <a href="business_ideas.html" class="yt-drawer-item">
+                    <i class="fa-solid fa-briefcase" style="color:#2563eb;"></i><span>רעיונות ומודלים עסקיים</span>
+                </a>
+                <a href="ideas.html" class="yt-drawer-item">
+                    <i class="fa-solid fa-lightbulb" style="color:#f59e0b;"></i><span>לוח רעיונות ומיזמים</span>
+                </a>
+                <a href="carpool.html" class="yt-drawer-item">
+                    <i class="fa-solid fa-car" style="color:#16a34a;"></i><span>נסיעה שיתופית</span>
+                </a>
+            </div>
+
+            <div class="yt-drawer-divider"></div>
+
+            <!-- פעולות -->
+            <div class="yt-drawer-section">
+                <button class="yt-drawer-item" onclick="ytDrawerPublish()">
+                    <i class="fa-solid fa-bullhorn"></i><span>פרסום מודעה</span>
+                </button>
+                <button class="yt-drawer-item" onclick="ytDrawerGuest()">
+                    <i class="fa-solid fa-circle-user"></i><span>אורח · התחברות</span>
+                </button>
+            </div>
+
+            <div class="yt-drawer-divider"></div>
+
+            <!-- גלה עוד -->
+            <div class="yt-drawer-section">
+                <div class="yt-drawer-section-title">גלה עוד</div>
+                <a href="professionals.html" class="yt-drawer-item">
+                    <i class="fa-solid fa-user-tie"></i><span>אנשי מקצוע</span>
+                </a>
+                <a href="images.html" class="yt-drawer-item">
+                    <i class="fa-solid fa-images"></i><span>גלריית תמונות</span>
+                </a>
+            </div>
+
+            <div class="yt-drawer-divider"></div>
+
+            <!-- הקהילות שלנו -->
+            <div class="yt-drawer-section">
+                <div class="yt-drawer-section-title">הקהילות שלנו ברשת</div>
+                <a href="#" class="yt-drawer-item"><i class="fa-brands fa-facebook-f" style="color:#1877f2;"></i><span>Facebook</span></a>
+                <a href="#" class="yt-drawer-item"><i class="fa-brands fa-instagram" style="color:#e1306c;"></i><span>Instagram</span></a>
+                <a href="#" class="yt-drawer-item"><i class="fa-brands fa-telegram" style="color:#229ed9;"></i><span>Telegram</span></a>
+                <a href="#" class="yt-drawer-item"><i class="fa-brands fa-discord" style="color:#5865f2;"></i><span>Discord</span></a>
+            </div>
+
+            <div class="yt-drawer-divider"></div>
+            <div class="yt-drawer-footer">© 2026 PROPILE · כל הזכויות שמורות</div>
+        </nav>
+    </aside>
 
     <!-- Page Body Wrapper -->
     <div class="page-layout-wrapper" style="flex-direction: column; gap: 20px;">
@@ -188,5 +262,6 @@
     </div>
 
     <script src="ideas.js"></script>
+    <script src="drawer.js?v=1"></script>
 </body>
 </html>

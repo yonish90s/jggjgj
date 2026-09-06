@@ -1945,3 +1945,68 @@ body {
 }
 
 
+
+/* ============================================================
+   YouTube-style Slide Drawer (תפריט צד נשלף בסגנון יוטיוב)
+   ============================================================ */
+.yt-hamburger-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:50%;
+    background:transparent; border:none; cursor:pointer;
+    font-size:20px; color:#0f0f0f; margin-inline-end:6px;
+    transition:background .15s ease;
+}
+.yt-hamburger-btn:hover{ background:rgba(0,0,0,.08); }
+
+.yt-drawer-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,.5);
+    opacity:0; visibility:hidden; transition:opacity .25s ease; z-index:1000;
+}
+.yt-drawer-overlay.open{ opacity:1; visibility:visible; }
+
+.yt-drawer{
+    position:fixed; top:0; right:0; bottom:0;
+    width:300px; max-width:85vw;
+    background:#0f0f0f; color:#fff;
+    transform:translateX(100%);
+    transition:transform .25s ease;
+    z-index:1001; overflow-y:auto;
+    box-shadow:-2px 0 20px rgba(0,0,0,.45);
+    -webkit-overflow-scrolling:touch;
+}
+.yt-drawer.open{ transform:translateX(0); }
+
+.yt-drawer-header{
+    display:flex; align-items:center; gap:16px;
+    padding:8px 14px; height:56px;
+    position:sticky; top:0; background:#0f0f0f; z-index:2;
+}
+.yt-drawer-hamburger{
+    width:40px; height:40px; border-radius:50%; border:none; background:transparent;
+    color:#fff; font-size:20px; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    transition:background .15s ease;
+}
+.yt-drawer-hamburger:hover{ background:rgba(255,255,255,.1); }
+.yt-drawer-brand{ font-size:20px; font-weight:900; letter-spacing:.5px; color:#fff; }
+
+.yt-drawer-body{ padding:6px 12px 24px; }
+.yt-drawer-section{ display:flex; flex-direction:column; gap:2px; }
+.yt-drawer-item{
+    display:flex; align-items:center; gap:24px;
+    padding:0 12px; height:48px; border-radius:10px;
+    color:#fff; text-decoration:none; font-size:15px; font-weight:600;
+    background:transparent; border:none; width:100%;
+    cursor:pointer; font-family:inherit; text-align:right;
+    transition:background .12s ease;
+}
+.yt-drawer-item i{ font-size:20px; width:24px; text-align:center; flex-shrink:0; }
+.yt-drawer-item span{ flex:1; }
+.yt-drawer-item:hover{ background:rgba(255,255,255,.1); }
+.yt-drawer-item.active{ background:rgba(255,255,255,.15); font-weight:800; }
+
+.yt-drawer-divider{ height:1px; background:rgba(255,255,255,.15); margin:12px 8px; }
+.yt-drawer-section-title{ font-size:16px; font-weight:800; color:#fff; padding:8px 12px 6px; }
+.yt-drawer-footer{ font-size:12px; color:#aaa; padding:14px 12px; line-height:1.6; }
+
+body.yt-drawer-open{ overflow:hidden; }
