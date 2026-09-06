@@ -112,7 +112,74 @@
         <!-- Left Sidebar Column (סיידבר שמאלי) -->
         <aside class="sidebar-column sidebar-left">
             
-            <!-- Card 1: אתרים מומלצים -->
+            <!-- Sidebar Price & Attribute Filters Card (1:1 Matching Screenshot media_1788704887393.png) -->
+            <div class="sidebar-card sidebar-filter-card">
+                
+                <!-- AVAILABILITY Section -->
+                <div class="sidebar-filter-group">
+                    <div class="sidebar-filter-header">AVAILABILITY</div>
+                    <label class="sidebar-filter-checkbox-label">
+                        <input type="checkbox" id="chkAvailabilityInStock" checked onchange="applySidebarPriceFilter()">
+                        <span>זמין במלאי 🟢</span>
+                    </label>
+                </div>
+
+                <!-- PRICE RANGE Section -->
+                <div class="sidebar-filter-group">
+                    <div class="sidebar-filter-header">PRICE RANGE</div>
+                    
+                    <div class="sidebar-price-display">
+                        <span id="sidebarMinPriceText">₪ 0</span>
+                        <span id="sidebarMaxPriceText">₪ 15,000</span>
+                    </div>
+
+                    <div class="sidebar-range-slider-wrapper">
+                        <input type="range" id="sidebarPriceRangeInput" min="0" max="15000" step="100" value="15000" oninput="updateSidebarPriceDisplay(this.value)" onchange="applySidebarPriceFilter()">
+                    </div>
+
+                    <div class="sidebar-price-presets">
+                        <button class="price-preset-pill active" onclick="setSidebarPricePreset(0, 15000)">הכל</button>
+                        <button class="price-preset-pill" onclick="setSidebarPricePreset(0, 500)">עד ₪500</button>
+                        <button class="price-preset-pill" onclick="setSidebarPricePreset(500, 3000)">₪500-₪3K</button>
+                        <button class="price-preset-pill" onclick="setSidebarPricePreset(3000, 15000)">₪3K+</button>
+                    </div>
+                </div>
+
+                <!-- DEAL TYPE Section -->
+                <div class="sidebar-filter-group">
+                    <div class="sidebar-filter-header">סוג עסקה (DEAL TYPE)</div>
+                    <label class="sidebar-filter-checkbox-label">
+                        <input type="checkbox" class="chk-deal-type" value="buy" checked onchange="applySidebarPriceFilter()">
+                        <span>קניה / למכירה 🛒</span>
+                    </label>
+                    <label class="sidebar-filter-checkbox-label">
+                        <input type="checkbox" class="chk-deal-type" value="borrow" checked onchange="applySidebarPriceFilter()">
+                        <span>השאלה 🤝</span>
+                    </label>
+                    <label class="sidebar-filter-checkbox-label">
+                        <input type="checkbox" class="chk-deal-type" value="trade" checked onchange="applySidebarPriceFilter()">
+                        <span>החלפה 🔄</span>
+                    </label>
+                </div>
+
+                <!-- GRADE / CONDITION Section -->
+                <div class="sidebar-filter-group">
+                    <div class="sidebar-filter-header">מצב המוצר (GRADE)</div>
+                    <label class="sidebar-filter-checkbox-label">
+                        <input type="checkbox" class="chk-condition" value="חדש באריזה" checked onchange="applySidebarPriceFilter()">
+                        <span>חדש באריזה 📦</span>
+                    </label>
+                    <label class="sidebar-filter-checkbox-label">
+                        <input type="checkbox" class="chk-condition" value="כמו חדש" checked onchange="applySidebarPriceFilter()">
+                        <span>כמו חדש ✨</span>
+                    </label>
+                    <label class="sidebar-filter-checkbox-label">
+                        <input type="checkbox" class="chk-condition" value="משומש במצב טוב" checked onchange="applySidebarPriceFilter()">
+                        <span>משומש במצב טוב 👍</span>
+                    </label>
+                </div>
+
+            </div>
             <div class="sidebar-card">
                 <div class="sidebar-card-title">אתרים מומלצים</div>
                 <div class="recommended-sites-list">

@@ -887,6 +887,49 @@ function confirmAIChatAdPublish() {
     showToast('המודעה פורסמה בהצלחה בראש הלוח! 🎉');
 }
 
+/* =========================================================
+   SIDEBAR PRICE RANGE FILTER LOGIC (1:1 MATCHING media_1788704887393.png)
+   ========================================================= */
+function updateSidebarPriceDisplay(val) {
+    const maxText = document.getElementById('sidebarMaxPriceText');
+    if (maxText) {
+        maxText.textContent = `₪ ${parseInt(val, 10).toLocaleString()}`;
+    }
+}
+
+function setSidebarPricePreset(minVal, maxVal) {
+    const slider = document.getElementById('sidebarPriceRangeInput');
+    if (slider) {
+        slider.value = maxVal;
+        updateSidebarPriceDisplay(maxVal);
+    }
+    
+    document.querySelectorAll('.price-preset-pill').forEach(btn => btn.classList.remove('active'));
+    if (window.event && window.event.target) {
+        window.event.target.classList.add('active');
+    }
+    
+    state.minPrice = minVal;
+    state.maxPrice = maxVal;
+    state.currentPage = 1;
+    renderArticlesGrid();
+}
+
+function applySidebarPriceFilter(overrideMin = null, overrideMax = null) {
+    const slider = document.getElementById('sidebarPriceRangeInput');
+    if (slider) {
+        state.maxPrice = overrideMax !== null ? overrideMax : (parseInt(slider.value, 10) || 15000);
+        state.minPrice = overrideMin !== null ? overrideMin : 0;
+    }
+
+    state.currentPage = 1;
+    renderArticlesGrid();
+}
+
+window.updateSidebarPriceDisplay = updateSidebarPriceDisplay;
+window.setSidebarPricePreset = setSidebarPricePreset;
+window.applySidebarPriceFilter = applySidebarPriceFilter;
+
 // Redirect standard publish modal trigger to AI chat for seamless experience
 window.openPublishModal = openAIChatPublishModal;
 window.closePublishModal = closeAIChatPublishModal;
