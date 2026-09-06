@@ -161,11 +161,13 @@ async function loadArticles() {
             const fetched = await res.json();
             if (Array.isArray(fetched) && fetched.length > 0) {
                 state.articles = fetched;
+                return;
             }
         }
     } catch (e) {
-        state.articles = FALLBACK_ARTICLES;
+        console.warn('Could not fetch articles.json, using local dataset:', e);
     }
+    state.articles = [...FALLBACK_ARTICLES];
 }
 
 function renderHeroBanner() {

@@ -26,14 +26,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
     const articleId = params.get('id') || 'art-1';
 
-    let articles = FALLBACK_ARTICLES;
+    let articles = [...FALLBACK_ARTICLES];
 
     try {
         const res = await fetch('articles.json?t=' + Date.now());
         if (res.ok) {
-            articles = await res.json();
+            const fetched = await res.json();
+            if (Array.isArray(fetched) && fetched.length > 0) {
+                articles = fetched;
+            }
         }
-    } catch (e) {}
+    } catch (e) {
+        console.warn('Could not fetch articles.json, using local dataset:', e);
+    }
 
     const article = articles.find(a => a.id === articleId) || articles[0];
     currentArticleData = article;
